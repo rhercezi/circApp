@@ -1,0 +1,203 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/roherc/repos/circApp/User/User.Query/User.Query.Api/User.Query.Api.csproj": {}
+  },
+  "projects": {
+    "/home/roherc/repos/circApp/Core/Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/roherc/repos/circApp/Core/Core.csproj",
+        "projectName": "Core",
+        "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj",
+        "packagesPath": "/home/roherc/.nuget/packages/",
+        "outputPath": "/home/roherc/repos/circApp/Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/roherc/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.19.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.203/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/roherc/repos/circApp/User/User.Query/User.Query.Api/User.Query.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/roherc/repos/circApp/User/User.Query/User.Query.Api/User.Query.Api.csproj",
+        "projectName": "User.Query.Api",
+        "projectPath": "/home/roherc/repos/circApp/User/User.Query/User.Query.Api/User.Query.Api.csproj",
+        "packagesPath": "/home/roherc/.nuget/packages/",
+        "outputPath": "/home/roherc/repos/circApp/User/User.Query/User.Query.Api/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/roherc/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/home/roherc/repos/circApp/Core/Core.csproj": {
+                "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj"
+              },
+              "/home/roherc/repos/circApp/User/User.Query/User.Query.Domain/User.Query.Domain.csproj": {
+                "projectPath": "/home/roherc/repos/circApp/User/User.Query/User.Query.Domain/User.Query.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.203/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/roherc/repos/circApp/User/User.Query/User.Query.Domain/User.Query.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/roherc/repos/circApp/User/User.Query/User.Query.Domain/User.Query.Domain.csproj",
+        "projectName": "User.Query.Domain",
+        "projectPath": "/home/roherc/repos/circApp/User/User.Query/User.Query.Domain/User.Query.Domain.csproj",
+        "packagesPath": "/home/roherc/.nuget/packages/",
+        "outputPath": "/home/roherc/repos/circApp/User/User.Query/User.Query.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/roherc/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/home/roherc/repos/circApp/Core/Core.csproj": {
+                "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.203/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
