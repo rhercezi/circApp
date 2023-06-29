@@ -11,8 +11,8 @@
           "Core": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "7.0.5",
           "Swashbuckle.AspNetCore": "6.4.0",
-          "User.Command.Domain": "1.0.0",
-          "User.Command.Events": "1.0.0"
+          "User.Command.Application": "1.0.0",
+          "User.Command.Domain": "1.0.0"
         },
         "runtime": {
           "User.Command.Api.dll": {}
@@ -37,18 +37,6 @@
           }
         }
       },
-      "Confluent.Kafka/2.1.1": {
-        "dependencies": {
-          "System.Memory": "4.5.0",
-          "librdkafka.redist": "2.1.1"
-        },
-        "runtime": {
-          "lib/net6.0/Confluent.Kafka.dll": {
-            "assemblyVersion": "2.1.1.0",
-            "fileVersion": "2.1.1.0"
-          }
-        }
-      },
       "DnsClient/1.6.1": {
         "dependencies": {
           "Microsoft.Win32.Registry": "5.0.0"
@@ -57,135 +45,6 @@
           "lib/net5.0/DnsClient.dll": {
             "assemblyVersion": "1.6.1.0",
             "fileVersion": "1.6.1.0"
-          }
-        }
-      },
-      "librdkafka.redist/2.1.1": {
-        "runtimeTargets": {
-          "runtimes/linux-arm64/native/librdkafka.so": {
-            "rid": "linux-arm64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/linux-x64/native/alpine-librdkafka.so": {
-            "rid": "linux-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/linux-x64/native/centos6-librdkafka.so": {
-            "rid": "linux-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/linux-x64/native/centos7-librdkafka.so": {
-            "rid": "linux-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/linux-x64/native/librdkafka.so": {
-            "rid": "linux-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/osx-arm64/native/librdkafka.dylib": {
-            "rid": "osx-arm64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/osx-x64/native/librdkafka.dylib": {
-            "rid": "osx-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/libcrypto-3-x64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/libcurl.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/librdkafka.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/librdkafkacpp.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/libssl-3-x64.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/msvcp140.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/vcruntime140.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/zlib1.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x64/native/zstd.dll": {
-            "rid": "win-x64",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x86/native/libcrypto-3.dll": {
-            "rid": "win-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x86/native/libcurl.dll": {
-            "rid": "win-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x86/native/librdkafka.dll": {
-            "rid": "win-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x86/native/librdkafkacpp.dll": {
-            "rid": "win-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x86/native/libssl-3.dll": {
-            "rid": "win-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x86/native/msvcp140.dll": {
-            "rid": "win-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x86/native/vcruntime140.dll": {
-            "rid": "win-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x86/native/zlib1.dll": {
-            "rid": "win-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
-          },
-          "runtimes/win-x86/native/zstd.dll": {
-            "rid": "win-x86",
-            "assetType": "native",
-            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -201,15 +60,7 @@
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {},
-      "Microsoft.Extensions.DependencyInjection.Abstractions/7.0.0": {},
       "Microsoft.Extensions.Logging.Abstractions/2.0.0": {},
-      "Microsoft.Extensions.Options/7.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
-          "Microsoft.Extensions.Primitives": "7.0.0"
-        }
-      },
-      "Microsoft.Extensions.Primitives/7.0.0": {},
       "Microsoft.NETCore.Platforms/5.0.0": {},
       "Microsoft.OpenApi/1.4.3": {
         "runtime": {
@@ -349,7 +200,6 @@
         }
       },
       "System.Buffers/4.5.1": {},
-      "System.Memory/4.5.0": {},
       "System.Runtime.CompilerServices.Unsafe/5.0.0": {},
       "System.Security.AccessControl/5.0.0": {
         "dependencies": {
@@ -374,23 +224,31 @@
           "Core.dll": {}
         }
       },
+      "User.Command.Application/1.0.0": {
+        "dependencies": {
+          "Core": "1.0.0",
+          "User.Command.Domain": "1.0.0"
+        },
+        "runtime": {
+          "User.Command.Application.dll": {}
+        }
+      },
       "User.Command.Domain/1.0.0": {
         "dependencies": {
           "Core": "1.0.0",
-          "MongoDB.Driver": "2.19.2"
+          "MongoDB.Driver": "2.19.2",
+          "User.Common": "1.0.0"
         },
         "runtime": {
           "User.Command.Domain.dll": {}
         }
       },
-      "User.Command.Events/1.0.0": {
+      "User.Common/1.0.0": {
         "dependencies": {
-          "Confluent.Kafka": "2.1.1",
-          "Core": "1.0.0",
-          "Microsoft.Extensions.Options": "7.0.0"
+          "Core": "1.0.0"
         },
         "runtime": {
-          "User.Command.Events.dll": {}
+          "User.Common.dll": {}
         }
       }
     }
@@ -415,26 +273,12 @@
       "path": "awssdk.securitytoken/3.7.100.14",
       "hashPath": "awssdk.securitytoken.3.7.100.14.nupkg.sha512"
     },
-    "Confluent.Kafka/2.1.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-mXFB78iSv3jNNHYCUO3EtDzYlg464m306PBFCiiKARcwCL3A+Zc8DsyioS3MOu47Sm2uBOgazeSbk2707rz+DQ==",
-      "path": "confluent.kafka/2.1.1",
-      "hashPath": "confluent.kafka.2.1.1.nupkg.sha512"
-    },
     "DnsClient/1.6.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-4H/f2uYJOZ+YObZjpY9ABrKZI+JNw3uizp6oMzTXwDw6F+2qIPhpRl/1t68O/6e98+vqNiYGu+lswmwdYUy3gg==",
       "path": "dnsclient/1.6.1",
       "hashPath": "dnsclient.1.6.1.nupkg.sha512"
-    },
-    "librdkafka.redist/2.1.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-LDExIZlVbBez9mOcqiGGSNj6Jv9OYppifAI4FN14tT+swBRbxsnvJOemz3ZWyZOzbuqhtZmVhjem79Q8z8cWiA==",
-      "path": "librdkafka.redist/2.1.1",
-      "hashPath": "librdkafka.redist.2.1.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.OpenApi/7.0.5": {
       "type": "package",
@@ -450,33 +294,12 @@
       "path": "microsoft.extensions.apidescription.server/6.0.5",
       "hashPath": "microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-h3j/QfmFN4S0w4C2A6X7arXij/M/OVw3uQHSOFxnND4DyAzO1F9eMX7Eti7lU/OkSthEE0WzRsfT/Dmx86jzCw==",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/7.0.0",
-      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
-    },
     "Microsoft.Extensions.Logging.Abstractions/2.0.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-6ZCllUYGFukkymSTx3Yr0G/ajRxoNJp7/FqSxSB4fGISST54ifBhgu4Nc0ItGi3i6DqwuNd8SUyObmiC++AO2Q==",
       "path": "microsoft.extensions.logging.abstractions/2.0.0",
       "hashPath": "microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Options/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-lP1yBnTTU42cKpMozuafbvNtQ7QcBjr/CcK3bYOGEMH55Fjt+iecXjT6chR7vbgCMqy3PG3aNQSZgo/EuY/9qQ==",
-      "path": "microsoft.extensions.options/7.0.0",
-      "hashPath": "microsoft.extensions.options.7.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Primitives/7.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-um1KU5kxcRp3CNuI8o/GrZtD4AIOXDk+RLsytjZ9QPok3ttLUelLKpilVPuaFT3TFjOhSibUAso0odbOaCDj3Q==",
-      "path": "microsoft.extensions.primitives/7.0.0",
-      "hashPath": "microsoft.extensions.primitives.7.0.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/5.0.0": {
       "type": "package",
@@ -576,13 +399,6 @@
       "path": "system.buffers/4.5.1",
       "hashPath": "system.buffers.4.5.1.nupkg.sha512"
     },
-    "System.Memory/4.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-m0psCSpUxTGfvwyO0i03ajXVhgBqyXlibXz0Mo1dtKGjaHrXFLnuQ8rNBTmWRqbfRjr4eC6Wah4X5FfuFDu5og==",
-      "path": "system.memory/4.5.0",
-      "hashPath": "system.memory.4.5.0.nupkg.sha512"
-    },
     "System.Runtime.CompilerServices.Unsafe/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -616,12 +432,17 @@
       "serviceable": false,
       "sha512": ""
     },
+    "User.Command.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "User.Command.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "User.Command.Events/1.0.0": {
+    "User.Common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

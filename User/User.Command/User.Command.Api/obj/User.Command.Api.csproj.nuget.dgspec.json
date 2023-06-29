@@ -88,11 +88,11 @@
               "/home/roherc/repos/circApp/Core/Core.csproj": {
                 "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj"
               },
+              "/home/roherc/repos/circApp/User/User.Command/User.Command.Application/User.Command.Application.csproj": {
+                "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Application/User.Command.Application.csproj"
+              },
               "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj": {
                 "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj"
-              },
-              "/home/roherc/repos/circApp/User/User.Command/User.Command.Events/User.Command.Events.csproj": {
-                "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Events/User.Command.Events.csproj"
               }
             }
           }
@@ -139,6 +139,66 @@
         }
       }
     },
+    "/home/roherc/repos/circApp/User/User.Command/User.Command.Application/User.Command.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/roherc/repos/circApp/User/User.Command/User.Command.Application/User.Command.Application.csproj",
+        "projectName": "User.Command.Application",
+        "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Application/User.Command.Application.csproj",
+        "packagesPath": "/home/roherc/.nuget/packages/",
+        "outputPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/roherc/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/home/roherc/repos/circApp/Core/Core.csproj": {
+                "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj"
+              },
+              "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj": {
+                "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.203/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -163,6 +223,9 @@
             "projectReferences": {
               "/home/roherc/repos/circApp/Core/Core.csproj": {
                 "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj"
+              },
+              "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj": {
+                "projectPath": "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj"
               }
             }
           }
@@ -202,14 +265,14 @@
         }
       }
     },
-    "/home/roherc/repos/circApp/User/User.Command/User.Command.Events/User.Command.Events.csproj": {
+    "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/roherc/repos/circApp/User/User.Command/User.Command.Events/User.Command.Events.csproj",
-        "projectName": "User.Command.Events",
-        "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Events/User.Command.Events.csproj",
+        "projectUniqueName": "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj",
+        "projectName": "User.Common",
+        "projectPath": "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj",
         "packagesPath": "/home/roherc/.nuget/packages/",
-        "outputPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Events/obj/",
+        "outputPath": "/home/roherc/repos/circApp/User/User.Common/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/roherc/.nuget/NuGet/NuGet.Config"
@@ -239,16 +302,6 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "dependencies": {
-            "Confluent.Kafka": {
-              "target": "Package",
-              "version": "[2.1.1, )"
-            },
-            "Microsoft.Extensions.Options": {
-              "target": "Package",
-              "version": "[7.0.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",

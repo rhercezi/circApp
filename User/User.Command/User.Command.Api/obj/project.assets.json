@@ -31,23 +31,6 @@
           }
         }
       },
-      "Confluent.Kafka/2.1.1": {
-        "type": "package",
-        "dependencies": {
-          "System.Memory": "4.5.0",
-          "librdkafka.redist": "2.1.1"
-        },
-        "compile": {
-          "lib/net6.0/Confluent.Kafka.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Confluent.Kafka.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "DnsClient/1.6.1": {
         "type": "package",
         "dependencies": {
@@ -61,114 +44,6 @@
         "runtime": {
           "lib/net5.0/DnsClient.dll": {
             "related": ".xml"
-          }
-        }
-      },
-      "librdkafka.redist/2.1.1": {
-        "type": "package",
-        "build": {
-          "build/_._": {}
-        },
-        "runtimeTargets": {
-          "runtimes/linux-arm64/native/librdkafka.so": {
-            "assetType": "native",
-            "rid": "linux-arm64"
-          },
-          "runtimes/linux-x64/native/alpine-librdkafka.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/centos6-librdkafka.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/centos7-librdkafka.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/linux-x64/native/librdkafka.so": {
-            "assetType": "native",
-            "rid": "linux-x64"
-          },
-          "runtimes/osx-arm64/native/librdkafka.dylib": {
-            "assetType": "native",
-            "rid": "osx-arm64"
-          },
-          "runtimes/osx-x64/native/librdkafka.dylib": {
-            "assetType": "native",
-            "rid": "osx-x64"
-          },
-          "runtimes/win-x64/native/libcrypto-3-x64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/libcurl.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/librdkafka.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/librdkafkacpp.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/libssl-3-x64.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/msvcp140.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/vcruntime140.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/zlib1.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x64/native/zstd.dll": {
-            "assetType": "native",
-            "rid": "win-x64"
-          },
-          "runtimes/win-x86/native/libcrypto-3.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
-          },
-          "runtimes/win-x86/native/libcurl.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
-          },
-          "runtimes/win-x86/native/librdkafka.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
-          },
-          "runtimes/win-x86/native/librdkafkacpp.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
-          },
-          "runtimes/win-x86/native/libssl-3.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
-          },
-          "runtimes/win-x86/native/msvcp140.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
-          },
-          "runtimes/win-x86/native/vcruntime140.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
-          },
-          "runtimes/win-x86/native/zlib1.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
-          },
-          "runtimes/win-x86/native/zstd.dll": {
-            "assetType": "native",
-            "rid": "win-x86"
           }
         }
       },
@@ -202,22 +77,6 @@
           "buildMultiTargeting/Microsoft.Extensions.ApiDescription.Server.targets": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/7.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
-      },
       "Microsoft.Extensions.Logging.Abstractions/2.0.0": {
         "type": "package",
         "compile": {
@@ -229,42 +88,6 @@
           "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
             "related": ".xml"
           }
-        }
-      },
-      "Microsoft.Extensions.Options/7.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
-          "Microsoft.Extensions.Primitives": "7.0.0"
-        },
-        "compile": {
-          "lib/net7.0/Microsoft.Extensions.Options.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net7.0/Microsoft.Extensions.Options.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
-      },
-      "Microsoft.Extensions.Primitives/7.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net7.0/Microsoft.Extensions.Primitives.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net7.0/Microsoft.Extensions.Primitives.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
         }
       },
       "Microsoft.NETCore.Platforms/5.0.0": {
@@ -498,15 +321,6 @@
           "lib/netcoreapp2.0/_._": {}
         }
       },
-      "System.Memory/4.5.0": {
-        "type": "package",
-        "compile": {
-          "ref/netcoreapp2.1/_._": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/_._": {}
-        }
-      },
       "System.Runtime.CompilerServices.Unsafe/5.0.0": {
         "type": "package",
         "compile": {
@@ -588,12 +402,27 @@
           "bin/placeholder/Core.dll": {}
         }
       },
+      "User.Command.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Core": "1.0.0",
+          "User.Command.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/User.Command.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/User.Command.Application.dll": {}
+        }
+      },
       "User.Command.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Core": "1.0.0",
-          "MongoDB.Driver": "2.19.2"
+          "MongoDB.Driver": "2.19.2",
+          "User.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/User.Command.Domain.dll": {}
@@ -602,19 +431,17 @@
           "bin/placeholder/User.Command.Domain.dll": {}
         }
       },
-      "User.Command.Events/1.0.0": {
+      "User.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Confluent.Kafka": "2.1.1",
-          "Core": "1.0.0",
-          "Microsoft.Extensions.Options": "7.0.0"
+          "Core": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/User.Command.Events.dll": {}
+          "bin/placeholder/User.Common.dll": {}
         },
         "runtime": {
-          "bin/placeholder/User.Command.Events.dll": {}
+          "bin/placeholder/User.Common.dll": {}
         }
       }
     }
@@ -672,25 +499,6 @@
         "tools/uninstall.ps1"
       ]
     },
-    "Confluent.Kafka/2.1.1": {
-      "sha512": "mXFB78iSv3jNNHYCUO3EtDzYlg464m306PBFCiiKARcwCL3A+Zc8DsyioS3MOu47Sm2uBOgazeSbk2707rz+DQ==",
-      "type": "package",
-      "path": "confluent.kafka/2.1.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "confluent.kafka.2.1.1.nupkg.sha512",
-        "confluent.kafka.nuspec",
-        "lib/net462/Confluent.Kafka.dll",
-        "lib/net462/Confluent.Kafka.xml",
-        "lib/net6.0/Confluent.Kafka.dll",
-        "lib/net6.0/Confluent.Kafka.xml",
-        "lib/netstandard1.3/Confluent.Kafka.dll",
-        "lib/netstandard1.3/Confluent.Kafka.xml",
-        "lib/netstandard2.0/Confluent.Kafka.dll",
-        "lib/netstandard2.0/Confluent.Kafka.xml"
-      ]
-    },
     "DnsClient/1.6.1": {
       "sha512": "4H/f2uYJOZ+YObZjpY9ABrKZI+JNw3uizp6oMzTXwDw6F+2qIPhpRl/1t68O/6e98+vqNiYGu+lswmwdYUy3gg==",
       "type": "package",
@@ -713,54 +521,6 @@
         "lib/netstandard2.0/DnsClient.xml",
         "lib/netstandard2.1/DnsClient.dll",
         "lib/netstandard2.1/DnsClient.xml"
-      ]
-    },
-    "librdkafka.redist/2.1.1": {
-      "sha512": "LDExIZlVbBez9mOcqiGGSNj6Jv9OYppifAI4FN14tT+swBRbxsnvJOemz3ZWyZOzbuqhtZmVhjem79Q8z8cWiA==",
-      "type": "package",
-      "path": "librdkafka.redist/2.1.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "CONFIGURATION.md",
-        "LICENSES.txt",
-        "README.md",
-        "build/librdkafka.redist.props",
-        "build/native/include/librdkafka/rdkafka.h",
-        "build/native/include/librdkafka/rdkafka_mock.h",
-        "build/native/include/librdkafka/rdkafkacpp.h",
-        "build/native/lib/win/x64/win-x64-Release/v142/librdkafka.lib",
-        "build/native/lib/win/x64/win-x64-Release/v142/librdkafkacpp.lib",
-        "build/native/lib/win/x86/win-x86-Release/v142/librdkafka.lib",
-        "build/native/lib/win/x86/win-x86-Release/v142/librdkafkacpp.lib",
-        "build/native/librdkafka.redist.targets",
-        "librdkafka.redist.2.1.1.nupkg.sha512",
-        "librdkafka.redist.nuspec",
-        "runtimes/linux-arm64/native/librdkafka.so",
-        "runtimes/linux-x64/native/alpine-librdkafka.so",
-        "runtimes/linux-x64/native/centos6-librdkafka.so",
-        "runtimes/linux-x64/native/centos7-librdkafka.so",
-        "runtimes/linux-x64/native/librdkafka.so",
-        "runtimes/osx-arm64/native/librdkafka.dylib",
-        "runtimes/osx-x64/native/librdkafka.dylib",
-        "runtimes/win-x64/native/libcrypto-3-x64.dll",
-        "runtimes/win-x64/native/libcurl.dll",
-        "runtimes/win-x64/native/librdkafka.dll",
-        "runtimes/win-x64/native/librdkafkacpp.dll",
-        "runtimes/win-x64/native/libssl-3-x64.dll",
-        "runtimes/win-x64/native/msvcp140.dll",
-        "runtimes/win-x64/native/vcruntime140.dll",
-        "runtimes/win-x64/native/zlib1.dll",
-        "runtimes/win-x64/native/zstd.dll",
-        "runtimes/win-x86/native/libcrypto-3.dll",
-        "runtimes/win-x86/native/libcurl.dll",
-        "runtimes/win-x86/native/librdkafka.dll",
-        "runtimes/win-x86/native/librdkafkacpp.dll",
-        "runtimes/win-x86/native/libssl-3.dll",
-        "runtimes/win-x86/native/msvcp140.dll",
-        "runtimes/win-x86/native/vcruntime140.dll",
-        "runtimes/win-x86/native/zlib1.dll",
-        "runtimes/win-x86/native/zstd.dll"
       ]
     },
     "Microsoft.AspNetCore.OpenApi/7.0.5": {
@@ -1009,35 +769,6 @@
         "tools/netcoreapp2.1/System.Diagnostics.DiagnosticSource.dll"
       ]
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/7.0.0": {
-      "sha512": "h3j/QfmFN4S0w4C2A6X7arXij/M/OVw3uQHSOFxnND4DyAzO1F9eMX7Eti7lU/OkSthEE0WzRsfT/Dmx86jzCw==",
-      "type": "package",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/7.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
-        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
-        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
-        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
-        "microsoft.extensions.dependencyinjection.abstractions.nuspec",
-        "useSharedDesignerContext.txt"
-      ]
-    },
     "Microsoft.Extensions.Logging.Abstractions/2.0.0": {
       "sha512": "6ZCllUYGFukkymSTx3Yr0G/ajRxoNJp7/FqSxSB4fGISST54ifBhgu4Nc0ItGi3i6DqwuNd8SUyObmiC++AO2Q==",
       "type": "package",
@@ -1049,62 +780,6 @@
         "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.xml",
         "microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
         "microsoft.extensions.logging.abstractions.nuspec"
-      ]
-    },
-    "Microsoft.Extensions.Options/7.0.0": {
-      "sha512": "lP1yBnTTU42cKpMozuafbvNtQ7QcBjr/CcK3bYOGEMH55Fjt+iecXjT6chR7vbgCMqy3PG3aNQSZgo/EuY/9qQ==",
-      "type": "package",
-      "path": "microsoft.extensions.options/7.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/Microsoft.Extensions.Options.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
-        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Options.targets",
-        "lib/net462/Microsoft.Extensions.Options.dll",
-        "lib/net462/Microsoft.Extensions.Options.xml",
-        "lib/net6.0/Microsoft.Extensions.Options.dll",
-        "lib/net6.0/Microsoft.Extensions.Options.xml",
-        "lib/net7.0/Microsoft.Extensions.Options.dll",
-        "lib/net7.0/Microsoft.Extensions.Options.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.Options.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.Options.xml",
-        "lib/netstandard2.1/Microsoft.Extensions.Options.dll",
-        "lib/netstandard2.1/Microsoft.Extensions.Options.xml",
-        "microsoft.extensions.options.7.0.0.nupkg.sha512",
-        "microsoft.extensions.options.nuspec",
-        "useSharedDesignerContext.txt"
-      ]
-    },
-    "Microsoft.Extensions.Primitives/7.0.0": {
-      "sha512": "um1KU5kxcRp3CNuI8o/GrZtD4AIOXDk+RLsytjZ9QPok3ttLUelLKpilVPuaFT3TFjOhSibUAso0odbOaCDj3Q==",
-      "type": "package",
-      "path": "microsoft.extensions.primitives/7.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "buildTransitive/net461/Microsoft.Extensions.Primitives.targets",
-        "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
-        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Primitives.targets",
-        "lib/net462/Microsoft.Extensions.Primitives.dll",
-        "lib/net462/Microsoft.Extensions.Primitives.xml",
-        "lib/net6.0/Microsoft.Extensions.Primitives.dll",
-        "lib/net6.0/Microsoft.Extensions.Primitives.xml",
-        "lib/net7.0/Microsoft.Extensions.Primitives.dll",
-        "lib/net7.0/Microsoft.Extensions.Primitives.xml",
-        "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
-        "lib/netstandard2.0/Microsoft.Extensions.Primitives.xml",
-        "microsoft.extensions.primitives.7.0.0.nupkg.sha512",
-        "microsoft.extensions.primitives.nuspec",
-        "useSharedDesignerContext.txt"
       ]
     },
     "Microsoft.NETCore.Platforms/5.0.0": {
@@ -1420,45 +1095,6 @@
         "version.txt"
       ]
     },
-    "System.Memory/4.5.0": {
-      "sha512": "m0psCSpUxTGfvwyO0i03ajXVhgBqyXlibXz0Mo1dtKGjaHrXFLnuQ8rNBTmWRqbfRjr4eC6Wah4X5FfuFDu5og==",
-      "type": "package",
-      "path": "system.memory/4.5.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/netcoreapp2.1/_._",
-        "lib/netstandard1.1/System.Memory.dll",
-        "lib/netstandard1.1/System.Memory.xml",
-        "lib/netstandard2.0/System.Memory.dll",
-        "lib/netstandard2.0/System.Memory.xml",
-        "lib/uap10.0.16300/_._",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "lib/xamarintvos10/_._",
-        "lib/xamarinwatchos10/_._",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/netcoreapp2.1/_._",
-        "ref/netstandard1.1/System.Memory.dll",
-        "ref/netstandard1.1/System.Memory.xml",
-        "ref/netstandard2.0/System.Memory.dll",
-        "ref/netstandard2.0/System.Memory.xml",
-        "ref/uap10.0.16300/_._",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "ref/xamarintvos10/_._",
-        "ref/xamarinwatchos10/_._",
-        "system.memory.4.5.0.nupkg.sha512",
-        "system.memory.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
-      ]
-    },
     "System.Runtime.CompilerServices.Unsafe/5.0.0": {
       "sha512": "ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA==",
       "type": "package",
@@ -1615,15 +1251,20 @@
       "path": "../../../Core/Core.csproj",
       "msbuildProject": "../../../Core/Core.csproj"
     },
+    "User.Command.Application/1.0.0": {
+      "type": "project",
+      "path": "../User.Command.Application/User.Command.Application.csproj",
+      "msbuildProject": "../User.Command.Application/User.Command.Application.csproj"
+    },
     "User.Command.Domain/1.0.0": {
       "type": "project",
       "path": "../User.Command.Domain/User.Command.Domain.csproj",
       "msbuildProject": "../User.Command.Domain/User.Command.Domain.csproj"
     },
-    "User.Command.Events/1.0.0": {
+    "User.Common/1.0.0": {
       "type": "project",
-      "path": "../User.Command.Events/User.Command.Events.csproj",
-      "msbuildProject": "../User.Command.Events/User.Command.Events.csproj"
+      "path": "../../User.Common/User.Common.csproj",
+      "msbuildProject": "../../User.Common/User.Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -1631,8 +1272,8 @@
       "Core >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 7.0.5",
       "Swashbuckle.AspNetCore >= 6.4.0",
-      "User.Command.Domain >= 1.0.0",
-      "User.Command.Events >= 1.0.0"
+      "User.Command.Application >= 1.0.0",
+      "User.Command.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -1663,11 +1304,11 @@
             "/home/roherc/repos/circApp/Core/Core.csproj": {
               "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj"
             },
+            "/home/roherc/repos/circApp/User/User.Command/User.Command.Application/User.Command.Application.csproj": {
+              "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Application/User.Command.Application.csproj"
+            },
             "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj": {
               "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj"
-            },
-            "/home/roherc/repos/circApp/User/User.Command/User.Command.Events/User.Command.Events.csproj": {
-              "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Events/User.Command.Events.csproj"
             }
           }
         }

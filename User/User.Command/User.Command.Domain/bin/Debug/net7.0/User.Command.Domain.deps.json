@@ -9,7 +9,8 @@
       "User.Command.Domain/1.0.0": {
         "dependencies": {
           "Core": "1.0.0",
-          "MongoDB.Driver": "2.19.2"
+          "MongoDB.Driver": "2.19.2",
+          "User.Common": "1.0.0"
         },
         "runtime": {
           "User.Command.Domain.dll": {}
@@ -169,6 +170,14 @@
         "runtime": {
           "Core.dll": {}
         }
+      },
+      "User.Common/1.0.0": {
+        "dependencies": {
+          "Core": "1.0.0"
+        },
+        "runtime": {
+          "User.Common.dll": {}
+        }
       }
     }
   },
@@ -298,6 +307,11 @@
       "hashPath": "zstdsharp.port.0.6.2.nupkg.sha512"
     },
     "Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "User.Common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

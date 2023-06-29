@@ -295,6 +295,19 @@
         "runtime": {
           "bin/placeholder/Core.dll": {}
         }
+      },
+      "User.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/User.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/User.Common.dll": {}
+        }
       }
     }
   },
@@ -761,12 +774,18 @@
       "type": "project",
       "path": "../../../Core/Core.csproj",
       "msbuildProject": "../../../Core/Core.csproj"
+    },
+    "User.Common/1.0.0": {
+      "type": "project",
+      "path": "../../User.Common/User.Common.csproj",
+      "msbuildProject": "../../User.Common/User.Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
       "Core >= 1.0.0",
-      "MongoDB.Driver >= 2.19.2"
+      "MongoDB.Driver >= 2.19.2",
+      "User.Common >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -796,6 +815,9 @@
           "projectReferences": {
             "/home/roherc/repos/circApp/Core/Core.csproj": {
               "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj"
+            },
+            "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj": {
+              "projectPath": "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj"
             }
           }
         }
