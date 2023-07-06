@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "nVtCTqS9thyt2Ncncb9Krau1w+ho+M/VB2GmY11mR1jYU7A6hCuYLNivjy7u4fOutlhUafs699yYSF7d3RuAkw==",
+  "dgSpecHash": "8njnKhf8fvd5GRG+nb6WvdA4/EkB3BrEq5fcYdz+6RCZdA19M1nV4Ikbv3GJxEqYMcpGz9IIGBWkVCG3OUimDA==",
   "success": true,
   "projectFilePath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Api/User.Command.Api.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,10 @@
     "/home/roherc/.nuget/packages/dnsclient/1.6.1/dnsclient.1.6.1.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.aspnetcore.openapi/7.0.5/microsoft.aspnetcore.openapi.7.0.5.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/home/roherc/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.extensions.logging.abstractions/2.0.0/microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
+    "/home/roherc/.nuget/packages/microsoft.extensions.options/7.0.1/microsoft.extensions.options.7.0.1.nupkg.sha512",
+    "/home/roherc/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.netcore.platforms/5.0.0/microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",

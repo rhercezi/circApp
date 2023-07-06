@@ -52,3 +52,4 @@
 /home/roherc/repos/circApp/User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Command.Application.pdb
 /home/roherc/repos/circApp/User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Common.dll
 /home/roherc/repos/circApp/User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Common.pdb
+/home/roherc/repos/circApp/User/User.Command/User.Command.Api/bin/Debug/net7.0/Microsoft.Extensions.Options.dll

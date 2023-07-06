@@ -1,13 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "YN5c0a+DE+rPWcW6o81n3Ksl5LqWU5uBVZlIW47a02wYETO0TOS1PpyiICYx4wkltb8NPVVfwcmsCxyUQx+EOQ==",
+  "dgSpecHash": "woEp/dZgwESrfhwVz3tFc+V2tRR/wgs7AIk6XRce7oitEH5aOmTg5keq6ukq+5G2pbE+bEHno8/Ox6DBWFhs5w==",
   "success": true,
   "projectFilePath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj",
   "expectedPackageFiles": [
     "/home/roherc/.nuget/packages/awssdk.core/3.7.100.14/awssdk.core.3.7.100.14.nupkg.sha512",
     "/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14/awssdk.securitytoken.3.7.100.14.nupkg.sha512",
     "/home/roherc/.nuget/packages/dnsclient/1.6.1/dnsclient.1.6.1.nupkg.sha512",
+    "/home/roherc/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.extensions.logging.abstractions/2.0.0/microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
+    "/home/roherc/.nuget/packages/microsoft.extensions.options/7.0.1/microsoft.extensions.options.7.0.1.nupkg.sha512",
+    "/home/roherc/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.netcore.platforms/5.0.0/microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/mongodb.bson/2.19.2/mongodb.bson.2.19.2.nupkg.sha512",
