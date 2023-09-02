@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
@@ -13,26 +9,27 @@ namespace User.Command.Application.Dispatcher
     {
         private Dictionary<Type, Type> _handlers = new();
         private readonly ILogger<CommandDispatcher> _logger;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IHandlerService _handlerService;
 
-        public CommandDispatcher(ILogger<CommandDispatcher> logger)
+        public CommandDispatcher(ILogger<CommandDispatcher> logger, IServiceProvider serviceProvider, IHandlerService handlerService)
         {
             _logger = logger;
+            _serviceProvider = serviceProvider;
+            _handlerService = handlerService;
         }
 
         public async Task DispatchAsync(BaseCommand command)
         {
-            if (!_handlers.ContainsKey(command.GetType()))
-            {
-                RegisterHandler(command);
-            }
+            _handlers = _handlerService.RegisterHandler(command);
 
 
             if (_handlers.TryGetValue(command.GetType(), out Type? handlerType))
             {
-                var handler = Activator.CreateInstance(handlerType) as ICommandHandler<BaseCommand>;
+                var handler = Activator.CreateInstance(handlerType, new object[] {_serviceProvider});
                 if (handler is not null)
                 {
-                    await handler.HandleAsync(command);
+                    await (Task)handlerType.GetMethod("HandleAsync").Invoke(handler, new object[] { command });
                 }
                 else
                 {
@@ -40,24 +37,6 @@ namespace User.Command.Application.Dispatcher
                 }
             }
 
-        }
-
-        public void RegisterHandler<T>(T command) where T : BaseCommand
-        {
-            Type genericType = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
-
-            var types = Assembly.GetExecutingAssembly().GetTypes().Where(
-                t => t.IsClass && t.GetInterfaces().Contains(genericType)
-            ).ToList();
-
-            if (types.Any())
-            {
-                _handlers.Add(command.GetType(), types.First());
-            }  
-            else
-            {
-                throw new ArgumentNullException($"No handler found for the command of type: {command.GetType().FullName}");
-            }
         }
     }
 }

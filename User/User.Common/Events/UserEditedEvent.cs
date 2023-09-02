@@ -14,5 +14,5 @@ namespace User.Common.Events
                                   string FamilyName,
                                   string Email,
                                   bool EmailConfirmed,
-                                  DateTime Changed) : BaseEvent(Id, Version, typeof(UserEditedEvent));
+                                  DateTime Changed) : BaseEvent(Id, Version);
 }

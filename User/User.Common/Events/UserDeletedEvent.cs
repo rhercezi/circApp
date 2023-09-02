@@ -6,5 +6,5 @@ using Core.Messages;
 
 namespace User.Common.Events
 {
-    public record UserDeletedEvent(Guid Id, int Version) : BaseEvent(Id, Version, typeof(UserDeletedEvent));
+    public record UserDeletedEvent(Guid Id, int Version) : BaseEvent(Id, Version);
 }

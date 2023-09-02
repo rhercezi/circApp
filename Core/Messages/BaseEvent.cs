@@ -5,5 +5,5 @@ using System.Threading.Tasks;
 
 namespace Core.Messages
 {
-    public abstract record BaseEvent(Guid Id, int Version, Type Type);
+    public abstract record BaseEvent(Guid Id, int Version);
 }

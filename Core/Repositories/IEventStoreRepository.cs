@@ -10,6 +10,5 @@ namespace User.Command.Domain.Repositories
     {
         Task SaveAsync(EventModel model);
         Task<List<EventModel>> FindByAgregateId(Guid id);
-        
     }
 }

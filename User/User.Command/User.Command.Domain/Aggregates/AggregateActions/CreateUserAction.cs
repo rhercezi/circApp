@@ -1,21 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using Core.DAOs;
 using Core.MessageHandling;
 using User.Common.Events;
 
 namespace User.Command.Domain.Aggregates.AggregateActions
 {
-    public class CreateUserAction : IAggregateAction<UserCreatedEvent, UserAggreate>
+    public class CreateUserAction : IAggregateAction<UserCreatedEvent, UserAggregate>
     {
-        public void ExecuteAsync(UserCreatedEvent xEvent, UserAggreate instance)
+        public void ExecuteAsync(UserCreatedEvent xEvent, UserAggregate instance, bool isReplay)
         {
-            ValidateEvent(xEvent);
+            
             instance._id = xEvent.Id;
             instance._version = xEvent.Version;
             instance._events.Add(xEvent);
+            
+            if (!isReplay)
+            {
+                var model = new EventModel
+                {
+                    TimeStamp = DateTime.Now,
+                    AggregateId = instance._id,
+                    AggregateType = instance.GetType().Name,
+                    Version = instance._version,
+                    EventType = xEvent.GetType().Name,
+                    Event = xEvent
+                };
+
+
+                instance._eventStore.SaveEventAsync(model);
+            }
         }
 
         private void ValidateEvent(UserCreatedEvent xEvent)
@@ -36,7 +49,7 @@ namespace User.Command.Domain.Aggregates.AggregateActions
             pattern = @"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$";
             var validPassword = new Regex(pattern);
             mustContain = "Password must contain at least one lower case letter, at least one upper case letter, "
-            + "at least special character, at least one number, at least 8 characters length";
+            + "at least special character, at least one number and have at least 8 characters length";
             if (!validEmail.IsMatch(xEvent.Password)) throw new FormatException($"Password is invalid. " + mustContain);
 
         }

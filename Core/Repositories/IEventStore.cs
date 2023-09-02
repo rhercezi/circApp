@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Core.DAOs;
 using Core.Messages;
 
 namespace Core.Repositories
 {
     public interface IEventStore
     {
-        Task SaveEvetnAsync(Guid aggregateId, IEnumerable<BaseEvent> events, int version);
+        Task SaveEventAsync(EventModel eventModel);
         Task<List<BaseEvent>> GetEventsAsync(Guid id);
     }
 }

@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Core.Configs;
 using Core.DAOs;
+using Core.Messages;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using User.Command.Domain.Repositories;
+using User.Common.Events;
 
 namespace User.Command.Application.Repositories
 {
@@ -16,9 +20,17 @@ namespace User.Command.Application.Repositories
 
         public EventStoreRepository(IOptions<MongoDbConfig> config)
         {
+            this.SetMappers();
+            // BsonClassMap.RegisterClassMap<BaseEvent>(cm => 
+            // {
+            //     cm.AutoMap();
+            //     cm.SetIsRootClass(true);
+            // });
+            // BsonClassMap.RegisterClassMap<UserCreatedEvent>();
+            // BsonClassMap.RegisterClassMap<UserEditedEvent>();
+            // BsonClassMap.RegisterClassMap<UserDeletedEvent>();
             var client = new MongoClient(config.Value.ConnectionString);
             var database = client.GetDatabase(config.Value.DatabaseName);
-
             _eventStoreCollection = database.GetCollection<EventModel>(config.Value.CollectionName);
         }
 
@@ -30,6 +42,19 @@ namespace User.Command.Application.Repositories
         public async Task SaveAsync(EventModel model)
         {
             await _eventStoreCollection.InsertOneAsync(model).ConfigureAwait(false);
+        }
+
+        private void SetMappers()
+        {
+            var events = AppDomain.CurrentDomain.GetAssemblies().SelectMany(
+                a => a.GetTypes().Where(
+                    t => t.IsClass && t.IsSubclassOf(typeof(BaseEvent))
+                )
+            ).ToList();
+            
+            events.ForEach(
+                t => {if (!BsonClassMap.IsClassMapRegistered(t)) BsonClassMap.LookupClassMap(t);}
+            );
         }
     }
 }

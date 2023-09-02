@@ -1,19 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Core.DAOs;
 using Core.MessageHandling;
 using User.Common.Events;
 
 namespace User.Command.Domain.Aggregates.AggregateActions
 {
-    public class UpdateUserAction : IAggregateAction<UserEditedEvent, UserAggreate>
+    public class UpdateUserAction : IAggregateAction<UserEditedEvent, UserAggregate>
     {
-        public void ExecuteAsync(UserEditedEvent xEvent, UserAggreate instance)
+        public async void ExecuteAsync(UserEditedEvent xEvent, UserAggregate instance, bool isReplay)
         {
-            instance._id = xEvent.Id;
-            instance._version = xEvent.Version;
-            instance._events.Add(xEvent);
+
+            if (isReplay)
+            {
+                instance._id = xEvent.Id;
+                instance._version = xEvent.Version;
+                instance._events.Add(xEvent);
+            }
+             else
+            {
+                var model = new EventModel
+                {
+                    TimeStamp = DateTime.Now,
+                    AggregateId = xEvent.Id,
+                    AggregateType = instance.GetType().Name,
+                    Version = xEvent.Version,
+                    EventType = xEvent.GetType().Name,
+                    Event = xEvent
+                };
+
+                await instance._eventStore.SaveEventAsync(model);
+            }
         }
     }
 }

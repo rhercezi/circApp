@@ -9,6 +9,6 @@ namespace Core.MessageHandling
 {
     public interface IAggregateAction<T,G> where T : BaseEvent where G : AbstractAggregate
     {
-        void ExecuteAsync(T xEvent, G instance);
+        void ExecuteAsync(T xEvent, G instance, bool persist = false);
     }
 }
