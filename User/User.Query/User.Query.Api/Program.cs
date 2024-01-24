@@ -9,6 +9,7 @@ using User.Query.Application.EventConsuming;
 using User.Query.Domain.Repositories;
 using User.Query.Domain.DatabaseContext;
 using User.Query.Application.Utils.Configs;
+using User.Query.Application.Utils.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,8 +25,10 @@ builder.Services.AddDbContextFactory<UserDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("UserDbConnectionString"))
 );
 builder.Services.AddScoped<PasswordHashService>();
+builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddSingleton<IHandlerService, HandlerService>();
+builder.Services.AddScoped<IQueryDispatcher<TokenDto>, AuthDispatcher>();
 builder.Services.AddScoped<IQueryDispatcher<UserDto>, QueryDispatcher>();
 builder.Services.AddScoped<EventConsumer>();
 builder.Services.AddSingleton<TypeResolutionService>();

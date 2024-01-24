@@ -9,18 +9,20 @@ namespace User.Query.Api.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IQueryDispatcher<UserDto> _dispatcher;
+        private readonly IQueryDispatcher<UserDto> _queryDispatcher;
+        private readonly IQueryDispatcher<TokenDto> _authDispatcher;
 
-        public UserController(IQueryDispatcher<UserDto> dispatcher)
+        public UserController(IQueryDispatcher<UserDto> dispatcher, IQueryDispatcher<TokenDto> authDispatcher)
         {
-            _dispatcher = dispatcher;
+            _queryDispatcher = dispatcher;
+            _authDispatcher = authDispatcher;
         }
 
         [Route("ById")]
         [HttpGet]
         public async Task<IActionResult> GetUserById(GetUserByIdQuery query) 
         {
-            var t = await _dispatcher.DispatchAsync(query);
+            var t = await _queryDispatcher.DispatchAsync(query);
 
             return StatusCode(200, t);
         }
@@ -29,7 +31,7 @@ namespace User.Query.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserByEmail(GetUserByEmailQuery query) 
         {
-            var t = await _dispatcher.DispatchAsync(query);
+            var t = await _queryDispatcher.DispatchAsync(query);
 
             return StatusCode(200, t);
         }
@@ -38,7 +40,7 @@ namespace User.Query.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserByUsername(GetUserByUsernameQuery query) 
         {
-            var t = await _dispatcher.DispatchAsync(query);
+            var t = await _queryDispatcher.DispatchAsync(query);
 
             return StatusCode(200, t);
         }
@@ -47,7 +49,7 @@ namespace User.Query.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetToken(LoginQuery loginDto) 
         {
-            var t = await _dispatcher.DispatchAsync(loginDto);
+            var t = await _authDispatcher.DispatchAsync(loginDto);
 
             return StatusCode(200, t);
         }
