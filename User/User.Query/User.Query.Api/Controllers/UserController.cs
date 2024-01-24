@@ -27,7 +27,7 @@ namespace User.Query.Api.Controllers
 
         [Route("ByEmail")]
         [HttpGet]
-        public async Task<IActionResult> GetUserByEmail(GetUserByIdQuery query) 
+        public async Task<IActionResult> GetUserByEmail(GetUserByEmailQuery query) 
         {
             var t = await _dispatcher.DispatchAsync(query);
 
@@ -36,7 +36,7 @@ namespace User.Query.Api.Controllers
 
         [Route("ByUsername")]
         [HttpGet]
-        public async Task<IActionResult> GetUserByUsername(GetUserByIdQuery query) 
+        public async Task<IActionResult> GetUserByUsername(GetUserByUsernameQuery query) 
         {
             var t = await _dispatcher.DispatchAsync(query);
 

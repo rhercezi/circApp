@@ -92,7 +92,17 @@ namespace User.Command.Application.Validation
             return string.Empty;
         }
 
-        protected string ValidateOldPassword(BaseCommand command, List<Core.Messages.BaseEvent> events, PasswordHashService passwordHashService)
+        protected async Task<string> ValidateUserExistsById(Guid id)
+        {
+            var result = await _eventStore.GetEventsAsync(id);
+            if (result.Count > 0)
+            {
+                return $"Error creating user, please try again.";
+            }
+            return string.Empty;
+        }
+
+        protected string ValidateOldPassword(BaseCommand command, List<BaseEvent> events, PasswordHashService passwordHashService)
         {
             var lastEvent = events.OrderByDescending(x => x.Version)
                             .ToList()

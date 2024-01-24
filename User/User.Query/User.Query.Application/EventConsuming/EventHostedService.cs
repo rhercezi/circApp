@@ -21,7 +21,7 @@ namespace User.Query.Application.EventConsuming
                 var consumer = scope.ServiceProvider.GetRequiredService<EventConsumer>();
                 var repository = scope.ServiceProvider.GetRequiredService<UserRepository>();
 
-                await consumer.Consume(repository);
+                Task.Run(() => consumer.Consume(repository), cancellationToken);
             }
         }
 

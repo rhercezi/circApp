@@ -19,6 +19,7 @@ namespace User.Command.Application.Validation
             _messages.Add(ValidatePassword(command.Password));
             _messages.Add(await ValidateUserExistsByUsername(command.UserName));
             _messages.Add(ValidateEmail(command.Email));
+            _messages.Add(await ValidateUserExistsById(command.Id));
 
             ThrowIfErrorExists(_messages);
         }
