@@ -1,10 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 using Core.Messages;
 
 namespace User.Common.Events
 {
-    public record UserDeletedEvent(Guid Id, int Version) : BaseEvent(Id, Version);
+    public class UserDeletedEvent : BaseEvent
+    {
+        [JsonConstructor]
+        public UserDeletedEvent(Guid id,
+                                int version) : base(id, version, typeof(UserDeletedEvent).FullName)
+        {
+        }
+    }
 }

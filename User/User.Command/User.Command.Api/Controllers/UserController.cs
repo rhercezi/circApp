@@ -1,6 +1,7 @@
 using Core.MessageHandling;
 using Microsoft.AspNetCore.Mvc;
 using User.Command.Api.Commands;
+using User.Command.Application.Commands;
 
 namespace User.Command.Api.Controllers
 {
@@ -15,38 +16,37 @@ namespace User.Command.Api.Controllers
             _dispatcher = dispatcher;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetUser(CreateUserCommand command) 
+        [Route("Password")]
+        [HttpPatch]
+        public async Task<IActionResult> UpdatePassword(UpdatePasswordCommand command) 
         {
+            var t = await _dispatcher.DispatchAsync(command);
 
-            
-            await _dispatcher.DispatchAsync(command);
-
-            return Ok("{OK}");
+            return StatusCode(t.code, t.message);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserCommand command) 
         {
-            await _dispatcher.DispatchAsync(command);
+            var t = await _dispatcher.DispatchAsync(command);
 
-            return Ok("{OK}");
+            return StatusCode(t.code, t.message);
         }
 
         [HttpPatch]
         public async Task<IActionResult> UpdateUser([FromBody] EditUserCommand command)
         {
-            await _dispatcher.DispatchAsync(command);
+            var t = await _dispatcher.DispatchAsync(command);
 
-            return Ok("{OK}");
+            return StatusCode(t.code, t.message);
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteUser([FromBody] DeleteUserCommand command)
         {
-            await _dispatcher.DispatchAsync(command);
+            var t = await _dispatcher.DispatchAsync(command);
 
-            return Ok("{OK}");
+            return StatusCode(t.code, t.message);
         }
     }
 }

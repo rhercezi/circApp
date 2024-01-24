@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Core.DAOs;
 
 namespace User.Command.Domain.Repositories
 {
-    public interface IEventStoreRepository
+    public interface IEventStoreRepository<T> where T : EventModel
     {
-        Task SaveAsync(EventModel model);
-        Task<List<EventModel>> FindByAgregateId(Guid id);
+        Task SaveAsync(T model);
+        Task<List<T>> FindByAgregateId(Guid id);
     }
 }

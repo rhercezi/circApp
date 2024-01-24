@@ -1,15 +1,16 @@
-using Core.DAOs;
 using Core.Messages;
 using Core.Repositories;
-using User.Command.Domain.Repositories;
+using User.Command.Application.Repositories;
+using User.Command.Domain.Exceptions;
+using User.Common.DAOs;
 
 namespace User.Command.Domin.Stores
 {
-    public class EventStore : IEventStore
+    public class EventStore : IEventStore<UserEventModel>
     {
-        private readonly IEventStoreRepository _eventStoreRepository;
+        private readonly EventStoreRepository _eventStoreRepository;
 
-        public EventStore(IEventStoreRepository eventStoreRepository)
+        public EventStore(EventStoreRepository eventStoreRepository)
         {
             _eventStoreRepository = eventStoreRepository;
         }
@@ -24,11 +25,39 @@ namespace User.Command.Domin.Stores
             }
             else
             {
-                throw new ArgumentException("No users found with the given ID.");
+                throw new UserDomainException("No users found with the given ID.");
             }
         }
 
-        public async Task SaveEventAsync(EventModel eventModel)
+        public async Task<bool> UsernameExistsAsync(string username)
+        {
+            var events = await _eventStoreRepository.FindByUsername(username); 
+
+            if (events != null && events.Any())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> EmailExistsAsync(string email)
+        {
+            var events = await _eventStoreRepository.FindByEmail(email); 
+
+            if (events != null && events.Any())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task SaveEventAsync(UserEventModel eventModel)
         {
             await _eventStoreRepository.SaveAsync(eventModel);
         }

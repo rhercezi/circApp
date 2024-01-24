@@ -1,10 +1,9 @@
-using Core.Aggregate;
+using Core.Messages;
 
 namespace Core.MessageHandling
 {
-    public interface IEventHandler<T>
+    public interface IEventHandler<T> where T : BaseEvent
     {
-        Task SaveAsync(AbstractAggregate aggregate);
-        Task<T> GetAsync(Guid id);
+        Task HandleAsync(T xEvent);
     }
 }

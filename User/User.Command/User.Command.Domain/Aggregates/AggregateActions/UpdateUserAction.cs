@@ -1,12 +1,12 @@
-using Core.DAOs;
 using Core.MessageHandling;
+using User.Common.DAOs;
 using User.Common.Events;
 
 namespace User.Command.Domain.Aggregates.AggregateActions
 {
     public class UpdateUserAction : IAggregateAction<UserEditedEvent, UserAggregate>
     {
-        public async void ExecuteAsync(UserEditedEvent xEvent, UserAggregate instance, bool isReplay)
+        public async Task ExecuteAsync(UserEditedEvent xEvent, UserAggregate instance, bool isReplay)
         {
 
             if (isReplay)
@@ -17,8 +17,10 @@ namespace User.Command.Domain.Aggregates.AggregateActions
             }
              else
             {
-                var model = new EventModel
+                var model = new UserEventModel
                 {
+                    Email = xEvent.Email,
+                    UserName = xEvent.UserName,
                     TimeStamp = DateTime.Now,
                     AggregateId = xEvent.Id,
                     AggregateType = instance.GetType().Name,

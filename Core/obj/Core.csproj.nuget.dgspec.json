@@ -38,9 +38,17 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Confluent.Kafka": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[2.19.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             }
           },
           "imports": [

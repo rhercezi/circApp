@@ -1,9 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Core.Messages
 {
-    public abstract record BaseEvent(Guid Id, int Version);
+    public abstract class BaseEvent
+    {
+        public Guid Id { get; set; }
+        public int Version { get; set; }
+        public string EventType { get; set; }
+
+        protected BaseEvent(Guid id, int version, string eventType)
+        {
+            Id = id;
+            Version = version;
+            EventType = eventType;
+        }
+    }
 }

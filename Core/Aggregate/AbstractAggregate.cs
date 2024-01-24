@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 using Core.MessageHandling;
 using Core.Messages;
 
@@ -21,7 +15,7 @@ namespace Core.Aggregate
             _events.Clear();
         }
 
-        protected void InvokeAction<T,G>(BaseEvent xEvent, AbstractAggregate instance, bool isReplay) where T : BaseEvent  where G : AbstractAggregate
+        protected async void InvokeAction<T,G>(BaseEvent xEvent, AbstractAggregate instance, bool isReplay) where T : BaseEvent  where G : AbstractAggregate
         {
             Type genericType = typeof(IAggregateAction<,>).MakeGenericType(xEvent.GetType(), instance.GetType());
 
@@ -34,11 +28,12 @@ namespace Core.Aggregate
             if (types.Any() && types.First() != null)
             {
                 var action = Activator.CreateInstance(types.First());
-                types.First().GetMethod("ExecuteAsync").Invoke(action, new object[] { xEvent, instance, isReplay });
+                var task = (Task) types.First().GetMethod("ExecuteAsync").Invoke(action, new object[] { xEvent, instance, isReplay });
+                await task.ConfigureAwait(false);
             }
             else
             {
-                throw new TargetException($"Faild to invoke aggregate action for event of type: {xEvent.GetType().FullName}");
+                throw new CoreException($"Faild to invoke aggregate action for event of type: {xEvent.GetType().FullName}");
             }
         }
         

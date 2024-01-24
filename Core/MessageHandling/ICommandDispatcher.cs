@@ -4,6 +4,6 @@ namespace Core.MessageHandling
 {
     public interface ICommandDispatcher
     {
-        Task DispatchAsync(BaseCommand command);
+        Task<(int code, string message)> DispatchAsync(BaseCommand command);
     }
 }

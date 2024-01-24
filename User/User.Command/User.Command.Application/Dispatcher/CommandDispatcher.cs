@@ -2,6 +2,8 @@ using System.Reflection;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
+using User.Command.Application.Exceptions;
+using User.Command.Domain.Exceptions;
 
 namespace User.Command.Application.Dispatcher
 {
@@ -19,24 +21,41 @@ namespace User.Command.Application.Dispatcher
             _handlerService = handlerService;
         }
 
-        public async Task DispatchAsync(BaseCommand command)
+        public async Task<(int code, string message)> DispatchAsync(BaseCommand command)
         {
-            _handlers = _handlerService.RegisterHandler(command);
-
+            _handlers = _handlerService.RegisterHandler<BaseCommand>(command, Assembly.GetExecutingAssembly());
 
             if (_handlers.TryGetValue(command.GetType(), out Type? handlerType))
             {
                 var handler = Activator.CreateInstance(handlerType, new object[] {_serviceProvider});
                 if (handler is not null)
                 {
-                    await (Task)handlerType.GetMethod("HandleAsync").Invoke(handler, new object[] { command });
-                }
-                else
-                {
-                    throw new TargetException($"Faild to invoke handler of type: {handlerType.FullName}");
+                    try
+                    {
+                        var task = (Task)handlerType.GetMethod("HandleAsync").Invoke(handler, new object[] { command });
+                        await task.ConfigureAwait(false);
+                    }
+                    catch (UserValidationException e)
+                    {
+                        _logger.LogWarning(e.Message);
+                        return (422, e.Message);
+                    }
+                    catch (UserDomainException e)
+                    {
+                        _logger.LogWarning(e.Message);
+                        return (422, e.Message);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError(e.Message, e.StackTrace);
+                        return (500, "Something went wrong, please try again later.");
+                    }
+                    return(200, "Ok");
                 }
             }
 
+            _logger.LogError($"Faild to invoke handler of type: {handlerType.FullName}");
+            return (400, "Something went wrong, please try again later.");
         }
     }
 }

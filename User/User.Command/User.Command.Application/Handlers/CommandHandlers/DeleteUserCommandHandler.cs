@@ -1,32 +1,36 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Core.MessageHandling;
-using Core.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 using User.Command.Api.Commands;
+using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
 using User.Command.Domin.Stores;
 using User.Common.Events;
+using User.Common.PasswordService;
 
 namespace User.Command.Application.Handlers.CommandHandlers
 {
     public class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand>
     {
         private readonly EventStore _eventStore;
+        private PasswordHashService _passwordHashService;
 
         public DeleteUserCommandHandler(IServiceProvider serviceProvider)
         {
-            _eventStore = serviceProvider.GetService(typeof(IEventStore)) as EventStore;
+            _eventStore = serviceProvider.GetRequiredService<EventStore>();
+            _passwordHashService = serviceProvider.GetRequiredService<PasswordHashService>();
         }
 
-        public Task HandleAsync(DeleteUserCommand command)
+        public async Task HandleAsync(DeleteUserCommand command)
         {
-            var events = _eventStore.GetEventsAsync(command.Id).Result;
+            var events = await _eventStore.GetEventsAsync(command.Id);
             UserAggregate userAggregate = new(_eventStore);
             userAggregate.ReplayEvents(events);
             var version = events.Max(e => e.Version) + 1;
 
+            DeleteUserCommandValidator validator = new(_eventStore, events, _passwordHashService);
+
+            await validator.ValidateCommand(command);
+            
             userAggregate.InvokAction<UserDeletedEvent>(
                 new UserDeletedEvent
                 (
@@ -34,7 +38,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
                     version
                 )
             );
-            return Task.FromResult(0);
+            
         }
     }
 }

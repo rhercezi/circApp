@@ -2,7 +2,9 @@
 /home/roherc/repos/circApp/User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Command.Domain.dll
 /home/roherc/repos/circApp/User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Command.Domain.pdb
 /home/roherc/repos/circApp/User/User.Command/User.Command.Domain/bin/Debug/net7.0/Core.dll
+/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Common.dll
 /home/roherc/repos/circApp/User/User.Command/User.Command.Domain/bin/Debug/net7.0/Core.pdb
+/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Common.pdb
 /home/roherc/repos/circApp/User/User.Command/User.Command.Domain/obj/Debug/net7.0/User.Command.Domain.csproj.AssemblyReference.cache
 /home/roherc/repos/circApp/User/User.Command/User.Command.Domain/obj/Debug/net7.0/User.Command.Domain.GeneratedMSBuildEditorConfig.editorconfig
 /home/roherc/repos/circApp/User/User.Command/User.Command.Domain/obj/Debug/net7.0/User.Command.Domain.AssemblyInfoInputs.cache
@@ -13,5 +15,3 @@
 /home/roherc/repos/circApp/User/User.Command/User.Command.Domain/obj/Debug/net7.0/refint/User.Command.Domain.dll
 /home/roherc/repos/circApp/User/User.Command/User.Command.Domain/obj/Debug/net7.0/User.Command.Domain.pdb
 /home/roherc/repos/circApp/User/User.Command/User.Command.Domain/obj/Debug/net7.0/ref/User.Command.Domain.dll
-/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Common.dll
-/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Common.pdb

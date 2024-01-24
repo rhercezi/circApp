@@ -1,7 +1,6 @@
-using System.Reflection;
 using Core.Aggregate;
-using Core.MessageHandling;
 using Core.Messages;
+using User.Command.Domain.Exceptions;
 using User.Command.Domin.Stores;
 
 namespace User.Command.Domain.Aggregates
@@ -17,7 +16,7 @@ namespace User.Command.Domain.Aggregates
         
         public void InvokAction<T>(BaseEvent xEvent) where T : BaseEvent
         {
-            if (_isDeleted) throw new ArgumentException("Can not perform action on deleted user");
+            if (_isDeleted) throw new UserDomainException("Can not perform action on deleted user");
             InvokeAction<T,UserAggregate>(xEvent, this, false);
         }
         public void ReplayEvents(List<BaseEvent> events)

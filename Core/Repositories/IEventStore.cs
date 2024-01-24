@@ -3,9 +3,9 @@ using Core.Messages;
 
 namespace Core.Repositories
 {
-    public interface IEventStore
+    public interface IEventStore<T> where T : EventModel
     {
-        Task SaveEventAsync(EventModel eventModel);
-        Task<List<BaseEvent>> GetEventsAsync(Guid id);
+        public Task SaveEventAsync(T eventModel);
+        public Task<List<BaseEvent>> GetEventsAsync(Guid id);
     }
 }

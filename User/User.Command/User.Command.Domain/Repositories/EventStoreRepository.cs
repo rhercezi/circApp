@@ -1,47 +1,52 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using Core.Configs;
-using Core.DAOs;
 using Core.Messages;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using User.Command.Domain.Events;
 using User.Command.Domain.Repositories;
-using User.Common.Events;
+using User.Common.DAOs;
 
 namespace User.Command.Application.Repositories
 {
-    public class EventStoreRepository : IEventStoreRepository
+    public class EventStoreRepository : IEventStoreRepository<UserEventModel>
     {
-        private readonly IMongoCollection<EventModel> _eventStoreCollection;
+        private readonly IMongoCollection<UserEventModel> _userCollection;
+        private readonly MongoClient _client;
+        private readonly EventProducer _eventProducer;
 
-        public EventStoreRepository(IOptions<MongoDbConfig> config)
+        public EventStoreRepository(IOptions<MongoDbConfig> config, EventProducer eventProducer)
         {
             this.SetMappers();
-            // BsonClassMap.RegisterClassMap<BaseEvent>(cm => 
-            // {
-            //     cm.AutoMap();
-            //     cm.SetIsRootClass(true);
-            // });
-            // BsonClassMap.RegisterClassMap<UserCreatedEvent>();
-            // BsonClassMap.RegisterClassMap<UserEditedEvent>();
-            // BsonClassMap.RegisterClassMap<UserDeletedEvent>();
-            var client = new MongoClient(config.Value.ConnectionString);
-            var database = client.GetDatabase(config.Value.DatabaseName);
-            _eventStoreCollection = database.GetCollection<EventModel>(config.Value.CollectionName);
+            _client = new MongoClient(config.Value.ConnectionString);
+            var database = _client.GetDatabase(config.Value.DatabaseName);
+            _userCollection = database.GetCollection<UserEventModel>(config.Value.CollectionName);
+            _eventProducer = eventProducer;
         }
 
-        public async Task<List<EventModel>> FindByAgregateId(Guid id)
+        public async Task<List<UserEventModel>> FindByAgregateId(Guid id)
         {
-            return await _eventStoreCollection.Find(i => i.AggregateId == id).ToListAsync().ConfigureAwait(false);
+            return await _userCollection.Find(i => i.AggregateId == id).ToListAsync().ConfigureAwait(false);
         }
 
-        public async Task SaveAsync(EventModel model)
+        public async Task<List<UserEventModel>> FindByUsername(string username)
         {
-            await _eventStoreCollection.InsertOneAsync(model).ConfigureAwait(false);
+            return await _userCollection.Find(i => i.UserName == username).ToListAsync().ConfigureAwait(false);
+        }
+
+        public async Task<List<UserEventModel>> FindByEmail(string email)
+        {
+            return await _userCollection.Find(i => i.Email == email).ToListAsync().ConfigureAwait(false);
+        }
+
+        public async Task SaveAsync(UserEventModel model)
+        {
+            using (var session = await _client.StartSessionAsync())
+            {
+               await _userCollection.InsertOneAsync(model).ConfigureAwait(false);
+               await _eventProducer.ProduceAsync(model.Event);
+            }
+            
         }
 
         private void SetMappers()

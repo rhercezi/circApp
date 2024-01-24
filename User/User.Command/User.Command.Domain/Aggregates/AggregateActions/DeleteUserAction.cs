@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core.DAOs;
 using Core.MessageHandling;
+using User.Common.DAOs;
 using User.Common.Events;
 
 namespace User.Command.Domain.Aggregates.AggregateActions
 {
     public class DeleteUserAction : IAggregateAction<UserDeletedEvent, UserAggregate>
     {
-        public async void ExecuteAsync(UserDeletedEvent xEvent, UserAggregate instance, bool isReplay)
+        public async Task ExecuteAsync(UserDeletedEvent xEvent, UserAggregate instance, bool isReplay)
         {
             if (isReplay)
             {
@@ -21,7 +17,7 @@ namespace User.Command.Domain.Aggregates.AggregateActions
             }
              else
             {
-                var model = new EventModel
+                var model = new UserEventModel
                 {
                     TimeStamp = DateTime.Now,
                     AggregateId = xEvent.Id,
