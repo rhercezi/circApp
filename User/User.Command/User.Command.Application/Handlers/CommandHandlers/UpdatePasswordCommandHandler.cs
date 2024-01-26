@@ -11,7 +11,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
 {
     public class UpdatePasswordCommandHandler : ICommandHandler<UpdatePasswordCommand>
     {
-       private readonly EventStore _eventStore;
+        private readonly EventStore _eventStore;
         private PasswordHashService _passwordHashService;
         
         public UpdatePasswordCommandHandler(IServiceProvider serviceProvider)

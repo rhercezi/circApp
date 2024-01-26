@@ -7,7 +7,7 @@ namespace User.Query.Application.Handlers
     public class PasswordUpdatedEventHandler : IEventHandler<PasswordUpdatedEvent>
     {
         private readonly UserRepository _userRepository;
-        public PasswordUpdatedEventHandler(UserRepository userRepository)
+        public PasswordUpdatedEventHandler(IServiceProvider serviceProvider, UserRepository userRepository)
         {
             _userRepository = userRepository;
         }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vLib5nwdaN/TIwZNr1XfKQo7XX896+aYtYxS/0WbqrbcWW2ksmL/t0Nm6NT6kvEuJlEQJKxj65zan88gI+PUNg==",
+  "dgSpecHash": "y5XDvygnSBjAuW/WruRXUmx+BikpUt2yZM3ldQ4zsqwH/ZAFll1m1iHXKM+PW+NlsCr5kyT9EXEjCFW6FXD8oA==",
   "success": true,
   "projectFilePath": "/home/roherc/repos/circApp/User/User.Query/User.Query.Api/User.Query.Api.csproj",
   "expectedPackageFiles": [
@@ -48,7 +48,7 @@
     "/home/roherc/.nuget/packages/microsoft.extensions.logging.debug/7.0.0/microsoft.extensions.logging.debug.7.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.extensions.logging.eventlog/7.0.0/microsoft.extensions.logging.eventlog.7.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.extensions.logging.eventsource/7.0.0/microsoft.extensions.logging.eventsource.7.0.0.nupkg.sha512",
-    "/home/roherc/.nuget/packages/microsoft.extensions.options/7.0.0/microsoft.extensions.options.7.0.0.nupkg.sha512",
+    "/home/roherc/.nuget/packages/microsoft.extensions.options/7.0.1/microsoft.extensions.options.7.0.1.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.extensions.options.configurationextensions/7.0.0/microsoft.extensions.options.configurationextensions.7.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.identity.client/4.45.0/microsoft.identity.client.4.45.0.nupkg.sha512",

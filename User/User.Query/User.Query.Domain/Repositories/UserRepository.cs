@@ -69,6 +69,17 @@ namespace User.Query.Domain.Repositories
 
         }
 
+        public async Task VerifyEmail(EmailVerifiedEvent xEvent)
+        {
+            using(var context = _context.CreateDbContext())
+            {
+            var user = await context.Users.SingleAsync(u => u.Id == xEvent.Id);
+                user.EmailVerified = true;
+                context.SaveChanges();
+            }
+
+        }
+
         public async Task UpdateUsersPassword(PasswordUpdatedEvent xEvent)
         {
             using(var context = _context.CreateDbContext())

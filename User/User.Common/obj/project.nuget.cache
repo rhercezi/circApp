@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XJ+1sOQeCz7Tp2SABBVowNzn+lLK3LIgYmDsQ4CNe1LjFKPfd8J/dZEEWn/oUfqHwWJsnHgbkQwgZZ54dOb7dw==",
+  "dgSpecHash": "mzEVLhftgnGkUeTdDgPzSKiQ8E9qk9FtHALl0MzTIZimgsvYYVYBB15yDFBTnPdwYQzs0G2Eblb/6ZxX+4po2A==",
   "success": true,
   "projectFilePath": "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj",
   "expectedPackageFiles": [
@@ -11,7 +11,10 @@
     "/home/roherc/.nuget/packages/konscious.security.cryptography.argon2/1.3.0/konscious.security.cryptography.argon2.1.3.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/konscious.security.cryptography.blake2/1.1.0/konscious.security.cryptography.blake2.1.1.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/librdkafka.redist/2.2.0/librdkafka.redist.2.2.0.nupkg.sha512",
+    "/home/roherc/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/7.0.0/microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.extensions.logging.abstractions/2.0.0/microsoft.extensions.logging.abstractions.2.0.0.nupkg.sha512",
+    "/home/roherc/.nuget/packages/microsoft.extensions.options/7.0.1/microsoft.extensions.options.7.0.1.nupkg.sha512",
+    "/home/roherc/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.netcore.platforms/5.0.0/microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/mongodb.bson/2.19.2/mongodb.bson.2.19.2.nupkg.sha512",

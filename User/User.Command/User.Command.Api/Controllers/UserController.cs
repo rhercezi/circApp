@@ -48,5 +48,14 @@ namespace User.Command.Api.Controllers
 
             return StatusCode(t.code, t.message);
         }
+
+        [Route("VerifyEmail")]
+        [HttpPost]
+        public async Task<IActionResult> ValidateEmail(VerifyEmailCommand command) 
+        {
+            var t = await _dispatcher.DispatchAsync(command);
+
+            return StatusCode(t.code, t.message);
+        }
     }
 }

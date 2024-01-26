@@ -7,7 +7,7 @@ namespace User.Query.Application.Handlers
     public class UserDeletedEventHandler : IEventHandler<UserDeletedEvent>
     {
         private readonly UserRepository _userRepository;
-        public UserDeletedEventHandler(UserRepository userRepository)
+        public UserDeletedEventHandler(IServiceProvider serviceProvider, UserRepository userRepository)
         {
             _userRepository = userRepository;
         }

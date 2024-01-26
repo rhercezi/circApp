@@ -10,6 +10,7 @@ using User.Query.Domain.Repositories;
 using User.Query.Domain.DatabaseContext;
 using User.Query.Application.Utils.Configs;
 using User.Query.Application.Utils.Services;
+using User.Common.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<KafkaConsumerConfig>(builder.Configuration.GetSection(nameof(KafkaConsumerConfig)));
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection(nameof(JwtConfig)));
+builder.Services.Configure<MailConfig>(builder.Configuration.GetSection(nameof(MailConfig)));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -24,6 +26,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<UserDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("UserDbConnectionString"))
 );
+builder.Services.AddSingleton<EmailSenderService>();
 builder.Services.AddScoped<PasswordHashService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<UserRepository>();

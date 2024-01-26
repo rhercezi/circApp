@@ -6,6 +6,7 @@ using Core.Messages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using User.Common.Utility;
 using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.EventConsuming
@@ -16,14 +17,16 @@ namespace User.Query.Application.EventConsuming
         private ILogger<EventConsumer> _logger;
         private readonly IHandlerService _handlerService;
 
-        public EventConsumer(IOptions<KafkaConsumerConfig> config, ILogger<EventConsumer> logger, IHandlerService handlerService)
+        public EventConsumer(IOptions<KafkaConsumerConfig> config,
+                             ILogger<EventConsumer> logger,
+                             IHandlerService handlerService)
         {
             _config = config.Value;
             _logger = logger;
             _handlerService = handlerService;
         }
 
-        public async Task Consume(UserRepository repository)
+        public async Task Consume(UserRepository repository, IServiceProvider serviceProvider)
         {
             using (var consumer = new ConsumerBuilder<string, string>(_config)
                     .SetKeyDeserializer(Deserializers.Utf8)
@@ -43,7 +46,7 @@ namespace User.Query.Application.EventConsuming
                                 if ( xEvent != null)
                                 {
                                     
-                                    var resault = await DispatchEvent(xEvent, repository);
+                                    var resault = await DispatchEvent(xEvent, repository, serviceProvider);
                                         if (resault)
                                         {
                                             consumer.Commit(consumeResult);
@@ -91,13 +94,13 @@ namespace User.Query.Application.EventConsuming
             return (BaseEvent)JsonConvert.DeserializeObject(message, type, settings);
         }
 
-        private async Task<bool> DispatchEvent(BaseEvent xEvent, UserRepository repository)
+        private async Task<bool> DispatchEvent(BaseEvent xEvent, UserRepository repository, IServiceProvider serviceProvider)
         {
-            var handlers = _handlerService.RegisterHandler<BaseCommand>(xEvent, Assembly.GetExecutingAssembly());
+            var handlers = _handlerService.RegisterHandler<BaseEvent>(xEvent, Assembly.GetExecutingAssembly());
 
             if (handlers.TryGetValue(xEvent.GetType(), out Type? handlerType))
             {
-                var handler = Activator.CreateInstance(handlerType, new object[] {repository});
+                var handler = Activator.CreateInstance(handlerType, new object[] {serviceProvider, repository});
                 if (handler is not null)
                 {
                     try
