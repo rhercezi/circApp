@@ -12,7 +12,6 @@ namespace User.Query.Application.DTOs
             Created = UserEntity.Created;
             Updated = UserEntity.Updated;
             UserName = UserEntity.UserName;
-            Password = UserEntity.Password;
             FirstName = UserEntity.FirstName;
             FamilyName = UserEntity.FamilyName;
             Email = UserEntity.Email;
@@ -23,7 +22,6 @@ namespace User.Query.Application.DTOs
         public DateTime? Created { get; set; }
         public DateTime? Updated { get; set; }
         public string? UserName { get; set; }
-        public string? Password { get; set; }
         public string? FirstName { get; set; }
         public string? FamilyName { get; set; }
         public string? Email { get; set; }

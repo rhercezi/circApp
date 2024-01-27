@@ -32,50 +32,50 @@ namespace User.Query.Application.EventConsuming
                     .SetKeyDeserializer(Deserializers.Utf8)
                     .SetValueDeserializer(Deserializers.Utf8)
                     .Build())
+            {
+                consumer.Subscribe(_config.Topic);
+
+                while (true)
+                {
+                    try
                     {
-                        consumer.Subscribe(_config.Topic);
+                        var consumeResult = consumer.Consume();
 
-                        while(true)
+                        var xEvent = DeserializeMessage(consumeResult.Message.Value);
+
+                        if (xEvent != null)
                         {
-                            try
-                            {
-                                var consumeResult = consumer.Consume();
-                                
-                                var xEvent = DeserializeMessage(consumeResult.Message.Value);
 
-                                if ( xEvent != null)
-                                {
-                                    
-                                    var resault = await DispatchEvent(xEvent, repository, serviceProvider);
-                                        if (resault)
-                                        {
-                                            consumer.Commit(consumeResult);
-                                        }
-                                        else
-                                        {
-                                            _logger.LogError($"Dispatching failed for event of type {xEvent.GetType().FullName}");
-                                        }
-                                }
-                                else
-                                {
-                                    _logger.LogError($"Failed to deserialize event:\n {consumeResult.Message.Value}");
-                                }
-                            }
-                            catch (ConsumeException e)
+                            var resault = await DispatchEvent(xEvent, repository, serviceProvider);
+                            if (resault)
                             {
-                                _logger.LogError("Error consuming event", e);
+                                consumer.Commit(consumeResult);
                             }
-                            catch (OperationCanceledException e)
+                            else
                             {
-                                _logger.LogError("Event consuming canceled", e);
+                                _logger.LogError($"Dispatching failed for event of type {xEvent.GetType().FullName}");
                             }
-                            catch (Exception e)
-                            {
-                                _logger.LogError("Error dispatching consumed event", e);
-                            }
-
+                        }
+                        else
+                        {
+                            _logger.LogError($"Failed to deserialize event:\n {consumeResult.Message.Value}");
                         }
                     }
+                    catch (ConsumeException e)
+                    {
+                        _logger.LogError("Error consuming event", e);
+                    }
+                    catch (OperationCanceledException e)
+                    {
+                        _logger.LogError("Event consuming canceled", e);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError("Error dispatching consumed event", e);
+                    }
+
+                }
+            }
         }
 
         private BaseEvent DeserializeMessage(string message)
@@ -87,7 +87,7 @@ namespace User.Query.Application.EventConsuming
 
             var type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(
                 a => a.GetTypes().Where(
-                    t => t.IsClass && t.FullName.Equals(typeName) 
+                    t => t.IsClass && t.FullName.Equals(typeName)
                 )
             ).First();
 
@@ -100,7 +100,7 @@ namespace User.Query.Application.EventConsuming
 
             if (handlers.TryGetValue(xEvent.GetType(), out Type? handlerType))
             {
-                var handler = Activator.CreateInstance(handlerType, new object[] {serviceProvider, repository});
+                var handler = Activator.CreateInstance(handlerType, new object[] { serviceProvider, repository });
                 if (handler is not null)
                 {
                     try

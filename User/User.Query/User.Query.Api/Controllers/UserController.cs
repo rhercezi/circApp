@@ -18,10 +18,11 @@ namespace User.Query.Api.Controllers
             _authDispatcher = authDispatcher;
         }
 
-        [Route("ById")]
+        [Route("ById/{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetUserById(GetUserByIdQuery query) 
+        public async Task<IActionResult> GetUserById([FromRoute] Guid id) 
         {
+            var query = new GetUserByIdQuery{Id = id};
             var t = await _queryDispatcher.DispatchAsync(query);
 
             return StatusCode(200, t);
@@ -29,8 +30,9 @@ namespace User.Query.Api.Controllers
 
         [Route("ByEmail")]
         [HttpGet]
-        public async Task<IActionResult> GetUserByEmail(GetUserByEmailQuery query) 
+        public async Task<IActionResult> GetUserByEmail([FromQuery] string email) 
         {
+            var query = new GetUserByEmailQuery(email);
             var t = await _queryDispatcher.DispatchAsync(query);
 
             return StatusCode(200, t);
@@ -38,8 +40,9 @@ namespace User.Query.Api.Controllers
 
         [Route("ByUsername")]
         [HttpGet]
-        public async Task<IActionResult> GetUserByUsername(GetUserByUsernameQuery query) 
+        public async Task<IActionResult> GetUserByUsername([FromQuery] string username) 
         {
+            var query = new GetUserByUsernameQuery(username);
             var t = await _queryDispatcher.DispatchAsync(query);
 
             return StatusCode(200, t);
@@ -47,9 +50,10 @@ namespace User.Query.Api.Controllers
 
         [Route("GetToken")]
         [HttpGet]
-        public async Task<IActionResult> GetToken(LoginQuery loginDto) 
+        public async Task<IActionResult> GetToken([FromQuery] string username, string password) 
         {
-            var t = await _authDispatcher.DispatchAsync(loginDto);
+            var loginQuery = new LoginQuery(username, password);
+            var t = await _authDispatcher.DispatchAsync(loginQuery);
 
             return StatusCode(200, t);
         }
