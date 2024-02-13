@@ -1,21 +1,19 @@
+using Core.DTOs;
 using Core.MessageHandling;
 using Microsoft.AspNetCore.Mvc;
-using User.Query.Application.DTOs;
 using User.Query.Application.Queries;
 
 namespace User.Query.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly IQueryDispatcher<UserDto> _queryDispatcher;
-        private readonly IQueryDispatcher<TokenDto> _authDispatcher;
 
-        public UserController(IQueryDispatcher<UserDto> dispatcher, IQueryDispatcher<TokenDto> authDispatcher)
+        public UserController(IQueryDispatcher<UserDto> dispatcher)
         {
             _queryDispatcher = dispatcher;
-            _authDispatcher = authDispatcher;
         }
 
         [Route("ById/{id}")]
@@ -47,16 +45,5 @@ namespace User.Query.Api.Controllers
 
             return StatusCode(200, t);
         }
-
-        [Route("GetToken")]
-        [HttpGet]
-        public async Task<IActionResult> GetToken([FromQuery] string username, string password) 
-        {
-            var loginQuery = new LoginQuery(username, password);
-            var t = await _authDispatcher.DispatchAsync(loginQuery);
-
-            return StatusCode(200, t);
-        }
-
     }
 }

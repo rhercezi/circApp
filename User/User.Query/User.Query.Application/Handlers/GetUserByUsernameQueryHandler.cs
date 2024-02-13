@@ -1,6 +1,6 @@
+using Core.DTOs;
 using Core.MessageHandling;
 using Microsoft.Extensions.DependencyInjection;
-using User.Query.Application.DTOs;
 using User.Query.Application.Queries;
 using User.Query.Domain.Repositories;
 
@@ -17,7 +17,18 @@ namespace User.Query.Application.Handlers
 
         public async Task<UserDto> HandleAsync(GetUserByUsernameQuery query)
         {
-            return new UserDto( await _userRepository.GetUserByUsernameAsync(query.Username));
+            var user = await _userRepository.GetUserByUsernameAsync(query.Username);
+            return new UserDto
+            {
+                Id = user.Id,
+                Created = user.Created,
+                Updated = user.Updated,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                FamilyName = user.FamilyName,
+                Email = user.Email,
+                EmailVerified = user.EmailVerified
+            };
         }
     }
 }

@@ -10,6 +10,7 @@ services:
       - "zookeeper_data:/bitnami"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+
   kafka:
     image: bitnami/kafka
     ports:
@@ -25,10 +26,30 @@ services:
     depends_on:
       - zookeeper
 
+  mssql-container:
+    image: mssql-image
+    restart: always
+    ports: 
+      - "1433:1433"
+    volumes:
+      - "sqlvolume:/var/opt/mssql"
+      
+  mongo-container:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - "mongo_volume:/data/db"
+
 volumes:
   zookeeper_data:
     driver: local
   kafka_data:
+    driver: local
+  sqlvolume:
+    driver: local
+  mongo_volume:
     driver: local
    
 networks:

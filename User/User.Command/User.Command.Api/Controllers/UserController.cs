@@ -6,7 +6,7 @@ using User.Command.Application.Commands;
 namespace User.Command.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly ICommandDispatcher _dispatcher;
@@ -19,6 +19,15 @@ namespace User.Command.Api.Controllers
         [Route("Password")]
         [HttpPatch]
         public async Task<IActionResult> UpdatePassword(UpdatePasswordCommand command) 
+        {
+            var t = await _dispatcher.DispatchAsync(command);
+
+            return StatusCode(t.code, t.message);
+        }
+
+        [Route("Password/Reset")]
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordCommand command) 
         {
             var t = await _dispatcher.DispatchAsync(command);
 
@@ -49,10 +58,11 @@ namespace User.Command.Api.Controllers
             return StatusCode(t.code, t.message);
         }
 
-        [Route("VerifyEmail")]
+        [Route("VerifyEmail/{idLink}")]
         [HttpPost]
-        public async Task<IActionResult> ValidateEmail(VerifyEmailCommand command) 
+        public async Task<IActionResult> ValidateEmail([FromRoute] string idLink) 
         {
+            var command = new VerifyEmailCommand(idLink); 
             var t = await _dispatcher.DispatchAsync(command);
 
             return StatusCode(t.code, t.message);

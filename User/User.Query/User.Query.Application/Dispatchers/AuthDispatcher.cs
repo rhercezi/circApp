@@ -1,12 +1,12 @@
 using System.Reflection;
+using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
-using User.Query.Application.DTOs;
 
 namespace User.Query.Application.Dispatchers
 {
-    public class AuthDispatcher : IQueryDispatcher<TokenDto>
+    public class AuthDispatcher : IQueryDispatcher<UserDto>
     {
         private Dictionary<Type, Type> _handlers = new();
         private readonly ILogger<AuthDispatcher> _logger;
@@ -20,17 +20,17 @@ namespace User.Query.Application.Dispatchers
             _handlerService = handlerService;
         }
 
-        public async Task<TokenDto> DispatchAsync(BaseQuery query)
+        public async Task<UserDto> DispatchAsync(BaseQuery query)
         {
-            _handlers = _handlerService.RegisterHandler<BaseQuery,TokenDto>(query, Assembly.GetExecutingAssembly(), typeof(TokenDto));
+            _handlers = _handlerService.RegisterHandler<BaseQuery,UserDto>(query, Assembly.GetExecutingAssembly(), typeof(UserDto));
 
             if (_handlers.TryGetValue(query.GetType(), out Type? handlerType))
             {
                 var handler = Activator.CreateInstance(handlerType, new object[] {_serviceProvider});
                 if (handler is not null)
                 {
-                    var tokenDto = (Task<TokenDto>)handlerType.GetMethod("HandleAsync").Invoke(handler, new object[] { query });
-                    return await tokenDto;
+                    var UserDto = (Task<UserDto>)handlerType.GetMethod("HandleAsync").Invoke(handler, new object[] { query });
+                    return await UserDto;
                 }
                 return null;
             }

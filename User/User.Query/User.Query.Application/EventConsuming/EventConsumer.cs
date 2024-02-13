@@ -6,7 +6,6 @@ using Core.Messages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using User.Common.Utility;
 using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.EventConsuming
@@ -63,15 +62,15 @@ namespace User.Query.Application.EventConsuming
                     }
                     catch (ConsumeException e)
                     {
-                        _logger.LogError("Error consuming event", e);
+                        _logger.LogError("Error consuming event\n" + e);
                     }
                     catch (OperationCanceledException e)
                     {
-                        _logger.LogError("Event consuming canceled", e);
+                        _logger.LogError("Event consuming canceled\n" + e);
                     }
                     catch (Exception e)
                     {
-                        _logger.LogError("Error dispatching consumed event", e);
+                        _logger.LogError("Error dispatching consumed event\n" + e);
                     }
 
                 }

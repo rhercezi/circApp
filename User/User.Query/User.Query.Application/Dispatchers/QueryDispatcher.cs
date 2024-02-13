@@ -1,8 +1,8 @@
 using System.Reflection;
+using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
-using User.Query.Application.DTOs;
 
 namespace User.Query.Application.Dispatchers
 {

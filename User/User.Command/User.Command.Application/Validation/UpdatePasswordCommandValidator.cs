@@ -20,7 +20,10 @@ namespace User.Command.Application.Validation
         public async override Task ValidateCommand(UpdatePasswordCommand command)
         {
             _messages.Add(ValidatePassword(command.Password));
-            _messages.Add(ValidateOldPassword(command, _events, _passwordHashService));
+            if (string.IsNullOrEmpty(command.IdLink))
+            {
+                _messages.Add(ValidateOldPassword(command, _events, _passwordHashService));
+            }
 
             ThrowIfErrorExists(_messages);
         }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using User.Command.Api.Commands;
 using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
+using User.Command.Domain.Exceptions;
 using User.Command.Domin.Stores;
 using User.Common.Events;
 
@@ -20,6 +21,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
         public async Task HandleAsync(EditUserCommand command)
         {
             var events = await _eventStore.GetEventsAsync(command.Id);
+            if (events.Count == 0) throw new UserDomainException("No users found with the given ID.");
             UserAggregate userAggregate = new(_eventStore);
             userAggregate.ReplayEvents(events);
             var version = events.Max(e => e.Version) + 1;

@@ -1,8 +1,9 @@
 using Core.Messages;
 using Core.Repositories;
+using Microsoft.IdentityModel.Tokens;
 using User.Command.Application.Repositories;
-using User.Command.Domain.Exceptions;
 using User.Common.DAOs;
+using User.Common.Events;
 
 namespace User.Command.Domin.Stores
 {
@@ -25,7 +26,7 @@ namespace User.Command.Domin.Stores
             }
             else
             {
-                throw new UserDomainException("No users found with the given ID.");
+                return new List<BaseEvent>();
             }
         }
 
@@ -40,6 +41,22 @@ namespace User.Command.Domin.Stores
             else
             {
                 return false;
+            }
+        }
+
+        public async Task<List<BaseEvent>> GetByUsernameAsync(string username)
+        {
+            var events = await _eventStoreRepository.FindByUsername(username);
+            if (!events.IsNullOrEmpty())
+            {
+                return events.OrderBy(e => e.Version)
+                            .Select(e => e.Event)
+                            .Where(e => e.EventType == typeof(UserCreatedEvent).FullName || e.EventType == typeof(UserEditedEvent).FullName)
+                            .ToList();
+            }
+            else
+            {
+                return new List<BaseEvent>();
             }
         }
 

@@ -1,9 +1,10 @@
+using Core.MessageHandling;
 using User.Common.Events;
 using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.Handlers
 {
-    public class EmailVerifiedEventHandler
+    public class EmailVerifiedEventHandler : IEventHandler<EmailVerifiedEvent>
     {
         private readonly UserRepository _userRepository;
         public EmailVerifiedEventHandler(IServiceProvider serviceProvider, UserRepository userRepository)

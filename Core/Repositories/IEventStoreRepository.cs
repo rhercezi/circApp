@@ -1,6 +1,6 @@
 using Core.DAOs;
 
-namespace User.Command.Domain.Repositories
+namespace Core.Repositories
 {
     public interface IEventStoreRepository<T> where T : EventModel
     {

@@ -1,9 +1,13 @@
 using Core.Configs;
 using Core.MessageHandling;
+using Core.Repositories;
+using Core.Utilities;
 using User.Command.Application.Dispatcher;
 using User.Command.Application.Repositories;
 using User.Command.Domain.Events;
+using User.Command.Domain.Repositories;
 using User.Command.Domin.Stores;
+using User.Common.DAOs;
 using User.Common.PasswordService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection(nameof(MongoDbConfig)));
 builder.Services.Configure<KafkaProducerConfig>(builder.Configuration.GetSection(nameof(KafkaProducerConfig)));
+builder.Services.Configure<MailConfig>(builder.Configuration.GetSection(nameof(MailConfig)));
+builder.Services.AddSingleton<EmailSenderService>();
+builder.Services.AddScoped<IMongoRepository<IdLinkModel>,IdLinkRepository>();
 builder.Services.AddScoped<EventStoreRepository>();
 builder.Services.AddScoped<EventProducer>();
 builder.Services.AddScoped<EventStore>();

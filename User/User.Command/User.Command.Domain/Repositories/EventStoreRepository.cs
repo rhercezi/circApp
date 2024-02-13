@@ -1,10 +1,10 @@
 using Core.Configs;
 using Core.Messages;
+using Core.Repositories;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using User.Command.Domain.Events;
-using User.Command.Domain.Repositories;
 using User.Common.DAOs;
 
 namespace User.Command.Application.Repositories

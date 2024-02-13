@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace User.Common.Utility
+namespace Core.Configs
 {
     public class MailConfig
     {
@@ -16,6 +11,6 @@ namespace User.Common.Utility
         public string Username { get; set; }
         public string Password { get; set; }
         public string Subject { get; set; }
-        public string Body { get; set; }
+        public List<string> Body { get; set; }
     }
 }
