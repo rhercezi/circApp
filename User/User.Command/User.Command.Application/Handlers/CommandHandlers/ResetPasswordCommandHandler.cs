@@ -61,12 +61,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
 
              _config.Body[1] = _config.Body[1].Replace("[ResetLink]", idLink);
             _config.Body[1] = _config.Body[1].Replace("[User]", command.UserName);
+            _config.Subject = "CircleApp - reset password";
 
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var _emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
-                _emailSenderService.SendMail(idLink, userEvent.Email, _config, 1);
-            }
+            using var scope = _serviceProvider.CreateScope();
+            var _emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
+            _emailSenderService.SendMail(idLink, userEvent.Email, _config, 1);
         }
     }
 }

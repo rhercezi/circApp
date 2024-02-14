@@ -14,22 +14,20 @@ namespace Core.Utilities
             string smtpServer = config.Server;
             int smtpPort = config.Port;
 
-            using (var client = new SmtpClient(smtpServer, smtpPort))
+            using var client = new SmtpClient(smtpServer, smtpPort);
+            client.Credentials = new NetworkCredential("testUser", "testPass");
+            client.EnableSsl = config.EnableSSL;
+
+            var message = new MailMessage
             {
-                client.Credentials = new NetworkCredential("testUser", "testPass");
-                client.EnableSsl = config.EnableSSL;
+                From = new MailAddress(config.Sender, config.Company),
+                Subject = config.Subject,
+                Body = body[bodyIndex],
+                IsBodyHtml = true,
+            };
 
-                var message = new MailMessage
-                {
-                    From = new MailAddress(config.Sender, config.Company),
-                    Subject = config.Subject,
-                    Body = body[bodyIndex],
-                    IsBodyHtml = true,
-                };
-
-                message.To.Add(email);
-                client.Send(message);
-            }
+            message.To.Add(email);
+            client.Send(message);
         }
     }
 }

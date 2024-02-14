@@ -29,16 +29,14 @@ namespace User.Command.Domain.Repositories
 
         public async Task SaveAsync(IdLinkModel idLinkModel)
         {
-            using (var session = await _client.StartSessionAsync())
+            using var session = await _client.StartSessionAsync();
+            try
             {
-                try
-                {
-                    await _idLinkCollection.InsertOneAsync(idLinkModel).ConfigureAwait(false);
-                }
-                catch (Exception e)
-                {
-                    _logger.LogError(e, "Error saving IdLinkModel");
-                }
+                await _idLinkCollection.InsertOneAsync(idLinkModel).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error saving IdLinkModel");
             }
         }
     }

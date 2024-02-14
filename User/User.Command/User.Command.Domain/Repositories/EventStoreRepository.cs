@@ -41,12 +41,10 @@ namespace User.Command.Application.Repositories
 
         public async Task SaveAsync(UserEventModel model)
         {
-            using (var session = await _client.StartSessionAsync())
-            {
-               await _userCollection.InsertOneAsync(model).ConfigureAwait(false);
-               await _eventProducer.ProduceAsync(model.Event);
-            }
-            
+            using var session = await _client.StartSessionAsync();
+            await _userCollection.InsertOneAsync(model).ConfigureAwait(false);
+            await _eventProducer.ProduceAsync(model.Event);
+
         }
 
         private void SetMappers()

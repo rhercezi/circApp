@@ -27,53 +27,51 @@ namespace User.Query.Application.EventConsuming
 
         public async Task Consume(UserRepository repository, IServiceProvider serviceProvider)
         {
-            using (var consumer = new ConsumerBuilder<string, string>(_config)
+            using var consumer = new ConsumerBuilder<string, string>(_config)
                     .SetKeyDeserializer(Deserializers.Utf8)
                     .SetValueDeserializer(Deserializers.Utf8)
-                    .Build())
+                    .Build();
+            consumer.Subscribe(_config.Topic);
+
+            while (true)
             {
-                consumer.Subscribe(_config.Topic);
-
-                while (true)
+                try
                 {
-                    try
+                    var consumeResult = consumer.Consume();
+
+                    var xEvent = DeserializeMessage(consumeResult.Message.Value);
+
+                    if (xEvent != null)
                     {
-                        var consumeResult = consumer.Consume();
 
-                        var xEvent = DeserializeMessage(consumeResult.Message.Value);
-
-                        if (xEvent != null)
+                        var resault = await DispatchEvent(xEvent, repository, serviceProvider);
+                        if (resault)
                         {
-
-                            var resault = await DispatchEvent(xEvent, repository, serviceProvider);
-                            if (resault)
-                            {
-                                consumer.Commit(consumeResult);
-                            }
-                            else
-                            {
-                                _logger.LogError($"Dispatching failed for event of type {xEvent.GetType().FullName}");
-                            }
+                            consumer.Commit(consumeResult);
                         }
                         else
                         {
-                            _logger.LogError($"Failed to deserialize event:\n {consumeResult.Message.Value}");
+                            _logger.LogError($"Dispatching failed for event of type {xEvent.GetType().FullName}");
                         }
                     }
-                    catch (ConsumeException e)
+                    else
                     {
-                        _logger.LogError("Error consuming event\n" + e);
+                        _logger.LogError($"Failed to deserialize event:\n {consumeResult.Message.Value}");
                     }
-                    catch (OperationCanceledException e)
-                    {
-                        _logger.LogError("Event consuming canceled\n" + e);
-                    }
-                    catch (Exception e)
-                    {
-                        _logger.LogError("Error dispatching consumed event\n" + e);
-                    }
-
                 }
+                catch (ConsumeException e)
+                {
+                    _logger.LogError("Error consuming event\n" + e.StackTrace);
+                }
+                catch (OperationCanceledException e)
+                {
+                    _logger.LogError("Event consuming canceled\n" + e.StackTrace);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError("Error dispatching consumed event\n" + e.StackTrace);
+                }
+
             }
         }
 

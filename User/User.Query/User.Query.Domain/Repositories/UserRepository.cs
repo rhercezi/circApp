@@ -16,78 +16,62 @@ namespace User.Query.Domain.Repositories
 
         public async Task<UserEntity> GetUserByIdAsync(Guid id)
         {
-            using(var context = _context.CreateDbContext())
-            {
-                return await context.Users.SingleAsync(u => u.Id == id);
-            }
+            using var context = _context.CreateDbContext();
+            return await context.Users.SingleAsync(u => u.Id == id);
         }
 
         public async Task<UserEntity> GetUserByEmailAsync(string email)
         {
-            using(var context = _context.CreateDbContext())
-            {
-                return await context.Users.SingleAsync(u => u.Email == email);
-            }
+            using var context = _context.CreateDbContext();
+            return await context.Users.SingleAsync(u => u.Email == email);
         }
 
         public async Task<UserEntity> GetUserByUsernameAsync(string username)
         {
-            using(var context = _context.CreateDbContext())
-            {
-                return await context.Users.SingleAsync(u => u.UserName == username);
-            }
+            using var context = _context.CreateDbContext();
+            return await context.Users.SingleAsync(u => u.UserName == username);
         }
 
         public async Task CreateUser(UserCreatedEvent xEvent)
         {
-            using(var context = _context.CreateDbContext())
-            {
-                var user = CreateUserFromEvent(xEvent);
-                await context.Users.AddAsync(user);
-                context.SaveChanges();
-            }
+            using var context = _context.CreateDbContext();
+            var user = CreateUserFromEvent(xEvent);
+            await context.Users.AddAsync(user);
+            context.SaveChanges();
         }
 
         public async Task UpdateUser(UserEditedEvent xEvent)
         {
-            using(var context = _context.CreateDbContext())
-            {
-                var userOriginal = await context.Users.SingleAsync(u => u.Id == xEvent.Id);
-                UpdateValues(ref userOriginal, xEvent);
-                context.SaveChanges();
-            }
+            using var context = _context.CreateDbContext();
+            var userOriginal = await context.Users.SingleAsync(u => u.Id == xEvent.Id);
+            UpdateValues(ref userOriginal, xEvent);
+            context.SaveChanges();
         }
 
         public async Task DeleteUser(UserDeletedEvent xEvent)
         {
-            using(var context = _context.CreateDbContext())
-            {
+            using var context = _context.CreateDbContext();
             var user = await context.Users.SingleAsync(u => u.Id == xEvent.Id);
-                context.Remove(user);
-                context.SaveChanges();
-            }
+            context.Remove(user);
+            context.SaveChanges();
 
         }
 
         public async Task VerifyEmail(EmailVerifiedEvent xEvent)
         {
-            using(var context = _context.CreateDbContext())
-            {
+            using var context = _context.CreateDbContext();
             var user = await context.Users.SingleAsync(u => u.Id == xEvent.Id);
-                user.EmailVerified = true;
-                context.SaveChanges();
-            }
+            user.EmailVerified = true;
+            context.SaveChanges();
 
         }
 
         public async Task UpdateUsersPassword(PasswordUpdatedEvent xEvent)
         {
-            using(var context = _context.CreateDbContext())
-            {
-                var userOriginal = await context.Users.SingleAsync(u => u.Id == xEvent.Id);
-                userOriginal.Password = xEvent.Password;
-                context.SaveChanges();
-            }
+            using var context = _context.CreateDbContext();
+            var userOriginal = await context.Users.SingleAsync(u => u.Id == xEvent.Id);
+            userOriginal.Password = xEvent.Password;
+            context.SaveChanges();
         }
 
         private UserEntity CreateUserFromEvent(UserCreatedEvent xEvent)

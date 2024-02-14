@@ -3,6 +3,7 @@ using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
+using User.Query.Application.Exceptions;
 
 namespace User.Query.Application.Dispatchers
 {
@@ -22,19 +23,29 @@ namespace User.Query.Application.Dispatchers
 
         public async Task<UserDto> DispatchAsync(BaseQuery query)
         {
-            _handlers = _handlerService.RegisterHandler<BaseQuery,UserDto>(query, Assembly.GetExecutingAssembly(), typeof(UserDto));
+            _handlers = _handlerService.RegisterHandler<BaseQuery, UserDto>(query, Assembly.GetExecutingAssembly(), typeof(UserDto));
 
             if (_handlers.TryGetValue(query.GetType(), out Type? handlerType))
             {
-                var handler = Activator.CreateInstance(handlerType, new object[] {_serviceProvider});
+                var handler = Activator.CreateInstance(handlerType, new object[] { _serviceProvider });
                 if (handler is not null)
                 {
-                    var userDto = (Task<UserDto>)handlerType.GetMethod("HandleAsync").Invoke(handler, new object[] { query });
-                    return await userDto;
+                    try
+                    {
+                        var userDto = (Task<UserDto>)handlerType.GetMethod("HandleAsync").Invoke(handler, new object[] { query });
+                        return await userDto;
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError(e.StackTrace, e.Message);
+                        throw new QueryApplicationException("Auth dispatcher failed", e);
+                    }
                 }
-                return null;
+                _logger.LogError($"Could not creaate instance of handler. Type: {handlerType.Name}");
+                return new UserDto();
             }
-            return null;
+            _logger.LogError($"Could not find handler for query. Type: {query.GetType().Name}");
+            return new UserDto();
         }
     }
 }

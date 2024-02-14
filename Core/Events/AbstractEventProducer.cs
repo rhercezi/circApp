@@ -17,26 +17,24 @@ namespace Core.Events
         public async Task ProduceAsync<T>(T xEvent) where T : BaseEvent
         {
             var settings = new JsonSerializerSettings { TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto };
-            using (var producer = new ProducerBuilder<string, string>(_config)
+            using var producer = new ProducerBuilder<string, string>(_config)
                 .SetKeySerializer(Serializers.Utf8)
                 .SetValueSerializer(Serializers.Utf8)
-                .Build())
-                {
-                    var message = new Message<string, string>
-                    {
-                        Key = xEvent.Id.ToString(),
-                        Value = JsonConvert.SerializeObject(xEvent, xEvent.GetType(), settings)
-                    };
+                .Build();
+            var message = new Message<string, string>
+            {
+                Key = xEvent.Id.ToString(),
+                Value = JsonConvert.SerializeObject(xEvent, xEvent.GetType(), settings)
+            };
 
-                    var resault = await producer.ProduceAsync(_config.Topic, message);
+            var resault = await producer.ProduceAsync(_config.Topic, message);
 
-                    if (resault.Status == PersistenceStatus.NotPersisted)
-                    {
-                        throw new CoreException("Event producing failed");
-                    }
-                }
+            if (resault.Status == PersistenceStatus.NotPersisted)
+            {
+                throw new CoreException("Event producing failed");
+            }
 
-           
+
         }
     }
 }

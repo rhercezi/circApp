@@ -67,6 +67,17 @@ services:
       - kafka
       - mailhog
 
+  user-query-api-container:
+    image: user_query_api:latest
+    container_name: user_query_api
+    restart: always
+    ports:
+      - "5011:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - kafka
+
 volumes:
   zookeeper_data:
     driver: local
