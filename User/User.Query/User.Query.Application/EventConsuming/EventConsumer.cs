@@ -107,9 +107,9 @@ namespace User.Query.Application.EventConsuming
                         var task = (Task)handlerType.GetMethod("HandleAsync").Invoke(handler, new object[] { xEvent });
                         await task.ConfigureAwait(false);
                     }
-                    catch (Exception ex)
+                    catch (Exception e)
                     {
-                        _logger.LogError(ex.Message, ex.StackTrace);
+                        _logger.LogError(e.StackTrace, e.Message);
                         return false;
                     }
                 }

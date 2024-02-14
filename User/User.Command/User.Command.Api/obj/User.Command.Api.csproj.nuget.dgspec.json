@@ -109,6 +109,9 @@
               },
               "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj": {
                 "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj"
+              },
+              "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj": {
+                "projectPath": "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj"
               }
             }
           }

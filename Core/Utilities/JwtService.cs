@@ -74,7 +74,7 @@ namespace Core.Utilities
             }
             catch (Exception e)
             {
-                _logger.LogError(e.Message, e.StackTrace);
+                _logger.LogError(e.StackTrace, e.Message);
                 return null;
             }
         }

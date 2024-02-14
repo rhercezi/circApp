@@ -18,7 +18,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
     {
         private readonly EventStore _eventStore;
         private PasswordHashService _passwordHashService;
-        private readonly EmailSenderService _emailSenderService;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IMongoRepository<IdLinkModel> _idLinkRepo;
         private MailConfig _config;
 
@@ -26,7 +26,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
         {
             _eventStore = serviceProvider.GetRequiredService<EventStore>();
             _passwordHashService = serviceProvider.GetRequiredService<PasswordHashService>();
-            _emailSenderService = serviceProvider.GetRequiredService<EmailSenderService>();
+            _serviceProvider = serviceProvider;
             _idLinkRepo = serviceProvider.GetRequiredService<IMongoRepository<IdLinkModel>>();
             _config = serviceProvider.GetRequiredService<IOptions<MailConfig>>().Value;
         }
@@ -60,7 +60,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
             _config.Body[0] = _config.Body[0].Replace("[VerificationLink]", idLink);
             _config.Body[0] = _config.Body[0].Replace("[User]", command.FirstName + " " + command.FamilyName);
 
-            _emailSenderService.SendMail(idLink, command.Email, _config, 0);
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var _emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
+                _emailSenderService.SendMail(idLink, command.Email, _config, 0);
+            }
             await _idLinkRepo.SaveAsync(new IdLinkModel
             {
                 LinkId = idLink,

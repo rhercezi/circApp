@@ -2044,7 +2044,8 @@
       "Microsoft.AspNetCore.OpenApi >= 7.0.5",
       "Swashbuckle.AspNetCore >= 6.4.0",
       "User.Command.Application >= 1.0.0",
-      "User.Command.Domain >= 1.0.0"
+      "User.Command.Domain >= 1.0.0",
+      "User.Common >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2080,6 +2081,9 @@
             },
             "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj": {
               "projectPath": "/home/roherc/repos/circApp/User/User.Command/User.Command.Domain/User.Command.Domain.csproj"
+            },
+            "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj": {
+              "projectPath": "/home/roherc/repos/circApp/User/User.Common/User.Common.csproj"
             }
           }
         }

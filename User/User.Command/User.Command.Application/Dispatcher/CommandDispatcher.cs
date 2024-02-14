@@ -47,7 +47,7 @@ namespace User.Command.Application.Dispatcher
                     }
                     catch (Exception e)
                     {
-                        _logger.LogError(e.Message, e.StackTrace);
+                        _logger.LogError(e.StackTrace, e.Message);
                         return (500, "Something went wrong, please try again later.");
                     }
                     return(200, "Ok");

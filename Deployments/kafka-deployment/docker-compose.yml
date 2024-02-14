@@ -3,6 +3,7 @@ version: "3.4"
 services:
   zookeeper:
     image: bitnami/zookeeper
+    container_name: zookeeper
     restart: always
     ports:
       - "2181:2181"
@@ -13,21 +14,26 @@ services:
 
   kafka:
     image: bitnami/kafka
+    container_name: kafka
     ports:
       - "9092:9092"
+      - "29094:29094"
     restart: always
     volumes:
       - "kafka_data:/bitnami"
     environment:
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
-      - KAFKA_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_LISTENERS=INTERNAL://kafka:29092,EXTERNAL://kafka:9092
+      - KAFKA_ADVERTISED_LISTENERS=INTERNAL://kafka:29092,EXTERNAL://localhost:9092
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
     depends_on:
       - zookeeper
 
   mssql-container:
     image: mssql-image
+    container_name: mssqlDB
     restart: always
     ports: 
       - "1433:1433"
@@ -36,11 +42,30 @@ services:
       
   mongo-container:
     image: mongo:latest
+    container_name: mongoDB
     restart: always
     ports:
       - "27017:27017"
     volumes:
       - "mongo_volume:/data/db"
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"  # SMTP port
+      - "8025:8025"  # Web UI port
+
+  user-command-api-container:
+    image: user_command_api:latest
+    container_name: user_command_api
+    restart: always
+    ports:
+      - "5010:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - kafka
+      - mailhog
 
 volumes:
   zookeeper_data:

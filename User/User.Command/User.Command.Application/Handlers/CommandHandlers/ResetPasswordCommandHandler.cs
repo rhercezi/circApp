@@ -15,14 +15,14 @@ namespace User.Command.Application.Handlers.CommandHandlers
 {
     public class ResetPasswordCommandHandler : ICommandHandler<ResetPasswordCommand>
     {
-        private readonly EmailSenderService _emailSenderService;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IMongoRepository<IdLinkModel> _idLinkRepo;
         private readonly EventStore _eventStore;
         private MailConfig _config;
 
         public ResetPasswordCommandHandler(IServiceProvider serviceProvider)
         {
-            _emailSenderService = serviceProvider.GetRequiredService<EmailSenderService>();
+            _serviceProvider = serviceProvider;
             _idLinkRepo = serviceProvider.GetRequiredService<IMongoRepository<IdLinkModel>>();
             _eventStore = serviceProvider.GetRequiredService<EventStore>();
             _config = serviceProvider.GetRequiredService<IOptions<MailConfig>>().Value;
@@ -62,7 +62,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
              _config.Body[1] = _config.Body[1].Replace("[ResetLink]", idLink);
             _config.Body[1] = _config.Body[1].Replace("[User]", command.UserName);
 
-            _emailSenderService.SendMail(idLink, userEvent.Email, _config, 1);
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var _emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
+                _emailSenderService.SendMail(idLink, userEvent.Email, _config, 1);
+            }
         }
     }
 }
