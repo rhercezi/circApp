@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../build/User.Query.Api.props" />
-</Project>
