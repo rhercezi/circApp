@@ -12,6 +12,8 @@ namespace User.Command.Domain.Aggregates.AggregateActions
             instance._id = xEvent.Id;
             instance._version = xEvent.Version;
             instance._events.Add(xEvent);
+            instance.UserName = xEvent.UserName;
+            instance.Email = xEvent.Email;
             
             if (!isReplay)
             {

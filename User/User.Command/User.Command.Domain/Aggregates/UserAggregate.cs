@@ -9,6 +9,9 @@ namespace User.Command.Domain.Aggregates
     {
         public readonly EventStore _eventStore;
 
+        public string? UserName { get; set; }
+        public string? Email { get; set; }
+
         public UserAggregate(EventStore eventStore)
         {
             _eventStore = eventStore;

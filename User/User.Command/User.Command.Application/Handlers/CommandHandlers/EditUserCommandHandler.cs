@@ -1,4 +1,5 @@
 using Core.MessageHandling;
+using Core.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using User.Command.Api.Commands;
 using User.Command.Application.Validation;
@@ -27,6 +28,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
             var version = events.Max(e => e.Version) + 1;
             EditUserCommandValidator validator = new(_eventStore);
 
+            if (string.IsNullOrEmpty(command.UserName) || string.IsNullOrEmpty(command.Email))
+            {
+                UpdateMissingValues(ref command, events);
+            }
+
             await validator.ValidateCommand(command);
 
             userAggregate.InvokAction<UserEditedEvent>(
@@ -42,6 +48,33 @@ namespace User.Command.Application.Handlers.CommandHandlers
                     command.Updated
                 )
             );
+        }
+
+        private void UpdateMissingValues(ref EditUserCommand command, List<BaseEvent> events)
+        {
+            UserCreatedEvent userEvent = null;
+            events.ForEach(e => {
+
+                if(e is UserCreatedEvent event1)
+                {
+                    userEvent = event1;
+                }
+                else if (e is UserEditedEvent event2)
+                {
+                    if(!string.IsNullOrEmpty(event2.Email))
+                    {
+                        userEvent.Email = event2.Email;
+                    }
+                    if(!string.IsNullOrEmpty(event2.UserName))
+                    {
+                        userEvent.UserName = event2.UserName;
+                    }
+                }
+
+            });
+
+            if (string.IsNullOrEmpty(command.UserName)) command.UserName = userEvent.UserName;
+            if (string.IsNullOrEmpty(command.Email)) command.Email = userEvent.Email;
         }
     }
 }
