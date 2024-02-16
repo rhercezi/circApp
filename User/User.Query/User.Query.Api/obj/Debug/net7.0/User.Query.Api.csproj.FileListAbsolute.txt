@@ -120,3 +120,8 @@
 /home/roherc/repos/circApp/User/User.Query/User.Query.Api/obj/Debug/net7.0/User.Query.Api.pdb
 /home/roherc/repos/circApp/User/User.Query/User.Query.Api/obj/Debug/net7.0/User.Query.Api.genruntimeconfig.cache
 /home/roherc/repos/circApp/User/User.Query/User.Query.Api/obj/Debug/net7.0/ref/User.Query.Api.dll
+/home/roherc/repos/circApp/User/User.Query/User.Query.Api/bin/Debug/net7.0/Humanizer.dll
+/home/roherc/repos/circApp/User/User.Query/User.Query.Api/bin/Debug/net7.0/Microsoft.EntityFrameworkCore.Design.dll
+/home/roherc/repos/circApp/User/User.Query/User.Query.Api/bin/Debug/net7.0/Microsoft.Extensions.DependencyModel.dll
+/home/roherc/repos/circApp/User/User.Query/User.Query.Api/bin/Debug/net7.0/Mono.TextTemplating.dll
+/home/roherc/repos/circApp/User/User.Query/User.Query.Api/bin/Debug/net7.0/System.CodeDom.dll

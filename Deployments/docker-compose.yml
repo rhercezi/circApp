@@ -32,13 +32,17 @@ services:
       - zookeeper
 
   mssql-container:
-    image: mssql-image
+    image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssqlDB
     restart: always
     ports: 
       - "1433:1433"
     volumes:
       - "sqlvolume:/var/opt/mssql"
+    environment:
+      - MSSQL_SA_PASSWORD=SQnzABaHTrs3aQt8m8wn
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Express
       
   mongo-container:
     image: mongo:latest
@@ -51,6 +55,7 @@ services:
 
   mailhog:
     image: mailhog/mailhog
+    container_name: mailhog
     ports:
       - "1025:1025"  # SMTP port
       - "8025:8025"  # Web UI port

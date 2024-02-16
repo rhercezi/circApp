@@ -7,7 +7,6 @@ namespace User.Query.Domain.DatabaseContext
     {
         public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public DbSet<UserEntity> Users { get; set; }
