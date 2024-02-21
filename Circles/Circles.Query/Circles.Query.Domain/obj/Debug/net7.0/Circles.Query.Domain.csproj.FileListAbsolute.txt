@@ -1,0 +1,15 @@
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/bin/Debug/net7.0/Circles.Query.Domain.deps.json
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/bin/Debug/net7.0/Circles.Query.Domain.dll
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/bin/Debug/net7.0/Circles.Query.Domain.pdb
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/bin/Debug/net7.0/Circles.Common.dll
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/bin/Debug/net7.0/Circles.Common.pdb
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/obj/Debug/net7.0/Circles.Query.Domain.csproj.AssemblyReference.cache
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/obj/Debug/net7.0/Circles.Query.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/obj/Debug/net7.0/Circles.Query.Domain.AssemblyInfoInputs.cache
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/obj/Debug/net7.0/Circles.Query.Domain.AssemblyInfo.cs
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/obj/Debug/net7.0/Circles.Query.Domain.csproj.CoreCompileInputs.cache
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/obj/Debug/net7.0/Circles.Query.Domain.csproj.CopyComplete
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/obj/Debug/net7.0/Circles.Query.Domain.dll
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/obj/Debug/net7.0/refint/Circles.Query.Domain.dll
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/obj/Debug/net7.0/Circles.Query.Domain.pdb
+/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Domain/obj/Debug/net7.0/ref/Circles.Query.Domain.dll

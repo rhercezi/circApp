@@ -1,4 +1,5 @@
 using Core.MessageHandling;
+using Core.Messages;
 using Core.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using User.Command.Application.Commands;
@@ -16,10 +17,10 @@ namespace User.Command.Application.Handlers.CommandHandlers
         private readonly EventStore _eventStore;
         private readonly IMongoRepository<IdLinkModel> _idLinkRepo;
 
-        public VerifyEmailCommandHandler(IServiceProvider serviceProvider)
+        public VerifyEmailCommandHandler(EventStore eventStore, IMongoRepository<IdLinkModel> idLinkRepo)
         {
-            _eventStore = serviceProvider.GetRequiredService<EventStore>();
-            _idLinkRepo = serviceProvider.GetRequiredService<IMongoRepository<IdLinkModel>>();
+            _eventStore = eventStore;
+            _idLinkRepo = idLinkRepo;
         }
 
         public async Task HandleAsync(VerifyEmailCommand command)
@@ -51,6 +52,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
                     version
                 )
             );
+        }
+
+        public async Task HandleAsync(BaseCommand command)
+        {
+            await HandleAsync((VerifyEmailCommand)command);
         }
     }
 }

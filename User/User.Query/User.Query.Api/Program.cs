@@ -7,6 +7,7 @@ using User.Query.Application.EventConsuming;
 using User.Query.Domain.Repositories;
 using User.Query.Domain.DatabaseContext;
 using Core.DTOs;
+using User.Query.Application.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,9 +24,19 @@ builder.Services.AddDbContextFactory<UserDbContext>(
 );
 builder.Services.AddScoped<PasswordHashService>();
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<GetUserByEmailQueryHandler>();
+builder.Services.AddScoped<GetUserByIdQueryHandler>();
+builder.Services.AddScoped<GetUserByUsernameQueryHandler>();
+builder.Services.AddScoped<LoginHandler>();
+builder.Services.AddScoped<EmailVerifiedEventHandler>();
+builder.Services.AddScoped<PasswordUpdatedEventHandler>();
+builder.Services.AddScoped<UserCreatedEventHandler>();
+builder.Services.AddScoped<UserDeletedEventHandler>();
+builder.Services.AddScoped<UserUpdatedEventHandler>();
 builder.Services.AddSingleton<IHandlerService, HandlerService>();
 builder.Services.AddScoped<IQueryDispatcher<UserDto>, AuthDispatcher>();
 builder.Services.AddScoped<IQueryDispatcher<UserDto>, QueryDispatcher>();
+builder.Services.AddScoped<IEventDispatcher, EventDispatcher>();
 builder.Services.AddScoped<EventConsumer>();
 builder.Services.AddHostedService<EventHostedService>();
 

@@ -2,6 +2,7 @@ using System.Reflection;
 using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using User.Query.Application.Exceptions;
 
@@ -27,22 +28,16 @@ namespace User.Query.Application.Dispatchers
 
             if (_handlers.TryGetValue(query.GetType(), out Type? handlerType))
             {
-                var handler = Activator.CreateInstance(handlerType, new object[] { _serviceProvider });
-                if (handler is not null)
+                try
                 {
-                    try
-                    {
-                        var userDto = (Task<UserDto>)handlerType.GetMethod("HandleAsync").Invoke(handler, new object[] { query });
-                        return await userDto;
-                    }
-                    catch (Exception e)
-                    {
-                        _logger.LogError(e.StackTrace, e.Message);
-                        throw new QueryApplicationException("Auth dispatcher failed", e);
-                    }
+                    var handler = (IQueryHandler)_serviceProvider.GetRequiredService(handlerType);
+                    return (UserDto)await handler.HandleAsync(query);
                 }
-                _logger.LogError($"Could not creaate instance of handler. Type: {handlerType.Name}");
-                return new UserDto();
+                catch (Exception e)
+                {
+                    _logger.LogError(e.StackTrace, e.Message);
+                    throw new QueryApplicationException("Auth dispatcher failed", e);
+                }
             }
             _logger.LogError($"Could not find handler for query. Type: {query.GetType().Name}");
             return new UserDto();

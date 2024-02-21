@@ -1,5 +1,6 @@
 using Core.DTOs;
 using Core.MessageHandling;
+using Core.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using User.Query.Application.Queries;
 using User.Query.Domain.Repositories;
@@ -10,9 +11,9 @@ namespace User.Query.Application.Handlers
     {
         private readonly UserRepository _userRepository;
 
-        public GetUserByEmailQueryHandler(IServiceProvider serviceProvider)
+        public GetUserByEmailQueryHandler(UserRepository userRepository)
         {
-            _userRepository = serviceProvider.GetRequiredService<UserRepository>();
+            _userRepository = userRepository;
         }
 
         public async Task<UserDto> HandleAsync(GetUserByEmailQuery query)
@@ -29,6 +30,11 @@ namespace User.Query.Application.Handlers
                 Email = user.Email,
                 EmailVerified = user.EmailVerified
             };
+        }
+
+        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        {
+            return await HandleAsync((GetUserByEmailQuery)query);
         }
     }
 }

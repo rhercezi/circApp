@@ -14,18 +14,16 @@ namespace User.Query.Application.EventConsuming
     {
         private readonly KafkaConsumerConfig _config;
         private ILogger<EventConsumer> _logger;
-        private readonly IHandlerService _handlerService;
 
         public EventConsumer(IOptions<KafkaConsumerConfig> config,
                              ILogger<EventConsumer> logger,
-                             IHandlerService handlerService)
+                             IEventDispatcher eventDispatcher)
         {
             _config = config.Value;
             _logger = logger;
-            _handlerService = handlerService;
         }
 
-        public async Task Consume(UserRepository repository, IServiceProvider serviceProvider)
+        public async Task Consume(IEventDispatcher eventDispatcher)
         {
             using var consumer = new ConsumerBuilder<string, string>(_config)
                     .SetKeyDeserializer(Deserializers.Utf8)
@@ -44,7 +42,7 @@ namespace User.Query.Application.EventConsuming
                     if (xEvent != null)
                     {
 
-                        var resault = await DispatchEvent(xEvent, repository, serviceProvider);
+                        var resault = await eventDispatcher.DispatchAsync(xEvent);
                         if (resault)
                         {
                             consumer.Commit(consumeResult);
@@ -89,34 +87,6 @@ namespace User.Query.Application.EventConsuming
             ).First();
 
             return (BaseEvent)JsonConvert.DeserializeObject(message, type, settings);
-        }
-
-        private async Task<bool> DispatchEvent(BaseEvent xEvent, UserRepository repository, IServiceProvider serviceProvider)
-        {
-            var handlers = _handlerService.RegisterHandler<BaseEvent>(xEvent, Assembly.GetExecutingAssembly());
-
-            if (handlers.TryGetValue(xEvent.GetType(), out Type? handlerType))
-            {
-                var handler = Activator.CreateInstance(handlerType, new object[] { serviceProvider, repository });
-                if (handler is not null)
-                {
-                    try
-                    {
-                        var task = (Task)handlerType.GetMethod("HandleAsync").Invoke(handler, new object[] { xEvent });
-                        await task.ConfigureAwait(false);
-                    }
-                    catch (Exception e)
-                    {
-                        _logger.LogError(e.StackTrace, e.Message);
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }

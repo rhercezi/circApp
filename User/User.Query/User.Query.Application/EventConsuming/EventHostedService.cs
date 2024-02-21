@@ -1,3 +1,4 @@
+using Core.MessageHandling;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -23,9 +24,9 @@ namespace User.Query.Application.EventConsuming
             {
                 using var scope = _serviceProvider.CreateAsyncScope();
                 var consumer = scope.ServiceProvider.GetRequiredService<EventConsumer>();
-                var repository = scope.ServiceProvider.GetRequiredService<UserRepository>();
+                var eventDispatcher = scope.ServiceProvider.GetRequiredService<IEventDispatcher>();
 
-                Task.Run(() => consumer.Consume(repository, _serviceProvider), cancellationToken);
+                Task.Run(() => consumer.Consume(eventDispatcher), cancellationToken);
             }
             catch (Exception e)
             {

@@ -1,4 +1,5 @@
 using Core.MessageHandling;
+using Core.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using User.Command.Api.Commands;
 using User.Command.Application.Validation;
@@ -15,10 +16,10 @@ namespace User.Command.Application.Handlers.CommandHandlers
         private readonly EventStore _eventStore;
         private PasswordHashService _passwordHashService;
 
-        public DeleteUserCommandHandler(IServiceProvider serviceProvider)
+        public DeleteUserCommandHandler(EventStore eventStore, PasswordHashService passwordHashService)
         {
-            _eventStore = serviceProvider.GetRequiredService<EventStore>();
-            _passwordHashService = serviceProvider.GetRequiredService<PasswordHashService>();
+            _eventStore = eventStore;
+            _passwordHashService = passwordHashService;
         }
 
         public async Task HandleAsync(DeleteUserCommand command)
@@ -41,6 +42,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 )
             );
             
+        }
+
+        public async Task HandleAsync(BaseCommand command)
+        {
+            await HandleAsync((DeleteUserCommand)command);
         }
     }
 }

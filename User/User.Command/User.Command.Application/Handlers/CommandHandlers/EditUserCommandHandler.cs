@@ -14,9 +14,9 @@ namespace User.Command.Application.Handlers.CommandHandlers
     {
         private readonly EventStore _eventStore;
 
-        public EditUserCommandHandler(IServiceProvider serviceProvider)
+        public EditUserCommandHandler(EventStore eventStore)
         {
-            _eventStore = serviceProvider.GetRequiredService<EventStore>();
+            _eventStore = eventStore;
         }
 
         public async Task HandleAsync(EditUserCommand command)
@@ -48,6 +48,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
                     command.Updated
                 )
             );
+        }
+
+        public async Task HandleAsync(BaseCommand command)
+        {
+            await HandleAsync((EditUserCommand)command);
         }
 
         private void UpdateMissingValues(ref EditUserCommand command, List<BaseEvent> events)

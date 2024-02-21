@@ -6,7 +6,7 @@ using User.Query.Application.Queries;
 namespace User.Query.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class AuthController : ControllerBase
     {
         

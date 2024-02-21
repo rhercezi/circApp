@@ -399,9 +399,10 @@
           }
         }
       },
-      "MongoDB.Bson/2.19.2": {
+      "MongoDB.Bson/2.23.2": {
         "type": "package",
         "dependencies": {
+          "System.Memory": "4.5.5",
           "System.Runtime.CompilerServices.Unsafe": "5.0.0"
         },
         "compile": {
@@ -415,13 +416,13 @@
           }
         }
       },
-      "MongoDB.Driver/2.19.2": {
+      "MongoDB.Driver/2.23.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "2.0.0",
-          "MongoDB.Bson": "2.19.2",
-          "MongoDB.Driver.Core": "2.19.2",
-          "MongoDB.Libmongocrypt": "1.7.0"
+          "MongoDB.Bson": "2.23.2",
+          "MongoDB.Driver.Core": "2.23.2",
+          "MongoDB.Libmongocrypt": "1.8.0"
         },
         "compile": {
           "lib/netstandard2.1/MongoDB.Driver.dll": {
@@ -434,18 +435,18 @@
           }
         }
       },
-      "MongoDB.Driver.Core/2.19.2": {
+      "MongoDB.Driver.Core/2.23.2": {
         "type": "package",
         "dependencies": {
           "AWSSDK.SecurityToken": "3.7.100.14",
           "DnsClient": "1.6.1",
           "Microsoft.Extensions.Logging.Abstractions": "2.0.0",
-          "MongoDB.Bson": "2.19.2",
-          "MongoDB.Libmongocrypt": "1.7.0",
+          "MongoDB.Bson": "2.23.2",
+          "MongoDB.Libmongocrypt": "1.8.0",
           "SharpCompress": "0.30.1",
           "Snappier": "1.0.0",
           "System.Buffers": "4.5.1",
-          "ZstdSharp.Port": "0.6.2"
+          "ZstdSharp.Port": "0.7.3"
         },
         "compile": {
           "lib/netstandard2.1/MongoDB.Driver.Core.dll": {
@@ -458,7 +459,7 @@
           }
         }
       },
-      "MongoDB.Libmongocrypt/1.7.0": {
+      "MongoDB.Libmongocrypt/1.8.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.1/MongoDB.Libmongocrypt.dll": {}
@@ -552,7 +553,7 @@
           }
         }
       },
-      "System.Memory/4.5.4": {
+      "System.Memory/4.5.5": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.1/_._": {}
@@ -620,13 +621,13 @@
           }
         }
       },
-      "ZstdSharp.Port/0.6.2": {
+      "ZstdSharp.Port/0.7.3": {
         "type": "package",
         "compile": {
-          "lib/net6.0/ZstdSharp.dll": {}
+          "lib/net7.0/ZstdSharp.dll": {}
         },
         "runtime": {
-          "lib/net6.0/ZstdSharp.dll": {}
+          "lib/net7.0/ZstdSharp.dll": {}
         }
       },
       "Core/1.0.0": {
@@ -635,7 +636,7 @@
         "dependencies": {
           "Confluent.Kafka": "2.2.0",
           "Microsoft.Extensions.Options": "7.0.1",
-          "MongoDB.Driver": "2.19.2",
+          "MongoDB.Driver": "2.23.2",
           "Newtonsoft.Json": "13.0.3",
           "System.IdentityModel.Tokens.Jwt": "7.3.0"
         },
@@ -1155,52 +1156,52 @@
         "version.txt"
       ]
     },
-    "MongoDB.Bson/2.19.2": {
-      "sha512": "YpwSLKillPRj+BYEZU0dFgVHdCuj7uGIkLcyEc5a9zwJQYMbZkAc2CRVzobnDY9HMSCtyefXnkrz9CQ6C91KQA==",
+    "MongoDB.Bson/2.23.2": {
+      "sha512": "t/llHI4ovbUmk5u1hQWnLAq8XOyMCTzGBLejkfSX0ziY7N/qFHiglgcchpS+/uQHIe7og2BY5zevmxSho87dEA==",
       "type": "package",
-      "path": "mongodb.bson/2.19.2",
+      "path": "mongodb.bson/2.23.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "License.txt",
+        "LICENSE.md",
         "lib/net472/MongoDB.Bson.dll",
         "lib/net472/MongoDB.Bson.xml",
         "lib/netstandard2.0/MongoDB.Bson.dll",
         "lib/netstandard2.0/MongoDB.Bson.xml",
         "lib/netstandard2.1/MongoDB.Bson.dll",
         "lib/netstandard2.1/MongoDB.Bson.xml",
-        "mongodb.bson.2.19.2.nupkg.sha512",
+        "mongodb.bson.2.23.2.nupkg.sha512",
         "mongodb.bson.nuspec",
         "packageIcon.png"
       ]
     },
-    "MongoDB.Driver/2.19.2": {
-      "sha512": "xT2VA1KmjzxXQYuA8VbnM3r+DVVjja6ntD7YjesxkODAX3GkQLSgLLH+tS7R0uy/zZzA7YWEF1AKIJyxC7jfmA==",
+    "MongoDB.Driver/2.23.2": {
+      "sha512": "+IgJzFgSXunJ7ggaw+Xxu2U+/RcJ63QEcCk5AbhoWgnw4CXpXY77L5rqxfoA0QqTOjv+6EiQn76tMo0+QFK1Lg==",
       "type": "package",
-      "path": "mongodb.driver/2.19.2",
+      "path": "mongodb.driver/2.23.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "License.txt",
+        "LICENSE.md",
         "lib/net472/MongoDB.Driver.dll",
         "lib/net472/MongoDB.Driver.xml",
         "lib/netstandard2.0/MongoDB.Driver.dll",
         "lib/netstandard2.0/MongoDB.Driver.xml",
         "lib/netstandard2.1/MongoDB.Driver.dll",
         "lib/netstandard2.1/MongoDB.Driver.xml",
-        "mongodb.driver.2.19.2.nupkg.sha512",
+        "mongodb.driver.2.23.2.nupkg.sha512",
         "mongodb.driver.nuspec",
         "packageIcon.png"
       ]
     },
-    "MongoDB.Driver.Core/2.19.2": {
-      "sha512": "MjZmAZLNCV+d/eW+X1YPNztEtEBosIX8qMFCoQAhJOoHotuJfTePt+Lp8sjxTDTCyaOtLhClIgefy3P9JaxUHw==",
+    "MongoDB.Driver.Core/2.23.2": {
+      "sha512": "xqk3yqz3Lwue2apvPTADShbhcFAcU1qO9AFEWL21yli6sVVW36v361KYn/ANIyG4UZCkXaNZNSkc0a7Rom8QOg==",
       "type": "package",
-      "path": "mongodb.driver.core/2.19.2",
+      "path": "mongodb.driver.core/2.23.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "License.txt",
+        "LICENSE.md",
         "THIRD-PARTY-NOTICES",
         "lib/net472/MongoDB.Driver.Core.dll",
         "lib/net472/MongoDB.Driver.Core.xml",
@@ -1208,15 +1209,15 @@
         "lib/netstandard2.0/MongoDB.Driver.Core.xml",
         "lib/netstandard2.1/MongoDB.Driver.Core.dll",
         "lib/netstandard2.1/MongoDB.Driver.Core.xml",
-        "mongodb.driver.core.2.19.2.nupkg.sha512",
+        "mongodb.driver.core.2.23.2.nupkg.sha512",
         "mongodb.driver.core.nuspec",
         "packageIcon.png"
       ]
     },
-    "MongoDB.Libmongocrypt/1.7.0": {
-      "sha512": "p9+peTZX63nGHskOLhvhfBtrknxNg1RzXepE07rPozuCGz27bMjCcQyvn2YByg0L3YEcNWdTmI4BlnG/5RF+5Q==",
+    "MongoDB.Libmongocrypt/1.8.0": {
+      "sha512": "fgNw8Dxpkq7mpoaAYes8cfnPRzvFIoB8oL9GPXwi3op/rONftl0WAeg4akRLcxfoVuUvuUO2wGoVBr3JzJ7Svw==",
       "type": "package",
-      "path": "mongodb.libmongocrypt/1.7.0",
+      "path": "mongodb.libmongocrypt/1.8.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1237,7 +1238,7 @@
         "lib/net472/MongoDB.Libmongocrypt.dll",
         "lib/netstandard2.0/MongoDB.Libmongocrypt.dll",
         "lib/netstandard2.1/MongoDB.Libmongocrypt.dll",
-        "mongodb.libmongocrypt.1.7.0.nupkg.sha512",
+        "mongodb.libmongocrypt.1.8.0.nupkg.sha512",
         "mongodb.libmongocrypt.nuspec",
         "runtimes/linux/native/libmongocrypt.so",
         "runtimes/osx/native/libmongocrypt.dylib",
@@ -1364,10 +1365,10 @@
         "system.identitymodel.tokens.jwt.nuspec"
       ]
     },
-    "System.Memory/4.5.4": {
-      "sha512": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+    "System.Memory/4.5.5": {
+      "sha512": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
       "type": "package",
-      "path": "system.memory/4.5.4",
+      "path": "system.memory/4.5.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1381,7 +1382,7 @@
         "lib/netstandard2.0/System.Memory.dll",
         "lib/netstandard2.0/System.Memory.xml",
         "ref/netcoreapp2.1/_._",
-        "system.memory.4.5.4.nupkg.sha512",
+        "system.memory.4.5.5.nupkg.sha512",
         "system.memory.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -1521,20 +1522,21 @@
         "version.txt"
       ]
     },
-    "ZstdSharp.Port/0.6.2": {
-      "sha512": "jPao/LdUNLUz8rn3H1D8W7wQbZsRZM0iayvWI4xGejJg3XJHT56gcmYdgmCGPdJF1UEBqUjucCRrFB+4HbJsbw==",
+    "ZstdSharp.Port/0.7.3": {
+      "sha512": "U9Ix4l4cl58Kzz1rJzj5hoVTjmbx1qGMwzAcbv1j/d3NzrFaESIurQyg+ow4mivCgkE3S413y+U9k4WdnEIkRA==",
       "type": "package",
-      "path": "zstdsharp.port/0.6.2",
+      "path": "zstdsharp.port/0.7.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net461/ZstdSharp.dll",
         "lib/net5.0/ZstdSharp.dll",
         "lib/net6.0/ZstdSharp.dll",
+        "lib/net7.0/ZstdSharp.dll",
         "lib/netcoreapp3.1/ZstdSharp.dll",
         "lib/netstandard2.0/ZstdSharp.dll",
         "lib/netstandard2.1/ZstdSharp.dll",
-        "zstdsharp.port.0.6.2.nupkg.sha512",
+        "zstdsharp.port.0.7.3.nupkg.sha512",
         "zstdsharp.port.nuspec"
       ]
     },
@@ -1554,7 +1556,7 @@
       "Core >= 1.0.0",
       "Microsoft.Extensions.Configuration >= 8.0.0",
       "Microsoft.Extensions.Options >= 7.0.1",
-      "MongoDB.Driver >= 2.19.2",
+      "MongoDB.Driver >= 2.23.2",
       "User.Common >= 1.0.0"
     ]
   },
@@ -1612,7 +1614,7 @@
           },
           "MongoDB.Driver": {
             "target": "Package",
-            "version": "[2.19.2, )"
+            "version": "[2.23.2, )"
           }
         },
         "imports": [

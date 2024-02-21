@@ -1,5 +1,6 @@
 using Core.DTOs;
 using Core.MessageHandling;
+using Core.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using User.Common.PasswordService;
 using User.Query.Application.Queries;
@@ -12,10 +13,10 @@ namespace User.Query.Application.Handlers
         private readonly UserRepository _userRepository;
         private readonly PasswordHashService _hashService;
 
-        public LoginHandler(IServiceProvider serviceProvider)
+        public LoginHandler(UserRepository userRepository, PasswordHashService hashService)
         {
-            _userRepository = serviceProvider.GetRequiredService<UserRepository>();
-            _hashService = serviceProvider.GetRequiredService<PasswordHashService>();
+            _userRepository = userRepository;
+            _hashService = hashService;
         }
 
         public async Task<UserDto> HandleAsync(LoginQuery query)
@@ -40,6 +41,11 @@ namespace User.Query.Application.Handlers
             {
                 throw new ArgumentException("Invalid username or password");
             }
+        }
+
+        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        {
+            return await HandleAsync((LoginQuery)query);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Core.MessageHandling;
+using Core.Messages;
 using Core.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using User.Command.Application.Commands;
@@ -19,11 +20,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
         private PasswordHashService _passwordHashService;
         private readonly IMongoRepository<IdLinkModel> _idLinkRepo;
 
-        public UpdatePasswordCommandHandler(IServiceProvider serviceProvider)
+        public UpdatePasswordCommandHandler(EventStore eventStore, PasswordHashService passwordHashService, IMongoRepository<IdLinkModel> idLinkRepo)
         {
-            _eventStore = serviceProvider.GetRequiredService<EventStore>();
-            _passwordHashService = serviceProvider.GetRequiredService<PasswordHashService>();
-            _idLinkRepo = serviceProvider.GetRequiredService<IMongoRepository<IdLinkModel>>();
+            _eventStore = eventStore;
+            _passwordHashService = passwordHashService;
+            _idLinkRepo = idLinkRepo;
         }
 
         public async Task HandleAsync(UpdatePasswordCommand command)
@@ -54,6 +55,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 )
             );
 
+        }
+
+        public async Task HandleAsync(BaseCommand command)
+        {
+            await HandleAsync((UpdatePasswordCommand)command);
         }
     }
 }

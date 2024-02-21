@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using Core.Configs;
 using Core.Repositories;
+using Core.Messages;
 
 namespace User.Command.Application.Handlers.CommandHandlers
 {
@@ -20,12 +21,15 @@ namespace User.Command.Application.Handlers.CommandHandlers
         private readonly EventStore _eventStore;
         private MailConfig _config;
 
-        public ResetPasswordCommandHandler(IServiceProvider serviceProvider)
+        public ResetPasswordCommandHandler(IServiceProvider serviceProvider,
+                                           IMongoRepository<IdLinkModel> idLinkRepo,
+                                           EventStore eventStore,
+                                           IOptions<MailConfig> config)
         {
             _serviceProvider = serviceProvider;
-            _idLinkRepo = serviceProvider.GetRequiredService<IMongoRepository<IdLinkModel>>();
-            _eventStore = serviceProvider.GetRequiredService<EventStore>();
-            _config = serviceProvider.GetRequiredService<IOptions<MailConfig>>().Value;
+            _idLinkRepo = idLinkRepo;
+            _eventStore = eventStore;
+            _config = config.Value;
         }
 
         public async Task HandleAsync(ResetPasswordCommand command)
@@ -70,6 +74,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
             using var scope = _serviceProvider.CreateScope();
             var _emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
             _emailSenderService.SendMail(idLink, email, _config, 1);
+        }
+
+        public async Task HandleAsync(BaseCommand command)
+        {
+            await HandleAsync((ResetPasswordCommand)command);
         }
     }
 }

@@ -1,5 +1,6 @@
 using Core.Configs;
 using Core.MessageHandling;
+using Core.Messages;
 using Core.Repositories;
 using Core.Utilities;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,13 +23,17 @@ namespace User.Command.Application.Handlers.CommandHandlers
         private readonly IMongoRepository<IdLinkModel> _idLinkRepo;
         private MailConfig _config;
 
-        public CreateUserCommandHandler(IServiceProvider serviceProvider)
+        public CreateUserCommandHandler(EventStore eventStore,
+                                        PasswordHashService passwordHashService,
+                                        IServiceProvider serviceProvider,
+                                        IMongoRepository<IdLinkModel> idLinkRepo,
+                                        IOptions<MailConfig> config)
         {
-            _eventStore = serviceProvider.GetRequiredService<EventStore>();
-            _passwordHashService = serviceProvider.GetRequiredService<PasswordHashService>();
+            _eventStore = eventStore;
+            _passwordHashService = passwordHashService;
             _serviceProvider = serviceProvider;
-            _idLinkRepo = serviceProvider.GetRequiredService<IMongoRepository<IdLinkModel>>();
-            _config = serviceProvider.GetRequiredService<IOptions<MailConfig>>().Value;
+            _idLinkRepo = idLinkRepo;
+            _config = config.Value;
         }
 
         public async Task HandleAsync(CreateUserCommand command)
@@ -72,6 +77,11 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 UserName = command.UserName,
                 Email = command.Email
             });
+        }
+
+        public async Task HandleAsync(BaseCommand command)
+        {
+            await HandleAsync((CreateUserCommand)command);
         }
     }
 }
