@@ -4,5 +4,6 @@ namespace Core.Repositories
     {
         Task SaveAsync(T model);
         Task<List<T>> GetByIdAsync(string id); 
+        Task DeleteAsync(string id);
     }
 }

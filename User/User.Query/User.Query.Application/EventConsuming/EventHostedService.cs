@@ -1,9 +1,9 @@
+using Core.Events;
 using Core.MessageHandling;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using User.Query.Application.Exceptions;
-using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.EventConsuming
 {
@@ -23,7 +23,7 @@ namespace User.Query.Application.EventConsuming
             try
             {
                 using var scope = _serviceProvider.CreateAsyncScope();
-                var consumer = scope.ServiceProvider.GetRequiredService<EventConsumer>();
+                var consumer = scope.ServiceProvider.GetRequiredService<IEventConsumer>();
                 var eventDispatcher = scope.ServiceProvider.GetRequiredService<IEventDispatcher>();
 
                 Task.Run(() => consumer.Consume(eventDispatcher), cancellationToken);

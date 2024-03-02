@@ -26,68 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/home/roherc/repos/circApp/Circles/Circles.Command/Circles.Command.Domain/Circles.Command.Domain.csproj": {
-                "projectPath": "/home/roherc/repos/circApp/Circles/Circles.Command/Circles.Command.Domain/Circles.Command.Domain.csproj"
-              },
-              "/home/roherc/repos/circApp/Core/Core.csproj": {
-                "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.405/RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "/home/roherc/repos/circApp/Circles/Circles.Command/Circles.Command.Domain/Circles.Command.Domain.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/home/roherc/repos/circApp/Circles/Circles.Command/Circles.Command.Domain/Circles.Command.Domain.csproj",
-        "projectName": "Circles.Command.Domain",
-        "projectPath": "/home/roherc/repos/circApp/Circles/Circles.Command/Circles.Command.Domain/Circles.Command.Domain.csproj",
-        "packagesPath": "/home/roherc/.nuget/packages/",
-        "outputPath": "/home/roherc/repos/circApp/Circles/Circles.Command/Circles.Command.Domain/obj/",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "/home/roherc/.nuget/NuGet/NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {
-              "/home/roherc/repos/circApp/Circles/Circles.Common/Circles.Common.csproj": {
-                "projectPath": "/home/roherc/repos/circApp/Circles/Circles.Common/Circles.Common.csproj"
+              "/home/roherc/repos/circApp/Circles/Circles.Domain/Circles.Domain.csproj": {
+                "projectPath": "/home/roherc/repos/circApp/Circles/Circles.Domain/Circles.Domain.csproj"
               },
               "/home/roherc/repos/circApp/Core/Core.csproj": {
                 "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj"
@@ -105,9 +45,17 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "MongoDB.Driver": {
+            "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[2.23.2, )"
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
             }
           },
           "imports": [
@@ -130,14 +78,14 @@
         }
       }
     },
-    "/home/roherc/repos/circApp/Circles/Circles.Common/Circles.Common.csproj": {
+    "/home/roherc/repos/circApp/Circles/Circles.Domain/Circles.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/roherc/repos/circApp/Circles/Circles.Common/Circles.Common.csproj",
-        "projectName": "Circles.Common",
-        "projectPath": "/home/roherc/repos/circApp/Circles/Circles.Common/Circles.Common.csproj",
+        "projectUniqueName": "/home/roherc/repos/circApp/Circles/Circles.Domain/Circles.Domain.csproj",
+        "projectName": "Circles.Domain",
+        "projectPath": "/home/roherc/repos/circApp/Circles/Circles.Domain/Circles.Domain.csproj",
         "packagesPath": "/home/roherc/.nuget/packages/",
-        "outputPath": "/home/roherc/repos/circApp/Circles/Circles.Common/obj/",
+        "outputPath": "/home/roherc/repos/circApp/Circles/Circles.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/roherc/.nuget/NuGet/NuGet.Config"
@@ -151,7 +99,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "/home/roherc/repos/circApp/Core/Core.csproj": {
+                "projectPath": "/home/roherc/repos/circApp/Core/Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -163,6 +115,16 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.24.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

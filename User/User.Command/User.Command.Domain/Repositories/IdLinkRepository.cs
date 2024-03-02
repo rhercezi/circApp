@@ -39,5 +39,11 @@ namespace User.Command.Domain.Repositories
                 _logger.LogError(e, "Error saving IdLinkModel");
             }
         }
+
+        public async Task DeleteAsync(string idLink)
+        {
+            var filter = Builders<IdLinkModel>.Filter.Eq(m => m.LinkId, idLink);
+            await _idLinkCollection.DeleteOneAsync(filter);
+        }
     }
 }

@@ -83,6 +83,18 @@ services:
     depends_on:
       - kafka
 
+  circles-command-api-container:
+    image: circles_command_api:latest
+    container_name: circles_command_api
+    restart: always
+    ports:
+      - "5012:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - kafka
+
+
 volumes:
   zookeeper_data:
     driver: local

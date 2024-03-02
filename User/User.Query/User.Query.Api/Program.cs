@@ -8,6 +8,7 @@ using User.Query.Domain.Repositories;
 using User.Query.Domain.DatabaseContext;
 using Core.DTOs;
 using User.Query.Application.Handlers;
+using Core.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,8 +37,8 @@ builder.Services.AddScoped<UserUpdatedEventHandler>();
 builder.Services.AddSingleton<IHandlerService, HandlerService>();
 builder.Services.AddScoped<IQueryDispatcher<UserDto>, AuthDispatcher>();
 builder.Services.AddScoped<IQueryDispatcher<UserDto>, QueryDispatcher>();
-builder.Services.AddScoped<IEventDispatcher, EventDispatcher>();
-builder.Services.AddScoped<EventConsumer>();
+builder.Services.AddSingleton<IEventDispatcher, EventDispatcher>();
+builder.Services.AddScoped<IEventConsumer, EventConsumer>();
 builder.Services.AddHostedService<EventHostedService>();
 
 builder.Services.AddCors(options =>

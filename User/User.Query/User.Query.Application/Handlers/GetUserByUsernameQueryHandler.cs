@@ -1,7 +1,6 @@
 using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
-using Microsoft.Extensions.DependencyInjection;
 using User.Query.Application.Queries;
 using User.Query.Domain.Repositories;
 

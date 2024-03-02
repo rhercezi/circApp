@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Yc8/gIoTpxyjr2lWjwvUjGzweMmEBVgsgTWuZts1CY2MC4PWdVcFEyZyeumIp4dUBCOo1Im4Aqj2TlHaHqQ7nw==",
+  "dgSpecHash": "jFyxlOvrsUsjSqyHnTMSdhIb34SQctHTX5HG9emeg37e4a7p5+ef92X2JYJxQlIThB7VAzxLdYf8DsDezlAdYw==",
   "success": true,
   "projectFilePath": "/home/roherc/repos/circApp/User/User.Query/User.Query.Domain/User.Query.Domain.csproj",
   "expectedPackageFiles": [
@@ -43,10 +43,10 @@
     "/home/roherc/.nuget/packages/microsoft.sqlserver.server/1.0.0/microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/microsoft.win32.systemevents/5.0.0/microsoft.win32.systemevents.5.0.0.nupkg.sha512",
-    "/home/roherc/.nuget/packages/mongodb.bson/2.19.2/mongodb.bson.2.19.2.nupkg.sha512",
-    "/home/roherc/.nuget/packages/mongodb.driver/2.19.2/mongodb.driver.2.19.2.nupkg.sha512",
-    "/home/roherc/.nuget/packages/mongodb.driver.core/2.19.2/mongodb.driver.core.2.19.2.nupkg.sha512",
-    "/home/roherc/.nuget/packages/mongodb.libmongocrypt/1.7.0/mongodb.libmongocrypt.1.7.0.nupkg.sha512",
+    "/home/roherc/.nuget/packages/mongodb.bson/2.23.2/mongodb.bson.2.23.2.nupkg.sha512",
+    "/home/roherc/.nuget/packages/mongodb.driver/2.23.2/mongodb.driver.2.23.2.nupkg.sha512",
+    "/home/roherc/.nuget/packages/mongodb.driver.core/2.23.2/mongodb.driver.core.2.23.2.nupkg.sha512",
+    "/home/roherc/.nuget/packages/mongodb.libmongocrypt/1.8.0/mongodb.libmongocrypt.1.8.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/home/roherc/.nuget/packages/sharpcompress/0.30.1/sharpcompress.0.30.1.nupkg.sha512",
     "/home/roherc/.nuget/packages/snappier/1.0.0/snappier.1.0.0.nupkg.sha512",
@@ -58,7 +58,7 @@
     "/home/roherc/.nuget/packages/system.globalization/4.3.0/system.globalization.4.3.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/system.identitymodel.tokens.jwt/7.3.0/system.identitymodel.tokens.jwt.7.3.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/system.io/4.3.0/system.io.4.3.0.nupkg.sha512",
-    "/home/roherc/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
+    "/home/roherc/.nuget/packages/system.memory/4.5.5/system.memory.4.5.5.nupkg.sha512",
     "/home/roherc/.nuget/packages/system.memory.data/1.0.2/system.memory.data.1.0.2.nupkg.sha512",
     "/home/roherc/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/system.reflection/4.3.0/system.reflection.4.3.0.nupkg.sha512",
@@ -79,7 +79,7 @@
     "/home/roherc/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512",
     "/home/roherc/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "/home/roherc/.nuget/packages/system.windows.extensions/5.0.0/system.windows.extensions.5.0.0.nupkg.sha512",
-    "/home/roherc/.nuget/packages/zstdsharp.port/0.6.2/zstdsharp.port.0.6.2.nupkg.sha512"
+    "/home/roherc/.nuget/packages/zstdsharp.port/0.7.3/zstdsharp.port.0.7.3.nupkg.sha512"
   ],
   "logs": []
 }

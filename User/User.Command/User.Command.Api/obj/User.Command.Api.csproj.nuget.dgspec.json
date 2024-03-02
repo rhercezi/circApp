@@ -48,7 +48,7 @@
             },
             "MongoDB.Driver": {
               "target": "Package",
-              "version": "[2.19.2, )"
+              "version": "[2.23.2, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -275,7 +275,7 @@
             },
             "MongoDB.Driver": {
               "target": "Package",
-              "version": "[2.19.2, )"
+              "version": "[2.23.2, )"
             }
           },
           "imports": [

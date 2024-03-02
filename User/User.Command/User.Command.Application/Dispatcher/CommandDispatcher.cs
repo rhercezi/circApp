@@ -3,7 +3,6 @@ using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using User.Command.Api.Commands;
 using User.Command.Application.Exceptions;
 using User.Command.Domain.Exceptions;
 

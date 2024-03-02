@@ -1,9 +1,10 @@
+using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
-using Microsoft.Extensions.DependencyInjection;
 using User.Command.Api.Commands;
 using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
+using User.Command.Domain.Events;
 using User.Command.Domain.Exceptions;
 using User.Command.Domin.Stores;
 using User.Common.Events;
@@ -15,11 +16,13 @@ namespace User.Command.Application.Handlers.CommandHandlers
     {
         private readonly EventStore _eventStore;
         private PasswordHashService _passwordHashService;
+        private readonly EventProducer _eventProducer;
 
-        public DeleteUserCommandHandler(EventStore eventStore, PasswordHashService passwordHashService)
+        public DeleteUserCommandHandler(EventStore eventStore, PasswordHashService passwordHashService, EventProducer eventProducer)
         {
             _eventStore = eventStore;
             _passwordHashService = passwordHashService;
+            _eventProducer = eventProducer;
         }
 
         public async Task HandleAsync(DeleteUserCommand command)
@@ -40,6 +43,14 @@ namespace User.Command.Application.Handlers.CommandHandlers
                     command.Id,
                     version
                 )
+            );
+
+            _ = _eventProducer.ProduceAsync(
+                new UserDeletedPublicEvent
+                (
+                    command.Id
+                ),
+                "UserPublic"
             );
             
         }

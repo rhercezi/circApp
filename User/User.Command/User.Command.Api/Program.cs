@@ -2,8 +2,6 @@ using Core.Configs;
 using Core.MessageHandling;
 using Core.Repositories;
 using Core.Utilities;
-using User.Command.Api.Commands;
-using User.Command.Application.Commands;
 using User.Command.Application.Dispatcher;
 using User.Command.Application.Handlers.CommandHandlers;
 using User.Command.Application.Repositories;

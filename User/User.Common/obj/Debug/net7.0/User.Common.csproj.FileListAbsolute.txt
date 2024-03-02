@@ -1,0 +1,15 @@
+/home/roherc/repos/circApp/User/User.Common/bin/Debug/net7.0/User.Common.deps.json
+/home/roherc/repos/circApp/User/User.Common/bin/Debug/net7.0/User.Common.dll
+/home/roherc/repos/circApp/User/User.Common/bin/Debug/net7.0/User.Common.pdb
+/home/roherc/repos/circApp/User/User.Common/bin/Debug/net7.0/Core.dll
+/home/roherc/repos/circApp/User/User.Common/bin/Debug/net7.0/Core.pdb
+/home/roherc/repos/circApp/User/User.Common/obj/Debug/net7.0/User.Common.csproj.AssemblyReference.cache
+/home/roherc/repos/circApp/User/User.Common/obj/Debug/net7.0/User.Common.GeneratedMSBuildEditorConfig.editorconfig
+/home/roherc/repos/circApp/User/User.Common/obj/Debug/net7.0/User.Common.AssemblyInfoInputs.cache
+/home/roherc/repos/circApp/User/User.Common/obj/Debug/net7.0/User.Common.AssemblyInfo.cs
+/home/roherc/repos/circApp/User/User.Common/obj/Debug/net7.0/User.Common.csproj.CoreCompileInputs.cache
+/home/roherc/repos/circApp/User/User.Common/obj/Debug/net7.0/User.Common.csproj.CopyComplete
+/home/roherc/repos/circApp/User/User.Common/obj/Debug/net7.0/User.Common.dll
+/home/roherc/repos/circApp/User/User.Common/obj/Debug/net7.0/refint/User.Common.dll
+/home/roherc/repos/circApp/User/User.Common/obj/Debug/net7.0/User.Common.pdb
+/home/roherc/repos/circApp/User/User.Common/obj/Debug/net7.0/ref/User.Common.dll

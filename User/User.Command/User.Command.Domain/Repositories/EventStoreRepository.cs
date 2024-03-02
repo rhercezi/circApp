@@ -26,7 +26,7 @@ namespace User.Command.Application.Repositories
 
         public async Task<List<UserEventModel>> FindByAgregateId(Guid id)
         {
-            return await _userCollection.Find(i => i.AggregateId == id).ToListAsync().ConfigureAwait(false);
+                return await _userCollection.Find(i => i.AggregateId == id).ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<List<UserEventModel>> FindByUsername(string username)
@@ -44,14 +44,14 @@ namespace User.Command.Application.Repositories
             using var session = await _client.StartSessionAsync();
             await _userCollection.InsertOneAsync(model).ConfigureAwait(false);
             await _eventProducer.ProduceAsync(model.Event);
-
         }
 
         private void SetMappers()
         {
             var events = AppDomain.CurrentDomain.GetAssemblies().SelectMany(
                 a => a.GetTypes().Where(
-                    t => t.IsClass && t.IsSubclassOf(typeof(BaseEvent))
+                    t => t.IsClass && 
+                    t.IsSubclassOf(typeof(BaseEvent))
                 )
             ).ToList();
             

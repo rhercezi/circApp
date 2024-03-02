@@ -1,4 +1,5 @@
 using Core.Configs;
+using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
 using Core.Repositories;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Options;
 using User.Command.Api.Commands;
 using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
+using User.Command.Domain.Events;
 using User.Command.Domin.Stores;
 using User.Common.DAOs;
 using User.Common.Events;
@@ -22,18 +24,21 @@ namespace User.Command.Application.Handlers.CommandHandlers
         private readonly IServiceProvider _serviceProvider;
         private readonly IMongoRepository<IdLinkModel> _idLinkRepo;
         private MailConfig _config;
+        private readonly EventProducer _eventProducer;
 
         public CreateUserCommandHandler(EventStore eventStore,
                                         PasswordHashService passwordHashService,
                                         IServiceProvider serviceProvider,
                                         IMongoRepository<IdLinkModel> idLinkRepo,
-                                        IOptions<MailConfig> config)
+                                        IOptions<MailConfig> config,
+                                        EventProducer eventProducer)
         {
             _eventStore = eventStore;
             _passwordHashService = passwordHashService;
             _serviceProvider = serviceProvider;
             _idLinkRepo = idLinkRepo;
             _config = config.Value;
+            _eventProducer = eventProducer;
         }
 
         public async Task HandleAsync(CreateUserCommand command)
@@ -58,6 +63,18 @@ namespace User.Command.Application.Handlers.CommandHandlers
                     false,
                     command.Created
                 )
+            );
+
+            _ = _eventProducer.ProduceAsync(
+                new UserCreatedPublicEvent
+                (
+                    command.Id,
+                    command.UserName,
+                    command.FirstName,
+                    command.FamilyName,
+                    command.Email
+                ),
+                "UserPublic"
             );
 
             var idLink = IdLinkConverter.GenerateRandomString();

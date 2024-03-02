@@ -1,11 +1,9 @@
 using Core.MessageHandling;
 using Core.Messages;
 using Core.Repositories;
-using Microsoft.Extensions.DependencyInjection;
 using User.Command.Application.Commands;
 using User.Command.Application.Exceptions;
 using User.Command.Domain.Aggregates;
-using User.Command.Domain.Repositories;
 using User.Command.Domin.Stores;
 using User.Common.DAOs;
 using User.Common.Events;
@@ -52,6 +50,9 @@ namespace User.Command.Application.Handlers.CommandHandlers
                     version
                 )
             );
+
+            await _idLinkRepo.DeleteAsync(command.idLink);
+
         }
 
         public async Task HandleAsync(BaseCommand command)

@@ -1,9 +1,10 @@
+using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
-using Microsoft.Extensions.DependencyInjection;
 using User.Command.Api.Commands;
 using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
+using User.Command.Domain.Events;
 using User.Command.Domain.Exceptions;
 using User.Command.Domin.Stores;
 using User.Common.Events;
@@ -13,10 +14,12 @@ namespace User.Command.Application.Handlers.CommandHandlers
     public class EditUserCommandHandler : ICommandHandler<EditUserCommand>
     {
         private readonly EventStore _eventStore;
+        private readonly EventProducer _eventProducer;
 
-        public EditUserCommandHandler(EventStore eventStore)
+        public EditUserCommandHandler(EventStore eventStore, EventProducer eventProducer)
         {
             _eventStore = eventStore;
+            _eventProducer = eventProducer;
         }
 
         public async Task HandleAsync(EditUserCommand command)
@@ -48,7 +51,21 @@ namespace User.Command.Application.Handlers.CommandHandlers
                     command.Updated
                 )
             );
+
+            _ = _eventProducer.ProduceAsync(
+                new UserUpdatedPublicEvent
+                (
+                    command.Id,
+                    command.UserName,
+                    command.FirstName,
+                    command.FamilyName,
+                    command.Email
+                ),
+                "UserPublic"
+            );
         }
+
+        
 
         public async Task HandleAsync(BaseCommand command)
         {

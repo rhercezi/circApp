@@ -1,4 +1,3 @@
-using Circles.Common.Entities;
 using Core.Messages;
 
 namespace Circles.Command.Application.Commands
@@ -7,6 +6,10 @@ namespace Circles.Command.Application.Commands
     {
         public required string Name { get; set; }
         public required string Color { get; set; }
-        public required List<AppUser> Users { get; set; }
+        public Guid CircleId
+        {
+            get => Id;
+            set => Id = value; 
+        }
     }
 }

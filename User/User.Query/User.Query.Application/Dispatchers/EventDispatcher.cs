@@ -28,7 +28,8 @@ namespace User.Query.Application.Dispatchers
             {
                 try
                 {
-                    var handler = (IEventHandler)_serviceProvider.GetRequiredService(handlerType);
+                    using var scope = _serviceProvider.CreateAsyncScope();
+                    var handler = (IEventHandler)scope.ServiceProvider.GetRequiredService(handlerType);
                     await handler.HandleAsync(xEvent);
                 }
                 catch (Exception e)

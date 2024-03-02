@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\Core.csproj" />
-    <ProjectReference Include="..\Circles.Query.Domain\Circles.Query.Domain.csproj" />
+    <ProjectReference Include="..\..\Circles.Domain\Circles.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

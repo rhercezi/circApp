@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "s0wIAyDwQQcVBFeWnBP9f3G3VSsn61rjIDUW8ozlHUs=",
+  "Source": "User.Query.Api",
+  "BasePath": "_content/User.Query.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
