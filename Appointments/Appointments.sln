@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\Core\Core.csproj", "{39305243-4FCF-4880-9C7E-2D5025C0F1E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointments.Domain", "Appointments.Domain\Appointments.Domain.csproj", "{FB2B6784-D552-4388-AE99-53B919FDCAB2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Appointments.Command", "Appointments.Command", "{41691E28-977A-4140-B667-252E669B81A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointments.Command.Api", "Appointments.Command\Appointments.Command.Api\Appointments.Command.Api.csproj", "{8362363F-B1D0-4FE9-A0C4-5DC1759A6B95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointments.Command.Application", "Appointments.Command\Appointments.Command.Application\Appointments.Command.Application.csproj", "{F44A7506-E2EB-4DE7-94D8-A5850674C19B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Appointments.Query", "Appointments.Query", "{18C3A7A0-78A4-4C70-AC66-657E0FCD9A15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointments.Query.Api", "Appointments.Query\Appointments.Query.Api\Appointments.Query.Api.csproj", "{44D5B15D-B500-488B-9E69-78D247BDEF08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointments.Query.Application", "Appointments.Query\Appointments.Query.Application\Appointments.Query.Application.csproj", "{86214B3B-197A-4E5B-B2D0-99F5ABA1D1E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39305243-4FCF-4880-9C7E-2D5025C0F1E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39305243-4FCF-4880-9C7E-2D5025C0F1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39305243-4FCF-4880-9C7E-2D5025C0F1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39305243-4FCF-4880-9C7E-2D5025C0F1E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB2B6784-D552-4388-AE99-53B919FDCAB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB2B6784-D552-4388-AE99-53B919FDCAB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB2B6784-D552-4388-AE99-53B919FDCAB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB2B6784-D552-4388-AE99-53B919FDCAB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8362363F-B1D0-4FE9-A0C4-5DC1759A6B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8362363F-B1D0-4FE9-A0C4-5DC1759A6B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8362363F-B1D0-4FE9-A0C4-5DC1759A6B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8362363F-B1D0-4FE9-A0C4-5DC1759A6B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F44A7506-E2EB-4DE7-94D8-A5850674C19B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F44A7506-E2EB-4DE7-94D8-A5850674C19B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F44A7506-E2EB-4DE7-94D8-A5850674C19B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F44A7506-E2EB-4DE7-94D8-A5850674C19B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D5B15D-B500-488B-9E69-78D247BDEF08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D5B15D-B500-488B-9E69-78D247BDEF08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D5B15D-B500-488B-9E69-78D247BDEF08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D5B15D-B500-488B-9E69-78D247BDEF08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86214B3B-197A-4E5B-B2D0-99F5ABA1D1E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86214B3B-197A-4E5B-B2D0-99F5ABA1D1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86214B3B-197A-4E5B-B2D0-99F5ABA1D1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86214B3B-197A-4E5B-B2D0-99F5ABA1D1E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8362363F-B1D0-4FE9-A0C4-5DC1759A6B95} = {41691E28-977A-4140-B667-252E669B81A6}
+		{F44A7506-E2EB-4DE7-94D8-A5850674C19B} = {41691E28-977A-4140-B667-252E669B81A6}
+		{44D5B15D-B500-488B-9E69-78D247BDEF08} = {18C3A7A0-78A4-4C70-AC66-657E0FCD9A15}
+		{86214B3B-197A-4E5B-B2D0-99F5ABA1D1E5} = {18C3A7A0-78A4-4C70-AC66-657E0FCD9A15}
+	EndGlobalSection
+EndGlobal
