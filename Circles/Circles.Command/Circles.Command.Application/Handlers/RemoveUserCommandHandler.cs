@@ -16,7 +16,7 @@ namespace Circles.Command.Application.Handlers
         public async Task HandleAsync(RemoveUsersCommand command)
         {
             var deleteTask = command.Users.Select(
-                uId => Task.Run(() => _userCircleRepository.DeleteByPredicate(uc => uc.UserId == uId && uc.CircleId == command.CircleId))
+                uId => Task.Run(() => _userCircleRepository.DeleteByUserAndCircle(uId, command.CircleId))
             );
             await Task.WhenAll(deleteTask);
         }

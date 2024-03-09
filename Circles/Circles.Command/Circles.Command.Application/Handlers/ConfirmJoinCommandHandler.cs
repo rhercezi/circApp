@@ -18,6 +18,8 @@ namespace Circles.Command.Application.Handlers
 
         public async Task HandleAsync(ConfirmJoinCommand command)
         {
+            if (!RequestExists(command)) throw new CirclesValidationException($"Request for join confirmation does not exist {command}");
+
             await _userCircleRepository.SaveAsync(
                 new UserCircleModel
                 {
@@ -26,7 +28,14 @@ namespace Circles.Command.Application.Handlers
                 }
             );
 
-            await _requestRepository.DeleteByPredicate(r => r.UserId == command.Id && r.CircleId == command.CircleId);
+            await _requestRepository.DeleteAsync(command.UserId, command.CircleId);
+        }
+
+        private bool RequestExists(ConfirmJoinCommand command)
+        {
+            var result = _requestRepository.FindAsync(jr => jr.CircleId == command.CircleId && jr.UserId == command.UserId).Result;
+            if (result.Count > 0) return true;
+            return false;
         }
 
         public async Task HandleAsync(BaseCommand command)

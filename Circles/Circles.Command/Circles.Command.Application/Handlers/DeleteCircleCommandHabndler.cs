@@ -17,7 +17,7 @@ namespace Circles.Command.Application.Handlers
 
         public async Task HandleAsync(DeleteCircleCommand command)
         {
-            await _userCircleRepository.DeleteByPredicate(uc => uc.CircleId == command.CircleId);
+            await _userCircleRepository.DeleteByCircle(command.CircleId);
             await _circlesRepository.DeleteCircle(command.CircleId);
         }
 

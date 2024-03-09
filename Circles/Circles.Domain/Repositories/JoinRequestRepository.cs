@@ -29,15 +29,24 @@ namespace Circles.Domain.Repositories
             }
         }
 
+        public async Task<List<JoinRequestModel>> FindAsync(Expression<Func<JoinRequestModel, bool>> expression)
+        {
+            var filter = Builders<JoinRequestModel>.Filter.Where(expression);
+            var cursor = await _collection.FindAsync(filter);
+            return cursor.ToList();
+        }
+
         public async Task SaveAsync(JoinRequestModel model)
         {
             await _collection.InsertOneAsync(model).ConfigureAwait(false);
         }
 
-        public async Task DeleteByPredicate(Expression<Func<JoinRequestModel, bool>> predicate)
+        public async Task DeleteAsync(Guid userId, Guid circleId)
         {
-            var filter = Builders<JoinRequestModel>.Filter.Where(predicate);
-            await _collection.DeleteManyAsync(filter);
+            var userFilter = Builders<JoinRequestModel>.Filter.Eq(jr => jr.UserId, userId);
+            var circleFilter = Builders<JoinRequestModel>.Filter.Eq(jr => jr.CircleId, circleId);
+            var filter = Builders<JoinRequestModel>.Filter.And(new [] {userFilter, circleFilter});
+            await _collection.DeleteOneAsync(filter);
         }
     }
 }

@@ -29,15 +29,36 @@ namespace Circles.Domain.Repositories
             }
         }
 
+        public async Task<List<UserCircleModel>> FindAsync(Expression<Func<UserCircleModel, bool>> expression)
+        {
+            var filter = Builders<UserCircleModel>.Filter.Where(expression);
+            var cursor = await _collection.FindAsync(filter);
+            return cursor.ToList();
+        }
+
         public async Task SaveAsync(UserCircleModel model)
         {
             await _collection.InsertOneAsync(model).ConfigureAwait(false);
         }
 
-        public async Task DeleteByPredicate(Expression<Func<UserCircleModel, bool>> predicate)
+        public async Task DeleteByUser(Guid userId)
         {
-            var filter = Builders<UserCircleModel>.Filter.Where(predicate);
-            await _collection.DeleteManyAsync(filter);
+            var filter = Builders<UserCircleModel>.Filter.Eq(uc => uc.UserId, userId);
+            var result = await _collection.DeleteManyAsync(filter);
+        }
+
+        public async Task DeleteByCircle(Guid circleId)
+        {
+            var filter = Builders<UserCircleModel>.Filter.Eq(uc => uc.CircleId, circleId);
+            var result = await _collection.DeleteManyAsync(filter);
+        }
+
+        public async Task DeleteByUserAndCircle(Guid userId, Guid circleId)
+        {
+            var userFilter = Builders<UserCircleModel>.Filter.Eq(uc => uc.UserId, userId);
+            var circleFilter = Builders<UserCircleModel>.Filter.Eq(uc => uc.CircleId, circleId);
+            var filter = Builders<UserCircleModel>.Filter.And(new [] {userFilter, circleFilter});
+            await _collection.DeleteOneAsync(filter);
         }
     }
 }

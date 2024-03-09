@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\Core\Core.csproj", "{DAA896D5-28BD-42C9-A117-065AE2959283}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminders.Domain", "Reminders.Domain\Reminders.Domain.csproj", "{F27CDC02-4952-48A5-B236-0FCADEF93480}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reminders.Command", "Reminders.Command", "{EE969D18-4192-43AC-BAA4-D1EA41225CB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminders.Command.Api", "Reminders.Command\Reminders.Command.Api\Reminders.Command.Api.csproj", "{04C1421C-D637-47E6-8799-544E407F275F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminders.Command.Application", "Reminders.Command\Reminders.Command.Application\Reminders.Command.Application.csproj", "{B3EC7EAA-D30A-4B14-AAEB-D95D59DF5BEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reminders.Query", "Reminders.Query", "{6C4FE784-74E9-429E-9B9C-FA8BA99C10DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminders.Query.Api", "Reminders.Query\Reminders.Query.Api\Reminders.Query.Api.csproj", "{A42277F4-FEA8-4F54-810A-0DA0CFFE7D03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminders.Query.Application", "Reminders.Query\Reminders.Query.Application\Reminders.Query.Application.csproj", "{C3A17299-9E8F-435F-ADDD-C05876F39EBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAA896D5-28BD-42C9-A117-065AE2959283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAA896D5-28BD-42C9-A117-065AE2959283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAA896D5-28BD-42C9-A117-065AE2959283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAA896D5-28BD-42C9-A117-065AE2959283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F27CDC02-4952-48A5-B236-0FCADEF93480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F27CDC02-4952-48A5-B236-0FCADEF93480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F27CDC02-4952-48A5-B236-0FCADEF93480}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F27CDC02-4952-48A5-B236-0FCADEF93480}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04C1421C-D637-47E6-8799-544E407F275F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04C1421C-D637-47E6-8799-544E407F275F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04C1421C-D637-47E6-8799-544E407F275F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04C1421C-D637-47E6-8799-544E407F275F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3EC7EAA-D30A-4B14-AAEB-D95D59DF5BEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3EC7EAA-D30A-4B14-AAEB-D95D59DF5BEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3EC7EAA-D30A-4B14-AAEB-D95D59DF5BEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3EC7EAA-D30A-4B14-AAEB-D95D59DF5BEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A42277F4-FEA8-4F54-810A-0DA0CFFE7D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A42277F4-FEA8-4F54-810A-0DA0CFFE7D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A42277F4-FEA8-4F54-810A-0DA0CFFE7D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A42277F4-FEA8-4F54-810A-0DA0CFFE7D03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3A17299-9E8F-435F-ADDD-C05876F39EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3A17299-9E8F-435F-ADDD-C05876F39EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3A17299-9E8F-435F-ADDD-C05876F39EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3A17299-9E8F-435F-ADDD-C05876F39EBB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04C1421C-D637-47E6-8799-544E407F275F} = {EE969D18-4192-43AC-BAA4-D1EA41225CB3}
+		{B3EC7EAA-D30A-4B14-AAEB-D95D59DF5BEB} = {EE969D18-4192-43AC-BAA4-D1EA41225CB3}
+		{A42277F4-FEA8-4F54-810A-0DA0CFFE7D03} = {6C4FE784-74E9-429E-9B9C-FA8BA99C10DA}
+		{C3A17299-9E8F-435F-ADDD-C05876F39EBB} = {6C4FE784-74E9-429E-9B9C-FA8BA99C10DA}
+	EndGlobalSection
+EndGlobal

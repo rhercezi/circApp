@@ -2,6 +2,27 @@ namespace Core.Configs
 {
     public class MailConfig
     {
+        public MailConfig()
+        {
+        }
+
+        public MailConfig(MailConfig config)
+        {
+            BaseUrl = config.BaseUrl;
+            Server = config.Server;
+            Port = config.Port;
+            EnableSSL = config.EnableSSL;
+            Sender = config.Sender;
+            Company = config.Company;
+            Username = config.Username;
+            Password = config.Password;
+            Subject = config.Subject;
+            Body = new List<string>();
+            config.Body.ForEach(
+                b => Body.Add(b)
+            );
+        }
+
         public string BaseUrl { get; set; }
         public string Server { get; set; }
         public int Port { get; set; }

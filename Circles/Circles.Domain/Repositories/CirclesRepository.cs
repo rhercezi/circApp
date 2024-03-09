@@ -1,9 +1,11 @@
 using Circles.Domain.Config;
 using Circles.Domain.Entities;
 using Circles.Domain.Exceptions;
+using Core.DTOs;
 using Core.Repositories;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Circles.Domain.Repositories
@@ -27,6 +29,18 @@ namespace Circles.Domain.Repositories
         {
             var filter = Builders<CircleModel>.Filter.In(c => c.CircleId, ids);
             return await _collection.Find(filter).ToListAsync();
+        }
+
+        public async Task<CircleDto> GetUsersInCircle(Guid circleId)
+        {
+            var filter = Builders<CircleModel>.Filter.Eq(c => c.CircleId, circleId);
+            var aggregation = await _collection.Aggregate().Match(filter)
+                                         .Lookup("CircleUserMap", "_id", "CircleId", "Map")
+                                         .Lookup("Users", "Map.UserId", "_id", "Users")
+                                         .As<CircleDto>()
+                                         .FirstAsync();
+
+            return aggregation;
         }
 
         public async Task SaveAsync(CircleModel circle)
@@ -57,15 +71,15 @@ namespace Circles.Domain.Repositories
 
         }
 
-        public async Task DeleteCircle(Guid CircleId)
+        public async Task DeleteCircle(Guid circleId)
         {
-            var filter = Builders<CircleModel>.Filter.Eq(c => c.CircleId, CircleId);
+            var filter = Builders<CircleModel>.Filter.Eq(c => c.CircleId, circleId);
             var result = await _collection.DeleteOneAsync(filter);
 
             if (!result.IsAcknowledged || result.DeletedCount == 0)
             {
-                _logger.LogError($"Delete circle failed for id: {CircleId}");
-                throw new CirclesDbException($"Delete circle failed for id: {CircleId}");
+                _logger.LogError($"Delete circle failed for id: {circleId}");
+                throw new CirclesDbException($"Delete circle failed for id: {circleId}");
             }
         }
     }

@@ -28,6 +28,8 @@ namespace Circles.Command.Application.Handlers
 
         public async Task HandleAsync(CreateCircleCommand command)
         {
+            command.Users = command.Users.Distinct().ToList();
+
             await _circlesRepository.SaveAsync(
                 new CircleModel
                 {
@@ -44,6 +46,20 @@ namespace Circles.Command.Application.Handlers
                     UserId = command.CreatorId
                 }
             );
+
+            var insertTask = command.Users.Select(
+                uId => Task.Run(() => _requestRepository.SaveAsync(
+                        new JoinRequestModel
+                        {
+                            UserId = uId,
+                            CircleId = command.CircleId,
+                            InviterId = command.CreatorId
+                        }
+                    )
+                )
+            );
+
+            await Task.WhenAll(insertTask);
 
             var produceTask = command.Users.Select(
                 uId => Task.Run(() => _eventProducer.ProduceAsync(

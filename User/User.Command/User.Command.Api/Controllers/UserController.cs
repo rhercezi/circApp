@@ -20,42 +20,42 @@ namespace User.Command.Api.Controllers
         [HttpPatch]
         public async Task<IActionResult> UpdatePassword(UpdatePasswordCommand command) 
         {
-            var t = await _dispatcher.DispatchAsync(command);
+            var (code, message) = await _dispatcher.DispatchAsync(command);
 
-            return StatusCode(t.code, t.message);
+            return StatusCode(code, message);
         }
 
         [Route("Password/Reset")]
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordCommand command) 
         {
-            var t = await _dispatcher.DispatchAsync(command);
+            var (code, message) = await _dispatcher.DispatchAsync(command);
 
-            return StatusCode(t.code, t.message);
+            return StatusCode(code, message);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserCommand command) 
         {
-            var t = await _dispatcher.DispatchAsync(command);
+            var (code, message) = await _dispatcher.DispatchAsync(command);
 
-            return StatusCode(t.code, t.message);
+            return StatusCode(code, message);
         }
 
         [HttpPatch]
         public async Task<IActionResult> UpdateUser([FromBody] EditUserCommand command)
         {
-            var t = await _dispatcher.DispatchAsync(command);
+            var (code, message) = await _dispatcher.DispatchAsync(command);
 
-            return StatusCode(t.code, t.message);
+            return StatusCode(code, message);
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteUser([FromBody] DeleteUserCommand command)
         {
-            var t = await _dispatcher.DispatchAsync(command);
+            var (code, message) = await _dispatcher.DispatchAsync(command);
 
-            return StatusCode(t.code, t.message);
+            return StatusCode(code, message);
         }
 
         [Route("VerifyEmail/{idLink}")]
@@ -63,9 +63,9 @@ namespace User.Command.Api.Controllers
         public async Task<IActionResult> ValidateEmail([FromRoute] string idLink) 
         {
             var command = new VerifyEmailCommand(idLink); 
-            var t = await _dispatcher.DispatchAsync(command);
+            var (code, message) = await _dispatcher.DispatchAsync(command);
 
-            return StatusCode(t.code, t.message);
+            return StatusCode(code, message);
         }
     }
 }

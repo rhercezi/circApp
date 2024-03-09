@@ -1,9 +1,11 @@
 using Circles.Domain.Config;
 using Circles.Domain.Entities;
 using Circles.Domain.Exceptions;
+using Core.DTOs;
 using Core.Repositories;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Circles.Domain.Repositories
@@ -27,6 +29,46 @@ namespace Circles.Domain.Repositories
         {
             var filter = Builders<AppUserModel>.Filter.In(c => c.UserId, ids);
             return await _collection.Find(filter).ToListAsync();
+        }
+
+        public async Task<AppUsersDto> SearchUsersAsync(string qWord)
+        {
+            AppUsersDto dto = new();
+
+            var filter = Builders<AppUserModel>.Filter.And(
+                DefineFilters(qWord)
+            ); 
+
+            dto.Users = await _collection.Find(filter).Limit(10).As<AppUserDto>().ToListAsync();
+            return dto;
+        }
+
+        private static FilterDefinition<AppUserModel>[] DefineFilters(string qWord)
+        {
+            var filterList = new List<FilterDefinition<AppUserModel>>();
+            foreach (var w in qWord.Split(" "))
+            {
+                filterList.Add(
+                    Builders<AppUserModel>.Filter.Or(
+                        Builders<AppUserModel>.Filter.Regex(u => u.UserName, new BsonRegularExpression($".*{w}.*", "i")),
+                        Builders<AppUserModel>.Filter.Regex(u => u.FirstName, new BsonRegularExpression($".*{w}.*", "i")),
+                        Builders<AppUserModel>.Filter.Regex(u => u.FamilyName, new BsonRegularExpression($".*{w}.*", "i"))
+                    )
+                );
+            }
+            return filterList.ToArray();
+        }
+
+        public async Task<AppUserDto> GetCirclesForUser(Guid UserId)
+        {
+            var filter = Builders<AppUserModel>.Filter.Eq(u => u.UserId, UserId);
+            var aggregation = await _collection.Aggregate().Match(filter)
+                                         .Lookup("CircleUserMap", "_id", "UserId", "Map")
+                                         .Lookup("Circles", "Map.CircleId", "_id", "Circles")
+                                         .As<AppUserDto>()
+                                         .FirstAsync();
+
+            return aggregation;
         }
 
         public async Task SaveAsync(AppUserModel user)

@@ -79,14 +79,6 @@ namespace User.Command.Application.Handlers.CommandHandlers
 
             var idLink = IdLinkConverter.GenerateRandomString();
 
-            _config.Body[0] = _config.Body[0].Replace("[VerificationLink]", idLink);
-            _config.Body[0] = _config.Body[0].Replace("[User]", command.FirstName + " " + command.FamilyName);
-
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var _emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
-                _emailSenderService.SendMail(idLink, command.Email, _config, 0);
-            }
             await _idLinkRepo.SaveAsync(new IdLinkModel
             {
                 LinkId = idLink,
@@ -94,6 +86,16 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 UserName = command.UserName,
                 Email = command.Email
             });
+
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                var config = new MailConfig(_config);
+                config.Body[0] = config.Body[0].Replace("[VerificationLink]", idLink);
+                config.Body[0] = config.Body[0].Replace("[User]", command.FirstName + " " + command.FamilyName);
+
+                var emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
+                emailSenderService.SendMail(idLink, command.Email, config, 0);
+            }
         }
 
         public async Task HandleAsync(BaseCommand command)

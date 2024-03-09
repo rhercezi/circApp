@@ -67,13 +67,14 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 Email = email
             });
 
-             _config.Body[1] = _config.Body[1].Replace("[ResetLink]", idLink);
-            _config.Body[1] = _config.Body[1].Replace("[User]", command.UserName);
-            _config.Subject = "CircleApp - reset password";
+            var config = new MailConfig(_config);
+            config.Body[1] = config.Body[1].Replace("[ResetLink]", idLink);
+            config.Body[1] = config.Body[1].Replace("[User]", command.UserName);
+            config.Subject = "CircleApp - reset password";
 
             using var scope = _serviceProvider.CreateScope();
             var _emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
-            _emailSenderService.SendMail(idLink, email, _config, 1);
+            _emailSenderService.SendMail(idLink, email, config, 1);
         }
 
         public async Task HandleAsync(BaseCommand command)

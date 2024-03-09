@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Circles.Domain.Entities;
 using Circles.Domain.Repositories;
 using Core.Events.PublicEvents;
