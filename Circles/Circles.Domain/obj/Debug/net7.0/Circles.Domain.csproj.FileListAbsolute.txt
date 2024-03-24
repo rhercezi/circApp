@@ -1,0 +1,15 @@
+/home/roherc/repos/circApp/Circles/Circles.Domain/bin/Debug/net7.0/Circles.Domain.deps.json
+/home/roherc/repos/circApp/Circles/Circles.Domain/bin/Debug/net7.0/Circles.Domain.dll
+/home/roherc/repos/circApp/Circles/Circles.Domain/bin/Debug/net7.0/Circles.Domain.pdb
+/home/roherc/repos/circApp/Circles/Circles.Domain/bin/Debug/net7.0/Core.dll
+/home/roherc/repos/circApp/Circles/Circles.Domain/bin/Debug/net7.0/Core.pdb
+/home/roherc/repos/circApp/Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.csproj.AssemblyReference.cache
+/home/roherc/repos/circApp/Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/roherc/repos/circApp/Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.AssemblyInfoInputs.cache
+/home/roherc/repos/circApp/Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.AssemblyInfo.cs
+/home/roherc/repos/circApp/Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.csproj.CoreCompileInputs.cache
+/home/roherc/repos/circApp/Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.csproj.CopyComplete
+/home/roherc/repos/circApp/Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.dll
+/home/roherc/repos/circApp/Circles/Circles.Domain/obj/Debug/net7.0/refint/Circles.Domain.dll
+/home/roherc/repos/circApp/Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.pdb
+/home/roherc/repos/circApp/Circles/Circles.Domain/obj/Debug/net7.0/ref/Circles.Domain.dll

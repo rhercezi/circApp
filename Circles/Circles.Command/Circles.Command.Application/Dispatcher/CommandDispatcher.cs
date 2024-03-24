@@ -34,7 +34,7 @@ namespace Circles.Command.Application.Dispatcher
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(e.StackTrace, e.Message);
+                    _logger.LogError($"{e.Message}\n{e.StackTrace}");
                     throw;
                 }
             }

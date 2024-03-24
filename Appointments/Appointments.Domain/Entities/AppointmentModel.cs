@@ -9,9 +9,10 @@ namespace Appointments.Domain.Entities
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public Guid CreatorId { get; set; }
         public DateTime Date { get; set; }
-        public string? Note { get; set; }
-        public Address? Address { get; set; }
-        public List<Reminder>? Reminders { get; set; }
+        public AppointmentDetailsModel? Details { get; set; }
+        public List<Guid>? DetailsInCircles { get; set; }
     }
 }

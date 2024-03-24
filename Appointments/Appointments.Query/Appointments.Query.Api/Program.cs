@@ -1,6 +1,28 @@
+using Appointments.Domain.Configs;
+using Appointments.Domain.Repositories;
+using Appointments.Query.Application.Dispatchers;
+using Appointments.Query.Application.DTOs;
+using Appointments.Query.Application.Handlers;
+using Core.MessageHandling;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<MongoDbAppointmentsConfig>(builder.Configuration.GetSection(nameof(MongoDbAppointmentsConfig)));
+builder.Services.Configure<MongoDbAppointmentDetailsConfig>(builder.Configuration.GetSection(nameof(MongoDbAppointmentDetailsConfig)));
+builder.Services.Configure<MongoDbCAMapConfig>(builder.Configuration.GetSection(nameof(MongoDbCAMapConfig)));
+builder.Services.Configure<MongoDbCircleUserMapConfig>(builder.Configuration.GetSection(nameof(MongoDbCircleUserMapConfig)));
+
+builder.Services.AddScoped<AppointmentRepository>();
+builder.Services.AddScoped<AppointmentDetailsRepository>();
+builder.Services.AddScoped<CAMapRepository>();
+builder.Services.AddScoped<UserCircleRepository>();
+
+builder.Services.AddScoped<GetAppointmentsByCircleIdQueryHandler>();
+builder.Services.AddScoped<GetAppointmentsByUserIdQueryHandler>();
+
+builder.Services.AddSingleton<IHandlerService, HandlerService>();
+builder.Services.AddScoped<IQueryDispatcher<AppointmentsDto>, AppointmentsQueryDispatcher>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

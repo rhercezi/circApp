@@ -21,7 +21,7 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5018"
+                "ASPNETCORE_URLS": "http://localhost:5020"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
@@ -47,7 +47,7 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5019"
+                "ASPNETCORE_URLS": "http://localhost:5021"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
@@ -73,7 +73,7 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5020"
+                "ASPNETCORE_URLS": "http://localhost:5022"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
@@ -99,7 +99,59 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5021"
+                "ASPNETCORE_URLS": "http://localhost:5023"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": "Appointments.Command.Api",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/Appointments.Command.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Appointments/Appointments.Command/Appointments.Command.Api",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5024"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": "Appointments.Query.Api",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/Appointments.Query.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Appointments/Appointments.Query/Appointments.Query.Api",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5025"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

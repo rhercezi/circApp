@@ -24,5 +24,18 @@ namespace Core.Repositories
         }
 
         protected abstract void CreateIndexesIfNotExisting();
+
+        public Task<IClientSessionHandle> GetSession()
+        {
+            try
+            {
+                return _client.StartSessionAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"{e.Message}\n{e.StackTrace}");
+                throw;
+            }
+        }
     }
 }
