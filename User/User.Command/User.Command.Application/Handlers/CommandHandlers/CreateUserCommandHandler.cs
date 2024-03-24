@@ -10,6 +10,7 @@ using User.Command.Api.Commands;
 using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
 using User.Command.Domain.Events;
+using User.Command.Domain.Repositories;
 using User.Command.Domin.Stores;
 using User.Common.DAOs;
 using User.Common.Events;
@@ -22,14 +23,14 @@ namespace User.Command.Application.Handlers.CommandHandlers
         private readonly EventStore _eventStore;
         private PasswordHashService _passwordHashService;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IMongoRepository<IdLinkModel> _idLinkRepo;
+        private readonly IdLinkRepository _idLinkRepo;
         private MailConfig _config;
         private readonly EventProducer _eventProducer;
 
         public CreateUserCommandHandler(EventStore eventStore,
                                         PasswordHashService passwordHashService,
                                         IServiceProvider serviceProvider,
-                                        IMongoRepository<IdLinkModel> idLinkRepo,
+                                        IdLinkRepository idLinkRepo,
                                         IOptions<MailConfig> config,
                                         EventProducer eventProducer)
         {
@@ -65,7 +66,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 )
             );
 
-            _ = _eventProducer.ProduceAsync(
+            await _eventProducer.ProduceAsync(
                 new UserCreatedPublicEvent
                 (
                     command.Id,

@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../build/Circles.Query.Api.props" />
-</Project>

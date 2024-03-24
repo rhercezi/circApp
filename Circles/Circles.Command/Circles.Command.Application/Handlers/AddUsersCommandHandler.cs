@@ -5,6 +5,7 @@ using Circles.Domain.Repositories;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
+using Microsoft.Extensions.Logging;
 
 namespace Circles.Command.Application.Handlers
 {
@@ -13,46 +14,63 @@ namespace Circles.Command.Application.Handlers
         private readonly JoinCircleEventProducer _eventProducer;
         private readonly JoinRequestRepository _requestRepository;
         private readonly UserCircleRepository _userCircleRepository;
+        private readonly ILogger<AddUsersCommandHandler> _logger;
 
         public AddUsersCommandHandler(JoinCircleEventProducer eventProducer,
                                       JoinRequestRepository requestRepository,
-                                      UserCircleRepository userCircleRepository)
+                                      UserCircleRepository userCircleRepository,
+                                      ILogger<AddUsersCommandHandler> logger)
         {
             _eventProducer = eventProducer;
             _requestRepository = requestRepository;
             _userCircleRepository = userCircleRepository;
+            _logger = logger;
         }
 
         public async Task HandleAsync(AddUsersCommand command)
         {
-            if (!InviterIsInTheCircle(command)) throw new CirclesValidationException("Only member of the circle can invite new members");
-            await ClearDuplicatesAndExisting(command);
+            using var session = await _requestRepository.GetSession();
+            try
+            {
+                session.StartTransaction();
 
-            var insertTask = command.Users.Select(
-                uId => Task.Run(() => _requestRepository.SaveAsync(
-                        new JoinRequestModel
-                        {
-                            UserId = uId,
-                            CircleId = command.CircleId,
-                            InviterId = command.InviterId
-                        }
-                    )
-                )
-            );
+                if (!InviterIsInTheCircle(command)) throw new CirclesValidationException("Only member of the circle can invite new members");
+                await ClearDuplicatesAndExisting(command);
 
-            await Task.WhenAll(insertTask);
-
-            command.Users.ForEach(
-                uId => Task.Run(() => _eventProducer.ProduceAsync(
-                        new JoinCircleRequestPublicEvent
-                        (
-                            command.CircleId,
-                            uId,
-                            command.InviterId
+                var insertTask = command.Users.Select(
+                    uId => Task.Run(() => _requestRepository.SaveAsync(
+                            new JoinRequestModel
+                            {
+                                UserId = uId,
+                                CircleId = command.CircleId,
+                                InviterId = command.InviterId
+                            }
                         )
                     )
-                )
-            );
+                );
+
+                await Task.WhenAll(insertTask);
+
+                command.Users.ForEach(
+                    uId => Task.Run(() => _eventProducer.ProduceAsync(
+                            new JoinCircleRequestPublicEvent
+                            (
+                                command.CircleId,
+                                uId,
+                                command.InviterId
+                            )
+                        )
+                    )
+                );
+
+                session.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                session.AbortTransaction();
+                _logger.LogError($"{e.Message}\n{e.StackTrace}");
+                throw;
+            }
         }
 
         private async Task ClearDuplicatesAndExisting(AddUsersCommand command)
@@ -60,7 +78,7 @@ namespace Circles.Command.Application.Handlers
             command.Users = command.Users.Distinct().ToList();
             var resultRequest = await _requestRepository.FindAsync(jr => jr.CircleId == command.CircleId && command.Users.Contains(jr.UserId));
             resultRequest.ForEach(jrm => command.Users.RemoveAll(gtr => gtr == jrm.UserId));
-            
+
             var resultUC = await _userCircleRepository.FindAsync(uc => uc.CircleId == command.CircleId && command.Users.Contains(uc.UserId));
             resultUC.ForEach(uc => command.Users.RemoveAll(gtr => gtr == uc.UserId));
         }

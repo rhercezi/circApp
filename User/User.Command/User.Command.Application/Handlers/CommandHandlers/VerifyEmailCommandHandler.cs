@@ -4,6 +4,7 @@ using Core.Repositories;
 using User.Command.Application.Commands;
 using User.Command.Application.Exceptions;
 using User.Command.Domain.Aggregates;
+using User.Command.Domain.Repositories;
 using User.Command.Domin.Stores;
 using User.Common.DAOs;
 using User.Common.Events;
@@ -13,9 +14,9 @@ namespace User.Command.Application.Handlers.CommandHandlers
     public class VerifyEmailCommandHandler : ICommandHandler<VerifyEmailCommand>
     {
         private readonly EventStore _eventStore;
-        private readonly IMongoRepository<IdLinkModel> _idLinkRepo;
+        private readonly IdLinkRepository _idLinkRepo;
 
-        public VerifyEmailCommandHandler(EventStore eventStore, IMongoRepository<IdLinkModel> idLinkRepo)
+        public VerifyEmailCommandHandler(EventStore eventStore, IdLinkRepository idLinkRepo)
         {
             _eventStore = eventStore;
             _idLinkRepo = idLinkRepo;

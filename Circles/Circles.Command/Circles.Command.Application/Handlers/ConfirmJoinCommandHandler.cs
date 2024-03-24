@@ -8,8 +8,8 @@ namespace Circles.Command.Application.Handlers
 {
     public class ConfirmJoinCommandHandler : ICommandHandler<ConfirmJoinCommand>
     {
-        public UserCircleRepository _userCircleRepository { get; set; }
-        public JoinRequestRepository _requestRepository { get; set; }
+        public readonly UserCircleRepository _userCircleRepository;
+        public readonly JoinRequestRepository _requestRepository;
         public ConfirmJoinCommandHandler(UserCircleRepository userCircleRepository, JoinRequestRepository requestRepository)
         {
             _userCircleRepository = userCircleRepository;

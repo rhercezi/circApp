@@ -9,20 +9,20 @@ using User.Common.Events;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
 using Core.Configs;
-using Core.Repositories;
 using Core.Messages;
+using User.Command.Domain.Repositories;
 
 namespace User.Command.Application.Handlers.CommandHandlers
 {
     public class ResetPasswordCommandHandler : ICommandHandler<ResetPasswordCommand>
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly IMongoRepository<IdLinkModel> _idLinkRepo;
+        private readonly IdLinkRepository _idLinkRepo;
         private readonly EventStore _eventStore;
         private MailConfig _config;
 
         public ResetPasswordCommandHandler(IServiceProvider serviceProvider,
-                                           IMongoRepository<IdLinkModel> idLinkRepo,
+                                           IdLinkRepository idLinkRepo,
                                            EventStore eventStore,
                                            IOptions<MailConfig> config)
         {

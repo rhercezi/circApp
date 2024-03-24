@@ -1,14 +1,13 @@
 using Core.MessageHandling;
 using Core.Messages;
-using Core.Repositories;
 using Microsoft.Extensions.Logging;
 using User.Command.Application.Commands;
 using User.Command.Application.Exceptions;
 using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
 using User.Command.Domain.Exceptions;
+using User.Command.Domain.Repositories;
 using User.Command.Domin.Stores;
-using User.Common.DAOs;
 using User.Common.Events;
 using User.Common.PasswordService;
 
@@ -18,12 +17,12 @@ namespace User.Command.Application.Handlers.CommandHandlers
     {
         private readonly EventStore _eventStore;
         private PasswordHashService _passwordHashService;
-        private readonly IMongoRepository<IdLinkModel> _idLinkRepo;
+        private readonly IdLinkRepository _idLinkRepo;
         private readonly ILogger<UpdatePasswordCommandHandler> _logger;
 
         public UpdatePasswordCommandHandler(EventStore eventStore,
                                             PasswordHashService passwordHashService,
-                                            IMongoRepository<IdLinkModel> idLinkRepo,
+                                            IdLinkRepository idLinkRepo,
                                             ILogger<UpdatePasswordCommandHandler> logger)
         {
             _eventStore = eventStore;
