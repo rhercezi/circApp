@@ -1,7 +1,9 @@
 using Appointments.Command.Application.Commands;
 using Appointments.Command.Application.DTOs;
+using Appointments.Command.Application.EventProducer;
 using Appointments.Command.Application.Exceptions;
 using Appointments.Domain.Repositories;
+using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
@@ -13,13 +15,16 @@ namespace Appointments.Command.Application.Handlers
         private readonly AppointmentDetailsRepository _detailsRepository;
         private readonly AppointmentRepository _appointmentRepository;
         private readonly ILogger<UpdateAppointmentDetailCommandHandler> _logger;
+        private readonly AppointmentEventProducer _eventProducer;
         public UpdateAppointmentDetailCommandHandler(AppointmentDetailsRepository detailsRepository,
                                                      ILogger<UpdateAppointmentDetailCommandHandler> logger,
-                                                     AppointmentRepository appointmentRepository)
+                                                     AppointmentRepository appointmentRepository,
+                                                     AppointmentEventProducer eventProducer)
         {
             _detailsRepository = detailsRepository;
             _logger = logger;
             _appointmentRepository = appointmentRepository;
+            _eventProducer = eventProducer;
         }
 
         public async Task HandleAsync(UpdateAppointmentDetailCommand command)
@@ -41,6 +46,15 @@ namespace Appointments.Command.Application.Handlers
                     if (result.MatchedCount == 0) throw new AppointmentsApplicationException($"No match found for given appointment details {command}");
                     if (result.ModifiedCount == 0) throw new AppointmentsApplicationException($"Faild updating appointment details with command {command}");
                 }
+
+                await _eventProducer.ProduceAsync(
+                    new AppointmentChangePublicEvent(
+                        appointment.Id,
+                        appointment.CreatorId,
+                        appointment.Date,
+                        appointment.DetailsInCircles
+                    )
+                );
             }
             else throw new AppointmentsApplicationException("Can not update deteails with null value.");
         }

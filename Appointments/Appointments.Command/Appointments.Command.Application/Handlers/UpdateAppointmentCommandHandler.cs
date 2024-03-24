@@ -1,8 +1,10 @@
 using Appointments.Command.Application.Commands;
 using Appointments.Command.Application.DTOs;
+using Appointments.Command.Application.EventProducer;
 using Appointments.Command.Application.Exceptions;
 using Appointments.Domain.Entities;
 using Appointments.Domain.Repositories;
+using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
@@ -14,13 +16,16 @@ namespace Appointments.Command.Application.Handlers
         private readonly AppointmentRepository _appointmentRepository;
         private readonly CAMapRepository _mapRepository;
         private readonly ILogger<UpdateAppointmentCommandHandler> _logger;
+        private readonly AppointmentEventProducer _eventProducer;
         public UpdateAppointmentCommandHandler(AppointmentRepository appointmentRepository,
                                                ILogger<UpdateAppointmentCommandHandler> logger,
-                                               CAMapRepository mapRepository)
+                                               CAMapRepository mapRepository,
+                                               AppointmentEventProducer eventProducer)
         {
             _appointmentRepository = appointmentRepository;
             _logger = logger;
             _mapRepository = mapRepository;
+            _eventProducer = eventProducer;
         }
 
         public async Task HandleAsync(UpdateAppointmentCommand command)
@@ -60,6 +65,14 @@ namespace Appointments.Command.Application.Handlers
 
             await _mapRepository.SaveManyAsync(mappings);
 
+            await _eventProducer.ProduceAsync(
+                new AppointmentChangePublicEvent(
+                    command.Id,
+                    command.UpdaterId,
+                    command.Date,
+                    command.Circles
+                )
+            );
             await session.CommitTransactionAsync();
         }
 

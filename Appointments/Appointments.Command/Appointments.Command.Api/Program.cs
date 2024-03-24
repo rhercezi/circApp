@@ -1,7 +1,9 @@
 using Appointments.Command.Application.Dispatchers;
+using Appointments.Command.Application.EventProducer;
 using Appointments.Command.Application.Handlers;
 using Appointments.Domain.Configs;
 using Appointments.Domain.Repositories;
+using Core.Configs;
 using Core.MessageHandling;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,10 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<MongoDbAppointmentsConfig>(builder.Configuration.GetSection(nameof(MongoDbAppointmentsConfig)));
 builder.Services.Configure<MongoDbAppointmentDetailsConfig>(builder.Configuration.GetSection(nameof(MongoDbAppointmentDetailsConfig)));
 builder.Services.Configure<MongoDbCAMapConfig>(builder.Configuration.GetSection(nameof(MongoDbCAMapConfig)));
+builder.Services.Configure<KafkaProducerConfig>(builder.Configuration.GetSection(nameof(KafkaProducerConfig)));
 
 builder.Services.AddScoped<AppointmentRepository>();
 builder.Services.AddScoped<AppointmentDetailsRepository>();
 builder.Services.AddScoped<CAMapRepository>();
+builder.Services.AddScoped<AppointmentEventProducer>();
 
 builder.Services.AddScoped<AddAppointmentDetailsCommandHandler>();
 builder.Services.AddScoped<CreateAppointmentCommandHandler>();
