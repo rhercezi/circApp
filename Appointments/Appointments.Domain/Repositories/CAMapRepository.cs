@@ -27,15 +27,25 @@ namespace Appointments.Domain.Repositories
             }
         }
 
-        public async Task<List<Guid>> GetAppointmentsByCircles(List<Guid> circles)
+        public async Task<List<Guid>> GetAppointmentsByCircles(List<Guid> circles, DateTime dateFrom, DateTime dateTo)
         {
-            var filter = Builders<CircleAppointmentMap>.Filter.In(ca => ca.CircleId, circles);
+            var filter = Builders<CircleAppointmentMap>.Filter.And(
+                Builders<CircleAppointmentMap>.Filter.In(ca => ca.CircleId, circles),
+                Builders<CircleAppointmentMap>.Filter.Gte(ca => ca.Date, dateFrom),
+                Builders<CircleAppointmentMap>.Filter.Lte(ca => ca.Date, dateTo)
+            );
+
             return await _collection.Distinct(ac => ac.AppointmentId, filter).ToListAsync();
         }
 
-        public async Task<List<Guid>> GetAppointmentsByCircleId(Guid circle)
+        public async Task<List<Guid>> GetAppointmentsByCircleId(Guid circle, DateTime dateFrom, DateTime dateTo)
         {
-            var filter = Builders<CircleAppointmentMap>.Filter.Eq(ca => ca.CircleId, circle);
+            var filter = Builders<CircleAppointmentMap>.Filter.And(
+                Builders<CircleAppointmentMap>.Filter.Eq(ca => ca.CircleId, circle),
+                Builders<CircleAppointmentMap>.Filter.Gte(ca => ca.Date, dateFrom),
+                Builders<CircleAppointmentMap>.Filter.Lte(ca => ca.Date, dateTo)
+            );
+
             return await _collection.Distinct(ac => ac.AppointmentId, filter).ToListAsync();
         }
 

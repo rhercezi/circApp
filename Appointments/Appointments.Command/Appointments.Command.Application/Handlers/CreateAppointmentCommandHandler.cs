@@ -50,7 +50,8 @@ namespace Appointments.Command.Application.Handlers
                     c => new CircleAppointmentMap
                     {
                         AppointmentId = appointment.Id,
-                        CircleId = c
+                        CircleId = c,
+                        Date = appointment.Date
                     }
                 ).ToList();
 

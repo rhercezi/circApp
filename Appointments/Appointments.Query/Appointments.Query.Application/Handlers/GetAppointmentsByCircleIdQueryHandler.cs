@@ -24,7 +24,7 @@ namespace Appointments.Query.Application.Handlers
 
         public async Task<AppointmentsDto> HandleAsync(GetAppointmentsByCircleIdQuery query)
         {
-            var appointmentIds = await _mapRepository.GetAppointmentsByCircleId(query.CircleId);
+            var appointmentIds = await _mapRepository.GetAppointmentsByCircleId(query.CircleId, query.DareFrom, query.DateTo);
             if (appointmentIds.Count > 0)
             {
                 var appointments = await _appointmentRepository.GetAppointments(appointmentIds);

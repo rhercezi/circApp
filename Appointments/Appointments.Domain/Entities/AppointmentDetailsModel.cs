@@ -8,7 +8,7 @@ namespace Appointments.Domain.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
-        public Guid AppointmentId { get; set; }
+        public required Guid AppointmentId { get; set; }
         public string? Note { get; set; }
         public Address? Address { get; set; }
         public List<Reminder>? Reminders { get; set; }

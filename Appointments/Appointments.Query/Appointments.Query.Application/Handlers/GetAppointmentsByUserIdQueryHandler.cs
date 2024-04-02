@@ -1,26 +1,35 @@
 using System.Linq;
 using Appointments.Domain.Entities;
 using Appointments.Domain.Repositories;
+using Appointments.Query.Application.Config;
 using Appointments.Query.Application.DTOs;
 using Appointments.Query.Application.Queries;
+using Core.Configs;
 using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
+using Core.Utilities;
+using Microsoft.Extensions.Options;
 
 namespace Appointments.Query.Application.Handlers
 {
     public class GetAppointmentsByUserIdQueryHandler : IQueryHandler<GetAppointmentsByUserIdQuery, AppointmentsDto>
     {
-        private readonly UserCircleRepository _UCRepository;
+        private readonly InternalHttpClient<AppUserDto> _internalHttp;
+        private readonly IOptions<CirclesServuceConfig> _config;
         private readonly AppointmentRepository _appointmentRepository;
         private readonly CAMapRepository _mapRepository;
         private readonly AppointmentDetailsRepository _detailsRepository;
-        public GetAppointmentsByUserIdQueryHandler(UserCircleRepository uCRepository,
+        public GetAppointmentsByUserIdQueryHandler(
+                                                   InternalHttpClient<AppUserDto> internalHttp,
+                                                   IOptions<CirclesServuceConfig> config,
                                                    AppointmentRepository appointmentRepository,
                                                    CAMapRepository mapRepository,
-                                                   AppointmentDetailsRepository detailsRepository)
+                                                   AppointmentDetailsRepository detailsRepository
+                                                   )
         {
-            _UCRepository = uCRepository;
+            _internalHttp = internalHttp;
+            _config = config;
             _appointmentRepository = appointmentRepository;
             _mapRepository = mapRepository;
             _detailsRepository = detailsRepository;
@@ -28,13 +37,21 @@ namespace Appointments.Query.Application.Handlers
 
         public async Task<AppointmentsDto> HandleAsync(GetAppointmentsByUserIdQuery query)
         {
-            var userCirclePairs = await _UCRepository.FindAsync(uc => uc.UserId == query.UserId);
-            if (userCirclePairs.Count > 0)
-            { 
-                var circles = userCirclePairs.Select(uc => uc.CircleId).ToList();
+            var clientConfig = new HttpClientConfig
+            {
+                BaseUrl = _config.Value.BaseUrl,
+                Path = _config.Value.Path + query.UserId.ToString(),
+                Port = _config.Value.Port
+            };
+
+            var appUserDto = await _internalHttp.GetResource(clientConfig);
+            
+            if (appUserDto.Circles != null && appUserDto.Circles.Count > 0)
+            {
+                var circles = appUserDto.Circles.Select(c => c.Id).ToList();
                 if (circles.Count > 0)
                 {
-                    var appointmentIds = await _mapRepository.GetAppointmentsByCircles(circles);
+                    var appointmentIds = await _mapRepository.GetAppointmentsByCircles(circles, query.DateFrom, query.DateTo);
                     if (appointmentIds.Count > 0)
                     {
                         var appointments = await _appointmentRepository.GetAppointments(appointmentIds);

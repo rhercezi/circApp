@@ -20,14 +20,18 @@ namespace Appointments.Query.Api.Controllers
 
         [HttpGet]
         [Route("circle/{id}")]
-        public async Task<IActionResult> GetAppointmentsByCircleId([FromRoute] Guid id)
+        public async Task<IActionResult> GetAppointmentsByCircleId([FromRoute] Guid id,
+                                                                   [FromQuery] DateTime dateFrom,
+                                                                   [FromQuery] DateTime dateTo)
         {
             try
             {
                 var appointmentsDto = await _userQueryDispatcher.DispatchAsync(
                     new GetAppointmentsByCircleIdQuery
                     {
-                        CircleId = id
+                        CircleId = id,
+                        DareFrom = dateFrom,
+                        DateTo = dateTo
                     }
                 );
                 return StatusCode(200, appointmentsDto);
@@ -42,14 +46,18 @@ namespace Appointments.Query.Api.Controllers
 
         [HttpGet]
         [Route("user/{id}")]
-        public async Task<IActionResult> GetAppointmentsByUserId([FromRoute] Guid id)
+        public async Task<IActionResult> GetAppointmentsByUserId([FromRoute] Guid id,
+                                                                 [FromQuery] DateTime dateFrom,
+                                                                 [FromQuery] DateTime dateTo)
         {
             try
             {
                 var appointmentsDto = await _userQueryDispatcher.DispatchAsync(
                     new GetAppointmentsByUserIdQuery
                     {
-                        UserId = id
+                        UserId = id,
+                        DateFrom = dateFrom,
+                        DateTo = dateTo
                     }
                 );
                 return StatusCode(200, appointmentsDto);
