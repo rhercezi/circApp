@@ -35,8 +35,8 @@ namespace Circles.Domain.Repositories
         {
             var filter = Builders<CircleModel>.Filter.Eq(c => c.CircleId, circleId);
             var aggregation = await _collection.Aggregate().Match(filter)
-                                         .Lookup("CircleUserMap", "_id", "CircleId", "Map")
-                                         .Lookup("Users", "Map.UserId", "_id", "Users")
+                                         .Lookup("circle.user.map", "_id", "CircleId", "Map")
+                                         .Lookup("users", "Map.UserId", "_id", "Users")
                                          .As<CircleDto>()
                                          .FirstAsync();
 

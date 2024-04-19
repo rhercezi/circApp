@@ -25,7 +25,7 @@ namespace Appointments.Domain.Repositories
         public async Task<AppointmentDetailsModel> FindAsync(Guid appointmentId)
         {
             var filter = Builders<AppointmentDetailsModel>.Filter.Eq(ad => ad.AppointmentId, appointmentId);
-            return await _collection.Find(filter).FirstAsync();
+            return await _collection.Find(filter).FirstOrDefaultAsync();
         }
 
         public async Task SaveAsync(AppointmentDetailsModel detailsModel)

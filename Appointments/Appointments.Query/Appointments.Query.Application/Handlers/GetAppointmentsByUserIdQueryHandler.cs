@@ -1,4 +1,3 @@
-using System.Linq;
 using Appointments.Domain.Entities;
 using Appointments.Domain.Repositories;
 using Appointments.Query.Application.Config;
@@ -16,13 +15,13 @@ namespace Appointments.Query.Application.Handlers
     public class GetAppointmentsByUserIdQueryHandler : IQueryHandler<GetAppointmentsByUserIdQuery, AppointmentsDto>
     {
         private readonly InternalHttpClient<AppUserDto> _internalHttp;
-        private readonly IOptions<CirclesServuceConfig> _config;
+        private readonly IOptions<CirclesServiceConfig> _config;
         private readonly AppointmentRepository _appointmentRepository;
         private readonly CAMapRepository _mapRepository;
         private readonly AppointmentDetailsRepository _detailsRepository;
         public GetAppointmentsByUserIdQueryHandler(
                                                    InternalHttpClient<AppUserDto> internalHttp,
-                                                   IOptions<CirclesServuceConfig> config,
+                                                   IOptions<CirclesServiceConfig> config,
                                                    AppointmentRepository appointmentRepository,
                                                    CAMapRepository mapRepository,
                                                    AppointmentDetailsRepository detailsRepository

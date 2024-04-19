@@ -10,5 +10,10 @@ namespace Appointments.Command.Application.Commands
         public AppointmentDetailsDto? Details { get; set; }
         public List<Guid>? DetailsInCircles { get; set; }
         public required List<Guid> Circles { get; set; }
+
+        public CreateAppointmentCommand()
+        {
+            Id = Guid.NewGuid();
+        }
     }
 }

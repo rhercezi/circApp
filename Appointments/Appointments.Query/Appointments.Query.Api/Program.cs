@@ -1,5 +1,6 @@
 using Appointments.Domain.Configs;
 using Appointments.Domain.Repositories;
+using Appointments.Query.Application.Config;
 using Appointments.Query.Application.Dispatchers;
 using Appointments.Query.Application.DTOs;
 using Appointments.Query.Application.Handlers;
@@ -14,6 +15,7 @@ builder.Services.Configure<MongoDbAppointmentsConfig>(builder.Configuration.GetS
 builder.Services.Configure<MongoDbAppointmentDetailsConfig>(builder.Configuration.GetSection(nameof(MongoDbAppointmentDetailsConfig)));
 builder.Services.Configure<MongoDbCAMapConfig>(builder.Configuration.GetSection(nameof(MongoDbCAMapConfig)));
 builder.Services.Configure<MongoDbCircleUserMapConfig>(builder.Configuration.GetSection(nameof(MongoDbCircleUserMapConfig)));
+builder.Services.Configure<CirclesServiceConfig>(builder.Configuration.GetSection(nameof(CirclesServiceConfig)));
 
 builder.Services.AddScoped<AppointmentRepository>();
 builder.Services.AddScoped<AppointmentDetailsRepository>();

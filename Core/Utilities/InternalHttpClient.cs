@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Core.Configs;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +14,7 @@ namespace Core.Utilities
 
         public async Task<Tdto> GetResource(HttpClientConfig config)
         {
-            var targetUrl = $"{config.BaseUrl}:{config.Port}/{config.Path}";
+            var targetUrl = $"{config.BaseUrl}:{config.Port}{config.Path}";
 
             using var httpClient = new HttpClient();
             try
@@ -26,8 +22,8 @@ namespace Core.Utilities
                 var response = await httpClient.GetAsync(targetUrl);
                 response.EnsureSuccessStatusCode();
                 var responseBody = await response.Content.ReadAsStringAsync();
-
-                return JsonSerializer.Deserialize<Tdto>(responseBody);
+                var dto = JsonSerializer.Deserialize<Tdto>(responseBody);
+                return dto;
             }
             catch (Exception e)
             {
