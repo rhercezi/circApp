@@ -1,5 +1,4 @@
 using Core.Repositories;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -40,7 +39,11 @@ namespace User.Command.Domain.Repositories
 
         protected override void CreateIndexesIfNotExisting()
         {
-            throw new NotImplementedException();
+            if (!_collection.Indexes.List().ToList().Where(i => i.Contains("name") && i["name"].AsString == "LinkId").Any())
+            {
+                _collection.Indexes.CreateOneAsync(new CreateIndexModel<IdLinkModel>(Builders<IdLinkModel>.IndexKeys.Ascending(u => u.LinkId),
+                                                                                     new CreateIndexOptions { Name = "LinkId" }));
+            }
         }
     }
 }

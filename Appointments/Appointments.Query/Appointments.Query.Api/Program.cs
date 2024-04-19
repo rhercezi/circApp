@@ -3,7 +3,9 @@ using Appointments.Domain.Repositories;
 using Appointments.Query.Application.Dispatchers;
 using Appointments.Query.Application.DTOs;
 using Appointments.Query.Application.Handlers;
+using Core.DTOs;
 using Core.MessageHandling;
+using Core.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,7 @@ builder.Services.AddScoped<AppointmentRepository>();
 builder.Services.AddScoped<AppointmentDetailsRepository>();
 builder.Services.AddScoped<CAMapRepository>();
 builder.Services.AddScoped<UserCircleRepository>();
+builder.Services.AddScoped<InternalHttpClient<AppUserDto>>();
 
 builder.Services.AddScoped<GetAppointmentsByCircleIdQueryHandler>();
 builder.Services.AddScoped<GetAppointmentsByUserIdQueryHandler>();

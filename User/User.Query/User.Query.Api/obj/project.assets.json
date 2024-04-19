@@ -2033,6 +2033,7 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "Microsoft.Extensions.Hosting": "7.0.0",
+          "Microsoft.Extensions.Options": "7.0.1",
           "User.Query.Domain": "1.0.0"
         },
         "compile": {
@@ -5659,7 +5660,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.405/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.408/RuntimeIdentifierGraph.json"
       }
     }
   }

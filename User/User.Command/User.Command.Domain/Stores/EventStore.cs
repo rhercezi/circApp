@@ -30,13 +30,20 @@ namespace User.Command.Domin.Stores
             }
         }
 
-        public async Task<bool> UsernameExistsAsync(string username)
+        public async Task<bool> UsernameExistsAsync(string username, Guid id)
         {
             var events = await _eventStoreRepository.FindByUsername(username); 
 
             if (events != null && events.Any())
             {
-                return true;
+                if (events.Any(e => e.AggregateId != id))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

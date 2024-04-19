@@ -74,9 +74,9 @@ namespace User.Command.Application.Validation
                 }
             }
         }
-        protected async Task<string> ValidateUserExistsByUsername(string userName)
+        protected async Task<string> ValidateUserExistsByUsername(string userName, Guid id)
         {
-            if (await _eventStore.UsernameExistsAsync(userName))
+            if (await _eventStore.UsernameExistsAsync(userName, id))
             {
                 return $"User with username {userName} already exists";
             }

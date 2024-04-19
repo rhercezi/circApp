@@ -75,7 +75,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
                     command.FamilyName,
                     command.Email
                 ),
-                "UserPublic"
+                "user_public"
             );
 
             var idLink = IdLinkConverter.GenerateRandomString();

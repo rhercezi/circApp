@@ -89,7 +89,8 @@ namespace Circles.Domain.Repositories
             var filter = Builders<AppUserModel>.Filter.Eq(c => c.UserId, user.UserId);
             var update = Builders<AppUserModel>.Update.Set(u => u.FirstName, user.FirstName)
                                                       .Set(u => u.FamilyName, user.FamilyName)
-                                                      .Set(u => u.UserName, user.UserName);
+                                                      .Set(u => u.UserName, user.UserName)
+                                                      .Set(u => u.Email, user.Email);
             var result = await _collection.UpdateOneAsync(filter, update);
 
             if (!result.IsAcknowledged || result.ModifiedCount == 0)

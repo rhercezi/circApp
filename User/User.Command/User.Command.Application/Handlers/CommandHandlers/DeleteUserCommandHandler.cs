@@ -50,7 +50,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 (
                     command.Id
                 ),
-                "UserPublic"
+                "user_public"
             );
             
         }

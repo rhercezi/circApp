@@ -12,7 +12,7 @@ namespace Circles.Command.Application.Commands
         public Guid CreatorId { get; set; }
         public required string Name { get; set; }
         public required string Color { get; set; }
-        public required List<Guid> Users { get; set; }
+        public List<Guid>? Users { get; set; }
         public Guid CircleId { get => Id; }
     }
 }

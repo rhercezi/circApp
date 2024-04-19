@@ -32,19 +32,20 @@ namespace Circles.Command.Application.Handlers
 
         public async Task HandleAsync(CreateCircleCommand command)
         {
+            command.Users ??= new List<Guid>();
             command.Users = command.Users.Distinct().ToList();
             using var session = await _circlesRepository.GetSession();
             try
             {
                 session.StartTransaction();
                 await _circlesRepository.SaveAsync(
-                new CircleModel
-                {
-                    CircleId = command.CircleId,
-                    Name = command.Name,
-                    Color = command.Color
-                }
-            );
+                    new CircleModel
+                    {
+                        CircleId = command.CircleId,
+                        Name = command.Name,
+                        Color = command.Color
+                    }
+                );
 
                 await _userCircleRepository.SaveAsync(
                     new UserCircleModel

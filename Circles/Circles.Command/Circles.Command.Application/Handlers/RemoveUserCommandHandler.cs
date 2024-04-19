@@ -8,9 +8,12 @@ namespace Circles.Command.Application.Handlers
     public class RemoveUserCommandHandler : ICommandHandler<RemoveUsersCommand>
     {
         public UserCircleRepository _userCircleRepository { get; set; }
-        public RemoveUserCommandHandler(UserCircleRepository userCircleRepository)
+        public CirclesRepository _circlesRepository { get; set; }
+        public RemoveUserCommandHandler(UserCircleRepository userCircleRepository,
+                                        CirclesRepository circlesRepository)
         {
             _userCircleRepository = userCircleRepository;
+            _circlesRepository = circlesRepository;
         }
 
         public async Task HandleAsync(RemoveUsersCommand command)
@@ -19,6 +22,12 @@ namespace Circles.Command.Application.Handlers
                 uId => Task.Run(() => _userCircleRepository.DeleteByUserAndCircle(uId, command.CircleId))
             );
             await Task.WhenAll(deleteTask);
+
+            var users = await _userCircleRepository.FindAsync(uc => uc.CircleId == command.CircleId);
+            if (users.Count == 0)
+            {
+                await _circlesRepository.DeleteCircle(command.CircleId);
+            }
         }
 
         public async Task HandleAsync(BaseCommand command)

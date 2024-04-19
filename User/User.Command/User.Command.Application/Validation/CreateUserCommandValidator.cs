@@ -17,7 +17,7 @@ namespace User.Command.Application.Validation
             _messages.Add(ValidateNameString(command.FirstName, "First name"));
             _messages.Add(ValidateNameString(command.FamilyName, "Family name"));
             _messages.Add(ValidatePassword(command.Password));
-            _messages.Add(await ValidateUserExistsByUsername(command.UserName));
+            _messages.Add(await ValidateUserExistsByUsername(command.UserName, command.Id));
             _messages.Add(ValidateEmail(command.Email));
             _messages.Add(await ValidateUserExistsById(command.Id));
 

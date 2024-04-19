@@ -16,7 +16,7 @@ namespace User.Command.Application.Validation
             if(!string.IsNullOrEmpty(command.UserName))
             {
                 _messages.Add(ValidateNameString(command.UserName, "User name"));
-                _messages.Add(await ValidateUserExistsByUsername(command.UserName));
+                _messages.Add(await ValidateUserExistsByUsername(command.UserName, command.Id));
             }
             if(!string.IsNullOrEmpty(command.FirstName))
             {
