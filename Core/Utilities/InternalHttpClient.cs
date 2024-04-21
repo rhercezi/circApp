@@ -27,7 +27,7 @@ namespace Core.Utilities
             }
             catch (Exception e)
             {
-                _logger.LogError($"{e.Message}\n{e.StackTrace}");
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
                 throw;
             }
         }

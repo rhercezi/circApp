@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasks.Query.Api", "Tasks.Qu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasks.Query.Application", "Tasks.Query\Tasks.Query.Application\Tasks.Query.Application.csproj", "{E860ACFA-2CF1-4B95-A087-AD8F494A2204}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\Core\Core.csproj", "{4216BDBB-CB68-4605-864E-FBBE399B8FB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{E860ACFA-2CF1-4B95-A087-AD8F494A2204}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E860ACFA-2CF1-4B95-A087-AD8F494A2204}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E860ACFA-2CF1-4B95-A087-AD8F494A2204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4216BDBB-CB68-4605-864E-FBBE399B8FB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4216BDBB-CB68-4605-864E-FBBE399B8FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4216BDBB-CB68-4605-864E-FBBE399B8FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4216BDBB-CB68-4605-864E-FBBE399B8FB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{70D21658-8018-48C4-B18E-F5765AA4BBA2} = {A39A736F-FA7F-4DC9-8BA1-A28589005266}

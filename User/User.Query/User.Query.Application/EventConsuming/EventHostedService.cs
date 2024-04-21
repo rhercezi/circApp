@@ -30,7 +30,7 @@ namespace User.Query.Application.EventConsuming
             }
             catch (Exception e)
             {
-                _logger.LogError(e.StackTrace, e.Message);
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
                 throw new QueryApplicationException("Failed running event consumer." ,e);
             }
         }

@@ -31,7 +31,7 @@ namespace Appointments.Domain.Repositories
             }
             catch (Exception e)
             {
-                _logger.LogError($"{e.Message}\n{e.StackTrace}");
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
                 return new List<AppointmentModel>();
             }
         }
@@ -45,7 +45,7 @@ namespace Appointments.Domain.Repositories
             }
             catch (Exception e)
             {
-                _logger.LogError($"{e.Message}\n{e.StackTrace}");
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
                 throw;
             }
         }
@@ -56,9 +56,9 @@ namespace Appointments.Domain.Repositories
             {
                 await _collection.InsertOneAsync(appointment);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                _logger.LogError(ex, "An error occurred while inserting the appointment");
+                _logger.LogError("An error occurred while inserting the appointment\n {Message}\n{StackTrace}", e.Message, e.StackTrace);
                 throw;
             }
         }
@@ -77,7 +77,7 @@ namespace Appointments.Domain.Repositories
             }
             catch (Exception e)
             {
-                _logger.LogError($"{e.Message}\n{e.StackTrace}");
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
                 throw;
             }            
         }
@@ -93,7 +93,7 @@ namespace Appointments.Domain.Repositories
             }
             catch (Exception e)
             {
-                _logger.LogError($"{e.Message}\n{e.StackTrace}");
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
                 throw;
             }
         }

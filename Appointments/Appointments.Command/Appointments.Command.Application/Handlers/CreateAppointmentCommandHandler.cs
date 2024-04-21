@@ -71,7 +71,7 @@ namespace Appointments.Command.Application.Handlers
             catch (Exception e)
             {
                 session.AbortTransaction();
-                _logger.LogError($"{e.Message}\n{command}\n{e.StackTrace}");
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}\n{command}", e.Message, e.StackTrace, command);
                 throw;
             }
         }
