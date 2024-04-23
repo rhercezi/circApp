@@ -53,11 +53,11 @@ namespace Tasks.Domain.Repositories
             }
         }
 
-        public async Task UpdateTask(AppTaskModel task)
+        public async Task<ReplaceOneResult> UpdateTask(AppTaskModel task)
         {
             try
             {
-                await _collection.ReplaceOneAsync(t => t.Id == task.Id, task).ConfigureAwait(false);
+                return await _collection.ReplaceOneAsync(t => t.Id == task.Id, task).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -66,11 +66,11 @@ namespace Tasks.Domain.Repositories
             }
         }
 
-        public async Task DeleteTask(Guid taskId)
+        public async Task<DeleteResult> DeleteTask(Guid taskId)
         {
             try
             {
-                await _collection.DeleteOneAsync(t => t.Id == taskId).ConfigureAwait(false);
+                return await _collection.DeleteOneAsync(t => t.Id == taskId).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -91,10 +91,10 @@ namespace Tasks.Domain.Repositories
             return await _collection.Find(filter).ToListAsync();
         }
 
-        public async Task<List<AppTaskModel>> GetTasksById(Guid id)
+        public async Task<AppTaskModel> GetTasksById(Guid id)
         {
             var filter = Builders<AppTaskModel>.Filter.Eq(t => t.Id, id);
-            return await _collection.Find(filter).ToListAsync();
+            return await _collection.Find(filter).FirstOrDefaultAsync();
         }
     }
 }
