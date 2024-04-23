@@ -1,7 +1,9 @@
+using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
 using MongoDB.Driver;
 using Tasks.Command.Application.Commands;
+using Tasks.Command.Application.Events;
 using Tasks.Command.Application.Exceptions;
 using Tasks.Domain.Repositories;
 
@@ -10,10 +12,13 @@ namespace Tasks.Command.Application.Handlers
     public class CompleteTaskCommandHandler : ICommandHandler<CompleteTaskCommand>
     {
         private readonly AppTaskRepository _repository;
+        private readonly TasksEventProducer _eventProducer;
 
-        public CompleteTaskCommandHandler(AppTaskRepository repository)
+        public CompleteTaskCommandHandler(AppTaskRepository repository,
+                                          TasksEventProducer eventProducer)
         {
             _repository = repository;
+            _eventProducer = eventProducer;
         }
 
         public async Task HandleAsync(CompleteTaskCommand command)
@@ -24,6 +29,12 @@ namespace Tasks.Command.Application.Handlers
             {
                 model.IsCompleted = true;
                 result = await _repository.UpdateTask(model);
+
+                var taskEvent = new TaskChangePublicEvent(model.Id, command.GetType().Name)
+                {
+                    CircleId = model.CircleId
+                };
+                await _eventProducer.ProduceAsync(taskEvent);
             }
             else if (model.UserModels != null && model.UserModels.Any())
             {
@@ -40,6 +51,11 @@ namespace Tasks.Command.Application.Handlers
                     model.IsCompleted = true;
                     result = await _repository.UpdateTask(model);
                 }
+                var taskEvent = new TaskChangePublicEvent(model.Id, command.GetType().Name)
+                {
+                    UserIds = model.UserModels.Select(x => x.Id).ToList()
+                };
+                await _eventProducer.ProduceAsync(taskEvent);
             }
             else
             {

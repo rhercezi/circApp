@@ -1,5 +1,7 @@
+using Core.Configs;
 using Core.MessageHandling;
 using Tasks.Command.Application.Dispatchers;
+using Tasks.Command.Application.Events;
 using Tasks.Command.Application.Handlers;
 using Tasks.Domain.Config;
 using Tasks.Domain.Repositories;
@@ -8,8 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.Configure<MongoDbTaskConfig>(builder.Configuration.GetSection(nameof(MongoDbTaskConfig)));
+builder.Services.Configure<KafkaProducerConfig>(builder.Configuration.GetSection(nameof(KafkaProducerConfig)));
 
 builder.Services.AddScoped<AppTaskRepository>();
+builder.Services.AddScoped<TasksEventProducer>();
 
 builder.Services.AddScoped<CreateTaskCommandHandler>();
 builder.Services.AddScoped<DeleteTaskCommandHandler>();
