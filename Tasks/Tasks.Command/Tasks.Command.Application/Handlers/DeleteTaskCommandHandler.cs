@@ -1,6 +1,7 @@
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
+using Microsoft.Extensions.Logging;
 using Tasks.Command.Application.Commands;
 using Tasks.Command.Application.Events;
 using Tasks.Command.Application.Exceptions;
@@ -12,6 +13,7 @@ namespace Tasks.Command.Application.Handlers
     {
         private readonly AppTaskRepository _repository;
         private readonly TasksEventProducer _eventProducer;
+        private readonly ILogger<DeleteTaskCommandHandler> _logger;
 
         public DeleteTaskCommandHandler(AppTaskRepository repository,
                                         TasksEventProducer eventProducer)
@@ -23,9 +25,11 @@ namespace Tasks.Command.Application.Handlers
         public async Task HandleAsync(DeleteTaskCommand command)
         {
             var model = await _repository.GetTasksById(command.Id);
+            _logger.LogDebug("Deleting task: {Task}", model);
             var result = await _repository.DeleteTask(command.Id);
             if (result.DeletedCount == 0)
             {
+                _logger.LogError("Count of deleted tasks is 0.");
                 throw new AppTaskException("Failed deleting task");
             }
             var taskEvent = new TaskChangePublicEvent(command.Id, command.GetType().Name)

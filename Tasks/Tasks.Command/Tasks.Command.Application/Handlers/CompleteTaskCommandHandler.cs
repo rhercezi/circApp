@@ -1,6 +1,7 @@
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using Tasks.Command.Application.Commands;
 using Tasks.Command.Application.Events;
@@ -13,18 +14,22 @@ namespace Tasks.Command.Application.Handlers
     {
         private readonly AppTaskRepository _repository;
         private readonly TasksEventProducer _eventProducer;
+        private readonly ILogger<CompleteTaskCommandHandler> _logger;
 
         public CompleteTaskCommandHandler(AppTaskRepository repository,
-                                          TasksEventProducer eventProducer)
+                                          TasksEventProducer eventProducer,
+                                          ILogger<CompleteTaskCommandHandler> logger)
         {
             _repository = repository;
             _eventProducer = eventProducer;
+            _logger = logger;
         }
 
         public async Task HandleAsync(CompleteTaskCommand command)
         {
             ReplaceOneResult? result = null;
             var model = await _repository.GetTasksById(command.Id);
+            _logger.LogDebug("By is {id}, Task found: {Task}", command.Id.ToString(), model);
             if (model.CircleId != null && model.CircleId == command.CircleId)
             {
                 model.IsCompleted = true;
@@ -64,6 +69,7 @@ namespace Tasks.Command.Application.Handlers
 
             if (result?.ModifiedCount == 0)
             {
+                _logger.LogError("Count of modified documents is 0");
                 throw new AppTaskException("Failed completing task");
             }
         }

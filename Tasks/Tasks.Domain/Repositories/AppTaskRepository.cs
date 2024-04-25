@@ -85,6 +85,12 @@ namespace Tasks.Domain.Repositories
             return await _collection.Find(filter).ToListAsync();
         }
 
+        public async Task<List<AppTaskModel>> GetTasksByCircleIds(List<Guid> circleIds)
+        {
+            var filter = Builders<AppTaskModel>.Filter.In(t => t.CircleId, circleIds.Select(id => (Guid?)id));
+            return await _collection.Find(filter).ToListAsync();
+        }
+
         public async Task<List<AppTaskModel>> GetTasksByParentTaskId(Guid parentTaskId)
         {
             var filter = Builders<AppTaskModel>.Filter.Eq(t => t.ParentTaskId, parentTaskId);

@@ -129,6 +129,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
+  tasks-command-api-service:
+    image: tasks_command_api:latest
+    container_name: tasks_command_api
+    restart: always
+    ports:
+      - "5016:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
 
 volumes:
   zookeeper_data:

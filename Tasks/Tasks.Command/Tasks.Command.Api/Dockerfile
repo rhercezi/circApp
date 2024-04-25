@@ -3,10 +3,9 @@ WORKDIR /app
 
 COPY Tasks/*.sln ./Tasks/
 COPY Core/*.csproj ./Core/
-COPY Tasks/Tasks.Common/*.csproj ./Tasks/Tasks.Common/
+COPY Tasks/Tasks.Domain/*.csproj ./Tasks/Tasks.Domain/
 COPY Tasks/Tasks.Command/Tasks.Command.Api/*.csproj ./Tasks/Tasks.Command/Tasks.Command.Api/
 COPY Tasks/Tasks.Command/Tasks.Command.Application/*.csproj ./Tasks/Tasks.Command/Tasks.Command.Application/
-COPY Tasks/Tasks.Command/Tasks.Command.Domain/*.csproj ./Tasks/Tasks.Command/Tasks.Command.Domain/
 
 
 RUN dotnet restore ./Tasks/Tasks.Command/Tasks.Command.Api

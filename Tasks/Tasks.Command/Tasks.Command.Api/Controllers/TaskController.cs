@@ -6,12 +6,12 @@ namespace Tasks.Command.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class TaskController : ControllerBase
+    public class TasksController : ControllerBase
     {
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly ILogger<TaskController> _logger;
+        private readonly ILogger<TasksController> _logger;
 
-        public TaskController(ICommandDispatcher commandDispatcher, ILogger<TaskController> logger)
+        public TasksController(ICommandDispatcher commandDispatcher, ILogger<TasksController> logger)
         {
             _commandDispatcher = commandDispatcher;
             _logger = logger;
