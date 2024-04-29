@@ -31,7 +31,7 @@ services:
     depends_on:
       - zookeeper
 
-  mssql-service:
+  mssql-db:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssqlDB
     restart: always
@@ -44,7 +44,7 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_PID=Express
       
-  mongo-service:
+  mongo-db:
     image: mongo:latest
     container_name: mongoDB
     restart: always
@@ -68,7 +68,7 @@ services:
       - "1025:1025"  # SMTP port
       - "8025:8025"  # Web UI port
 
-  user-command-api-service:
+  user-command-api:
     image: user_command_api:latest
     container_name: user_command_api
     restart: always
@@ -80,7 +80,7 @@ services:
       - kafka
       - mailhog
 
-  user-query-api-service:
+  user-query-api:
     image: user_query_api:latest
     container_name: user_query_api
     restart: always
@@ -91,7 +91,7 @@ services:
     depends_on:
       - kafka
 
-  circles-command-api-service:
+  circles-command-api:
     image: circles_command_api:latest
     container_name: circles_command_api
     restart: always
@@ -102,7 +102,7 @@ services:
     depends_on:
       - kafka
 
-  circles-query-api-service:
+  circles-query-api:
     image: circles_query_api:latest
     container_name: circles_query_api
     restart: always
@@ -111,7 +111,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
-  appointments-command-api-service:
+  appointments-command-api:
     image: appointments_command_api:latest
     container_name: appointments_command_api
     restart: always
@@ -120,7 +120,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
-  appointments-query-api-service:
+  appointments-query-api:
     image: appointments_query_api:latest
     container_name: appointments_query_api
     restart: always
@@ -129,7 +129,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
-  tasks-command-api-service:
+  tasks-command-api:
     image: tasks_command_api:latest
     container_name: tasks_command_api
     restart: always

@@ -4,11 +4,12 @@ using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using User.Query.Application.DTOs;
 using User.Query.Application.Exceptions;
 
 namespace User.Query.Application.Dispatchers
 {
-    public class AuthDispatcher : IQueryDispatcher<UserDto>
+    public class AuthDispatcher : IQueryDispatcher<ToknesDto>
     {
         private Dictionary<Type, Type> _handlers = new();
         private readonly ILogger<AuthDispatcher> _logger;
@@ -22,16 +23,21 @@ namespace User.Query.Application.Dispatchers
             _handlerService = handlerService;
         }
 
-        public async Task<UserDto> DispatchAsync(BaseQuery query)
+        public async Task<ToknesDto> DispatchAsync(BaseQuery query)
         {
-            _handlers = _handlerService.RegisterHandler<BaseQuery, UserDto>(query, Assembly.GetExecutingAssembly(), typeof(UserDto));
+            _handlers = _handlerService.RegisterHandler<BaseQuery, ToknesDto>(query, Assembly.GetExecutingAssembly(), typeof(ToknesDto));
 
             if (_handlers.TryGetValue(query.GetType(), out Type? handlerType))
             {
                 try
                 {
                     var handler = (IQueryHandler)_serviceProvider.GetRequiredService(handlerType);
-                    return (UserDto)await handler.HandleAsync(query);
+                    return (ToknesDto)await handler.HandleAsync(query);
+                }
+                catch (AuthException e)
+                {
+                    _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                    throw e;
                 }
                 catch (Exception e)
                 {
@@ -41,7 +47,7 @@ namespace User.Query.Application.Dispatchers
 
             }
             _logger.LogError($"Could not find handler for query. Type: {query.GetType().Name}");
-            return new UserDto();
+            return new ToknesDto();
         }
     }
 }

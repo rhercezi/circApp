@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using Core.Configs;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -18,19 +19,19 @@ namespace Core.Utilities
             _logger = logger;
         }
 
-        public string GenerateAccessToken(Guid id, string firstName, string familyName)
+        public string GenerateAccessToken(string id, string firstName, string familyName)
         {
-            return GenerateToken(id, firstName, familyName, TimeSpan.FromMinutes(5));
+            return GenerateToken(id, firstName, familyName, TimeSpan.FromMinutes(_config.TokenExpiration));
         }
 
-        public string GenerateRefreshToken(Guid id, string firstName, string familyName)
+        public string GenerateRefreshToken(string id, string firstName, string familyName)
         {
-            return GenerateToken(id, firstName, familyName, TimeSpan.FromDays(5));
+            return GenerateToken(id, firstName, familyName, TimeSpan.FromDays(_config.RefreshTokenExpiration));
         }
 
-        private string GenerateToken(Guid id, string firstName, string familyName, TimeSpan expiration)
+        private string GenerateToken(string id, string firstName, string familyName, TimeSpan expiration)
         {
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, id.ToString()),
                 new Claim(ClaimTypes.GivenName, firstName),
@@ -39,44 +40,53 @@ namespace Core.Utilities
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(), ClaimValueTypes.Integer64)
             };
 
-            var key = new SymmetricSecurityKey(Convert.FromBase64String(_config.SigningKey));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.SigningKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 
-            var token = new JwtSecurityToken(
-                _config.Issuer,
-                _config.Audience,
-                claims,
-                expires: DateTime.UtcNow.Add(expiration),
-                signingCredentials: credentials
-            );
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Issuer = _config.Issuer,
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.Add(expiration),
+                SigningCredentials = credentials
+            };
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.CreateToken(tokenDescriptor);
+
+            return  handler.WriteToken(token);
         }
 
-        public ClaimsPrincipal? ValidateToken(string token)
+        public bool ValidateToken(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
+
             var validationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
                 ValidIssuer = _config.Issuer,
-                ValidateAudience = true,
-                ValidAudience = _config.Audience,
+                ValidateAudience = false,
+                ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(_config.SigningKey)),
-                ValidateLifetime = true
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.SigningKey))
             };
 
             try
             {
-                ClaimsPrincipal principal = tokenHandler.ValidateToken(token, validationParameters, out _);
-                return principal;
+                tokenHandler.ValidateToken(token, validationParameters, out _);
+                return true;
             }
-            catch (Exception e)
+            catch
             {
-                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                return null;
+                return false;
             }
+        }
+
+        public IEnumerable<Claim> GetTokenClaims(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadJwtToken(token);
+            return jwtToken.Claims;
         }
     }
 }

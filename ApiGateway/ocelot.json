@@ -1,0 +1,312 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/v1/user",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/user",
+            "UpstreamHttpMethod": [ "Post", "Patch", "Put", "Delete" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User/Password",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/user/password",
+            "UpstreamHttpMethod": [ "Patch" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User/Password/Reset",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/user/password/reset",
+            "UpstreamHttpMethod": [ "Patch" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User/VerifyEmail/{idLink}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/user/verifyemail/{idLink}",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User/ById/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/user/byid/{id}",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User/ByEmail",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/user/byemail",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/User/ByUsername",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/user/byusername",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Auth",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/auth",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Token",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5011
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/token",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Circles",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5012
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circle",
+            "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Circles/Confirm",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5012
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/confirm",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Circles/AddUsers",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5012
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/addusers",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Circles/RemoveUsers",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5012
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/removeusers",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Circles/{userId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5013
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/{userId}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Circles/Users/{circleId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5013
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/users/{circleId}",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Circles/Search/{qWord}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5013
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/search/{qWord}",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Appointments",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5014
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/appointments",
+            "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Appointments/details",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5014
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/appointments/details",
+            "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Appointments/Circle/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5015
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/appointments/circle/{id}",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Appointments/User/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5015
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/appointments/user/{id}",
+            "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Tasks",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5016
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/tasks",
+            "UpstreamHttpMethod": [ "Post", "Put", "Patch"],
+            "ClaimsToHeaders": [
+                {
+                  "Claim": "sub",
+                  "Header": "ownerId"
+                }
+              ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Tasks/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5016
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/tasks/{id}",
+            "UpstreamHttpMethod": [ "Delete"],
+            "ClaimsToHeaders": [
+                {
+                  "Claim": "sub",
+                  "Header": "ownerId"
+                }
+              ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Tasks/Circle/{circleId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5017
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/tasks/circle/{circleId}",
+            "UpstreamHttpMethod": [ "Get"]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/Tasks/User/{userId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5017
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/tasks/user/{userId}",
+            "UpstreamHttpMethod": [ "Get"]
+        }
+    ],
+    "GlobalConfiguratioin": {
+        "BaseUrl": "http://localhost:5028"
+    }
+
+}

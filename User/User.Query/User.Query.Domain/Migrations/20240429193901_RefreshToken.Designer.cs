@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using User.Query.Domain.DatabaseContext;
 
@@ -11,9 +12,11 @@ using User.Query.Domain.DatabaseContext;
 namespace User.Query.Domain.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240429193901_RefreshToken")]
+    partial class RefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

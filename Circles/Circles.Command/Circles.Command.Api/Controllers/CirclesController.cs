@@ -6,12 +6,12 @@ namespace Circles.Command.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class CircleController : ControllerBase
+    public class CirclesController : ControllerBase
     {
         private readonly ICommandDispatcher _dispatcher;
-        private readonly ILogger<CircleController> _logger;
+        private readonly ILogger<CirclesController> _logger;
 
-        public CircleController(ICommandDispatcher dispatcher, ILogger<CircleController> logger)
+        public CirclesController(ICommandDispatcher dispatcher, ILogger<CirclesController> logger)
         {
             _dispatcher = dispatcher;
             _logger = logger;

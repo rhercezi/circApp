@@ -9,6 +9,8 @@ using User.Query.Domain.DatabaseContext;
 using Core.DTOs;
 using User.Query.Application.Handlers;
 using Core.Events;
+using Core.Utilities;
+using User.Query.Application.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,19 +25,26 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<UserDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("UserDbConnectionString"))
 );
+
+builder.Services.AddSingleton<JwtService>();
 builder.Services.AddScoped<PasswordHashService>();
+
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<RefreshTokenRepository>();
+
 builder.Services.AddScoped<GetUserByEmailQueryHandler>();
 builder.Services.AddScoped<GetUserByIdQueryHandler>();
 builder.Services.AddScoped<GetUserByUsernameQueryHandler>();
 builder.Services.AddScoped<LoginHandler>();
+builder.Services.AddScoped<RefershTokenHandler>();
 builder.Services.AddScoped<EmailVerifiedEventHandler>();
 builder.Services.AddScoped<PasswordUpdatedEventHandler>();
 builder.Services.AddScoped<UserCreatedEventHandler>();
 builder.Services.AddScoped<UserDeletedEventHandler>();
 builder.Services.AddScoped<UserUpdatedEventHandler>();
+
 builder.Services.AddSingleton<IHandlerService, HandlerService>();
-builder.Services.AddScoped<IQueryDispatcher<UserDto>, AuthDispatcher>();
+builder.Services.AddScoped<IQueryDispatcher<ToknesDto>, AuthDispatcher>();
 builder.Services.AddScoped<IQueryDispatcher<UserDto>, QueryDispatcher>();
 builder.Services.AddSingleton<IEventDispatcher, EventDispatcher>();
 builder.Services.AddScoped<IEventConsumer, EventConsumer>();
