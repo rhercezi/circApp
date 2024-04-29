@@ -32,7 +32,19 @@ builder.Services.AddOcelot(builder.Configuration);
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("MyPolicy", builder =>
+        {
+            builder.WithOrigins("http://127.0.0.1:5173")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+    });
+
 var app = builder.Build();
+
+app.UseCors("MyPolicy");
 
 app.MapControllers();
 app.UseAuthentication();
