@@ -24,15 +24,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:SigningKey"]))
         };
     });
-builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
-    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("ocelot.Development.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-builder.Services.AddOcelot(builder.Configuration);
-
-builder.Services.AddControllers();
-
-builder.Services.AddCors(options =>
+    builder.Services.AddCors(options =>
     {
         options.AddPolicy("MyPolicy", builder =>
         {
@@ -41,10 +40,22 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
     });
+}
+builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
+builder.Services.AddOcelot(builder.Configuration);
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.UseCors("MyPolicy");
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors("MyPolicy");
+}
+
 
 app.MapControllers();
 app.UseAuthentication();

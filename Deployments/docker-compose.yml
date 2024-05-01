@@ -155,6 +155,15 @@ services:
       - "5018:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - user-command-api
+      - user-query-api
+      - circles-command-api
+      - circles-query-api
+      - appointments-command-api
+      - appointments-query-api
+      - tasks-command-api
+      - tasks-query-api
 
 volumes:
   zookeeper_data:
