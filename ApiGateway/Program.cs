@@ -30,20 +30,18 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("ocelot.Development.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
+}
 
-    builder.Services.AddCors(options =>
+builder.Services.AddCors(options =>
     {
         options.AddPolicy("MyPolicy", builder =>
         {
-            builder.WithOrigins("http://127.0.0.1:5173")
+            builder.WithOrigins("http://localhost:3000")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
     });
-}
-builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
-    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
-    .AddEnvironmentVariables();
+
 
 builder.Services.AddOcelot(builder.Configuration);
 
@@ -51,11 +49,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseCors("MyPolicy");
-}
-
+app.UseCors("MyPolicy");
 
 app.MapControllers();
 app.UseAuthentication();

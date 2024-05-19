@@ -1,6 +1,18 @@
 {
     "Routes": [
         {
+            "DownstreamPathTemplate": "/api/v1/user/create",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "user_command_api",
+                    "Port": 5010
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/user/create",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
             "DownstreamPathTemplate": "/api/v1/user",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
@@ -10,7 +22,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/user",
-            "UpstreamHttpMethod": [ "Post", "Patch", "Put", "Delete" ]
+            "UpstreamHttpMethod": [ "Patch", "Delete" ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/User/Password",
@@ -166,11 +178,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/{userId}",
-            "UpstreamHttpMethod": [ "Get" ],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer",
-                "AllowedScopes": []
-            }
+            "UpstreamHttpMethod": [ "Get" ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/Circles/Users/{circleId}",

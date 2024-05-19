@@ -34,6 +34,7 @@ namespace User.Command.Api.Controllers
             return StatusCode(code, message);
         }
 
+        [Route("Create")]
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserCommand command) 
         {
