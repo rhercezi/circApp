@@ -44,7 +44,7 @@ namespace User.Query.Api.Controllers
         }
 
         [HttpGet]
-        [Route("Token")]
+        [Route("token")]
         public async Task<IActionResult> RefreshToken([FromQuery] string refreshToken)
         {
             var refreshTokenQuery = new RefreshTokenQuery{ RefreshToken = refreshToken };

@@ -10,7 +10,7 @@ using Tasks.Query.Application.Queries;
 namespace Tasks.Query.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class TasksController : ControllerBase
     {
         private readonly IQueryDispatcher<TasksDto> _queryDispatcher;
@@ -23,7 +23,7 @@ namespace Tasks.Query.Api.Controllers
             _logger = logger;
         }
 
-        [HttpGet("Circle/{circleId}")]
+        [HttpGet("circle/{circleId}")]
         public async Task<IActionResult> GetTasksForCircleAsync(Guid circleId)
         {
             try
@@ -39,7 +39,7 @@ namespace Tasks.Query.Api.Controllers
             }
         }
 
-        [HttpGet("User/{userId}")]
+        [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetTasksForUserAsync(Guid userId, [FromQuery] bool searchByCircles)
         {
             try

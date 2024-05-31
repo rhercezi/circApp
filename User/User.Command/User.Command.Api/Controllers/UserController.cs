@@ -16,7 +16,7 @@ namespace User.Command.Api.Controllers
             _dispatcher = dispatcher;
         }
 
-        [Route("Password")]
+        [Route("password")]
         [HttpPatch]
         public async Task<IActionResult> UpdatePassword(UpdatePasswordCommand command) 
         {
@@ -25,7 +25,7 @@ namespace User.Command.Api.Controllers
             return StatusCode(code, message);
         }
 
-        [Route("Password/Reset")]
+        [Route("password/reset")]
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordCommand command) 
         {
@@ -34,7 +34,7 @@ namespace User.Command.Api.Controllers
             return StatusCode(code, message);
         }
 
-        [Route("Create")]
+        [Route("create")]
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserCommand command) 
         {
@@ -52,14 +52,15 @@ namespace User.Command.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser([FromBody] DeleteUserCommand command)
+        public async Task<IActionResult> DeleteUser([FromQuery] string id, [FromQuery] string password)
         {
+            var command = new DeleteUserCommand(Guid.Parse(id), password);
             var (code, message) = await _dispatcher.DispatchAsync(command);
 
             return StatusCode(code, message);
         }
 
-        [Route("VerifyEmail/{idLink}")]
+        [Route("verify-email/{idLink}")]
         [HttpPost]
         public async Task<IActionResult> ValidateEmail([FromRoute] string idLink) 
         {

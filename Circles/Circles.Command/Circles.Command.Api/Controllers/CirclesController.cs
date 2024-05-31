@@ -48,10 +48,11 @@ namespace Circles.Command.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteCircle([FromBody] DeleteCircleCommand command)
+        public async Task<IActionResult> DeleteCircle([FromQuery] string id)
         {
             try
             {
+                var command = new DeleteCircleCommand {Id = Guid.Parse(id)};
                 var (code, message) = await _dispatcher.DispatchAsync(command);
                 return StatusCode(code, message);
             }
@@ -63,7 +64,7 @@ namespace Circles.Command.Api.Controllers
         }
 
         [HttpPost]
-        [Route("Confirm")]
+        [Route("confirm")]
         public async Task<IActionResult> ConfirmJoinCircle([FromBody] ConfirmJoinCommand command)
         {
             try
@@ -79,7 +80,7 @@ namespace Circles.Command.Api.Controllers
         }
 
         [HttpPost]
-        [Route("AddUsers")]
+        [Route("add-users")]
         public async Task<IActionResult> AddUsersToCircle([FromBody] AddUsersCommand command)
         {
             try
@@ -95,7 +96,7 @@ namespace Circles.Command.Api.Controllers
         }
 
         [HttpPost]
-        [Route("RemoveUsers")]
+        [Route("remove-users")]
         public async Task<IActionResult> RemoveUsersFromCircle([FromBody] RemoveUsersCommand command)
         {
             try

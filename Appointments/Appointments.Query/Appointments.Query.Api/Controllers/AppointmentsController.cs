@@ -19,7 +19,7 @@ namespace Appointments.Query.Api.Controllers
         }
 
         [HttpGet]
-        [Route("Circle/{id}")]
+        [Route("circle/{id}")]
         public async Task<IActionResult> GetAppointmentsByCircleId([FromRoute] Guid id,
                                                                    [FromQuery] DateTime dateFrom,
                                                                    [FromQuery] DateTime dateTo)
@@ -45,7 +45,7 @@ namespace Appointments.Query.Api.Controllers
         }
 
         [HttpGet]
-        [Route("User/{id}")]
+        [Route("user/{id}")]
         public async Task<IActionResult> GetAppointmentsByUserId([FromRoute] Guid id,
                                                                  [FromQuery] DateTime dateFrom,
                                                                  [FromQuery] DateTime dateTo)

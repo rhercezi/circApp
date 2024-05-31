@@ -46,11 +46,18 @@ namespace Appointments.Command.Api.Controllers
             }
         }
 
+        [Route("{appointmentId}")]
         [HttpDelete]
-        public async Task<IActionResult> CreateAppointment(DeleteAppointmentCommand command)
+        public async Task<IActionResult> DeleteAppointment([FromRoute] Guid appointmentId)
         {
             try
             {
+                var command = new DeleteAppointmentCommand
+                {
+                    UserId = Guid.Parse(Request.Headers["userId"].ToString()),
+                    AppointmentId = appointmentId
+                };
+
                 var (code, message) = await _dispatcher.DispatchAsync(command);
                 return StatusCode(code, message);
             }
@@ -93,12 +100,18 @@ namespace Appointments.Command.Api.Controllers
             }
         }
 
-        [Route("details")]
+        [Route("details/{appointmentId}")]
         [HttpDelete]
-        public async Task<IActionResult> CreateAppointmentDetails(DeleteAppointmentDetailCommand command)
+        public async Task<IActionResult> DeleteAppointmentDetails([FromRoute] Guid appointmentId)
         {
             try
             {
+                var command = new DeleteAppointmentDetailCommand
+                {
+                    UserId = Guid.Parse(Request.Headers["userId"].ToString()),
+                    AppointmentId = appointmentId
+                };
+
                 var (code, message) = await _dispatcher.DispatchAsync(command);
                 return StatusCode(code, message);
             }

@@ -29,7 +29,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/User/Password",
+            "DownstreamPathTemplate": "/api/v1/user/password",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -45,7 +45,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/User/Password/Reset",
+            "DownstreamPathTemplate": "/api/v1/user/password/reset",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -57,7 +57,7 @@
             "UpstreamHttpMethod": [ "Patch" ]
         },
         {
-            "DownstreamPathTemplate": "/api/v1/User/VerifyEmail/{idLink}",
+            "DownstreamPathTemplate": "/api/v1/user/verify-email/{idLink}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -65,11 +65,11 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/v1/user/verifyemail/{idLink}",
+            "UpstreamPathTemplate": "/v1/user/verify-email/{idLink}",
             "UpstreamHttpMethod": [ "Post" ]
         },
         {
-            "DownstreamPathTemplate": "/api/v1/User/ById/{id}",
+            "DownstreamPathTemplate": "/api/v1/User/by-id/{id}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -77,7 +77,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/v1/user/byid/{id}",
+            "UpstreamPathTemplate": "/v1/user/by-id/{id}",
             "UpstreamHttpMethod": [ "Get" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
@@ -85,7 +85,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/User/ByEmail",
+            "DownstreamPathTemplate": "/api/v1/User/by-email",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -93,7 +93,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/v1/user/byemail",
+            "UpstreamPathTemplate": "/v1/user/by-email",
             "UpstreamHttpMethod": [ "Get" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
@@ -101,7 +101,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/User/ByUsername",
+            "DownstreamPathTemplate": "/api/v1/User/by-username",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -109,7 +109,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/v1/user/byusername",
+            "UpstreamPathTemplate": "/v1/user/by-username",
             "UpstreamHttpMethod": [ "Get" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
@@ -117,7 +117,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Auth",
+            "DownstreamPathTemplate": "/api/v1/auth",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -129,7 +129,7 @@
             "UpstreamHttpMethod": [ "Get" ]
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Auth/Token",
+            "DownstreamPathTemplate": "/api/v1/auth/token",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -141,7 +141,7 @@
             "UpstreamHttpMethod": [ "Get" ]
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Circles",
+            "DownstreamPathTemplate": "/api/v1/circles",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -149,7 +149,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/v1/circle",
+            "UpstreamPathTemplate": "/v1/circles",
             "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
@@ -157,7 +157,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Circles/Confirm",
+            "DownstreamPathTemplate": "/api/v1/circles/confirm",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -173,7 +173,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Circles/AddUsers",
+            "DownstreamPathTemplate": "/api/v1/circles/add-users",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -181,7 +181,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/v1/circles/addusers",
+            "UpstreamPathTemplate": "/v1/circles/add-users",
             "UpstreamHttpMethod": [ "Post" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
@@ -189,7 +189,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Circles/RemoveUsers",
+            "DownstreamPathTemplate": "/api/v1/circles/remove-users",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -197,7 +197,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/v1/circles/removeusers",
+            "UpstreamPathTemplate": "/v1/circles/remove-users",
             "UpstreamHttpMethod": [ "Post" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
@@ -205,7 +205,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Circles/{userId}",
+            "DownstreamPathTemplate": "/api/v1/circles/{userId}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -221,7 +221,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Circles/Users/{circleId}",
+            "DownstreamPathTemplate": "/api/v1/circles/users/{circleId}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -237,7 +237,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Circles/Search/{qWord}",
+            "DownstreamPathTemplate": "/api/v1/circles/search/{qWord}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -253,7 +253,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Appointments",
+            "DownstreamPathTemplate": "/api/v1/appointments",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -262,14 +262,36 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments",
-            "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ],
+            "UpstreamHttpMethod": [ "Post", "Patch" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Appointments/details",
+            "DownstreamPathTemplate": "/api/v1/appointments/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "appointments_command_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/appointments/{id}",
+            "UpstreamHttpMethod": [ "Delete" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "ClaimsToHeaders": [
+                {
+                  "Claim": "sub",
+                  "Header": "userId"
+                }
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/appointments/details",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -278,14 +300,36 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/details",
-            "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ],
+            "UpstreamHttpMethod": [ "Post", "Patch" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Appointments/Circle/{id}",
+            "DownstreamPathTemplate": "/api/v1/appointments/details/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "appointments_command_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/appointments/details/{id}",
+            "UpstreamHttpMethod": [ "Delete" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "ClaimsToHeaders": [
+                {
+                  "Claim": "sub",
+                  "Header": "userId"
+                }
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/appointments/circle/{id}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -301,7 +345,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Appointments/User/{id}",
+            "DownstreamPathTemplate": "/api/v1/appointments/user/{id}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -317,7 +361,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Tasks",
+            "DownstreamPathTemplate": "/api/v1/tasks",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -336,10 +380,10 @@
                   "Claim": "sub",
                   "Header": "ownerId"
                 }
-              ]
+            ]
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Tasks/{id}",
+            "DownstreamPathTemplate": "/api/v1/tasks/{id}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -361,7 +405,7 @@
               ]
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Tasks/Circle/{circleId}",
+            "DownstreamPathTemplate": "/api/v1/tasks/circle/{circleId}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -377,7 +421,7 @@
             }
         },
         {
-            "DownstreamPathTemplate": "/api/v1/Tasks/User/{userId}",
+            "DownstreamPathTemplate": "/api/v1/tasks/user/{userId}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {

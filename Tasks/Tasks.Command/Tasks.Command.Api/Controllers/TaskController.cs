@@ -63,9 +63,10 @@ namespace Tasks.Command.Api.Controllers
                     {
                         return StatusCode(403, "You are not authorized to perform this action.");
                     }
+                    (var code, var message) = await _commandDispatcher.DispatchAsync(command);
+                    return StatusCode(code, message);
                 }
-                (var code, var message) = await _commandDispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                return StatusCode(500, "Something went wrong, please try again later.");
             }
             catch (Exception e)
             {

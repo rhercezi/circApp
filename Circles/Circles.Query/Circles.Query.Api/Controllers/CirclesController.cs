@@ -51,7 +51,7 @@ namespace Circles.Query.Api.Controllers
         }
 
         [HttpGet]
-        [Route("Users/{circleId}")]
+        [Route("users/{circleId}")]
         public async Task<IActionResult> GetUsersByCircleId([FromRoute] Guid circleId)
         {
             CircleDto circleDto = new();
@@ -73,7 +73,7 @@ namespace Circles.Query.Api.Controllers
         }
 
         [HttpGet]
-        [Route("Search/{qWord}")]
+        [Route("search/{qWord}")]
         public async Task<IActionResult> SearchUsers([FromRoute] string qWord)
         {
             AppUsersDto appUsersDto = new();

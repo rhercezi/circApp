@@ -18,7 +18,7 @@ namespace User.Query.Api.Controllers
             _logger = logger;
         }
 
-        [Route("ById/{id}")]
+        [Route("by-id/{id}")]
         [HttpGet]
         public async Task<IActionResult> GetUserById([FromRoute] Guid id) 
         {
@@ -37,7 +37,7 @@ namespace User.Query.Api.Controllers
             return StatusCode(200, user);
         }
 
-        [Route("ByEmail")]
+        [Route("by-email")]
         [HttpGet]
         public async Task<IActionResult> GetUserByEmail([FromQuery] string email) 
         {
@@ -56,7 +56,7 @@ namespace User.Query.Api.Controllers
             return StatusCode(200, user);
         }
 
-        [Route("ByUsername")]
+        [Route("by-username")]
         [HttpGet]
         public async Task<IActionResult> GetUserByUsername([FromQuery] string username) 
         {
