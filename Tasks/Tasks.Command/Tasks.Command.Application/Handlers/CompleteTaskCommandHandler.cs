@@ -28,8 +28,8 @@ namespace Tasks.Command.Application.Handlers
         public async Task HandleAsync(CompleteTaskCommand command)
         {
             ReplaceOneResult? result = null;
-            var model = await _repository.GetTasksById(command.Id);
-            _logger.LogDebug("By is {id}, Task found: {Task}", command.Id.ToString(), model);
+            var model = await _repository.GetTasksById(command.TaskId);
+            _logger.LogDebug("For id '{id}' found task: {task}", command.TaskId.ToString(), model);
             if (model.CircleId != null && model.CircleId == command.CircleId)
             {
                 model.IsCompleted = true;
