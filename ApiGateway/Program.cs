@@ -31,6 +31,12 @@ if (builder.Environment.IsDevelopment())
     .AddJsonFile("ocelot.Development.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
 }
+else
+{
+    builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables();
+}
 
 builder.Services.AddCors(options =>
     {

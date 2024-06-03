@@ -1,4 +1,3 @@
-using Core.DTOs;
 using Core.MessageHandling;
 using Microsoft.AspNetCore.Mvc;
 using User.Query.Application.DTOs;
@@ -21,10 +20,9 @@ namespace User.Query.Api.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> LoginUser([FromQuery] string username, string password) 
+        [HttpPost]
+        public async Task<IActionResult> LoginUser(LoginQuery loginQuery) 
         {
-            var loginQuery = new LoginQuery(username, password);
             ToknesDto tokens = new();
             try
             {
@@ -43,11 +41,10 @@ namespace User.Query.Api.Controllers
             return StatusCode(200, tokens);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("token")]
-        public async Task<IActionResult> RefreshToken([FromQuery] string refreshToken)
+        public async Task<IActionResult> RefreshToken(RefreshTokenQuery refreshTokenQuery)
         {
-            var refreshTokenQuery = new RefreshTokenQuery{ RefreshToken = refreshToken };
             ToknesDto tokens = new();
             try
             {

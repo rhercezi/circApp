@@ -24,7 +24,7 @@ namespace Tasks.Query.Api.Controllers
         }
 
         [HttpGet("circle/{circleId}")]
-        public async Task<IActionResult> GetTasksForCircleAsync(Guid circleId)
+        public async Task<IActionResult> GetTasksForCircleAsync([FromRoute] Guid circleId)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace Tasks.Query.Api.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetTasksForUserAsync(Guid userId, [FromQuery] bool searchByCircles)
+        public async Task<IActionResult> GetTasksForUserAsync([FromRoute] Guid userId, [FromQuery] bool searchByCircles)
         {
             try
             {

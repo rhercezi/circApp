@@ -106,7 +106,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/auth",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Post" ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/auth/token",
@@ -118,7 +118,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/auth/token",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Post" ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/circles",
@@ -213,7 +213,7 @@
                     "Port": 5014
                 }
             ],
-            "UpstreamPathTemplate": "/v1/circles/appointments",
+            "UpstreamPathTemplate": "/v1/appointments",
             "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ]
         },
         {
@@ -225,7 +225,7 @@
                     "Port": 5014
                 }
             ],
-            "UpstreamPathTemplate": "/v1/circles/appointments/details",
+            "UpstreamPathTemplate": "/v1/appointments/details",
             "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ]
         },
         {
@@ -237,7 +237,7 @@
                     "Port": 5015
                 }
             ],
-            "UpstreamPathTemplate": "/v1/circles/appointments/circle/{id}",
+            "UpstreamPathTemplate": "/v1/appointments/circle/{id}",
             "UpstreamHttpMethod": [ "Get" ]
         },
         {
@@ -249,7 +249,7 @@
                     "Port": 5015
                 }
             ],
-            "UpstreamPathTemplate": "/v1/circles/appointments/user/{id}",
+            "UpstreamPathTemplate": "/v1/appointments/user/{id}",
             "UpstreamHttpMethod": [ "Get" ]
         },
         {
