@@ -1,5 +1,5 @@
 export interface CircleDto {
-    circleId: string | undefined
+    circleId: string
     creatorId: string | undefined
     userId: string | undefined
     inviterId: string | undefined

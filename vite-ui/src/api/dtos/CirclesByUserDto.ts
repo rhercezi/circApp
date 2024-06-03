@@ -1,6 +1,6 @@
 import { CircleDto } from "./CircleDto";
 
-export interface CirclesByUser {
+export interface CirclesByUserDto {
   id: string
   userName: string
   firstName: string

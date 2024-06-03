@@ -1,5 +1,5 @@
 export interface UserDto {
-    id: string | undefined
+    id: string
     password: string | undefined
     userName: string | undefined
     firstName: string | undefined
