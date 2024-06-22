@@ -1,25 +1,45 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { observer } from 'mobx-react-lite';
 import './App.css'
-import axios from 'axios';
-import Login from './modules/users/login';
+import NavBar from './components/common/navBar';
+import Login from './components/users/login';
+import { useStore } from './stores/store';
+import UserStore from './stores/userStore';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Loader from './components/common/loader';
+import { Box } from '@mui/material';
+
 
 function App() {
+  const {userStore} = useStore();
+  const theme = createTheme({
+    palette: {
+      mode: 'dark'
+    },
+  })
+
+  if (userStore.loading) {
+    return <Loader text="Logging in..." />
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-       <Login />
-    </>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <NavBar />
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh'
+      }}>
+        {
+          userStore.user?.userName ? <div>Logged in</div> : <Login />
+        }
+      </Box>
+    </ThemeProvider>
+    
   )
 }
 
-export default App
+export default observer(App);
