@@ -11,7 +11,7 @@ using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.Handlers
 {
-    public class RefershTokenHandler : IQueryHandler<RefreshTokenQuery, ToknesDto>
+    public class RefershTokenHandler : IQueryHandler<RefreshTokenQuery, LoginDto>
     {
         private readonly JwtService _jwtService;
         private readonly RefreshTokenRepository _refreshTokenRepository;
@@ -29,7 +29,7 @@ namespace User.Query.Application.Handlers
             _logger = logger;
         }
 
-        public async Task<ToknesDto> HandleAsync(RefreshTokenQuery query)
+        public async Task<LoginDto> HandleAsync(RefreshTokenQuery query)
         {
             if (!string.IsNullOrWhiteSpace(query.RefreshToken) && _jwtService.ValidateToken(query.RefreshToken))
             {
@@ -48,12 +48,28 @@ namespace User.Query.Application.Handlers
                             try
                             {
                                 var user = await _userRepository.GetUserByIdAsync(Guid.Parse(tokenModel.UserId));
-                                var newTokens = new ToknesDto
+                                var newTokens = new TokensDto
                                 {
                                     AccessToken = _jwtService.GenerateAccessToken(user.Id.ToString(), user.FirstName, user.FamilyName),
                                     RefreshToken = _jwtService.GenerateRefreshToken(user.Id.ToString(), user.FirstName, user.FamilyName)
                                 };
-    
+
+                                var loginDto = new LoginDto
+                                {
+                                    Tokens = newTokens,
+                                    User = new UserDto
+                                    {
+                                        Id = user.Id,
+                                        Created = user.Created,
+                                        Updated = user.Updated,
+                                        UserName = user.UserName,
+                                        FirstName = user.FirstName,
+                                        FamilyName = user.FamilyName,
+                                        Email = user.Email,
+                                        EmailVerified = user.EmailVerified
+                                    }
+                                };
+
                                 var refreshTokenModel = new RefreshTokenEntity
                                 {
                                     Id = _jwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "jti")?.Value,
@@ -62,11 +78,11 @@ namespace User.Query.Application.Handlers
                                     Nbf = long.Parse(_jwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "nbf")?.Value),
                                     Exp = long.Parse(_jwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "exp")?.Value)
                                 };
-    
+
                                 await _refreshTokenRepository.DeleteRefreshToken(tokenModel);
                                 await _refreshTokenRepository.AddRefreshToken(refreshTokenModel);
-    
-                                return newTokens;
+
+                                return loginDto;
                             }
                             catch (Exception e)
                             {

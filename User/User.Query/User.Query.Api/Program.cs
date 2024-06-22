@@ -11,6 +11,7 @@ using User.Query.Application.Handlers;
 using Core.Events;
 using Core.Utilities;
 using User.Query.Application.DTOs;
+using User.Query.Api.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<KafkaConsumerConfig>(builder.Configuration.GetSection(nameof(KafkaConsumerConfig)));
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection(nameof(JwtConfig)));
+builder.Services.Configure<CookieConfig>(builder.Configuration.GetSection(nameof(CookieConfig)));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -44,7 +46,7 @@ builder.Services.AddScoped<UserDeletedEventHandler>();
 builder.Services.AddScoped<UserUpdatedEventHandler>();
 
 builder.Services.AddSingleton<IHandlerService, HandlerService>();
-builder.Services.AddScoped<IQueryDispatcher<ToknesDto>, AuthDispatcher>();
+builder.Services.AddScoped<IQueryDispatcher<LoginDto>, AuthDispatcher>();
 builder.Services.AddScoped<IQueryDispatcher<UserDto>, QueryDispatcher>();
 builder.Services.AddSingleton<IEventDispatcher, EventDispatcher>();
 builder.Services.AddScoped<IEventConsumer, EventConsumer>();

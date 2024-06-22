@@ -6,16 +6,15 @@ import { TaskDto } from "./dtos/TaskDto";
 import { CompleteTaskDto } from "./dtos/CompleteTaskDto";
 import { CirclesByUserDto } from "./dtos/CirclesByUserDto";
 import { UsersByCircleDto } from "./dtos/UsersByCircleDto";
-import TokenDto from "./dtos/TokenDto";
 
-axios.defaults.baseURL = "http://localhost:5018";
+axios.defaults.baseURL = "http://localhost:5028";
 
-const body = <T> (response: AxiosResponse<T>) => response.data;
+const body = <T>(response: AxiosResponse<T>) => response.data;
 
 const requests = {
 
-    get: <T> (url: string, config?: any) => axios.get<T>(url, config).then(body),
-    post: <T> (url: string, body: any) => axios.post<T>(url, body).then(body),
+    get: <T>(url: string, config?: any) => axios.get<T>(url, config).then(body),
+    post: <T>(url: string, body: any) => axios.post<T>(url, body).then(body),
     put: (url: string, body: any) => axios.put(url, body).then(body),
     patch: (url: string, body: any) => axios.patch(url, body).then(body),
     delete: (url: string, config?: any) => axios.delete(url, config).then(body)
@@ -24,12 +23,14 @@ const requests = {
 
 const Users = {
 
+    get: (id: string) => requests.get<UserDto>(`/v1/user/by-id/${id}`),
     create: (body: UserDto) => requests.post('/v1/user', body),
     update: (body: UserDto) => requests.patch('/v1/user', body),
     delete: (id: string, password: string) => requests.delete('/v1/user/', { params: { id, password } }),
     updatePassword: (body: UserDto) => requests.patch('/v1/user/password', body),
-    login: (username: string, password: string) => requests.post<TokenDto>('/v1/auth', {username, password}),
-    refresh: (token: string) => requests.post<TokenDto>('/v1/auth/token', {token})
+    login: (username: string, password: string) => requests.post<UserDto>('/v1/auth', { username, password }),
+    refresh: () => requests.post('/v1/auth/token', {}),
+    Logout: () => requests.post('/v1/auth/logout', {})
 
 }
 
@@ -55,27 +56,44 @@ const Appointments = {
     createDetails: (body: AppointmentDto) => requests.post('/v1/appointments/details', body),
     updateDetails: (body: AppointmentDto) => requests.patch('/v1/appointments/details', body),
     deleteDetails: (id: string) => requests.delete(`/v1/appointments/details/${id}`),
-    getByCircle: (id: string, dateFrom: string, dateTo: string) => requests.get<AppointmentDto[]>(`/v1/appointments/circle/${id}`, { 
-        params: { dateFrom, dateTo } 
+    getByCircle: (id: string, dateFrom: string, dateTo: string) => requests.get<AppointmentDto[]>(`/v1/appointments/circle/${id}`, {
+        params: { dateFrom, dateTo }
     }),
-    getByUser: (id: string, dateFrom: string, dateTo: string) => requests.get<AppointmentDto[]>(`/v1/appointments/user/${id}`, { 
-        params: { dateFrom, dateTo } 
+    getByUser: (id: string, dateFrom: string, dateTo: string) => requests.get<AppointmentDto[]>(`/v1/appointments/user/${id}`, {
+        params: { dateFrom, dateTo }
     })
 
 }
 
 const Tasks = {
-    
-        create: (body: TaskDto) => requests.post('/v1/tasks', body),
-        update: (body: TaskDto) => requests.put('/v1/tasks', body),
-        complete: (body: CompleteTaskDto) => requests.patch('/v1/tasks', body),
-        delete: (id: string) => requests.delete(`/v1/tasks/${id}`),
-        getByCircle: (id: string) => requests.get<TaskDto[]>(`/v1/tasks/circle/${id}`),
-        getByUser: (id: string, searchByCircles: boolean) => requests.get<TaskDto[]>(`/v1/tasks/user/${id}`, {
-            params: { searchByCircles }
-        })
+
+    create: (body: TaskDto) => requests.post('/v1/tasks', body),
+    update: (body: TaskDto) => requests.put('/v1/tasks', body),
+    complete: (body: CompleteTaskDto) => requests.patch('/v1/tasks', body),
+    delete: (id: string) => requests.delete(`/v1/tasks/${id}`),
+    getByCircle: (id: string) => requests.get<TaskDto[]>(`/v1/tasks/circle/${id}`),
+    getByUser: (id: string, searchByCircles: boolean) => requests.get<TaskDto[]>(`/v1/tasks/user/${id}`, {
+        params: { searchByCircles }
+    })
 
 }
+
+axios.defaults.withCredentials = true;
+axios.interceptors.response.use(
+    response => response,
+    async error => {
+        if (error.response.status === 401) {
+            try {
+                await apiClient.Users.refresh();
+                return axios.request(error.config);
+            } catch (refreshError) {
+                console.error(refreshError);
+                // Add redirect to login page once ruter is implemented
+            }
+        }
+        return Promise.reject(error);
+    }
+);
 
 const apiClient = {
     Users,

@@ -141,6 +141,22 @@
             "UpstreamHttpMethod": [ "Post" ]
         },
         {
+            "DownstreamPathTemplate": "/api/v1/auth/logout",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "user_query_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/auth/logout",
+            "UpstreamHttpMethod": [ "Post" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
             "DownstreamPathTemplate": "/api/v1/circles",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [

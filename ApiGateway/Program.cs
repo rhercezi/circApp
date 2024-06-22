@@ -1,7 +1,5 @@
 using System.Text;
-using ApiGateway.Middleware;
 using Core.Configs;
-using Core.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
@@ -44,7 +42,8 @@ builder.Services.AddCors(options =>
         {
             builder.WithOrigins("http://localhost:3000")
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
     });
 
@@ -54,6 +53,17 @@ builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+app.Use(async (context, next) =>
+    {
+        if (context.Request.Cookies.TryGetValue("AccessToken", out var token))
+        {
+            context.Request.Headers.Add("Authorization", $"Bearer {token}");
+            Console.WriteLine($"Token added to headers {token}");
+        }
+
+        await next.Invoke();
+    });
 
 app.UseCors("MyPolicy");
 

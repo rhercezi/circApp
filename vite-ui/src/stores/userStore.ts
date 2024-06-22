@@ -1,15 +1,28 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { UserDto } from "../api/dtos/UserDto";
 import apiClient from "../api/apiClient";
-import TokenDto from "../api/dtos/TokenDto";
 
 export default class UserStore {
-    token: string | undefined;
-    refreshToken: string | undefined;
+    user: UserDto | undefined = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : undefined;
+    loading: boolean = false;
+    usr2: UserDto | undefined = undefined;
 
 
     constructor() {
         makeAutoObservable(this);
+    }
+
+    getUser = async (id: string) => {
+        if (id) {
+            try {
+                let data = await apiClient.Users.get(id);
+                runInAction(() => {
+                    this.usr2 = data;
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
     }
 
     createUser = async (user: UserDto) => {
@@ -43,23 +56,28 @@ export default class UserStore {
             console.error(error);
         }
     }
-    
+
     login = async (username: string, password: string) => {
         try {
+            this.loading = true;
             let data = await apiClient.Users.login(username, password);
-            this.token = data.data.accessToken;
-            this.refreshToken = data.data.refreshToken;
-            console.log(this.token);
+            runInAction(() => {
+                this.user = data.data;
+                localStorage.setItem('user', JSON.stringify(data.data));
+                this.loading = false;
+            });
         } catch (error) {
             console.error(error);
         }
     }
 
-    refresh = async (token: string) => {
+    logout = async () => {
         try {
-            let data = await apiClient.Users.refresh(token);
-            this.token = data.data.accessToken;
-            this.refreshToken = data.data.refreshToken;
+            await apiClient.Users.Logout();
+            runInAction(() => {
+                this.user = undefined;
+                localStorage.removeItem('user');
+        });
         } catch (error) {
             console.error(error);
         }

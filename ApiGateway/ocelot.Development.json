@@ -6,7 +6,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "user_command_api",
-                    "Port": 5010
+                    "Port": 5020
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/create",
@@ -18,7 +18,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5010
+                    "Port": 5020
                 }
             ],
             "UpstreamPathTemplate": "/v1/user",
@@ -30,7 +30,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5010
+                    "Port": 5020
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/password",
@@ -42,7 +42,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5010
+                    "Port": 5020
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/password/reset",
@@ -54,7 +54,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5010
+                    "Port": 5020
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/verify-email/{idLink}",
@@ -66,11 +66,15 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5011
+                    "Port": 5021
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/by-id/{id}",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Get" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/user/by-email",
@@ -78,7 +82,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5011
+                    "Port": 5021
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/by-email",
@@ -90,7 +94,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5011
+                    "Port": 5021
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/by-username",
@@ -102,7 +106,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5011
+                    "Port": 5021
                 }
             ],
             "UpstreamPathTemplate": "/v1/auth",
@@ -114,11 +118,27 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5011
+                    "Port": 5021
                 }
             ],
             "UpstreamPathTemplate": "/v1/auth/token",
             "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/auth/logout",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5021
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/auth/logout",
+            "UpstreamHttpMethod": [ "Post" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/circles",
@@ -126,7 +146,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5012
+                    "Port": 5022
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles",
@@ -138,7 +158,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5012
+                    "Port": 5022
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/confirm",
@@ -150,7 +170,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5012
+                    "Port": 5022
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/add-users",
@@ -162,7 +182,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5012
+                    "Port": 5022
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/remove-users",
@@ -174,7 +194,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5013
+                    "Port": 5023
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/{userId}",
@@ -186,7 +206,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5013
+                    "Port": 5023
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/users/{circleId}",
@@ -198,7 +218,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5013
+                    "Port": 5023
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/search/{qWord}",
@@ -210,7 +230,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5014
+                    "Port": 5024
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments",
@@ -222,7 +242,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5014
+                    "Port": 5024
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/details",
@@ -234,7 +254,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5015
+                    "Port": 5025
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/circle/{id}",
@@ -246,7 +266,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5015
+                    "Port": 5025
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/user/{id}",
@@ -258,7 +278,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5016
+                    "Port": 5026
                 }
             ],
             "UpstreamPathTemplate": "/v1/tasks",
@@ -276,7 +296,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5016
+                    "Port": 5026
                 }
             ],
             "UpstreamPathTemplate": "/v1/tasks/{id}",
@@ -294,7 +314,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5017
+                    "Port": 5027
                 }
             ],
             "UpstreamPathTemplate": "/v1/tasks/circle/{circleId}",
@@ -306,7 +326,7 @@
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 5017
+                    "Port": 5027
                 }
             ],
             "UpstreamPathTemplate": "/v1/tasks/user/{userId}",

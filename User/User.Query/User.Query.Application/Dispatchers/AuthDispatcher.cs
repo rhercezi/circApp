@@ -9,7 +9,7 @@ using User.Query.Application.Exceptions;
 
 namespace User.Query.Application.Dispatchers
 {
-    public class AuthDispatcher : IQueryDispatcher<ToknesDto>
+    public class AuthDispatcher : IQueryDispatcher<LoginDto>
     {
         private Dictionary<Type, Type> _handlers = new();
         private readonly ILogger<AuthDispatcher> _logger;
@@ -23,16 +23,16 @@ namespace User.Query.Application.Dispatchers
             _handlerService = handlerService;
         }
 
-        public async Task<ToknesDto> DispatchAsync(BaseQuery query)
+        public async Task<LoginDto> DispatchAsync(BaseQuery query)
         {
-            _handlers = _handlerService.RegisterHandler<BaseQuery, ToknesDto>(query, Assembly.GetExecutingAssembly(), typeof(ToknesDto));
+            _handlers = _handlerService.RegisterHandler<BaseQuery, LoginDto>(query, Assembly.GetExecutingAssembly(), typeof(LoginDto));
 
             if (_handlers.TryGetValue(query.GetType(), out Type? handlerType))
             {
                 try
                 {
                     var handler = (IQueryHandler)_serviceProvider.GetRequiredService(handlerType);
-                    return (ToknesDto)await handler.HandleAsync(query);
+                    return (LoginDto)await handler.HandleAsync(query);
                 }
                 catch (AuthException e)
                 {
@@ -47,7 +47,7 @@ namespace User.Query.Application.Dispatchers
 
             }
             _logger.LogError($"Could not find handler for query. Type: {query.GetType().Name}");
-            return new ToknesDto();
+            return new LoginDto();
         }
     }
 }

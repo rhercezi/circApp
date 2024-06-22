@@ -12,7 +12,7 @@ using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.Handlers
 {
-    public class LoginHandler : IQueryHandler<LoginQuery, ToknesDto>
+    public class LoginHandler : IQueryHandler<LoginQuery, LoginDto>
     {
         private readonly UserRepository _userRepository;
         private readonly PasswordHashService _hashService;
@@ -33,7 +33,7 @@ namespace User.Query.Application.Handlers
             _logger = logger;
         }
 
-        public async Task<ToknesDto> HandleAsync(LoginQuery query)
+        public async Task<LoginDto> HandleAsync(LoginQuery query)
         {
             var user = await _userRepository.GetUserByUsernameAsync(query.Username);
 
@@ -44,19 +44,37 @@ namespace User.Query.Application.Handlers
                     throw new AuthException("Email is not verified, please verify your email by clicking on the link sent to your email address");
                 }
 
-                ToknesDto tokens = new();
-                tokens.AccessToken = _jwtService.GenerateAccessToken(user.Id.ToString(), user.FirstName, user.FamilyName);
-                tokens.RefreshToken = _jwtService.GenerateRefreshToken(user.Id.ToString(), user.FirstName, user.FamilyName);
+                var tokens = new TokensDto
+                {
+                    AccessToken = _jwtService.GenerateAccessToken(user.Id.ToString(), user.FirstName, user.FamilyName),
+                    RefreshToken = _jwtService.GenerateRefreshToken(user.Id.ToString(), user.FirstName, user.FamilyName)
+                };
+
+                var loginDto = new LoginDto
+                {
+                    Tokens = tokens,
+                    User = new UserDto
+                    {
+                        Id = user.Id,
+                        Created = user.Created,
+                        Updated = user.Updated,
+                        UserName = user.UserName,
+                        FirstName = user.FirstName,
+                        FamilyName = user.FamilyName,
+                        Email = user.Email,
+                        EmailVerified = user.EmailVerified
+                    }
+                };
 
                 try
                 {
                     var refreshTokenModel = new RefreshTokenEntity
                     {
-                        Id = _jwtService.GetTokenClaims(tokens.RefreshToken).FirstOrDefault(x => x.Type == "jti")?.Value,
+                        Id = _jwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "jti")?.Value,
                         UserId = user.Id.ToString(),
-                        Iat = long.Parse(_jwtService.GetTokenClaims(tokens.RefreshToken).FirstOrDefault(x => x.Type == "iat")?.Value),
-                        Nbf = long.Parse(_jwtService.GetTokenClaims(tokens.RefreshToken).FirstOrDefault(x => x.Type == "nbf")?.Value),
-                        Exp = long.Parse(_jwtService.GetTokenClaims(tokens.RefreshToken).FirstOrDefault(x => x.Type == "exp")?.Value)
+                        Iat = long.Parse(_jwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "iat")?.Value),
+                        Nbf = long.Parse(_jwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "nbf")?.Value),
+                        Exp = long.Parse(_jwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "exp")?.Value)
                     };
                     await _refreshTokenRepository.AddRefreshToken(refreshTokenModel);
                 }
@@ -66,7 +84,7 @@ namespace User.Query.Application.Handlers
                     throw;
                 }
 
-                return tokens;
+                return loginDto;
             }
             else
             {
