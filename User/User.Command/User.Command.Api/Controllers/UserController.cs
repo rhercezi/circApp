@@ -10,10 +10,12 @@ namespace User.Command.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly ICommandDispatcher _dispatcher;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(ICommandDispatcher dispatcher)
+        public UserController(ICommandDispatcher dispatcher, ILogger<UserController> logger)
         {
             _dispatcher = dispatcher;
+            _logger = logger;
         }
 
         [Route("password")]
@@ -23,6 +25,20 @@ namespace User.Command.Api.Controllers
             var (code, message) = await _dispatcher.DispatchAsync(command);
 
             return StatusCode(code, message);
+        }
+
+        [Route("password-id-link")]
+        [HttpPatch]
+        public async Task<IActionResult> UpdatePasswordIdLink(UpdatePasswordCommand command) 
+        {
+            if (command.IdLink == null)
+            {
+                _logger.LogWarning("Invalid id-link request. Command: {Command}", command);
+                return BadRequest("Invalid request.");
+            }
+            var (code, message) = await _dispatcher.DispatchAsync(command);
+            return StatusCode(code, message);
+
         }
 
         [Route("password/reset")]

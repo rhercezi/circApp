@@ -35,9 +35,21 @@ namespace User.Query.Application.Handlers
 
         public async Task<LoginDto> HandleAsync(LoginQuery query)
         {
-            var user = await _userRepository.GetUserByUsernameAsync(query.Username);
+            UserEntity? user = null;
+            try
+            {
+                user = await _userRepository.GetUserByUsernameAsync(query.Username);
+            }
+            catch (InvalidOperationException)
+            {
+                Thread.Sleep(2500);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
-            if (_hashService.VerifyPassword(query.Password, user.Password, user.Id))
+            if (user != null && _hashService.VerifyPassword(query.Password, user.Password, user.Id))
             {
                 if (user.EmailVerified == false)
                 {

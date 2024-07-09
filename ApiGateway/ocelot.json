@@ -45,6 +45,18 @@
             }
         },
         {
+            "DownstreamPathTemplate": "/api/v1/user/password-id-link",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "user_command_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/user/password-id-link",
+            "UpstreamHttpMethod": [ "Patch" ]
+        },
+        {
             "DownstreamPathTemplate": "/api/v1/user/password/reset",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
@@ -54,7 +66,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/password/reset",
-            "UpstreamHttpMethod": [ "Patch" ]
+            "UpstreamHttpMethod": [ "Post" ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/user/verify-email/{idLink}",
