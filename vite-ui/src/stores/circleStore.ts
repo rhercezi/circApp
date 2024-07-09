@@ -1,23 +1,33 @@
 import { makeAutoObservable } from "mobx";
 import { CircleDto } from "../api/dtos/CircleDto";
 import apiClient from "../api/apiClient";
+import { UserDto } from "../api/dtos/UserDto";
 
 
 export default class CircleStore {
     circlesMap = new Map<string, CircleDto>();
+    user: UserDto | undefined = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : undefined;
+    createCircleFormOpen: boolean = false;
 
     constructor() {
         makeAutoObservable(this);
+
+        if (this.user) {
+            this.getCirclesByUSer();
+        }
     }
 
     getCirclesByUSer = async () => {
-        try {
-            let data = await apiClient.Circles.getCirclesByUser('3d7164e7-4dbb-4bb2-bef2-04b28b7e6036');
-            data.circles.forEach((circle: CircleDto) => {
-                this.circlesMap.set(circle.circleId, circle);
-            });
-        } catch (error) {
-            console.error(error);
+        if (this.user) {
+            try {
+                let data = await apiClient.Circles.getCirclesByUser(this.user!.id);
+                data.circles.forEach((circle: CircleDto) => {
+                    this.circlesMap.set(circle.circleId, circle);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+            console.log(this.circlesMap);
         }
     }
 

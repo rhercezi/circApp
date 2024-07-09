@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosResponse } from "axios"
+import axios, { AxiosResponse } from "axios"
 import { UserDto } from "./dtos/UserDto";
 import { CircleDto } from "./dtos/CircleDto";
 import { AppointmentDto } from "./dtos/AppointmentDto";
@@ -6,8 +6,9 @@ import { TaskDto } from "./dtos/TaskDto";
 import { CompleteTaskDto } from "./dtos/CompleteTaskDto";
 import { CirclesByUserDto } from "./dtos/CirclesByUserDto";
 import { UsersByCircleDto } from "./dtos/UsersByCircleDto";
+import { PasswordUpdateDto } from "./dtos/PasswordUpdateDto";
 
-axios.defaults.baseURL = "http://localhost:5028";
+axios.defaults.baseURL = "http://localhost:5018";
 
 const body = <T>(response: AxiosResponse<T>) => response.data;
 
@@ -24,13 +25,16 @@ const requests = {
 const Users = {
 
     get: (id: string) => requests.get<UserDto>(`/v1/user/by-id/${id}`),
-    create: (body: UserDto) => requests.post('/v1/user', body),
+    create: (body: UserDto) => requests.post('/v1/user/create', body),
     update: (body: UserDto) => requests.patch('/v1/user', body),
     delete: (id: string, password: string) => requests.delete('/v1/user/', { params: { id, password } }),
-    updatePassword: (body: UserDto) => requests.patch('/v1/user/password', body),
+    verifyEmail: (idLink: string) => requests.post(`/v1/user/verify-email/${idLink}`,{}),
+    updatePassword: (body: PasswordUpdateDto) => requests.patch('/v1/user/password', body),
+    resetPassword: (body: PasswordUpdateDto) => requests.patch('/v1/user/password-id-link', body),
     login: (username: string, password: string) => requests.post<UserDto>('/v1/auth', { username, password }),
     refresh: () => requests.post('/v1/auth/token', {}),
-    Logout: () => requests.post('/v1/auth/logout', {})
+    Logout: () => requests.post('/v1/auth/logout', {}),
+    resetPasswordRequest: (username: string) => requests.post('/v1/user/password/reset', { username }),
 
 }
 
@@ -82,13 +86,13 @@ axios.defaults.withCredentials = true;
 axios.interceptors.response.use(
     response => response,
     async error => {
-        if (error.response.status === 401) {
+        if (error.response.status === 401 && error.response.data !== 'Invalid username or password') {
             try {
                 await apiClient.Users.refresh();
                 return axios.request(error.config);
             } catch (refreshError) {
                 console.error(refreshError);
-                // Add redirect to login page once ruter is implemented
+                window.location.href = '/login';
             }
         }
         return Promise.reject(error);

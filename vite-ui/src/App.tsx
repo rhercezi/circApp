@@ -1,17 +1,18 @@
 import { observer } from 'mobx-react-lite';
 import './App.css'
-import NavBar from './components/common/navBar';
-import Login from './components/users/login';
+import NavBar from './components/common/NavBar';
 import { useStore } from './stores/store';
-import UserStore from './stores/userStore';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Loader from './components/common/loader';
+import Loader from './components/common/Loader';
 import { Box } from '@mui/material';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 
 function App() {
   const {userStore} = useStore();
+  const navigate = useNavigate();
+  const location = window.location.pathname;
   const theme = createTheme({
     palette: {
       mode: 'dark'
@@ -19,7 +20,11 @@ function App() {
   })
 
   if (userStore.loading) {
-    return <Loader text="Logging in..." />
+    return <Loader text={userStore.loaderText} className='loader'/>
+  }
+
+  if (!userStore.isLoggedIn && location === '/') {
+    navigate('/login');
   }
 
   return (
@@ -31,11 +36,9 @@ function App() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh'
+        minHeight: '93vh'
       }}>
-        {
-          userStore.user?.userName ? <div>Logged in</div> : <Login />
-        }
+        <Outlet />
       </Box>
     </ThemeProvider>
     
