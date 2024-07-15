@@ -4,11 +4,6 @@ namespace Circles.Command.Application.Commands
 {
     public class CreateCircleCommand : BaseCommand
     {
-        public CreateCircleCommand()
-        {
-            Id = Guid.NewGuid();
-        }
-
         public Guid CreatorId { get; set; }
         public required string Name { get; set; }
         public required string Color { get; set; }

@@ -8,6 +8,8 @@ namespace Circles.Domain.Entities
         [BsonId]
         [BsonRepresentation(BsonType.String)]
         public Guid CircleId { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public Guid CreatorId { get; set; }
         public required string Name { get; set; }
         public required string Color { get; set; }
     }

@@ -34,6 +34,10 @@ namespace Circles.Command.Application.Handlers
         {
             command.Users ??= new List<Guid>();
             command.Users = command.Users.Distinct().ToList();
+
+            var circle = await _circlesRepository.CheckExistsForUser(command.Name, command.CreatorId);
+            if (circle != null) throw new CirclesValidationException($"You already have a circle named '{command.Name}'");
+
             using var session = await _circlesRepository.GetSession();
             try
             {
@@ -42,6 +46,7 @@ namespace Circles.Command.Application.Handlers
                     new CircleModel
                     {
                         CircleId = command.CircleId,
+                        CreatorId = command.CreatorId,
                         Name = command.Name,
                         Color = command.Color
                     }
@@ -54,6 +59,11 @@ namespace Circles.Command.Application.Handlers
                         UserId = command.CreatorId
                     }
                 );
+
+                if (command.Users.Contains(command.CreatorId))
+                {
+                    command.Users.Remove(command.CreatorId);
+                }
 
                 var insertTask = command.Users.Select(
                     uId => Task.Run(() => _requestRepository.SaveAsync(

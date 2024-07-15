@@ -31,6 +31,16 @@ namespace Circles.Domain.Repositories
             return await _collection.Find(filter).ToListAsync();
         }
 
+        public async Task<CircleModel> CheckExistsForUser(string name, Guid creator)
+        {
+            var filter = Builders<CircleModel>.Filter.And(
+                Builders<CircleModel>.Filter.Eq(c => c.Name, name),
+                Builders<CircleModel>.Filter.Eq(c => c.CreatorId, creator)
+            );
+
+            return await _collection.Find(filter).FirstOrDefaultAsync();
+        }
+
         public async Task<CircleDto> GetUsersInCircle(Guid circleId)
         {
             var filter = Builders<CircleModel>.Filter.Eq(c => c.CircleId, circleId);

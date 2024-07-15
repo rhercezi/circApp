@@ -12,6 +12,9 @@ namespace Core.DTOs
         }
         [JsonPropertyName("id")]
         public Guid Id { get; set; }
+        
+        [JsonPropertyName("creatorId")]
+        public Guid CreatorId { get; set; }
         [JsonPropertyName("name")]
         public string? Name { get; set; }
         [JsonPropertyName("color")]

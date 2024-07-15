@@ -32,6 +32,10 @@ namespace Circles.Command.Application.Dispatcher
                     await handler.HandleAsync(command);
                     return (200, "Ok");
                 }
+                catch(CirclesValidationException e)
+                {
+                    return(422, e.Message);
+                }
                 catch (Exception e)
                 {
                     _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
