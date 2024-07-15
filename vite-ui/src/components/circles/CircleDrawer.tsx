@@ -1,32 +1,42 @@
 import { Box, List } from "@mui/material";
 import DrawerButton from "../common/buttonst/DrawerButton";
 import CreateCircleDialog from "./CreateCircleDialog";
-import { useState } from "react";
+import AddUsersDialog from "./AddUsersDialog";
+import RemoveUsersDialog from "./RemoveUsersDiaog";
 
 interface Props {
     setOpenCirclesDrower: (openDrower: boolean) => void;
+    setElementChange: (elementChange: [string, boolean]) => void;
 }
 
-export default function CircleDrawer({setOpenCirclesDrower}: Props) {
-    const handleCirclesDrower = (openDrower: boolean) => () => {
-        setOpenCirclesDrower(openDrower);
-    };
+export default function CircleDrawer({ setElementChange }: Props) {
 
-    const [openCreateCircle, setOpenCreateCircle] = useState(false);
-    const handleOpenCreateCircle = () => {
-        setOpenCreateCircle(true);
-    }
-    const handleCloseCreateCircle = () => {
-        setOpenCreateCircle(false);
+    const handleOpen = (name: string, isOpen: boolean) => {
+        setElementChange([name, isOpen])
     }
 
 
     return (
-        <Box className='circle-drower-inner' role='presentation'>
-            <List>
-                <DrawerButton variant="outlined" onClick={handleOpenCreateCircle}>Create Circle</DrawerButton>
+        <Box sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "right",
+          alignItems: "end",
+          minWidth: "250px",
+          width: "15vw"
+        }} >
+            <List sx={
+                {
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "100%",
+                    gap: "1rem"
+                }
+            }>
+                <DrawerButton variant="outlined" onClick={() => handleOpen(CreateCircleDialog.name, true)}>Create Circle</DrawerButton>
+                <DrawerButton variant="outlined" onClick={() => handleOpen(AddUsersDialog.name, true)}>Add Users</DrawerButton>
+                <DrawerButton variant="outlined" onClick={() => handleOpen(RemoveUsersDialog.name, true)}>Remove Users</DrawerButton>
             </List>
-            <CreateCircleDialog open={openCreateCircle} setOpen={handleCloseCreateCircle} />
         </Box>
     )
 }

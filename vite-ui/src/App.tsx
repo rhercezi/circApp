@@ -6,13 +6,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Loader from './components/common/Loader';
 import { Box } from '@mui/material';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 
 function App() {
   const {userStore} = useStore();
-  const navigate = useNavigate();
-  const location = window.location.pathname;
   const theme = createTheme({
     palette: {
       mode: 'dark'
@@ -21,10 +19,6 @@ function App() {
 
   if (userStore.loading) {
     return <Loader text={userStore.loaderText} className='loader'/>
-  }
-
-  if (!userStore.isLoggedIn && location === '/') {
-    navigate('/login');
   }
 
   return (

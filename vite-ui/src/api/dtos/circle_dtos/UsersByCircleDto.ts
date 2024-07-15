@@ -1,4 +1,4 @@
-import { UserDto } from "./UserDto"
+import { UserDto } from "../user_dtos/UserDto"
 
 export interface UsersByCircleDto {
     id: string

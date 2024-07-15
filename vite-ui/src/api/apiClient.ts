@@ -1,12 +1,15 @@
 import axios, { AxiosResponse } from "axios"
-import { UserDto } from "./dtos/UserDto";
-import { CircleDto } from "./dtos/CircleDto";
-import { AppointmentDto } from "./dtos/AppointmentDto";
-import { TaskDto } from "./dtos/TaskDto";
-import { CompleteTaskDto } from "./dtos/CompleteTaskDto";
-import { CirclesByUserDto } from "./dtos/CirclesByUserDto";
-import { UsersByCircleDto } from "./dtos/UsersByCircleDto";
-import { PasswordUpdateDto } from "./dtos/PasswordUpdateDto";
+import { UserDto } from "./dtos/user_dtos/UserDto";
+import { CircleDto } from "./dtos/circle_dtos/CircleDto";
+import { AppointmentDto } from "./dtos/appointment_dtos/AppointmentDto";
+import { TaskDto } from "./dtos/task_dtos/TaskDto";
+import { CompleteTaskDto } from "./dtos/task_dtos/CompleteTaskDto";
+import { CirclesByUserDto } from "./dtos/circle_dtos/CirclesByUserDto";
+import { UsersByCircleDto } from "./dtos/circle_dtos/UsersByCircleDto";
+import { PasswordUpdateDto } from "./dtos/user_dtos/PasswordUpdateDto";
+import { UsersDto } from "./dtos/user_dtos/UsersDto";
+import { AddUsersDto } from "./dtos/circle_dtos/AddUsersDto";
+import { RemoveUsersDto } from "./dtos/circle_dtos/RemoveUsersDto";
 
 axios.defaults.baseURL = "http://localhost:5018";
 
@@ -42,13 +45,13 @@ const Circles = {
 
     getCirclesByUser: (id: string) => requests.get<CirclesByUserDto>(`/v1/circles/${id}`),
     getUsersInCircle: (id: string) => requests.get<UsersByCircleDto>(`/v1/circles/users/${id}`),
-    searchUsers: (search: string) => requests.get<CirclesByUserDto[]>(`/v1/circles/search/${search}`),
+    searchUsers: (search: string) => requests.get<UsersDto>(`/v1/circles/search/${search}`),
     create: (body: CircleDto) => requests.post('/v1/circles', body),
     update: (body: CircleDto) => requests.patch('/v1/circles', body),
     delete: (id: string) => requests.delete('/v1/circles', { params: { id } }),
     confirmJoin: (body: CircleDto) => requests.post('/v1/circles/confirm', body),
-    addUsers: (body: CircleDto) => requests.post('/v1/circles/addusers', body),
-    removeUsers: (body: CircleDto) => requests.post('/v1/circles/removeusers', body)
+    addUsers: (body: AddUsersDto) => requests.post('/v1/circles/add-users', body),
+    removeUsers: (body: RemoveUsersDto) => requests.post('/v1/circles/remove-users', body)
 
 }
 

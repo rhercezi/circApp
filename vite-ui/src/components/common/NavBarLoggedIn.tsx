@@ -5,13 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { useStore } from "../../stores/store";
 import CircleDrawer from "../circles/CircleDrawer";
 import MyButton from "./buttonst/MyButton";
+import DialogHandler from "./DialogHandler";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 
 export default function NavBarLoggedIn() {
-    const { userStore } = useStore();
+    const { userStore, circleStore } = useStore();
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const [openCirclesDrower, setOpenCirclesDrower] = useState(false);
+    const [elementChange, setElementChange] = useState<[string, boolean]>(['', false]);
+    circleStore.getCirclesByUSer();
 
     const handleCirclesDrower = (openDrower: boolean) => () => {
         setOpenCirclesDrower(openDrower);
@@ -36,11 +41,22 @@ export default function NavBarLoggedIn() {
             <Box className='nav-bar'>
                 <div className="nav-bar-left">
                     <MyButton onClick={handleCirclesDrower(true)}>Circles</MyButton>
-                    <Drawer className="circle-drower-outer" open={openCirclesDrower} onClick={handleCirclesDrower(true)}>
-                        <CircleDrawer setOpenCirclesDrower={setOpenCirclesDrower} />
+                    <Drawer sx={
+                        {
+                            backgroundImage: "none",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between"
+                        }
+                    } open={openCirclesDrower} onClick={handleCirclesDrower(false)}>
+                        <CircleDrawer setOpenCirclesDrower={setOpenCirclesDrower} setElementChange={setElementChange} />
                     </Drawer>
+                    <DialogHandler elementChange={elementChange} />
                 </div>
                 <div className="nav-bar-avatar">
+                    <IconButton onClick={() => navigate('/dashboard')}>
+                        <FontAwesomeIcon icon={faHome} />
+                    </IconButton>
                     <Tooltip title="Account settings">
                         <IconButton
                             onClick={handleClick}

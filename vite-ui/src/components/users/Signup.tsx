@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../stores/store";
 import { Field, FieldProps, Form, Formik } from "formik";
-import { UserDto } from "../../api/dtos/UserDto";
+import { UserDto } from "../../api/dtos/user_dtos/UserDto";
 import uuid from "react-uuid";
 import * as Yup from 'yup';
 import { Alert, Box, Button, TextField } from "@mui/material";
@@ -59,11 +59,7 @@ export default observer(function Signup() {
                         idLink: '',
                         ...values
                     };
-                    await userStore.createUser(userDto).then(() => {
-                        if (!userStore.errorMap.has('signup')) {
-                            navigate('/login');
-                        }
-                    });
+                    await userStore.createUser(userDto);
                 }}
                 validationSchema={validationSchema}>
                 {({ errors, touched }) => (

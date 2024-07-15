@@ -5,7 +5,7 @@ import { useStore } from "../../stores/store";
 import Loader from "../common/Loader";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const Login = () => {
+export default observer(function Login(){
     const { userStore } = useStore();
     const navigate = useNavigate();
 
@@ -70,6 +70,4 @@ const Login = () => {
             )}
         </Formik>
     );
-}
-
-export default observer(Login);
+});

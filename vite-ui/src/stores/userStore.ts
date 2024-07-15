@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { UserDto } from "../api/dtos/UserDto";
+import { UserDto } from "../api/dtos/user_dtos/UserDto";
 import apiClient from "../api/apiClient";
-import { PasswordUpdateDto } from "../api/dtos/PasswordUpdateDto";
+import { PasswordUpdateDto } from "../api/dtos/user_dtos/PasswordUpdateDto";
 
 export default class UserStore {
     user: UserDto | undefined = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : undefined;
@@ -29,12 +29,20 @@ export default class UserStore {
             await apiClient.Users.create(user);
             runInAction(() => {
                 this.errorMap.delete('signup');
-                this.loading = false;
                 this.isSuccess = true;
             });
         } catch (error: any) {
+            if (error.response && error.response.status > 399 && error.response.status < 500) {
+                runInAction(() => {
+                    this.errorMap.set('signup', error.response.data);
+                });
+            } else {
+                runInAction(() => {
+                    this.errorMap.set('signup', 'Something went wrong, please try again later.');
+                });
+            }
+        } finally {
             runInAction(() => {
-                this.errorMap.set('signup', error.response.data);
                 this.loading = false;
             });
         }
@@ -71,11 +79,13 @@ export default class UserStore {
             await apiClient.Users.resetPassword(data);
             runInAction(() => {
                 this.errorMap.delete('resetPwd');
-                this.loading = false;
             });
         } catch (error) {
             runInAction(() => {
-                this.errorMap.set('resetPwd', 'An unexpected error occurred');
+                this.errorMap.set('resetPwd', 'Something went wrong, please try again later.');
+            });
+        } finally {
+            runInAction(() => {
                 this.loading = false;
             });
         }
@@ -89,16 +99,18 @@ export default class UserStore {
             await apiClient.Users.resetPasswordRequest(username);
             runInAction(() => {
                 this.errorMap.delete('resetRqst');
-                this.loading = false;
                 this.isSuccess = true;
             });
         } catch (error: any) {
-            if (error.response.status === 422) {
+            if (error.response && error.response.status === 422) {
                 runInAction(() => this.errorMap.set('resetRqst', error.response.data));
             } else {
-                runInAction(() => this.errorMap.set('resetRqst', 'An unexpected error occurred'));
+                runInAction(() => this.errorMap.set('resetRqst', 'Something went wrong, please try again later.'));
             }
-            runInAction(() => this.loading = false);
+        } finally {
+            runInAction(() => {
+                this.loading = false;
+            });
         }
     }
 
@@ -122,10 +134,10 @@ export default class UserStore {
         } catch (error: any) {
             runInAction(() => {
                 this.isLoggedIn = false;
-                if (error.response.status === 401) {
+                if (error.response && error.response.status === 401) {
                     this.errorMap.set('login', 'Invalid username or password');
                 } else {
-                    this.errorMap.set('login', 'An unexpected error occurred');
+                    this.errorMap.set('login', 'Something went wrong, please try again later.');
                 }
             });
         } finally {
@@ -144,10 +156,13 @@ export default class UserStore {
                 this.user = undefined;
                 localStorage.removeItem('user');
                 this.isLoggedIn = false;
-                this.loading = false;
             });
         } catch (error) {
             console.error(error);
+        } finally {
+            runInAction(() => {
+                this.loading = false;
+            });
         }
     }
 }
