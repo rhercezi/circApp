@@ -13,35 +13,40 @@ namespace Circles.Query.Api.Controllers
     [Route("api/v1/[controller]")]
     public class CirclesController : ControllerBase
     {
-        ILogger<CirclesController> _logger;
-        IQueryDispatcher<AppUserDto> _userQueryDispatcher;
-        IQueryDispatcher<CircleDto> _circleQueryDispatcher;
-        IQueryDispatcher<AppUsersDto> _searchQueryDispatcher;
-        public CirclesController(ILogger<CirclesController> logger,
-                                 IQueryDispatcher<AppUserDto> userQueryDispatcher,
-                                 IQueryDispatcher<CircleDto> circleQueryDispatcher,
-                                 IQueryDispatcher<AppUsersDto> searchQueryDispatcher)
+        private readonly ILogger<CirclesController> _logger;
+        private readonly IMessageDispatcher _dispatcher;
+        public CirclesController(ILogger<CirclesController> logger, IMessageDispatcher dispatcher)
         {
             _logger = logger;
-            _userQueryDispatcher = userQueryDispatcher;
-            _circleQueryDispatcher = circleQueryDispatcher;
-            _searchQueryDispatcher = searchQueryDispatcher;
+            _dispatcher = dispatcher;
         }
 
         [HttpGet]
         [Route("{userId}")]
         public async Task<IActionResult> GetCirclesByUserId([FromRoute] Guid userId)
         {
-            AppUserDto appUserDto = new();
             try
             {
-                appUserDto = await _userQueryDispatcher.DispatchAsync(
+                var response = await _dispatcher.DispatchAsync(
                     new GetCirclesByUserIdQuery
                     {
                         UserId = userId
                     }
                 );
-                return StatusCode(200, appUserDto);
+
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+
             }
             catch (Exception e)
             {
@@ -54,16 +59,28 @@ namespace Circles.Query.Api.Controllers
         [Route("users/{circleId}")]
         public async Task<IActionResult> GetUsersByCircleId([FromRoute] Guid circleId)
         {
-            CircleDto circleDto = new();
             try
             {
-                circleDto = await _circleQueryDispatcher.DispatchAsync(
+                var response = await _dispatcher.DispatchAsync(
                     new GetUsersByCircleIdQuery
                     {
                         CircleId = circleId
                     }
                 );
-                return StatusCode(200, circleDto);
+
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+
             }
             catch (Exception e)
             {
@@ -76,16 +93,28 @@ namespace Circles.Query.Api.Controllers
         [Route("search/{qWord}")]
         public async Task<IActionResult> SearchUsers([FromRoute] string qWord)
         {
-            AppUsersDto appUsersDto = new();
             try
             {
-                appUsersDto = await _searchQueryDispatcher.DispatchAsync(
+                var response = await _dispatcher.DispatchAsync(
                     new SearchQuery
                     {
                         QWord = qWord
                     }
                 );
-                return StatusCode(200, appUsersDto);
+                
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+                
             }
             catch (Exception e)
             {

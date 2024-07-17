@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Circles.Query.Application.Handlers
 {
-    public class GetCirclesByUserIdQueryHandler : IQueryHandler<GetCirclesByUserIdQuery, AppUserDto>
+    public class GetCirclesByUserIdQueryHandler : IMessageHandler<GetCirclesByUserIdQuery>
     {
         private readonly UserRepository _userRepository;
 
@@ -17,14 +17,14 @@ namespace Circles.Query.Application.Handlers
             _userRepository = userRepository;
         }
 
-        public async Task<AppUserDto> HandleAsync(GetCirclesByUserIdQuery query)
+        public async Task<BaseResponse> HandleAsync(GetCirclesByUserIdQuery query)
         {
             AppUserDto dto = new();
             dto = await _userRepository.GetCirclesForUser(query.UserId);
-            return dto;
+            return new BaseResponse { ResponseCode = 200, Data = dto };
         }
 
-        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        public async Task<BaseResponse> HandleAsync(BaseMessage query)
         {
             return await HandleAsync((GetCirclesByUserIdQuery)query);
         }

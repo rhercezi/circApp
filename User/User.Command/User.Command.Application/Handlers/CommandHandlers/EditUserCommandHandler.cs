@@ -3,10 +3,8 @@ using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
 using User.Command.Application.Commands;
-using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
 using User.Command.Domain.Events;
-using User.Command.Domain.Exceptions;
 using User.Command.Domin.Stores;
 using User.Common.Events;
 

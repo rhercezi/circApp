@@ -1,4 +1,5 @@
 using Circles.Domain.Repositories;
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Circles.Command.Application.Handlers
 {
-    public class UserDeletedEventHandler : IEventHandler<UserDeletedPublicEvent>
+    public class UserDeletedEventHandler : IMessageHandler<UserDeletedPublicEvent>
     {
         private readonly UserRepository _userRepository;
         private readonly UserCircleRepository _userCircleRepository;
@@ -21,7 +22,7 @@ namespace Circles.Command.Application.Handlers
             _logger = logger;
         }
 
-        public async Task HandleAsync(UserDeletedPublicEvent xEvent)
+        public async Task<BaseResponse> HandleAsync(UserDeletedPublicEvent xEvent)
         {
             using var session = await _userRepository.GetSession();
             try
@@ -30,18 +31,20 @@ namespace Circles.Command.Application.Handlers
                 await _userRepository.DeleteUser(xEvent.Id);
                 await _userCircleRepository.DeleteByUser(xEvent.Id);
                 session.CommitTransaction();
+
+                return new BaseResponse { ResponseCode = 200 };
             }
             catch (Exception e)
             {
                 session.AbortTransaction();
                 _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                throw;
+                return new BaseResponse { ResponseCode = 500 };
             }
         }
 
-        public async Task HandleAsync(BaseEvent xEvent)
+        public async Task<BaseResponse> HandleAsync(BaseMessage xEvent)
         {
-            await HandleAsync((UserDeletedPublicEvent)xEvent);
+            return await HandleAsync((UserDeletedPublicEvent)xEvent);
         }
     }
 }

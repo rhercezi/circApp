@@ -1,4 +1,4 @@
-using System.Reflection;
+using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,46 +6,33 @@ using Microsoft.Extensions.Logging;
 
 namespace Circles.Command.Application.Dispatcher
 {
-    public class CommandDispatcher : ICommandDispatcher
+    public class CommandDispatcher : IMessageDispatcher
     {
-        private Dictionary<Type, Type> _handlers = new();
-        private readonly IHandlerService _handlerService;
         private readonly ILogger<CommandDispatcher> _logger;
         private readonly IServiceProvider _serviceProvider;
 
-        public CommandDispatcher(IServiceProvider serviceProvider, ILogger<CommandDispatcher> logger, IHandlerService handlerService)
+        public CommandDispatcher(IServiceProvider serviceProvider, ILogger<CommandDispatcher> logger)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
-            _handlerService = handlerService;
         }
 
-        public async Task<(int code, string message)> DispatchAsync(BaseCommand command)
+        public async Task<BaseResponse> DispatchAsync(BaseMessage message)
         {
-            _handlers = _handlerService.RegisterHandler<BaseCommand>(command, Assembly.GetExecutingAssembly());
-
-            if (_handlers.TryGetValue(command.GetType(), out var handlerType))
+            try
             {
-                try
-                {
-                    var handler = (ICommandHandler)_serviceProvider.GetRequiredService(handlerType);
-                    await handler.HandleAsync(command);
-                    return (200, "Ok");
-                }
-                catch(CirclesValidationException e)
-                {
-                    return(422, e.Message);
-                }
-                catch (Exception e)
-                {
-                    _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                    throw;
-                }
+                Type genericType = typeof(IMessageHandler<>).MakeGenericType(message.GetType());
+                var handler = (IMessageHandler)_serviceProvider.GetRequiredService(genericType);
+                return await handler.HandleAsync(message);
             }
-            else
+            catch (CirclesValidationException e)
             {
-                _logger.LogError($"Handler not found for command of type '{command.GetType().Name}'");
-                return (500, "Something went wrong, please contact support using support page.");
+                return new BaseResponse { ResponseCode = 422, Message = e.Message };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return new BaseResponse { ResponseCode = 500, Message = "Something went wrong, please try again later." };
             }
         }
     }

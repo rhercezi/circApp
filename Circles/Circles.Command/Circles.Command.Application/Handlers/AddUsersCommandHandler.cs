@@ -2,14 +2,16 @@ using Circles.Command.Application.Commands;
 using Circles.Command.Application.EventProducer;
 using Circles.Domain.Entities;
 using Circles.Domain.Repositories;
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 
 namespace Circles.Command.Application.Handlers
 {
-    public class AddUsersCommandHandler : ICommandHandler<AddUsersCommand>
+    public class AddUsersCommandHandler : IMessageHandler<AddUsersCommand>
     {
         private readonly JoinCircleEventProducer _eventProducer;
         private readonly JoinRequestRepository _requestRepository;
@@ -27,23 +29,23 @@ namespace Circles.Command.Application.Handlers
             _logger = logger;
         }
 
-        public async Task HandleAsync(AddUsersCommand command)
+        public async Task<BaseResponse> HandleAsync(AddUsersCommand message)
         {
             using var session = await _requestRepository.GetSession();
             try
             {
                 session.StartTransaction();
 
-                if (!InviterIsInTheCircle(command)) throw new CirclesValidationException("Only member of the circle can invite new members");
-                await ClearDuplicatesAndExisting(command);
+                if (!InviterIsInTheCircle(message)) throw new CirclesValidationException("Only member of the circle can invite new members");
+                await ClearDuplicatesAndExisting(message);
 
-                var insertTask = command.Users.Select(
+                var insertTask = message.Users.Select(
                     uId => Task.Run(() => _requestRepository.SaveAsync(
                             new JoinRequestModel
                             {
                                 UserId = uId,
-                                CircleId = command.CircleId,
-                                InviterId = command.InviterId
+                                CircleId = message.CircleId,
+                                InviterId = message.InviterId
                             }
                         )
                     )
@@ -51,13 +53,13 @@ namespace Circles.Command.Application.Handlers
 
                 await Task.WhenAll(insertTask);
 
-                command.Users.ForEach(
+                message.Users.ForEach(
                     uId => Task.Run(() => _eventProducer.ProduceAsync(
                             new JoinCircleRequestPublicEvent
                             (
-                                command.CircleId,
+                                message.CircleId,
                                 uId,
-                                command.InviterId
+                                message.InviterId
                             )
                         )
                     )
@@ -69,8 +71,11 @@ namespace Circles.Command.Application.Handlers
             {
                 session.AbortTransaction();
                 _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                throw;
+                return new BaseResponse { ResponseCode = 500, Message = "Something went wrong, please try again later." };
             }
+
+            var users = _requestRepository.FindAsync(jr => jr.CircleId == message.CircleId && message.Users.Contains(jr.UserId)).Result;
+            return new BaseResponse { ResponseCode = 200, Data = users };
         }
 
         private async Task ClearDuplicatesAndExisting(AddUsersCommand command)
@@ -91,9 +96,9 @@ namespace Circles.Command.Application.Handlers
             return false;
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage message)
         {
-            await HandleAsync((AddUsersCommand)command);
+            return await HandleAsync((AddUsersCommand)message);
         }
     }
 }

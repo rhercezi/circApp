@@ -2,6 +2,7 @@ using Circles.Command.Application.Commands;
 using Circles.Command.Application.EventProducer;
 using Circles.Domain.Entities;
 using Circles.Domain.Repositories;
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
@@ -9,13 +10,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Circles.Command.Application.Handlers
 {
-    public class CreateCircleCommandHandler : ICommandHandler<CreateCircleCommand>
+    public class CreateCircleCommandHandler : IMessageHandler<CreateCircleCommand>
     {
-        public readonly CirclesRepository _circlesRepository;
-        public readonly UserCircleRepository _userCircleRepository;
-        public readonly JoinRequestRepository _requestRepository;
-        public readonly JoinCircleEventProducer _eventProducer;
-        public readonly ILogger<CreateCircleCommandHandler> _logger;
+        private readonly CirclesRepository _circlesRepository;
+        private readonly UserCircleRepository _userCircleRepository;
+        private readonly JoinRequestRepository _requestRepository;
+        private readonly JoinCircleEventProducer _eventProducer;
+        private readonly ILogger<CreateCircleCommandHandler> _logger;
 
         public CreateCircleCommandHandler(CirclesRepository circlesRepository,
                                           UserCircleRepository userCircleRepository,
@@ -30,13 +31,13 @@ namespace Circles.Command.Application.Handlers
             _logger = logger;
         }
 
-        public async Task HandleAsync(CreateCircleCommand command)
+        public async Task<BaseResponse> HandleAsync(CreateCircleCommand command)
         {
             command.Users ??= new List<Guid>();
             command.Users = command.Users.Distinct().ToList();
 
             var circle = await _circlesRepository.CheckExistsForUser(command.Name, command.CreatorId);
-            if (circle != null) throw new CirclesValidationException($"You already have a circle named '{command.Name}'");
+            if (circle != null) return new BaseResponse { ResponseCode = 409, Message = $"You already have a circle named '{command.Name}'" };
 
             using var session = await _circlesRepository.GetSession();
             try
@@ -93,18 +94,21 @@ namespace Circles.Command.Application.Handlers
 
                 await Task.WhenAll(produceTask);
                 session.CommitTransaction();
+
+                var created = await _circlesRepository.GetUsersInCircle(command.CircleId);
+                return new BaseResponse { ResponseCode = 201, Data = created };
             }
             catch (Exception e)
             {
                 session.AbortTransaction();
                 _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                throw;
+                return new BaseResponse { ResponseCode = 500, Message = "Something went wrong, please try again later." };
             }
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage command)
         {
-            await HandleAsync((CreateCircleCommand)command);
+            return await HandleAsync((CreateCircleCommand)command);
         }
     }
 }

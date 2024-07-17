@@ -5,6 +5,6 @@ namespace Core.MessageHandling
 {
     public interface IMessageDispatcher
     {
-        Task<BaseResponse> DispatchAsync(BaseMessage message);
+        public Task<BaseResponse> DispatchAsync(BaseMessage message);
     }
 }

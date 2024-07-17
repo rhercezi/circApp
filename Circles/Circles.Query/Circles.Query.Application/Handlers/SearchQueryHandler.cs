@@ -6,7 +6,7 @@ using Core.Messages;
 
 namespace Circles.Query.Application.Handlers
 {
-    public class SearchQueryHandler : IQueryHandler<SearchQuery, AppUsersDto>
+    public class SearchQueryHandler : IMessageHandler<SearchQuery>
     {
         public readonly UserRepository _userRepository;
         public SearchQueryHandler(UserRepository userRepository)
@@ -14,14 +14,14 @@ namespace Circles.Query.Application.Handlers
             _userRepository = userRepository;
         }
 
-        public async Task<AppUsersDto> HandleAsync(SearchQuery query)
+        public async Task<BaseResponse> HandleAsync(SearchQuery query)
         {
             var dto = new AppUsersDto();
             dto = await _userRepository.SearchUsersAsync(query.QWord);
-            return dto;
+            return new BaseResponse { ResponseCode = 200, Data = dto };
         }
 
-        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        public async Task<BaseResponse> HandleAsync(BaseMessage query)
         {
             return await HandleAsync((SearchQuery)query);
         }

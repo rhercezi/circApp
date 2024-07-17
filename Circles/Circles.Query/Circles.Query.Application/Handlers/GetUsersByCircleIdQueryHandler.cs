@@ -6,7 +6,7 @@ using Core.Messages;
 
 namespace Circles.Query.Application.Handlers
 {
-    public class GetUsersByCircleIdQueryHandler : IQueryHandler<GetUsersByCircleIdQuery, CircleDto>
+    public class GetUsersByCircleIdQueryHandler : IMessageHandler<GetUsersByCircleIdQuery>
     {
         private readonly CirclesRepository _circlesRepository;
 
@@ -15,14 +15,14 @@ namespace Circles.Query.Application.Handlers
             _circlesRepository = circlesRepository;
         }
 
-        public async Task<CircleDto> HandleAsync(GetUsersByCircleIdQuery query)
+        public async Task<BaseResponse> HandleAsync(GetUsersByCircleIdQuery query)
         {
             CircleDto dto = new();
             dto = await _circlesRepository.GetUsersInCircle(query.CircleId);
-            return dto;
+            return new BaseResponse { ResponseCode = 200, Data = dto };
         }
 
-        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        public async Task<BaseResponse> HandleAsync(BaseMessage query)
         {
             return await HandleAsync((GetUsersByCircleIdQuery)query);
         }
