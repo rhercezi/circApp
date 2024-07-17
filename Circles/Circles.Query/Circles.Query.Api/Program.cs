@@ -2,6 +2,7 @@ using Circles.Domain.Config;
 using Circles.Domain.Repositories;
 using Circles.Query.Application.Dispatchers;
 using Circles.Query.Application.Handlers;
+using Circles.Query.Application.Queries;
 using Core.DTOs;
 using Core.MessageHandling;
 
@@ -18,15 +19,11 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<UserCircleRepository>();
 builder.Services.AddScoped<JoinRequestRepository>();
 
-builder.Services.AddScoped<GetCirclesByUserIdQueryHandler>();
-builder.Services.AddScoped<GetUsersByCircleIdQueryHandler>();
-builder.Services.AddScoped<SearchQueryHandler>();
+builder.Services.AddScoped<IMessageHandler<GetCirclesByUserIdQuery>, GetCirclesByUserIdQueryHandler>();
+builder.Services.AddScoped<IMessageHandler<GetUsersByCircleIdQuery>, GetUsersByCircleIdQueryHandler>();
+builder.Services.AddScoped<IMessageHandler<SearchQuery>, SearchQueryHandler>();
 
-builder.Services.AddSingleton<IHandlerService, HandlerService>();
-
-builder.Services.AddScoped<IQueryDispatcher<AppUserDto>, UserQueryDispatcher>();
-builder.Services.AddScoped<IQueryDispatcher<CircleDto>, CircleQueryDispatcher>();
-builder.Services.AddScoped<IQueryDispatcher<AppUsersDto>, UserSearchDispatcher>();
+builder.Services.AddScoped<IMessageDispatcher, CircleQueryDispatcher>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

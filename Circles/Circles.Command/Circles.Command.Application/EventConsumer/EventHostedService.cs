@@ -6,36 +6,46 @@ using Microsoft.Extensions.Logging;
 
 namespace Circles.Command.Application.EventConsumer
 {
-    public class EventHostedService : IHostedService
+    public class EventHostedService : BackgroundService
     {
-        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<EventHostedService> _logger;
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        public EventHostedService(IServiceProvider serviceProvider, ILogger<EventHostedService> logger)
+        public EventHostedService(IServiceScopeFactory scopeFactory, ILogger<EventHostedService> logger)
         {
-            _serviceProvider = serviceProvider;
+            _scopeFactory = scopeFactory;
             _logger = logger;
         }
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            try
-            {
-                using var scope = _serviceProvider.CreateAsyncScope();
-                var consumer = scope.ServiceProvider.GetRequiredService<IEventConsumer>();
-                var eventDispatcher = scope.ServiceProvider.GetRequiredService<IEventDispatcher>();
+            _logger.LogInformation("Event consumer started.");
+            stoppingToken.Register(() => _logger.LogInformation("Event consumer stopping."));
 
-                Task.Run(() => consumer.Consume(eventDispatcher), cancellationToken);
-            }
-            catch (Exception e)
+            Task.Run(async () =>
             {
-                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-            }
-        }
+                while (!stoppingToken.IsCancellationRequested)
+                {
+                    try
+                    {
+                        using var scope = _scopeFactory.CreateScope();
+                        var consumer = scope.ServiceProvider.GetRequiredService<IEventConsumer>();
+                        var eventDispatcher = scope.ServiceProvider.GetRequiredService<IMessageDispatcher>();
 
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+                        await consumer.Consume(eventDispatcher);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError(e, "An exception occurred: {Message}", e.Message);
+                    }
+
+                    await Task.Delay(1000, stoppingToken);
+                }
+
+            }, stoppingToken);
+            _logger.LogInformation("Event consumer stopped.");
+
+            return Task.CompletedTask;
         }
     }
 }

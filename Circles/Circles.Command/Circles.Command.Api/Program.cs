@@ -1,5 +1,6 @@
 
 
+using Circles.Command.Application.Commands;
 using Circles.Command.Application.Dispatcher;
 using Circles.Command.Application.EventConsumer;
 using Circles.Command.Application.EventProducer;
@@ -8,6 +9,7 @@ using Circles.Domain.Config;
 using Circles.Domain.Repositories;
 using Core.Configs;
 using Core.Events;
+using Core.Events.PublicEvents;
 using Core.MessageHandling;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,19 +29,17 @@ builder.Services.AddScoped<UserCircleRepository>();
 builder.Services.AddScoped<JoinRequestRepository>();
 builder.Services.AddScoped<JoinCircleEventProducer>();
 
-builder.Services.AddScoped<AddUsersCommandHandler>();
-builder.Services.AddScoped<ConfirmJoinCommandHandler>();
-builder.Services.AddScoped<CreateCircleCommandHandler>();
-builder.Services.AddScoped<DeleteCircleCommandHabndler>();
-builder.Services.AddScoped<RemoveUserCommandHandler>();
-builder.Services.AddScoped<UpdateCircleCommandHandler>();
-builder.Services.AddScoped<UserCreatedEventHandler>();
-builder.Services.AddScoped<UserUpdatedEventHandler>();
-builder.Services.AddScoped<UserDeletedEventHandler>();
+builder.Services.AddScoped<IMessageHandler<AddUsersCommand>, AddUsersCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<ConfirmJoinCommand>, ConfirmJoinCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<CreateCircleCommand>, CreateCircleCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<DeleteCircleCommand>, DeleteCircleCommandHabndler>();
+builder.Services.AddScoped<IMessageHandler<RemoveUsersCommand>, RemoveUserCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<UpdateCircleCommand>, UpdateCircleCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<UserCreatedPublicEvent>, UserCreatedEventHandler>();
+builder.Services.AddScoped<IMessageHandler<UserUpdatedPublicEvent>, UserUpdatedEventHandler>();
+builder.Services.AddScoped<IMessageHandler<UserDeletedPublicEvent>, UserDeletedEventHandler>();
 
-builder.Services.AddSingleton<IHandlerService, HandlerService>();
-builder.Services.AddScoped<ICommandDispatcher, CommandDispatcher>();
-builder.Services.AddSingleton<IEventDispatcher, EventDispatcher>();
+builder.Services.AddScoped<IMessageDispatcher, CommandDispatcher>();
 builder.Services.AddScoped<IEventConsumer, EventConsumer>();
 builder.Services.AddHostedService<EventHostedService>();
 

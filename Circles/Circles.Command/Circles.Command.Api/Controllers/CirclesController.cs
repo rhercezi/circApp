@@ -1,5 +1,8 @@
 using Circles.Command.Application.Commands;
+using Circles.Command.Application.DTOs;
+using Circles.Domain.Entities;
 using Core.MessageHandling;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Circles.Command.Api.Controllers
@@ -8,10 +11,10 @@ namespace Circles.Command.Api.Controllers
     [Route("api/v1/[controller]")]
     public class CirclesController : ControllerBase
     {
-        private readonly ICommandDispatcher _dispatcher;
+        private readonly IMessageDispatcher _dispatcher;
         private readonly ILogger<CirclesController> _logger;
 
-        public CirclesController(ICommandDispatcher dispatcher, ILogger<CirclesController> logger)
+        public CirclesController(IMessageDispatcher dispatcher, ILogger<CirclesController> logger)
         {
             _dispatcher = dispatcher;
             _logger = logger;
@@ -22,8 +25,20 @@ namespace Circles.Command.Api.Controllers
         {
             try
             {
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+
             }
             catch (Exception e)
             {
@@ -32,18 +47,30 @@ namespace Circles.Command.Api.Controllers
             }
         }
 
+        [Route("{id}")]
         [HttpPatch]
-        public async Task<IActionResult> UpdateCircle([FromBody] UpdateCircleCommand command)
+        public async Task<IActionResult> UpdateCircle([FromRoute] Guid id ,[FromBody] JsonPatchDocument jsonPatch)
         {
             try
             {
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _dispatcher.DispatchAsync(new UpdateCircleCommand { CircleId = id, JsonPatchDocument = jsonPatch });
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
                 _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                return StatusCode(500, "Something went wrong, please contact support using support page.");
+                return StatusCode(500, "Something went wrong, please contact support using support page");
             }
         }
 
@@ -52,9 +79,20 @@ namespace Circles.Command.Api.Controllers
         {
             try
             {
-                var command = new DeleteCircleCommand {Id = Guid.Parse(id)};
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var command = new DeleteCircleCommand { Id = Guid.Parse(id) };
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -69,8 +107,19 @@ namespace Circles.Command.Api.Controllers
         {
             try
             {
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -85,8 +134,19 @@ namespace Circles.Command.Api.Controllers
         {
             try
             {
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -101,8 +161,19 @@ namespace Circles.Command.Api.Controllers
         {
             try
             {
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -111,6 +182,4 @@ namespace Circles.Command.Api.Controllers
             }
         }
     }
-
-
 }

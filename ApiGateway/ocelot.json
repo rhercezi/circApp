@@ -178,7 +178,23 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles",
-            "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ],
+            "UpstreamHttpMethod": [ "Post", "Delete" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/circles/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "circles_command_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/circles/{id}",
+            "UpstreamHttpMethod": [ "Patch" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []

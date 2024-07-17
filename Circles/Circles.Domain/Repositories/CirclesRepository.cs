@@ -25,6 +25,12 @@ namespace Circles.Domain.Repositories
             }
         }
 
+        public async Task<CircleModel> GetByIdAsync(Guid id)
+        {
+            var filter = Builders<CircleModel>.Filter.Eq(c => c.CircleId, id);
+            return await _collection.Find(filter).FirstOrDefaultAsync();
+        }
+
         public async Task<List<CircleModel>> GetByIdsAsync(List<Guid> ids)
         {
             var filter = Builders<CircleModel>.Filter.In(c => c.CircleId, ids);

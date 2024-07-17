@@ -7,40 +7,32 @@ using Microsoft.Extensions.Logging;
 
 namespace Circles.Query.Application.Dispatchers
 {
-    public class CircleQueryDispatcher : IQueryDispatcher<CircleDto>
+    public class CircleQueryDispatcher : IMessageDispatcher
     {
-        private Dictionary<Type, Type> _handlers = new();
         private readonly ILogger<CircleQueryDispatcher> _logger;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IHandlerService _handlerService;
+
         public CircleQueryDispatcher(ILogger<CircleQueryDispatcher> logger,
-                                     IServiceProvider serviceProvider,
-                                     IHandlerService handlerService)
+                                     IServiceProvider serviceProvider)
         {
             _logger = logger;
             _serviceProvider = serviceProvider;
-            _handlerService = handlerService;
         }
 
-        public async Task<CircleDto> DispatchAsync(BaseQuery query)
+        public async Task<BaseResponse> DispatchAsync(BaseMessage query)
         {
-            _handlers = _handlerService.RegisterHandler<BaseQuery, CircleDto>(query, Assembly.GetExecutingAssembly(), typeof(CircleDto));
 
-            if (_handlers.TryGetValue(query.GetType(), out Type? handlerType))
-            {
                 try
                 {
-                    var handler = (IQueryHandler)_serviceProvider.GetRequiredService(handlerType);
-                    return (CircleDto)await handler.HandleAsync(query);
+                    var genericType = typeof(IMessageHandler<>).MakeGenericType(query.GetType());	
+                    var handler = (IMessageHandler)_serviceProvider.GetRequiredService(genericType);
+                    return await handler.HandleAsync(query);
                 }
                 catch (Exception e)
                 {
                     _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                    throw;
+                    return new BaseResponse { ResponseCode = 500, Message = "Something went wrong, please try again later." };
                 }
-            }
-            _logger.LogError($"Could not find handler for query. Type: {query.GetType().Name}");
-            return new CircleDto();
         }
     }
 }
