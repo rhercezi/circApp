@@ -1,7 +1,10 @@
+using Azure;
+using Confluent.Kafka;
 using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Core.Utilities;
+using DnsClient;
 using Microsoft.Extensions.Logging;
 using User.Query.Application.DTOs;
 using User.Query.Application.Exceptions;
@@ -11,7 +14,7 @@ using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.Handlers
 {
-    public class RefershTokenHandler : IQueryHandler<RefreshTokenQuery, LoginDto>
+    public class RefershTokenHandler : IMessageHandler<RefreshTokenQuery>
     {
         private readonly JwtService _jwtService;
         private readonly RefreshTokenRepository _refreshTokenRepository;
@@ -29,7 +32,7 @@ namespace User.Query.Application.Handlers
             _logger = logger;
         }
 
-        public async Task<LoginDto> HandleAsync(RefreshTokenQuery query)
+        public async Task<BaseResponse> HandleAsync(RefreshTokenQuery query)
         {
             if (!string.IsNullOrWhiteSpace(query.RefreshToken) && _jwtService.ValidateToken(query.RefreshToken))
             {
@@ -82,21 +85,21 @@ namespace User.Query.Application.Handlers
                                 await _refreshTokenRepository.DeleteRefreshToken(tokenModel);
                                 await _refreshTokenRepository.AddRefreshToken(refreshTokenModel);
 
-                                return loginDto;
+                                return new BaseResponse { ResponseCode = 200, Data = loginDto };
                             }
                             catch (Exception e)
                             {
                                 _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                                throw;
+                                return new BaseResponse { ResponseCode = 500, Message = "Something went wrong, please contact support using support page." };
                             }
                         }
                     }
                 }
             }
-            throw new AuthException("Invalid refresh token.");
+            return new BaseResponse { ResponseCode = 401, Message = "Invalid token." };
         }
 
-        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        public async Task<BaseResponse> HandleAsync(BaseMessage query)
         {
             return await HandleAsync((RefreshTokenQuery)query);
         }

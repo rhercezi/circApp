@@ -12,7 +12,7 @@ using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.Handlers
 {
-    public class LoginHandler : IQueryHandler<LoginQuery, LoginDto>
+    public class LoginHandler : IMessageHandler<LoginQuery>
     {
         private readonly UserRepository _userRepository;
         private readonly PasswordHashService _hashService;
@@ -33,7 +33,7 @@ namespace User.Query.Application.Handlers
             _logger = logger;
         }
 
-        public async Task<LoginDto> HandleAsync(LoginQuery query)
+        public async Task<BaseResponse> HandleAsync(LoginQuery query)
         {
             UserEntity? user = null;
             try
@@ -44,9 +44,10 @@ namespace User.Query.Application.Handlers
             {
                 Thread.Sleep(2500);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return new BaseResponse { ResponseCode = 500, Message = "Something went wrong, please try again later." };
             }
 
             if (user != null && _hashService.VerifyPassword(query.Password, user.Password, user.Id))
@@ -96,7 +97,7 @@ namespace User.Query.Application.Handlers
                     throw;
                 }
 
-                return loginDto;
+                return new BaseResponse { ResponseCode = 200, Data = loginDto };
             }
             else
             {
@@ -104,7 +105,7 @@ namespace User.Query.Application.Handlers
             }
         }
 
-        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        public async Task<BaseResponse> HandleAsync(BaseMessage query)
         {
             return await HandleAsync((LoginQuery)query);
         }

@@ -1,6 +1,6 @@
 using Core.MessageHandling;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using User.Command.Api.Commands;
 using User.Command.Application.Commands;
 
 namespace User.Command.Api.Controllers
@@ -9,26 +9,25 @@ namespace User.Command.Api.Controllers
     [Route("api/v1/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly ICommandDispatcher _dispatcher;
+        private readonly IMessageDispatcher _dispatcher;
         private readonly ILogger<UserController> _logger;
 
-        public UserController(ICommandDispatcher dispatcher, ILogger<UserController> logger)
+        public UserController(IMessageDispatcher dispatcher, ILogger<UserController> logger)
         {
             _dispatcher = dispatcher;
             _logger = logger;
         }
 
         [Route("password")]
-        [HttpPatch]
+        [HttpPut]
         public async Task<IActionResult> UpdatePassword(UpdatePasswordCommand command) 
         {
-            var (code, message) = await _dispatcher.DispatchAsync(command);
-
-            return StatusCode(code, message);
+            var response = await _dispatcher.DispatchAsync(command);
+            return StatusCode(response.ResponseCode, response.Data);
         }
 
         [Route("password-id-link")]
-        [HttpPatch]
+        [HttpPut]
         public async Task<IActionResult> UpdatePasswordIdLink(UpdatePasswordCommand command) 
         {
             if (command.IdLink == null)
@@ -36,44 +35,65 @@ namespace User.Command.Api.Controllers
                 _logger.LogWarning("Invalid id-link request. Command: {Command}", command);
                 return BadRequest("Invalid request.");
             }
-            var (code, message) = await _dispatcher.DispatchAsync(command);
-            return StatusCode(code, message);
+            
+            var response = await _dispatcher.DispatchAsync(command);
+            return StatusCode(response.ResponseCode, response.Data);
 
         }
 
         [Route("password/reset")]
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> ResetPassword(ResetPasswordCommand command) 
         {
-            var (code, message) = await _dispatcher.DispatchAsync(command);
-
-            return StatusCode(code, message);
+             var response = await _dispatcher.DispatchAsync(command);
+            return StatusCode(response.ResponseCode, response.Data);
         }
 
         [Route("create")]
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserCommand command) 
         {
-            var (code, message) = await _dispatcher.DispatchAsync(command);
+            var response = await _dispatcher.DispatchAsync(command);
 
-            return StatusCode(code, message);
+            if (response.ResponseCode < 300)
+            {
+                return Ok(response.Data);
+            } 
+            else
+            {
+                return StatusCode(response.ResponseCode, response.Message);
+            }
         }
 
+        [Route("{id}")]
         [HttpPatch]
-        public async Task<IActionResult> UpdateUser([FromBody] EditUserCommand command)
+        public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] JsonPatchDocument jDoc)
         {
-            var (code, message) = await _dispatcher.DispatchAsync(command);
+            var command = new EditUserCommand()
+            {
+                Id = id,
+                UpdateJson = jDoc
+            };
+            var response = await _dispatcher.DispatchAsync(command);
 
-            return StatusCode(code, message);
+            if (response.ResponseCode < 300)
+            {
+                return Ok(response.Data);
+            } 
+            else
+            {
+                return StatusCode(response.ResponseCode, response.Message);
+            }
         }
 
+        [Route("{id}")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser([FromQuery] string id, [FromQuery] string password)
+        public async Task<IActionResult> DeleteUser([FromRoute] string id, [FromQuery] string password)
         {
             var command = new DeleteUserCommand(Guid.Parse(id), password);
-            var (code, message) = await _dispatcher.DispatchAsync(command);
+            var response = await _dispatcher.DispatchAsync(command);
 
-            return StatusCode(code, message);
+            return StatusCode(response.ResponseCode, response.Message);
         }
 
         [Route("verify-email/{idLink}")]
@@ -81,9 +101,9 @@ namespace User.Command.Api.Controllers
         public async Task<IActionResult> ValidateEmail([FromRoute] string idLink) 
         {
             var command = new VerifyEmailCommand(idLink); 
-            var (code, message) = await _dispatcher.DispatchAsync(command);
+            var response = await _dispatcher.DispatchAsync(command);
 
-            return StatusCode(code, message);
+            return StatusCode(response.ResponseCode, response.Message);
         }
     }
 }

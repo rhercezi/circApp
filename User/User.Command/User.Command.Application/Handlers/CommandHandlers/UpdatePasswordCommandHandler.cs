@@ -1,3 +1,4 @@
+using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
@@ -13,7 +14,7 @@ using User.Common.PasswordService;
 
 namespace User.Command.Application.Handlers.CommandHandlers
 {
-    public class UpdatePasswordCommandHandler : ICommandHandler<UpdatePasswordCommand>
+    public class UpdatePasswordCommandHandler : IMessageHandler<UpdatePasswordCommand>
     {
         private readonly EventStore _eventStore;
         private PasswordHashService _passwordHashService;
@@ -31,7 +32,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
             _logger = logger;
         }
 
-        public async Task HandleAsync(UpdatePasswordCommand command)
+        public async Task<BaseResponse> HandleAsync(UpdatePasswordCommand command)
         {
             if (!string.IsNullOrEmpty(command.IdLink))
             {
@@ -43,12 +44,12 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 catch (Exception e)
                 {
                     _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                    throw new UserValidationException("Reset link has expired.");
+                    return new BaseResponse { ResponseCode = 406, Message = "Reset link has expired." };
                 }
             }
 
             var events = await _eventStore.GetEventsAsync(command.Id);
-            if (events.Count == 0) throw new UserDomainException("No users found with the given ID.");
+            if (events.Count == 0) return new BaseResponse { ResponseCode = 406, Message = "No users found with the given ID." };
             UserAggregate userAggregate = new(_eventStore);
             userAggregate.ReplayEvents(events);
             var version = events.Max(e => e.Version) + 1;
@@ -71,11 +72,13 @@ namespace User.Command.Application.Handlers.CommandHandlers
             {
                 await _idLinkRepo.DeleteAsync(command.IdLink);
             }
+
+            return new BaseResponse { ResponseCode = 204 };
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage command)
         {
-            await HandleAsync((UpdatePasswordCommand)command);
+            return await HandleAsync((UpdatePasswordCommand)command);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Reflection;
 using Core.Messages;
 
@@ -5,7 +6,14 @@ namespace Core.MessageHandling
 {
     public class HandlerService : IHandlerService
     {
-        private Dictionary<Type, Type> _handlers = new();
+        private readonly ConcurrentDictionary<Type, Type> _handlers = new();
+        private readonly IServiceProvider _serviceProvider;
+
+        public HandlerService(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }   
+        
         public Dictionary<Type, Type> RegisterHandler<T>(BaseCommand message, Assembly assembly)
         {
             if (!_handlers.ContainsKey(message.GetType()))
@@ -18,15 +26,15 @@ namespace Core.MessageHandling
 
                 if (types.Any())
                 {
-                    _handlers.Add(message.GetType(), types.First());
-                }  
+                    _handlers.TryAdd(message.GetType(), types.First());
+                }
                 else
                 {
                     throw new ArgumentNullException($"No handler found for the command of type: {message.GetType().FullName}");
                 }
             }
 
-            return _handlers;
+            return new Dictionary<Type, Type>(_handlers);
         }
 
         public Dictionary<Type, Type> RegisterHandler<T>(BaseEvent message, Assembly assembly)
@@ -41,18 +49,18 @@ namespace Core.MessageHandling
 
                 if (types.Any())
                 {
-                    _handlers.Add(message.GetType(), types.First());
-                }  
+                    _handlers.TryAdd(message.GetType(), types.First());
+                }
                 else
                 {
                     throw new ArgumentNullException($"No handler found for the event of type: {message.GetType().FullName}");
                 }
             }
 
-            return _handlers;
+            return new Dictionary<Type, Type>(_handlers);
         }
 
-        public Dictionary<Type, Type> RegisterHandler<T,R>(BaseQuery message, Assembly assembly, Type type)
+        public Dictionary<Type, Type> RegisterHandler<T, R>(BaseQuery message, Assembly assembly, Type type)
         {
             if (!_handlers.ContainsKey(message.GetType()))
             {
@@ -64,15 +72,35 @@ namespace Core.MessageHandling
 
                 if (types.Any())
                 {
-                    _handlers.Add(message.GetType(), types.First());
-                }  
+                    _handlers.TryAdd(message.GetType(), types.First());
+                }
                 else
                 {
                     throw new ArgumentNullException($"No handler found for the query of type: {message.GetType().FullName}");
                 }
             }
 
-            return _handlers;
+            return new Dictionary<Type, Type>(_handlers);
+        }
+
+        public Dictionary<Type, Type> RegisterHandler<T>(BaseMessage message, Assembly assembly)
+        {
+            if (message != null && !_handlers.ContainsKey(message.GetType()))
+            {
+                Type genericType = typeof(IMessageHandler<>).MakeGenericType(message.GetType());
+
+                var handlerType = assembly.GetTypes()
+                    .FirstOrDefault(t => t.IsClass && t.GetInterfaces().Contains(genericType));
+
+                if (handlerType == null)
+                {
+                    throw new ArgumentNullException($"No handler found for the message of type: {message.GetType().FullName}");
+                }
+
+                _handlers.TryAdd(message.GetType(), handlerType);
+            }
+
+            return new Dictionary<Type, Type>(_handlers);
         }
     }
 }

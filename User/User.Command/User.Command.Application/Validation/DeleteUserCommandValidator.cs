@@ -1,5 +1,5 @@
 using Core.Messages;
-using User.Command.Api.Commands;
+using User.Command.Application.Commands;
 using User.Command.Domin.Stores;
 using User.Common.PasswordService;
 

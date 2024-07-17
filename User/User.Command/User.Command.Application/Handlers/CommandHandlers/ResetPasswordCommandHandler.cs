@@ -11,10 +11,11 @@ using Microsoft.Extensions.Options;
 using Core.Configs;
 using Core.Messages;
 using User.Command.Domain.Repositories;
+using Core.DTOs;
 
 namespace User.Command.Application.Handlers.CommandHandlers
 {
-    public class ResetPasswordCommandHandler : ICommandHandler<ResetPasswordCommand>
+    public class ResetPasswordCommandHandler : IMessageHandler<ResetPasswordCommand>
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IdLinkRepository _idLinkRepo;
@@ -32,18 +33,19 @@ namespace User.Command.Application.Handlers.CommandHandlers
             _config = config.Value;
         }
 
-        public async Task HandleAsync(ResetPasswordCommand command)
+        public async Task<BaseResponse> HandleAsync(ResetPasswordCommand command)
         {
             var idLink = IdLinkConverter.GenerateRandomString();
             var userEvents = await _eventStore.GetByUsernameAsync(command.UserName);
 
-            if (userEvents.IsNullOrEmpty()) throw new UserDomainException("No users found with the given Useranme.");
+            if (userEvents.IsNullOrEmpty()) return new BaseResponse { ResponseCode = 404, Message = "No users found with the given Useranme.", };
             string id = "";
             string userName = "";
             string email = "";
-            userEvents.ForEach(e => {
+            userEvents.ForEach(e =>
+            {
 
-                if(e is UserCreatedEvent event1)
+                if (e is UserCreatedEvent event1)
                 {
                     id = event1.Id.ToString();
                     userName = event1.UserName;
@@ -54,7 +56,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
                     id = event2.Id.ToString();
                     userName = event2.UserName;
                     email = event2.Email;
-                    
+
                 }
 
             });
@@ -75,11 +77,13 @@ namespace User.Command.Application.Handlers.CommandHandlers
             using var scope = _serviceProvider.CreateScope();
             var _emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
             _emailSenderService.SendMail(idLink, email, config, 1);
+
+            return new BaseResponse { ResponseCode = 204 };
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage command)
         {
-            await HandleAsync((ResetPasswordCommand)command);
+            return await HandleAsync((ResetPasswordCommand)command);
         }
     }
 }

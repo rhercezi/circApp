@@ -1,6 +1,6 @@
 namespace Core.Messages
 {
-    public abstract class BaseEvent
+    public abstract class BaseEvent : BaseMessage
     {
         public Guid Id { get; set; }
         public int Version { get; set; }

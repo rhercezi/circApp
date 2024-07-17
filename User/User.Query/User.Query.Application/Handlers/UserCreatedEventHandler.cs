@@ -1,26 +1,39 @@
+using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
+using Microsoft.Extensions.Logging;
 using User.Common.Events;
 using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.Handlers
 {
-    public class UserCreatedEventHandler : IEventHandler<UserCreatedEvent>
+    public class UserCreatedEventHandler : IMessageHandler<UserCreatedEvent>
     {
         private readonly UserRepository _userRepository;
-        public UserCreatedEventHandler(UserRepository userRepository)
+        private readonly ILogger<UserCreatedEventHandler> _logger;
+        public UserCreatedEventHandler(UserRepository userRepository, ILogger<UserCreatedEventHandler> logger)
         {
             _userRepository = userRepository;
+            _logger = logger;
         }
 
-        public async Task HandleAsync(UserCreatedEvent xEvent)
+        public async Task<BaseResponse> HandleAsync(UserCreatedEvent xEvent)
         {
-            await _userRepository.CreateUser(xEvent);
+            try
+            {
+                await _userRepository.CreateUser(xEvent);
+                return new BaseResponse { ResponseCode = 200, Message = "User created successfully." };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return new BaseResponse { ResponseCode = 500, Message = "Something went wrong, please try again later." };
+            }
         }
 
-        public async Task HandleAsync(BaseEvent xEvent)
+        public async Task<BaseResponse> HandleAsync(BaseMessage xEvent)
         {
-            await HandleAsync((UserCreatedEvent)xEvent);
+            return await HandleAsync((UserCreatedEvent)xEvent);
         }
     }
 }

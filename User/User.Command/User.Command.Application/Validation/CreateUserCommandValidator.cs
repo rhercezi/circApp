@@ -1,4 +1,5 @@
-using User.Command.Api.Commands;
+
+using User.Command.Application.Commands;
 using User.Command.Domin.Stores;
 
 namespace User.Command.Application.Validation

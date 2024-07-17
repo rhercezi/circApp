@@ -8,5 +8,6 @@ namespace Core.MessageHandling
         Dictionary<Type, Type> RegisterHandler<T>(BaseCommand message, Assembly assembly);
         Dictionary<Type, Type> RegisterHandler<T>(BaseEvent message, Assembly assembly);
         Dictionary<Type, Type> RegisterHandler<T,R>(BaseQuery message, Assembly assembly, Type type);
+        Dictionary<Type, Type> RegisterHandler<T>(BaseMessage message, Assembly assembly);
     }
 }

@@ -1,6 +1,6 @@
 namespace Core.Messages
 {
-    public abstract class BaseQuery
+    public abstract class BaseQuery : BaseMessage
     {
     }
 }

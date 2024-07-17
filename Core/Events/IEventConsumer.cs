@@ -4,6 +4,6 @@ namespace Core.Events
 {
     public interface IEventConsumer
     {
-        public Task Consume(IEventDispatcher eventDispatcher, string topic = "");
+        public Task Consume(IMessageDispatcher eventDispatcher, string topic = "");
     }
 }

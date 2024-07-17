@@ -1,12 +1,12 @@
 using Core.Configs;
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
-using Core.Repositories;
 using Core.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using User.Command.Api.Commands;
+using User.Command.Application.Commands;
 using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
 using User.Command.Domain.Events;
@@ -18,7 +18,7 @@ using User.Common.PasswordService;
 
 namespace User.Command.Application.Handlers.CommandHandlers
 {
-    public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
+    public class CreateUserCommandHandler : IMessageHandler<CreateUserCommand>
     {
         private readonly EventStore _eventStore;
         private PasswordHashService _passwordHashService;
@@ -42,9 +42,8 @@ namespace User.Command.Application.Handlers.CommandHandlers
             _eventProducer = eventProducer;
         }
 
-        public async Task HandleAsync(CreateUserCommand command)
+        public async Task<BaseResponse> HandleAsync(CreateUserCommand command)
         {
-
             CreateUserCommandValidator validator = new(_eventStore);
 
             await validator.ValidateCommand(command);
@@ -97,11 +96,25 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 var emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
                 emailSenderService.SendMail(idLink, command.Email, config, 0);
             }
+
+            return new BaseResponse
+            {
+                ResponseCode = 200,
+                Message = "User created successfully.",
+                Data = new UserDto{
+                    Id = command.Id,
+                    UserName = command.UserName,
+                    FirstName = command.FirstName,
+                    FamilyName = command.FamilyName,
+                    Email = command.Email
+                }
+                
+            };
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage message)
         {
-            await HandleAsync((CreateUserCommand)command);
+            return await HandleAsync((CreateUserCommand)message);
         }
     }
 }

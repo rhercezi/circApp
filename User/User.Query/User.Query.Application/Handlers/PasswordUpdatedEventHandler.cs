@@ -1,3 +1,4 @@
+using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using User.Common.Events;
@@ -5,7 +6,7 @@ using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.Handlers
 {
-    public class PasswordUpdatedEventHandler : IEventHandler<PasswordUpdatedEvent>
+    public class PasswordUpdatedEventHandler : IMessageHandler<PasswordUpdatedEvent>
     {
         private readonly UserRepository _userRepository;
         public PasswordUpdatedEventHandler(UserRepository userRepository)
@@ -13,14 +14,15 @@ namespace User.Query.Application.Handlers
             _userRepository = userRepository;
         }
 
-        public async Task HandleAsync(PasswordUpdatedEvent xEvent)
+        public async Task<BaseResponse> HandleAsync(PasswordUpdatedEvent xEvent)
         {
             await _userRepository.UpdateUsersPassword(xEvent);
+            return new BaseResponse { ResponseCode = 200, Message = "Password updated successfully." };
         }
 
-        public async Task HandleAsync(BaseEvent xEvent)
+        public async Task<BaseResponse> HandleAsync(BaseMessage xEvent)
         {
-            await HandleAsync((PasswordUpdatedEvent)xEvent);
+            return await HandleAsync((PasswordUpdatedEvent)xEvent);
         }
     }
 }

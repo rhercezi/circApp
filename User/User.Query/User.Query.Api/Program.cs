@@ -2,16 +2,17 @@ using Core.Configs;
 using Core.MessageHandling;
 using Microsoft.EntityFrameworkCore;
 using User.Common.PasswordService;
+using User.Common.Events;
 using User.Query.Application.Dispatchers;
 using User.Query.Application.EventConsuming;
+using User.Query.Application.Handlers;
 using User.Query.Domain.Repositories;
 using User.Query.Domain.DatabaseContext;
 using Core.DTOs;
-using User.Query.Application.Handlers;
 using Core.Events;
 using Core.Utilities;
-using User.Query.Application.DTOs;
 using User.Query.Api.Config;
+using User.Query.Application.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,21 +35,18 @@ builder.Services.AddScoped<PasswordHashService>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<RefreshTokenRepository>();
 
-builder.Services.AddScoped<GetUserByEmailQueryHandler>();
-builder.Services.AddScoped<GetUserByIdQueryHandler>();
-builder.Services.AddScoped<GetUserByUsernameQueryHandler>();
-builder.Services.AddScoped<LoginHandler>();
-builder.Services.AddScoped<RefershTokenHandler>();
-builder.Services.AddScoped<EmailVerifiedEventHandler>();
-builder.Services.AddScoped<PasswordUpdatedEventHandler>();
-builder.Services.AddScoped<UserCreatedEventHandler>();
-builder.Services.AddScoped<UserDeletedEventHandler>();
-builder.Services.AddScoped<UserUpdatedEventHandler>();
+builder.Services.AddScoped<IMessageHandler<GetUserByEmailQuery>, GetUserByEmailQueryHandler>();
+builder.Services.AddScoped<IMessageHandler<GetUserByIdQuery>, GetUserByIdQueryHandler>();
+builder.Services.AddScoped<IMessageHandler<GetUserByUsernameQuery>, GetUserByUsernameQueryHandler>();
+builder.Services.AddScoped<IMessageHandler<LoginQuery>, LoginHandler>();
+builder.Services.AddScoped<IMessageHandler<RefreshTokenQuery>, RefershTokenHandler>();
+builder.Services.AddScoped<IMessageHandler<EmailVerifiedEvent>, EmailVerifiedEventHandler>();
+builder.Services.AddScoped<IMessageHandler<PasswordUpdatedEvent>, PasswordUpdatedEventHandler>();
+builder.Services.AddScoped<IMessageHandler<UserCreatedEvent>, UserCreatedEventHandler>();
+builder.Services.AddScoped<IMessageHandler<UserDeletedEvent>, UserDeletedEventHandler>();
+builder.Services.AddScoped<IMessageHandler<UserEditedEvent>, UserUpdatedEventHandler>();
 
-builder.Services.AddSingleton<IHandlerService, HandlerService>();
-builder.Services.AddScoped<IQueryDispatcher<LoginDto>, AuthDispatcher>();
-builder.Services.AddScoped<IQueryDispatcher<UserDto>, QueryDispatcher>();
-builder.Services.AddSingleton<IEventDispatcher, EventDispatcher>();
+builder.Services.AddScoped<IMessageDispatcher, QueryDispatcher>();
 builder.Services.AddScoped<IEventConsumer, EventConsumer>();
 builder.Services.AddHostedService<EventHostedService>();
 

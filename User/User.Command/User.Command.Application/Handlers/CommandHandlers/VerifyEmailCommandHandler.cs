@@ -1,17 +1,15 @@
+using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
-using Core.Repositories;
 using User.Command.Application.Commands;
-using User.Command.Application.Exceptions;
 using User.Command.Domain.Aggregates;
 using User.Command.Domain.Repositories;
 using User.Command.Domin.Stores;
-using User.Common.DAOs;
 using User.Common.Events;
 
 namespace User.Command.Application.Handlers.CommandHandlers
 {
-    public class VerifyEmailCommandHandler : ICommandHandler<VerifyEmailCommand>
+    public class VerifyEmailCommandHandler : IMessageHandler<VerifyEmailCommand>
     {
         private readonly EventStore _eventStore;
         private readonly IdLinkRepository _idLinkRepo;
@@ -22,15 +20,14 @@ namespace User.Command.Application.Handlers.CommandHandlers
             _idLinkRepo = idLinkRepo;
         }
 
-        public async Task HandleAsync(VerifyEmailCommand command)
+        public async Task<BaseResponse> HandleAsync(VerifyEmailCommand command)
         {
 
-            var exception = new UserValidationException("Invalid email confirmation link");
             var idLinkModel = _idLinkRepo.GetByIdAsync(command.idLink).Result.First();
             
             if (idLinkModel == null)
             {
-                throw exception;
+                return new BaseResponse{Message="Invalid email verification link", ResponseCode=400};
             }
 
             command.Id = Guid.Parse(idLinkModel.UserId);
@@ -38,7 +35,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
 
             if (events.Count == 0)
             {
-                throw exception;
+                return new BaseResponse{Message="Invalid email verification link", ResponseCode=400};
             }
 
             UserAggregate userAggregate = new(_eventStore);
@@ -54,11 +51,12 @@ namespace User.Command.Application.Handlers.CommandHandlers
 
             await _idLinkRepo.DeleteAsync(command.idLink);
 
+            return new BaseResponse { ResponseCode = 204 };
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage command)
         {
-            await HandleAsync((VerifyEmailCommand)command);
+            return await HandleAsync((VerifyEmailCommand)command);
         }
     }
 }

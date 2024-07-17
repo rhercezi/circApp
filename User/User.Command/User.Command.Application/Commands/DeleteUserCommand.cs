@@ -1,6 +1,6 @@
 using Core.Messages;
 
-namespace User.Command.Api.Commands
+namespace User.Command.Application.Commands
 {
     public class DeleteUserCommand : BaseCommand
     {

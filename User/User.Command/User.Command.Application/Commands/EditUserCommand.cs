@@ -1,23 +1,16 @@
 using Core.Messages;
+using Microsoft.AspNetCore.JsonPatch;
 
-namespace User.Command.Api.Commands
+namespace User.Command.Application.Commands
 {
     public class EditUserCommand : BaseCommand
     {
-        public DateTime Updated { get; set; }
-        public string? UserName { get; set; }
-        public string? FirstName { get; set; }
-        public string? FamilyName { get; set; }
-        public string? Email { get; set; }
-
-        public EditUserCommand(Guid id, string userName, string firstName, string familyName, string email)
+        public EditUserCommand()
         {
             Updated = DateTime.Now;
-            UserName = userName;
-            FirstName = firstName;
-            FamilyName = familyName;
-            Email = email;
-            Id = id;
         }
+
+        public DateTime Updated { get; set; }
+        public required JsonPatchDocument UpdateJson { get; set; }
     }
 }

@@ -13,7 +13,7 @@
             "UpstreamHttpMethod": [ "Post" ]
         },
         {
-            "DownstreamPathTemplate": "/api/v1/user",
+            "DownstreamPathTemplate": "/api/v1/user/{id}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -38,7 +38,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/password",
-            "UpstreamHttpMethod": [ "Patch" ],
+            "UpstreamHttpMethod": [ "Put" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
@@ -54,7 +54,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/password-id-link",
-            "UpstreamHttpMethod": [ "Patch" ]
+            "UpstreamHttpMethod": [ "Put" ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/user/password/reset",
@@ -66,7 +66,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/password/reset",
-            "UpstreamHttpMethod": [ "Post" ]
+            "UpstreamHttpMethod": [ "Put" ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/user/verify-email/{idLink}",

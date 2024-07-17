@@ -1,6 +1,5 @@
 using System.Text.RegularExpressions;
 using Core.Messages;
-using User.Command.Api.Commands;
 using User.Command.Application.Commands;
 using User.Command.Application.Exceptions;
 using User.Command.Domin.Stores;

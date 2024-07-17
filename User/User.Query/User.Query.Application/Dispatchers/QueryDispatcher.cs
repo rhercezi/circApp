@@ -8,39 +8,35 @@ using User.Query.Application.Exceptions;
 
 namespace User.Query.Application.Dispatchers
 {
-    public class QueryDispatcher : IQueryDispatcher<UserDto>
+    public class QueryDispatcher : IMessageDispatcher
     {
-        private Dictionary<Type, Type> _handlers = new();
         private readonly ILogger<QueryDispatcher> _logger;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IHandlerService _handlerService;
 
-        public QueryDispatcher(ILogger<QueryDispatcher> logger, IServiceProvider serviceProvider, IHandlerService handlerService)
+        public QueryDispatcher(ILogger<QueryDispatcher> logger, IServiceProvider serviceProvider)
         {
             _logger = logger;
             _serviceProvider = serviceProvider;
-            _handlerService = handlerService;
         }
 
-        public async Task<UserDto> DispatchAsync(BaseQuery query)
+        public async Task<BaseResponse> DispatchAsync(BaseMessage message)
         {
-            _handlers = _handlerService.RegisterHandler<BaseQuery, UserDto>(query, Assembly.GetExecutingAssembly(), typeof(UserDto));
-
-            if (_handlers.TryGetValue(query.GetType(), out Type? handlerType))
-            {
                 try
                 {
-                    var handler = (IQueryHandler)_serviceProvider.GetRequiredService(handlerType);
-                    return (UserDto)await handler.HandleAsync(query);
+                    Type genericType = typeof(IMessageHandler<>).MakeGenericType(message.GetType());
+                    var handler = (IMessageHandler)_serviceProvider.GetRequiredService(genericType);
+                    return await handler.HandleAsync(message);
+                }
+                catch (AuthException e)
+                {
+                    _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                    throw e;
                 }
                 catch (Exception e)
                 {
                     _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
                     throw new QueryApplicationException("Auth dispatcher failed", e);
                 }
-            }
-            _logger.LogError($"Could not find handler for query. Type: {query.GetType().Name}");
-            return new UserDto();
         }
     }
 }

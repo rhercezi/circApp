@@ -13,11 +13,11 @@ namespace User.Query.Api.Controllers
     public class AuthController : ControllerBase
     {
 
-        private readonly IQueryDispatcher<LoginDto> _authDispatcher;
+        private readonly IMessageDispatcher _authDispatcher;
         private readonly ILogger<AuthController> _logger;
         private readonly IOptions<CookieConfig> _cookieConfig;
 
-        public AuthController(IQueryDispatcher<LoginDto> authDispatcher, ILogger<AuthController> logger, IOptions<CookieConfig> cookieConfig)
+        public AuthController(IMessageDispatcher authDispatcher, ILogger<AuthController> logger, IOptions<CookieConfig> cookieConfig)
         {
             _authDispatcher = authDispatcher;
             _logger = logger;
@@ -27,10 +27,38 @@ namespace User.Query.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> LoginUser(LoginQuery loginQuery)
         {
-            LoginDto loginDto = new();
             try
             {
-                loginDto = await _authDispatcher.DispatchAsync(loginQuery);
+                var response = await _authDispatcher.DispatchAsync(loginQuery);
+                if (response.ResponseCode < 300 && response.Data != null)
+                {
+                    var loginDto = (LoginDto)response.Data;
+
+                    var accessOptions = new CookieOptions
+                    {
+                        HttpOnly = _cookieConfig.Value.HttpOnly,
+                        Secure = _cookieConfig.Value.Secure,
+                        SameSite = Enum.Parse<SameSiteMode>(_cookieConfig.Value.SameSite),
+                        MaxAge = TimeSpan.FromSeconds(_cookieConfig.Value.AccessMaxAge)
+                    };
+
+                    var refreshOptions = new CookieOptions
+                    {
+                        HttpOnly = _cookieConfig.Value.HttpOnly,
+                        Secure = _cookieConfig.Value.Secure,
+                        SameSite = Enum.Parse<SameSiteMode>(_cookieConfig.Value.SameSite),
+                        MaxAge = TimeSpan.FromHours(_cookieConfig.Value.RefreshMaxAge)
+                    };
+
+                    HttpContext.Response.Cookies.Append("AccessToken", loginDto.Tokens.AccessToken, accessOptions);
+                    HttpContext.Response.Cookies.Append("RefreshToken", loginDto.Tokens.RefreshToken, refreshOptions);
+
+                    return StatusCode(200, loginDto.User);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
             }
             catch (AuthException e)
             {
@@ -41,27 +69,6 @@ namespace User.Query.Api.Controllers
                 _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
                 return StatusCode(400, "Something went wrong, please contact support using support page.");
             }
-
-            var caccessOptions = new CookieOptions
-            {
-                HttpOnly = _cookieConfig.Value.HttpOnly,
-                Secure = _cookieConfig.Value.Secure,
-                SameSite = Enum.Parse<SameSiteMode>(_cookieConfig.Value.SameSite),
-                MaxAge = TimeSpan.FromSeconds(_cookieConfig.Value.AccessMaxAge)
-            };
-
-            var refreshOptions = new CookieOptions
-            {
-                HttpOnly = _cookieConfig.Value.HttpOnly,
-                Secure = _cookieConfig.Value.Secure,
-                SameSite = Enum.Parse<SameSiteMode>(_cookieConfig.Value.SameSite),
-                MaxAge = TimeSpan.FromHours(_cookieConfig.Value.RefreshMaxAge)
-            };
-
-            HttpContext.Response.Cookies.Append("AccessToken", loginDto.Tokens.AccessToken, caccessOptions);
-            HttpContext.Response.Cookies.Append("RefreshToken", loginDto.Tokens.RefreshToken, refreshOptions);
-
-            return StatusCode(200, loginDto.User);
         }
 
         [HttpPost]
@@ -73,15 +80,21 @@ namespace User.Query.Api.Controllers
                 var refreshTokenQuery = new RefreshTokenQuery
                 {
                     RefreshToken = refreshToken
-
                 };
 
                 TokensDto tokens = new();
 
                 try
                 {
-                    var loginDto = await _authDispatcher.DispatchAsync(refreshTokenQuery);
-                    tokens = loginDto.Tokens;
+                    var response = await _authDispatcher.DispatchAsync(refreshTokenQuery);
+                    if (response.ResponseCode < 300 && response.Data != null)
+                    {
+                        tokens = (TokensDto)response.Data;
+                    }
+                    else
+                    {
+                        return StatusCode(response.ResponseCode, response.Message);
+                    }
                 }
                 catch (AuthException e)
                 {
@@ -109,8 +122,8 @@ namespace User.Query.Api.Controllers
                     MaxAge = TimeSpan.FromHours(_cookieConfig.Value.RefreshMaxAge)
                 };
 
-                HttpContext.Response.Cookies.Append("AccessToken", tokens.AccessToken, caccessOptions);
-                HttpContext.Response.Cookies.Append("RefreshToken", tokens.RefreshToken, refreshOptions);
+                HttpContext.Response.Cookies.Append("AccessToken", tokens.AccessToken!, caccessOptions);
+                HttpContext.Response.Cookies.Append("RefreshToken", tokens.RefreshToken!, refreshOptions);
 
                 return StatusCode(200);
             }
@@ -126,7 +139,7 @@ namespace User.Query.Api.Controllers
 
                 HttpContext.Response.Cookies.Append("AccessToken", "", cookieOptions);
                 HttpContext.Response.Cookies.Append("RefreshToken", "", cookieOptions);
-                
+
                 return StatusCode(400, "Unauthorized");
             }
         }

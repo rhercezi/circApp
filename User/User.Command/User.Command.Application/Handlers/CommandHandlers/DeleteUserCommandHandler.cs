@@ -1,7 +1,8 @@
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
-using User.Command.Api.Commands;
+using User.Command.Application.Commands;
 using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
 using User.Command.Domain.Events;
@@ -12,7 +13,7 @@ using User.Common.PasswordService;
 
 namespace User.Command.Application.Handlers.CommandHandlers
 {
-    public class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand>
+    public class DeleteUserCommandHandler : IMessageHandler<DeleteUserCommand>
     {
         private readonly EventStore _eventStore;
         private PasswordHashService _passwordHashService;
@@ -25,9 +26,9 @@ namespace User.Command.Application.Handlers.CommandHandlers
             _eventProducer = eventProducer;
         }
 
-        public async Task HandleAsync(DeleteUserCommand command)
+        public async Task<BaseResponse> HandleAsync(DeleteUserCommand message)
         {
-            var events = await _eventStore.GetEventsAsync(command.Id);
+            var events = await _eventStore.GetEventsAsync(message.Id);
             if (events.Count == 0) throw new UserDomainException("No users found with the given ID.");
             UserAggregate userAggregate = new(_eventStore);
             userAggregate.ReplayEvents(events);
@@ -35,12 +36,12 @@ namespace User.Command.Application.Handlers.CommandHandlers
 
             DeleteUserCommandValidator validator = new(_eventStore, events, _passwordHashService);
 
-            await validator.ValidateCommand(command);
+            await validator.ValidateCommand(message);
             
             userAggregate.InvokAction<UserDeletedEvent>(
                 new UserDeletedEvent
                 (
-                    command.Id,
+                    message.Id,
                     version
                 )
             );
@@ -48,16 +49,16 @@ namespace User.Command.Application.Handlers.CommandHandlers
             _ = _eventProducer.ProduceAsync(
                 new UserDeletedPublicEvent
                 (
-                    command.Id
+                    message.Id
                 ),
                 "user_public"
             );
-            
+            return new BaseResponse { ResponseCode = 204 };
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage message)
         {
-            await HandleAsync((DeleteUserCommand)command);
+            return await HandleAsync((DeleteUserCommand)message);
         }
     }
 }

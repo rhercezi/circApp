@@ -13,80 +13,67 @@ namespace Core.Events
         private readonly KafkaConsumerConfig _config;
         private ILogger<EventConsumer> _logger;
 
-        public EventConsumer(IOptions<KafkaConsumerConfig> config,
-                             ILogger<EventConsumer> logger,
-                             IEventDispatcher eventDispatcher)
+        public EventConsumer(IOptions<KafkaConsumerConfig> config, ILogger<EventConsumer> logger)
         {
             _config = config.Value;
             _logger = logger;
         }
 
-        public async Task Consume(IEventDispatcher eventDispatcher, string topic = "")
+        public async Task Consume(IMessageDispatcher eventDispatcher, string topic = "")
         {
-            if (string.IsNullOrEmpty(topic)) topic = _config.Topic;
-
             using var consumer = new ConsumerBuilder<string, string>(_config)
-                    .SetKeyDeserializer(Deserializers.Utf8)
-                    .SetValueDeserializer(Deserializers.Utf8)
-                    .Build();
-            consumer.Subscribe(topic);
+                .SetKeyDeserializer(Deserializers.Utf8)
+                .SetValueDeserializer(Deserializers.Utf8)
+                .Build();
+            consumer.Subscribe(_config.Topic);
 
-            while (true)
+            var consumeResult = consumer.Consume();
+
+            var xEvent = DeserializeMessage(consumeResult.Message.Value);
+
+            if (xEvent != null)
             {
-                try
+                var result = await eventDispatcher.DispatchAsync(xEvent);
+                if (result.ResponseCode < 300)
                 {
-                    var consumeResult = consumer.Consume();
-
-                    var xEvent = DeserializeMessage(consumeResult.Message.Value);
-
-                    if (xEvent != null)
-                    {
-
-                        var resault = await eventDispatcher.DispatchAsync(xEvent);
-                        if (resault)
-                        {
-                            consumer.Commit(consumeResult);
-                        }
-                        else
-                        {
-                            _logger.LogError($"Dispatching failed for event of type {xEvent.GetType().FullName}");
-                        }
-                    }
-                    else
-                    {
-                        _logger.LogError($"Failed to deserialize event:\n {consumeResult.Message.Value}");
-                    }
+                    consumer.Commit(consumeResult);
                 }
-                catch (ConsumeException e)
+                else
                 {
-                    _logger.LogError("Error consuming event\n" + e.StackTrace);
+                    _logger.LogError("Dispatching failed for event of type {eventName}", xEvent.GetType().FullName);
                 }
-                catch (OperationCanceledException e)
-                {
-                    _logger.LogError("Event consuming canceled\n" + e.StackTrace);
-                }
-                catch (Exception e)
-                {
-                    _logger.LogError("Error dispatching consumed event\n" + e.StackTrace);
-                }
-
+            }
+            else
+            {
+                _logger.LogError("Failed to deserialize event:\n {eventBody}", consumeResult.Message.Value);
             }
         }
 
-        private static BaseEvent DeserializeMessage(string message)
+        private static BaseEvent? DeserializeMessage(string message)
         {
             var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
             var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(message);
+
+            if (values == null)
+        {
+                return null;
+            }
 
             values.TryGetValue("EventType", out var typeName);
 
             var type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(
                 a => a.GetTypes().Where(
-                    t => t.IsClass && t.FullName.Equals(typeName)
+                    t => t.IsClass && t.FullName!.Equals(typeName)
                 )
             ).First();
 
-            return (BaseEvent)JsonConvert.DeserializeObject(message, type, settings);
+            var xEvent = JsonConvert.DeserializeObject(message, type, settings);
+            if (xEvent == null)
+            {
+                return null;
+            }
+
+            return (BaseEvent) xEvent;
         }
     }
 }

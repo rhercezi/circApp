@@ -63,7 +63,6 @@ namespace User.Query.Domain.Repositories
             var user = await context.Users.SingleAsync(u => u.Id == xEvent.Id);
             user.EmailVerified = true;
             context.SaveChanges();
-
         }
 
         public async Task UpdateUsersPassword(PasswordUpdatedEvent xEvent)
