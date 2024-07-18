@@ -1,4 +1,3 @@
-using Appointments.Query.Application.DTOs;
 using Appointments.Query.Application.Queries;
 using Core.MessageHandling;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +9,9 @@ namespace Appointments.Query.Api.Controllers
     public class AppointmentsController : ControllerBase
     {
         ILogger<AppointmentsController> _logger;
-        IQueryDispatcher<AppointmentsDto> _userQueryDispatcher;
+        IMessageDispatcher _userQueryDispatcher;
         public AppointmentsController(ILogger<AppointmentsController> logger,
-                                      IQueryDispatcher<AppointmentsDto> userQueryDispatcher)
+                                      IMessageDispatcher userQueryDispatcher)
         {
             _logger = logger;
             _userQueryDispatcher = userQueryDispatcher;
@@ -26,7 +25,7 @@ namespace Appointments.Query.Api.Controllers
         {
             try
             {
-                var appointmentsDto = await _userQueryDispatcher.DispatchAsync(
+                var response = await _userQueryDispatcher.DispatchAsync(
                     new GetAppointmentsByCircleIdQuery
                     {
                         CircleId = id,
@@ -34,7 +33,18 @@ namespace Appointments.Query.Api.Controllers
                         DateTo = dateTo
                     }
                 );
-                return StatusCode(200, appointmentsDto);
+                 if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode > 399 && response.ResponseCode  < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -52,7 +62,7 @@ namespace Appointments.Query.Api.Controllers
         {
             try
             {
-                var appointmentsDto = await _userQueryDispatcher.DispatchAsync(
+                var response = await _userQueryDispatcher.DispatchAsync(
                     new GetAppointmentsByUserIdQuery
                     {
                         UserId = id,
@@ -60,7 +70,18 @@ namespace Appointments.Query.Api.Controllers
                         DateTo = dateTo
                     }
                 );
-                return StatusCode(200, appointmentsDto);
+                 if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode > 399 && response.ResponseCode  < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {

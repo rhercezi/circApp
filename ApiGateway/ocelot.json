@@ -306,7 +306,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments",
-            "UpstreamHttpMethod": [ "Post", "Patch" ],
+            "UpstreamHttpMethod": [ "Post" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
@@ -322,7 +322,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/{id}",
-            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamHttpMethod": [ "Patch", "Delete" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
@@ -344,7 +344,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/details",
-            "UpstreamHttpMethod": [ "Post", "Patch" ],
+            "UpstreamHttpMethod": [ "Post" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
@@ -360,7 +360,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/details/{id}",
-            "UpstreamHttpMethod": [ "Delete" ],
+            "UpstreamHttpMethod": [ "Delete", "Patch" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []

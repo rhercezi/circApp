@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 
 namespace Appointments.Query.Application.Handlers
 {
-    public class GetAppointmentsByUserIdQueryHandler : IQueryHandler<GetAppointmentsByUserIdQuery, AppointmentsDto>
+    public class GetAppointmentsByUserIdQueryHandler : IMessageHandler<GetAppointmentsByUserIdQuery>
     {
         private readonly InternalHttpClient<AppUserDto> _internalHttp;
         private readonly IOptions<CirclesServiceConfig> _config;
@@ -34,7 +34,7 @@ namespace Appointments.Query.Application.Handlers
             _detailsRepository = detailsRepository;
         }
 
-        public async Task<AppointmentsDto> HandleAsync(GetAppointmentsByUserIdQuery query)
+        public async Task<BaseResponse> HandleAsync(GetAppointmentsByUserIdQuery query)
         {
             var clientConfig = new HttpClientConfig
             {
@@ -55,12 +55,12 @@ namespace Appointments.Query.Application.Handlers
                     {
                         var appointments = await _appointmentRepository.GetAppointments(appointmentIds);
                         SetAppointmnetsDetails(ref appointments, circles);
-                        return ToDtoList(appointments);
+                        return new BaseResponse { ResponseCode = 200, Data = appointments };
                     }
                 }
             }
             
-            return new AppointmentsDto();
+            return new BaseResponse { ResponseCode = 200 };
         }
 
         private void SetAppointmnetsDetails(ref List<AppointmentModel> appointments, List<Guid> circles)
@@ -90,7 +90,7 @@ namespace Appointments.Query.Application.Handlers
             return appointmentsDto;
         }
 
-        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        public async Task<BaseResponse> HandleAsync(BaseMessage query)
         {
             return await HandleAsync((GetAppointmentsByUserIdQuery)query);
         }

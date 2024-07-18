@@ -1,9 +1,9 @@
 using Appointments.Command.Application.Commands;
-using Appointments.Command.Application.DTOs;
 using Appointments.Command.Application.EventProducer;
 using Appointments.Command.Application.Exceptions;
 using Appointments.Domain.Entities;
 using Appointments.Domain.Repositories;
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Appointments.Command.Application.Handlers
 {
-    public class UpdateAppointmentCommandHandler : ICommandHandler<UpdateAppointmentCommand>
+    public class UpdateAppointmentCommandHandler : IMessageHandler<UpdateAppointmentCommand>
     {
         private readonly AppointmentRepository _appointmentRepository;
         private readonly CAMapRepository _mapRepository;
@@ -28,39 +28,46 @@ namespace Appointments.Command.Application.Handlers
             _eventProducer = eventProducer;
         }
 
-        public async Task HandleAsync(UpdateAppointmentCommand command)
+        public async Task<BaseResponse> HandleAsync(UpdateAppointmentCommand command)
         {
             using var session = await _appointmentRepository.GetSession();
 
             session.StartTransaction();
 
-            var result = await _appointmentRepository.UpdateAppointment(
-                DtoConverter.Convert(command)
-            );
+            var appointment = await _appointmentRepository.GetAppointmentById(command.Id);
+            if (appointment.CreatorId != command.UpdaterId)
+            {
+                _logger.LogCritical("User missmatch user with the Id: {UserId} tried updating appointment {AppointmentId}", command.UpdaterId, command.Id );
+                return new BaseResponse { ResponseCode = 400, Message = "Only the appointment creator can update the appointment" };
+            }
+
+            command.JsonPatchDocument.ApplyTo(appointment);
+            var result = await _appointmentRepository.UpdateAppointment(appointment);
 
             if (!result.IsAcknowledged)
             {
                 session.AbortTransaction();
-                _logger.LogError($"Fail updating appointment. Matched count: {result.MatchedCount}, Modified count: {result.ModifiedCount}, Command body: {command}");
-                if (result.MatchedCount == 0) throw new AppointmentsApplicationException("No matching appointment found for user.");
-                else if (result.ModifiedCount == 0) throw new AppointmentsApplicationException("Fail updating appointment.");
+                _logger.LogError("Fail updating appointment. Matched count: {MatchedCount}, Modified count: {ModifiedCount}, Command body: {command}", result.MatchedCount, result.ModifiedCount, command );
+                if (result.MatchedCount == 0) return new BaseResponse { ResponseCode = 400, Message = "Appointment not found." };
+                else if (result.ModifiedCount == 0) return new BaseResponse { ResponseCode = 400, Message = "No changes detected." };
+                else return new BaseResponse { ResponseCode = 500, Message = "Failed updating appointment." };
             }
 
-            var reasult = await _mapRepository.DeleteByAppointmentIdAsync(command.Id);
+            var result2 = await _mapRepository.DeleteByAppointmentIdAsync(command.Id);
 
-            if (!result.IsAcknowledged || reasult.DeletedCount == 0)
+            if (!result2.IsAcknowledged || result2.DeletedCount == 0)
             {
                 session.AbortTransaction();
-                _logger.LogError($"Faild cleaning old circle mappings for appointment: {command.Id}");
+                _logger.LogError("Faild cleaning old circle mappings for appointment: {Id}", command.Id);
                 throw new AppointmentsApplicationException("Fail updating appointment.");
             }
 
-            var mappings = command.Circles.Select(
+            var mappings = appointment.Circles.Select(
                     c => new CircleAppointmentMap
                     {
-                        AppointmentId = command.Id,
+                        AppointmentId = appointment.Id,
                         CircleId = c,
-                        Date = command.Date
+                        Date = appointment.Date
                     }
                 ).ToList();
 
@@ -68,18 +75,20 @@ namespace Appointments.Command.Application.Handlers
 
             await _eventProducer.ProduceAsync(
                 new AppointmentChangePublicEvent(
-                    command.Id,
+                    appointment.Id,
                     command.UpdaterId,
-                    command.Date,
-                    command.Circles
+                    appointment.Date,
+                    appointment.Circles
                 )
             );
             await session.CommitTransactionAsync();
+
+            return new BaseResponse { ResponseCode = 200, Data = appointment };
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage command)
         {
-            await HandleAsync((UpdateAppointmentCommand)command);
+            return await HandleAsync((UpdateAppointmentCommand)command);
         }
     }
 }

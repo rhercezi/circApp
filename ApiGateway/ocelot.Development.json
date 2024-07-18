@@ -258,7 +258,25 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments",
-            "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ]
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/appointments/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5024
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/appointments/{id}",
+            "UpstreamHttpMethod": [ "Patch", "Delete" ],
+            "ClaimsToHeaders": [
+                {
+                  "Claim": "sub",
+                  "Header": "userId"
+                }
+              ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/appointments/details",
@@ -270,7 +288,25 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/details",
-            "UpstreamHttpMethod": [ "Post", "Patch", "Delete" ]
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/appointments/details/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5024
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/appointments/details/{id}",
+            "UpstreamHttpMethod": [ "Patch", "Delete" ],
+            "ClaimsToHeaders": [
+                {
+                  "Claim": "sub",
+                  "Header": "userId"
+                }
+              ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/appointments/circle/{id}",

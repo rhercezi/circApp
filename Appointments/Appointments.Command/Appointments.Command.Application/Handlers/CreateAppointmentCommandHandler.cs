@@ -3,6 +3,7 @@ using Appointments.Command.Application.DTOs;
 using Appointments.Command.Application.EventProducer;
 using Appointments.Domain.Entities;
 using Appointments.Domain.Repositories;
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
@@ -10,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Appointments.Command.Application.Handlers
 {
-    public class CreateAppointmentCommandHandler : ICommandHandler<CreateAppointmentCommand>
+    public class CreateAppointmentCommandHandler : IMessageHandler<CreateAppointmentCommand>
     {
         private readonly AppointmentRepository _appointmentRepository;
         private readonly AppointmentDetailsRepository _detailsRepository;
@@ -30,7 +31,7 @@ namespace Appointments.Command.Application.Handlers
             _eventProducer = eventProducer;
         }
 
-        public async Task HandleAsync(CreateAppointmentCommand command)
+        public async Task<BaseResponse> HandleAsync(CreateAppointmentCommand command)
         {
             using var session = await _appointmentRepository.GetSession();
             try
@@ -67,18 +68,19 @@ namespace Appointments.Command.Application.Handlers
                 );
                 await session.CommitTransactionAsync();
 
+                return new BaseResponse { ResponseCode = 200, Data = appointment };
             }
             catch (Exception e)
             {
                 session.AbortTransaction();
                 _logger.LogError("An exception occurred: {Message}\n{StackTrace}\n{command}", e.Message, e.StackTrace, command);
-                throw;
+                return new BaseResponse { ResponseCode = 500, Message = "Something went wrong, please try again later." };
             }
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage command)
         {
-            await HandleAsync((CreateAppointmentCommand)command);
+            return await HandleAsync((CreateAppointmentCommand)command);
         }
     }
 }

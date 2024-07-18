@@ -1,13 +1,13 @@
 using Appointments.Command.Application.Commands;
-using Appointments.Command.Application.Exceptions;
 using Appointments.Domain.Repositories;
+using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
 
 namespace Appointments.Command.Application.Handlers
 {
-    public class DeleteAppointmentCommandHandler : ICommandHandler<DeleteAppointmentCommand>
+    public class DeleteAppointmentCommandHandler : IMessageHandler<DeleteAppointmentCommand>
     {
         private readonly AppointmentRepository _appointmentRepository;
         private readonly CAMapRepository _mapRepository;
@@ -24,7 +24,7 @@ namespace Appointments.Command.Application.Handlers
             _detailsRepository = detailsRepository;
         }
 
-        public async Task HandleAsync(DeleteAppointmentCommand command)
+        public async Task<BaseResponse> HandleAsync(DeleteAppointmentCommand command)
         {
             using var session = await _appointmentRepository.GetSession();
             session.StartTransaction();
@@ -35,7 +35,7 @@ namespace Appointments.Command.Application.Handlers
             {
                 session.AbortTransaction();
                 _logger.LogInformation($"No matching appointment found for user. Deleted count: {result.DeletedCount}, Command body: {command}");
-                throw new AppointmentsApplicationException("No matching appointment found for user.");
+                return new BaseResponse { ResponseCode = 400, Message = "No matching appointment found for user." };
             }
 
             var reasult = await _mapRepository.DeleteByAppointmentIdAsync(command.AppointmentId);
@@ -44,18 +44,18 @@ namespace Appointments.Command.Application.Handlers
             {
                 session.AbortTransaction();
                 _logger.LogError($"Faild cleaning circle mappings for appointment: {command.Id}");
-                throw new AppointmentsApplicationException("Fail deleting appointment.");
+                return new BaseResponse { ResponseCode = 500, Message = "Failed cleaning circle mappings." };
             }
 
             await _detailsRepository.DeleteAsync(command.AppointmentId);
 
             await session.CommitTransactionAsync();
-
+            return new BaseResponse { ResponseCode = 204 };
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage command)
         {
-            await HandleAsync((DeleteAppointmentCommand)command);
+            return await HandleAsync((DeleteAppointmentCommand)command);
         }
     }
 }

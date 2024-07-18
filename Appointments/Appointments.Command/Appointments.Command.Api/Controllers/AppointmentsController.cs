@@ -1,5 +1,6 @@
 using Appointments.Command.Application.Commands;
 using Core.MessageHandling;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appointments.Command.Api.Controllers
@@ -8,9 +9,9 @@ namespace Appointments.Command.Api.Controllers
     [Route("api/v1/[controller]")]
     public class AppointmentsController : ControllerBase
     {
-        private readonly ICommandDispatcher _dispatcher;
+        private readonly IMessageDispatcher _dispatcher;
         private readonly ILogger<AppointmentsController> _logger;
-        public AppointmentsController(ICommandDispatcher dispatcher, ILogger<AppointmentsController> logger)
+        public AppointmentsController(IMessageDispatcher dispatcher, ILogger<AppointmentsController> logger)
         {
             _dispatcher = dispatcher;
             _logger = logger;
@@ -21,8 +22,19 @@ namespace Appointments.Command.Api.Controllers
         {
             try
             {
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -31,13 +43,26 @@ namespace Appointments.Command.Api.Controllers
             }
         }
 
+        [Route("{appointmentId}")]
         [HttpPatch]
-        public async Task<IActionResult> UpdateAppointment(UpdateAppointmentCommand command)
+        public async Task<IActionResult> UpdateAppointment([FromRoute] Guid appointmentId, [FromBody] JsonPatchDocument patchDocument)
         {
+            var command = new UpdateAppointmentCommand(Guid.Parse(Request.Headers["userId"].ToString()), appointmentId, patchDocument);
             try
             {
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _dispatcher.DispatchAsync(command);
+               if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -58,8 +83,19 @@ namespace Appointments.Command.Api.Controllers
                     AppointmentId = appointmentId
                 };
 
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response= await _dispatcher.DispatchAsync(command);
+               if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -74,8 +110,19 @@ namespace Appointments.Command.Api.Controllers
         {
             try
             {
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -84,14 +131,26 @@ namespace Appointments.Command.Api.Controllers
             }
         }
 
-        [Route("details")]
+        [Route("details/{appointmentId}")]
         [HttpPatch]
-        public async Task<IActionResult> UpdateAppointmentDetails(UpdateAppointmentDetailCommand command)
+        public async Task<IActionResult> UpdateAppointmentDetails([FromRoute] Guid appointmentId, [FromBody] JsonPatchDocument patchDocument)
         {
+            var command = new UpdateAppointmentDetailCommand(appointmentId, Guid.Parse(Request.Headers["userId"].ToString()), patchDocument);
             try
             {
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -112,8 +171,19 @@ namespace Appointments.Command.Api.Controllers
                     AppointmentId = appointmentId
                 };
 
-                var (code, message) = await _dispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 300)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {

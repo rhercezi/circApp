@@ -1,3 +1,4 @@
+using Appointments.Command.Application.Commands;
 using Appointments.Command.Application.Dispatchers;
 using Appointments.Command.Application.EventProducer;
 using Appointments.Command.Application.Handlers;
@@ -19,15 +20,14 @@ builder.Services.AddScoped<AppointmentDetailsRepository>();
 builder.Services.AddScoped<CAMapRepository>();
 builder.Services.AddScoped<AppointmentEventProducer>();
 
-builder.Services.AddScoped<AddAppointmentDetailsCommandHandler>();
-builder.Services.AddScoped<CreateAppointmentCommandHandler>();
-builder.Services.AddScoped<DeleteAppointmentCommandHandler>();
-builder.Services.AddScoped<DeleteAppointmentDetailCommandHandler>();
-builder.Services.AddScoped<UpdateAppointmentCommandHandler>();
-builder.Services.AddScoped<UpdateAppointmentDetailCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<AddAppointmentDetailsCommand>, AddAppointmentDetailsCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<CreateAppointmentCommand>, CreateAppointmentCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<DeleteAppointmentCommand>, DeleteAppointmentCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<DeleteAppointmentDetailCommand>, DeleteAppointmentDetailCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<UpdateAppointmentCommand>, UpdateAppointmentCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<UpdateAppointmentDetailCommand>, UpdateAppointmentDetailCommandHandler>();
 
-builder.Services.AddSingleton<IHandlerService, HandlerService>();
-builder.Services.AddScoped<ICommandDispatcher, CommandDispatcher>();
+builder.Services.AddScoped<IMessageDispatcher, CommandDispatcher>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

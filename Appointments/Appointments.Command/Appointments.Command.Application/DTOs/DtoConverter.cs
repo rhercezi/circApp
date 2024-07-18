@@ -12,7 +12,8 @@ namespace Appointments.Command.Application.DTOs
                 Id = command.Id,
                 CreatorId = command.CreatorId,
                 Date = command.Date,
-                DetailsInCircles = command.Circles
+                DetailsInCircles = command.DetailsInCircles,
+                Circles = command.Circles
             };
         }
 
@@ -24,28 +25,6 @@ namespace Appointments.Command.Application.DTOs
                 Note = details.Note,
                 Address = details.Address,
                 Reminders = details.Reminders
-            };
-        }
-
-        internal static AppointmentModel Convert(UpdateAppointmentCommand command)
-        {
-            return new AppointmentModel
-            {
-                Id = command.Id,
-                CreatorId = command.UpdaterId,
-                Date = command.Date,
-                DetailsInCircles = command.Circles
-            };
-        }
-
-        internal static AppointmentDetailsModel Convert(UpdateAppointmentDetailCommand command)
-        {
-            return new AppointmentDetailsModel
-            {
-                AppointmentId = command.Details.AppointmentId,
-                Note = command.Details.Note,
-                Address = command.Details.Address,
-                Reminders = command.Details.Reminders
             };
         }
     }

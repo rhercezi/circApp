@@ -6,10 +6,10 @@ namespace Core.MessageHandling
 {
     public interface IMessageHandler
     {
-        Task<BaseResponse> HandleAsync(BaseMessage message);
+        public Task<BaseResponse> HandleAsync(BaseMessage message);
     }
     public interface IMessageHandler<T> : IMessageHandler where T : BaseMessage
     {
-        Task<BaseResponse> HandleAsync(T message);
+        public Task<BaseResponse> HandleAsync(T message);
     }
 }

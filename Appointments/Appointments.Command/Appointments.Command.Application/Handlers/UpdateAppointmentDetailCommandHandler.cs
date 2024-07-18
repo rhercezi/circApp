@@ -1,8 +1,7 @@
 using Appointments.Command.Application.Commands;
-using Appointments.Command.Application.DTOs;
 using Appointments.Command.Application.EventProducer;
-using Appointments.Command.Application.Exceptions;
 using Appointments.Domain.Repositories;
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
@@ -10,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Appointments.Command.Application.Handlers
 {
-    public class UpdateAppointmentDetailCommandHandler : ICommandHandler<UpdateAppointmentDetailCommand>
+    public class UpdateAppointmentDetailCommandHandler : IMessageHandler<UpdateAppointmentDetailCommand>
     {
         private readonly AppointmentDetailsRepository _detailsRepository;
         private readonly AppointmentRepository _appointmentRepository;
@@ -27,24 +26,34 @@ namespace Appointments.Command.Application.Handlers
             _eventProducer = eventProducer;
         }
 
-        public async Task HandleAsync(UpdateAppointmentDetailCommand command)
+        public async Task<BaseResponse> HandleAsync(UpdateAppointmentDetailCommand command)
         {
-            if (command.Details != null)
+            try
             {
-                var appointment = await _appointmentRepository.GetAppointmentById(command.Details.AppointmentId);
+                var appointment = await _appointmentRepository.GetAppointmentById(command.AppointmentId);
 
                 if (appointment.CreatorId != command.UserId)
                 {
-                    _logger.LogCritical($"User missmatch user with the Id: {command.UserId} tried updating appointment details {command.Details}");
-                    throw new AppointmentsApplicationException("Only the appointment creator can update the appointment");
+                    _logger.LogCritical("User missmatch user with the Id: {userId} tried updating appointment details {details}",
+                                        command.UserId,
+                                        command.PatchDocument);
+                    return new BaseResponse { ResponseCode = 400, Message = "Only the appointment creator can update the appointment details" };
                 }
 
-                var result = await _detailsRepository.UpdateAsync(DtoConverter.Convert(command.Details));
+                var details = await _detailsRepository.FindAsync(command.AppointmentId);
+
+                command.PatchDocument.ApplyTo(details);
+
+                var result = await _detailsRepository.UpdateAsync(details);
                 if (!result.IsAcknowledged)
                 {
-                    _logger.LogError($"Faild updating appointment details. MatchedCount = {result.MatchedCount}, ModifiedCount = {result.ModifiedCount}, Command = {command}");
-                    if (result.MatchedCount == 0) throw new AppointmentsApplicationException($"No match found for given appointment details {command}");
-                    if (result.ModifiedCount == 0) throw new AppointmentsApplicationException($"Faild updating appointment details with command {command}");
+                    _logger.LogError("Faild updating appointment details. MatchedCount = {matchedCount}, ModifiedCount = {modifiedCount}, Command = {command}",
+                                     result.MatchedCount,
+                                     result.ModifiedCount,
+                                     command);
+                    if (result.MatchedCount == 0) return new BaseResponse { ResponseCode = 400, Message = "Appointment details not found." };
+                    else if (result.ModifiedCount == 0) return new BaseResponse { ResponseCode = 400, Message = "No changes detected." };
+                    else return new BaseResponse { ResponseCode = 500, Message = "Faild updating appointment details." };
                 }
 
                 await _eventProducer.ProduceAsync(
@@ -55,13 +64,20 @@ namespace Appointments.Command.Application.Handlers
                         appointment.DetailsInCircles
                     )
                 );
+
+                appointment.Details = details;
+                return new BaseResponse { ResponseCode = 200, Data = appointment };
             }
-            else throw new AppointmentsApplicationException("Can not update deteails with null value.");
+            catch (Exception e)
+            {
+                _logger.LogError("Faild updating appointment details with command {command}\n{stackTrace}", command, e.StackTrace);
+                return new BaseResponse { ResponseCode = 500, Message = "Faild updating appointment details." };
+            }
         }
 
-        public async Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage command)
         {
-            await HandleAsync((UpdateAppointmentDetailCommand)command);
+            return await HandleAsync((UpdateAppointmentDetailCommand)command);
         }
     }
 }

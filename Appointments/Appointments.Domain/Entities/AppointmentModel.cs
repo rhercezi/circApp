@@ -14,5 +14,6 @@ namespace Appointments.Domain.Entities
         public required DateTime Date { get; set; }
         public AppointmentDetailsModel? Details { get; set; }
         public List<Guid>? DetailsInCircles { get; set; }
+        public required List<Guid> Circles { get; set; }
     }
 }

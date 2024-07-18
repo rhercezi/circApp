@@ -1,5 +1,4 @@
-using System.Reflection;
-using Appointments.Query.Application.DTOs;
+using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Appointments.Query.Application.Dispatchers
 {
-    public class AppointmentsQueryDispatcher : IQueryDispatcher<AppointmentsDto>
+    public class AppointmentsQueryDispatcher : IMessageDispatcher
     {
         private Dictionary<Type, Type> _handlers = new();
         private readonly ILogger<AppointmentsQueryDispatcher> _logger;
@@ -22,25 +21,20 @@ namespace Appointments.Query.Application.Dispatchers
             _handlerService = handlerService;
         }
 
-        public async Task<AppointmentsDto> DispatchAsync(BaseQuery query)
+        public async Task<BaseResponse> DispatchAsync(BaseMessage query)
         {
-            _handlers = _handlerService.RegisterHandler<BaseQuery, AppointmentsDto>(query, Assembly.GetExecutingAssembly(), typeof(AppointmentsDto));
-
-            if (_handlers.TryGetValue(query.GetType(), out Type? handlerType))
-            {
+            
                 try
                 {
-                    var handler = (IQueryHandler)_serviceProvider.GetRequiredService(handlerType);
-                    return (AppointmentsDto)await handler.HandleAsync(query);
+                    var genericType = typeof(IMessageHandler<>).MakeGenericType(query.GetType());
+                    var handler = (IMessageHandler)_serviceProvider.GetRequiredService(genericType);
+                    return await handler.HandleAsync(query);
                 }
                 catch (Exception e)
                 {
                     _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                    throw;
+                    return new BaseResponse { ResponseCode = 500, Message = "Something went wrong, please contact support via support page." };
                 }
-            }
-            _logger.LogError($"Could not find handler for query. Type: {query.GetType().Name}");
-            return new AppointmentsDto();
         }
     }
 }

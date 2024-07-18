@@ -1,5 +1,5 @@
-using System.Reflection;
 using Appointments.Command.Application.Exceptions;
+using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,43 +7,34 @@ using Microsoft.Extensions.Logging;
 
 namespace Appointments.Command.Application.Dispatchers
 {
-    public class CommandDispatcher : ICommandDispatcher
+    public class CommandDispatcher : IMessageDispatcher
     {
-        private Dictionary<Type, Type> _handlers = new();
-        private readonly IHandlerService _handlerService;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<CommandDispatcher> _logger;
 
-        public CommandDispatcher(IHandlerService handlerService, IServiceProvider serviceProvider, ILogger<CommandDispatcher> logger)
+        public CommandDispatcher(IServiceProvider serviceProvider, ILogger<CommandDispatcher> logger)
         {
-            _handlerService = handlerService;
             _serviceProvider = serviceProvider;
             _logger = logger;
         }
 
-        public async Task<(int code, string message)> DispatchAsync(BaseCommand command)
+        public async Task<BaseResponse> DispatchAsync(BaseMessage command)
         {
-            _handlers = _handlerService.RegisterHandler<BaseCommand>(command, Assembly.GetExecutingAssembly());
-
-            if (_handlers.TryGetValue(command.GetType(), out var handlerType))
-            {
-                try
+           try
                 {
-                    var handler = (ICommandHandler)_serviceProvider.GetRequiredService(handlerType);
-                    await handler.HandleAsync(command);
-                    return (200, "Ok");
+                    var genericType = typeof(IMessageHandler<>).MakeGenericType(command.GetType());
+                    var handler = (IMessageHandler)_serviceProvider.GetRequiredService(genericType);
+                    return await handler.HandleAsync(command);
                 }
                 catch (AppointmentsApplicationException e)
                 {
-                    return (400, e.Message);
+                    return new BaseResponse { ResponseCode = 400, Message = e.Message };
                 }
                 catch (Exception e)
                 {
                     _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                    return (500, "Something went wrong, please contact support via support page.");
+                    return new BaseResponse { ResponseCode = 500, Message = "Something went wrong, please contact support via support page." };
                 }
-            }
-            return (500, "Something went wrong, please contact support via support page.");
         }
     }
 }

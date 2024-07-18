@@ -8,7 +8,7 @@ using Core.Messages;
 
 namespace Appointments.Query.Application.Handlers
 {
-    public class GetAppointmentsByCircleIdQueryHandler : IQueryHandler<GetAppointmentsByCircleIdQuery, AppointmentsDto>
+    public class GetAppointmentsByCircleIdQueryHandler : IMessageHandler<GetAppointmentsByCircleIdQuery>
     {
         private readonly AppointmentRepository _appointmentRepository;
         private readonly CAMapRepository _mapRepository;
@@ -22,17 +22,17 @@ namespace Appointments.Query.Application.Handlers
             _detailsRepository = detailsRepository;
         }
 
-        public async Task<AppointmentsDto> HandleAsync(GetAppointmentsByCircleIdQuery query)
+        public async Task<BaseResponse> HandleAsync(GetAppointmentsByCircleIdQuery query)
         {
             var appointmentIds = await _mapRepository.GetAppointmentsByCircleId(query.CircleId, query.DareFrom, query.DateTo);
             if (appointmentIds.Count > 0)
             {
                 var appointments = await _appointmentRepository.GetAppointments(appointmentIds);
                 SetAppointmnetsDetails(ref appointments, query.CircleId);
-                return ToDtoList(appointments);
+                return new BaseResponse { ResponseCode = 200, Data = appointments };
             }
             
-            return new AppointmentsDto();
+            return new BaseResponse { ResponseCode = 200 };
         }
 
         private void SetAppointmnetsDetails(ref List<AppointmentModel> appointments, Guid circleId)
@@ -60,7 +60,7 @@ namespace Appointments.Query.Application.Handlers
             return appointmentsDto;
         }
 
-        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        public async Task<BaseResponse> HandleAsync(BaseMessage query)
         {
             return await HandleAsync((GetAppointmentsByCircleIdQuery)query);
         }
