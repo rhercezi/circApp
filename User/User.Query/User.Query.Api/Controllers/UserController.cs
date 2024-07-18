@@ -20,13 +20,21 @@ namespace User.Query.Api.Controllers
 
         [Route("by-id/{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetUserById([FromRoute] Guid id) 
+        public async Task<IActionResult> GetUserById([FromRoute] Guid id)
         {
-            var query = new GetUserByIdQuery{Id = id};
             try
             {
+                var query = new GetUserByIdQuery { Id = id };
+
                 var response = await _queryDispatcher.DispatchAsync(query);
-                return StatusCode(response.ResponseCode, response.Data);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -37,13 +45,21 @@ namespace User.Query.Api.Controllers
 
         [Route("by-email")]
         [HttpGet]
-        public async Task<IActionResult> GetUserByEmail([FromQuery] string email) 
+        public async Task<IActionResult> GetUserByEmail([FromQuery] string email)
         {
-            var query = new GetUserByEmailQuery(email);
             try
             {
+                var query = new GetUserByEmailQuery(email);
+
                 var response = await _queryDispatcher.DispatchAsync(query);
-                return StatusCode(response.ResponseCode, response.Data);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -54,14 +70,22 @@ namespace User.Query.Api.Controllers
 
         [Route("by-username")]
         [HttpGet]
-        public async Task<IActionResult> GetUserByUsername([FromQuery] string username) 
+        public async Task<IActionResult> GetUserByUsername([FromQuery] string username)
         {
-            var query = new GetUserByUsernameQuery(username);
-            UserDto user;
             try
             {
+                var query = new GetUserByUsernameQuery(username);
+                UserDto user;
+
                 var response = await _queryDispatcher.DispatchAsync(query);
-                return StatusCode(response.ResponseCode, response.Data);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {

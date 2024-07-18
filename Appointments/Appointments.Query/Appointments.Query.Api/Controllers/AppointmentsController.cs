@@ -33,13 +33,9 @@ namespace Appointments.Query.Api.Controllers
                         DateTo = dateTo
                     }
                 );
-                 if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode > 399 && response.ResponseCode  < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -70,13 +66,9 @@ namespace Appointments.Query.Api.Controllers
                         DateTo = dateTo
                     }
                 );
-                 if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode > 399 && response.ResponseCode  < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {

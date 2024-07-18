@@ -28,14 +28,9 @@ namespace Circles.Query.Api.Controllers
                         UserId = userId
                     }
                 );
-
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -62,14 +57,9 @@ namespace Circles.Query.Api.Controllers
                         CircleId = circleId
                     }
                 );
-
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -96,14 +86,9 @@ namespace Circles.Query.Api.Controllers
                         QWord = qWord
                     }
                 );
-                
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {

@@ -20,48 +20,99 @@ namespace User.Command.Api.Controllers
 
         [Route("password")]
         [HttpPut]
-        public async Task<IActionResult> UpdatePassword(UpdatePasswordCommand command) 
+        public async Task<IActionResult> UpdatePassword(UpdatePasswordCommand command)
         {
-            var response = await _dispatcher.DispatchAsync(command);
-            return StatusCode(response.ResponseCode, response.Data);
+            try
+            {
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return StatusCode(500, "Something went wrong, please contact support using support page.");
+            }
         }
 
         [Route("password-id-link")]
         [HttpPut]
-        public async Task<IActionResult> UpdatePasswordIdLink(UpdatePasswordCommand command) 
+        public async Task<IActionResult> UpdatePasswordIdLink(UpdatePasswordCommand command)
         {
-            if (command.IdLink == null)
+            try
             {
-                _logger.LogWarning("Invalid id-link request. Command: {Command}", command);
-                return BadRequest("Invalid request.");
+                if (command.IdLink == null)
+                {
+                    _logger.LogWarning("Invalid id-link request. Command: {Command}", command);
+                    return BadRequest("Invalid request.");
+                }
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
-            
-            var response = await _dispatcher.DispatchAsync(command);
-            return StatusCode(response.ResponseCode, response.Data);
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return StatusCode(500, "Something went wrong, please contact support using support page.");
+            }
 
         }
 
         [Route("password/reset")]
         [HttpPut]
-        public async Task<IActionResult> ResetPassword(ResetPasswordCommand command) 
+        public async Task<IActionResult> ResetPassword(ResetPasswordCommand command)
         {
-             var response = await _dispatcher.DispatchAsync(command);
-            return StatusCode(response.ResponseCode, response.Data);
+            try
+            {
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return StatusCode(500, "Something went wrong, please contact support using support page.");
+            }
         }
 
         [Route("create")]
         [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserCommand command) 
+        public async Task<IActionResult> CreateUser(CreateUserCommand command)
         {
-            var response = await _dispatcher.DispatchAsync(command);
-
-            if (response.ResponseCode < 300)
+            try
             {
-                return Ok(response.Data);
-            } 
-            else
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+            }
+            catch (Exception e)
             {
-                return StatusCode(response.ResponseCode, response.Message);
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return StatusCode(500, "Something went wrong, please contact support using support page.");
             }
         }
 
@@ -69,20 +120,27 @@ namespace User.Command.Api.Controllers
         [HttpPatch]
         public async Task<IActionResult> UpdateUser([FromRoute] Guid id, [FromBody] JsonPatchDocument jDoc)
         {
-            var command = new EditUserCommand()
+            try
             {
-                Id = id,
-                UpdateJson = jDoc
-            };
-            var response = await _dispatcher.DispatchAsync(command);
-
-            if (response.ResponseCode < 300)
+                var command = new EditUserCommand()
+                {
+                    Id = id,
+                    UpdateJson = jDoc
+                };
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+            }
+            catch (Exception e)
             {
-                return Ok(response.Data);
-            } 
-            else
-            {
-                return StatusCode(response.ResponseCode, response.Message);
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return StatusCode(500, "Something went wrong, please contact support using support page.");
             }
         }
 
@@ -90,20 +148,48 @@ namespace User.Command.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteUser([FromRoute] string id, [FromQuery] string password)
         {
-            var command = new DeleteUserCommand(Guid.Parse(id), password);
-            var response = await _dispatcher.DispatchAsync(command);
-
-            return StatusCode(response.ResponseCode, response.Message);
+            try
+            {
+                var command = new DeleteUserCommand(Guid.Parse(id), password);
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return StatusCode(500, "Something went wrong, please contact support using support page.");
+            }
         }
 
         [Route("verify-email/{idLink}")]
         [HttpPost]
-        public async Task<IActionResult> ValidateEmail([FromRoute] string idLink) 
+        public async Task<IActionResult> ValidateEmail([FromRoute] string idLink)
         {
-            var command = new VerifyEmailCommand(idLink); 
-            var response = await _dispatcher.DispatchAsync(command);
-
-            return StatusCode(response.ResponseCode, response.Message);
+            try
+            {
+                var command = new VerifyEmailCommand(idLink);
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return StatusCode(500, "Something went wrong, please contact support using support page.");
+            }
         }
     }
 }

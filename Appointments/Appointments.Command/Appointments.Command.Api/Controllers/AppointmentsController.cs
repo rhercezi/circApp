@@ -23,13 +23,9 @@ namespace Appointments.Command.Api.Controllers
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -51,13 +47,9 @@ namespace Appointments.Command.Api.Controllers
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
-               if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -83,14 +75,10 @@ namespace Appointments.Command.Api.Controllers
                     AppointmentId = appointmentId
                 };
 
-                var response= await _dispatcher.DispatchAsync(command);
-               if (response.ResponseCode < 300)
+                var response = await _dispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -111,13 +99,9 @@ namespace Appointments.Command.Api.Controllers
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -139,13 +123,9 @@ namespace Appointments.Command.Api.Controllers
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -172,13 +152,9 @@ namespace Appointments.Command.Api.Controllers
                 };
 
                 var response = await _dispatcher.DispatchAsync(command);
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {

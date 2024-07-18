@@ -24,13 +24,9 @@ namespace Circles.Command.Api.Controllers
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -47,18 +43,14 @@ namespace Circles.Command.Api.Controllers
 
         [Route("{id}")]
         [HttpPatch]
-        public async Task<IActionResult> UpdateCircle([FromRoute] Guid id ,[FromBody] JsonPatchDocument jsonPatch)
+        public async Task<IActionResult> UpdateCircle([FromRoute] Guid id, [FromBody] JsonPatchDocument jsonPatch)
         {
             try
             {
                 var response = await _dispatcher.DispatchAsync(new UpdateCircleCommand { CircleId = id, JsonPatchDocument = jsonPatch });
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -79,13 +71,9 @@ namespace Circles.Command.Api.Controllers
             {
                 var command = new DeleteCircleCommand { Id = Guid.Parse(id) };
                 var response = await _dispatcher.DispatchAsync(command);
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -106,13 +94,9 @@ namespace Circles.Command.Api.Controllers
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -133,13 +117,9 @@ namespace Circles.Command.Api.Controllers
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
@@ -160,13 +140,9 @@ namespace Circles.Command.Api.Controllers
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
-                if (response.ResponseCode < 300)
+                if (response.ResponseCode < 500)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
-                }
-                else if (response.ResponseCode < 500)
-                {
-                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {

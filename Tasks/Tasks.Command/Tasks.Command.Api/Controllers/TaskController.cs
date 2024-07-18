@@ -8,10 +8,10 @@ namespace Tasks.Command.Api.Controllers
     [Route("api/v1/[controller]")]
     public class TasksController : ControllerBase
     {
-        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IMessageDispatcher _commandDispatcher;
         private readonly ILogger<TasksController> _logger;
 
-        public TasksController(ICommandDispatcher commandDispatcher, ILogger<TasksController> logger)
+        public TasksController(IMessageDispatcher commandDispatcher, ILogger<TasksController> logger)
         {
             _commandDispatcher = commandDispatcher;
             _logger = logger;
@@ -21,8 +21,15 @@ namespace Tasks.Command.Api.Controllers
         {
             try
             {
-                (var code, var message) = await _commandDispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _commandDispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -41,8 +48,15 @@ namespace Tasks.Command.Api.Controllers
                 {
                     return StatusCode(403, "You are not authorized to perform this action.");
                 }
-                (var code, var message) = await _commandDispatcher.DispatchAsync(command);
-                return StatusCode(code, message);
+                var response = await _commandDispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -63,8 +77,15 @@ namespace Tasks.Command.Api.Controllers
                     {
                         return StatusCode(403, "You are not authorized to perform this action.");
                     }
-                    (var code, var message) = await _commandDispatcher.DispatchAsync(command);
-                    return StatusCode(code, message);
+                    var response = await _commandDispatcher.DispatchAsync(command);
+                    if (response.ResponseCode < 500)
+                    {
+                        return StatusCode(response.ResponseCode, response.Data);
+                    }
+                    else
+                    {
+                        return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                    }
                 }
                 return StatusCode(500, "Something went wrong, please try again later.");
             }
@@ -81,8 +102,15 @@ namespace Tasks.Command.Api.Controllers
             try
             {
                 var ownerId = Guid.Parse(Request.Headers["ownerId"].ToString());
-                (var code, var message) = await _commandDispatcher.DispatchAsync(new DeleteTaskCommand { Id = id, OwnerId = ownerId});
-                return StatusCode(code, message);
+                var response = await _commandDispatcher.DispatchAsync(new DeleteTaskCommand { Id = id, OwnerId = ownerId });
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {

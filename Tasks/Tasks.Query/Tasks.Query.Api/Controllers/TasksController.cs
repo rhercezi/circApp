@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core.DTOs;
 using Core.MessageHandling;
 using Microsoft.AspNetCore.Mvc;
 using Tasks.Query.Application.Queries;
@@ -13,10 +8,10 @@ namespace Tasks.Query.Api.Controllers
     [Route("api/v1/[controller]")]
     public class TasksController : ControllerBase
     {
-        private readonly IQueryDispatcher<TasksDto> _queryDispatcher;
+        private readonly IMessageDispatcher _queryDispatcher;
         private readonly ILogger<TasksController> _logger;
 
-        public TasksController(IQueryDispatcher<TasksDto> queryDispatcher,
+        public TasksController(IMessageDispatcher queryDispatcher,
                                ILogger<TasksController> logger)
         {
             _queryDispatcher = queryDispatcher;
@@ -29,8 +24,15 @@ namespace Tasks.Query.Api.Controllers
             try
             {
                 var query = new GetTasksForCircleQuery { CircleId = circleId };
-                var tasks = await _queryDispatcher.DispatchAsync(query);
-                return Ok(tasks);
+                var response = await _queryDispatcher.DispatchAsync(query);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -45,8 +47,15 @@ namespace Tasks.Query.Api.Controllers
             try
             {
                 var query = new GetTasksForUserQuery { UserId = userId, SearchByCircles = searchByCircles };
-                var tasks = await _queryDispatcher.DispatchAsync(query);
-                return Ok(tasks);
+                var response = await _queryDispatcher.DispatchAsync(query);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
