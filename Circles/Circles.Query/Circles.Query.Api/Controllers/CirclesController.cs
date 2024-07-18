@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Circles.Query.Application.Queries;
-using Core.DTOs;
 using Core.MessageHandling;
 using Microsoft.AspNetCore.Mvc;
 
@@ -114,7 +109,7 @@ namespace Circles.Query.Api.Controllers
                 {
                     return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
                 }
-                
+
             }
             catch (Exception e)
             {

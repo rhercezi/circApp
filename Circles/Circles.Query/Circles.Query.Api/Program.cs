@@ -3,7 +3,6 @@ using Circles.Domain.Repositories;
 using Circles.Query.Application.Dispatchers;
 using Circles.Query.Application.Handlers;
 using Circles.Query.Application.Queries;
-using Core.DTOs;
 using Core.MessageHandling;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,4 +1,3 @@
-using Circles.Command.Application.DTOs;
 using Core.Messages;
 using Microsoft.AspNetCore.JsonPatch;
 

@@ -1,10 +1,8 @@
-using Circles.Domain.Entities;
 using Circles.Domain.Repositories;
 using Circles.Query.Application.Queries;
 using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Circles.Query.Application.Handlers
 {

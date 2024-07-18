@@ -5,7 +5,6 @@ using Core.DTOs;
 using Core.Repositories;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Circles.Domain.Repositories

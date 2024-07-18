@@ -1,6 +1,4 @@
 using Circles.Command.Application.Commands;
-using Circles.Command.Application.DTOs;
-using Circles.Domain.Entities;
 using Core.MessageHandling;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
