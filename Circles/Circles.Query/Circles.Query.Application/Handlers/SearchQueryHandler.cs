@@ -16,6 +16,10 @@ namespace Circles.Query.Application.Handlers
 
         public async Task<BaseResponse> HandleAsync(SearchQuery query)
         {
+            if (string.IsNullOrEmpty(query.QWord))
+            {
+                return new BaseResponse { ResponseCode = 200, Message = {} };
+            }
             var dto = new AppUsersDto();
             dto = await _userRepository.SearchUsersAsync(query.QWord);
             return new BaseResponse { ResponseCode = 200, Data = dto };
