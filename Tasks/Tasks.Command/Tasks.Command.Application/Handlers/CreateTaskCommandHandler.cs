@@ -1,3 +1,4 @@
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
@@ -10,7 +11,7 @@ using Tasks.Domain.Repositories;
 
 namespace Tasks.Command.Application.Handlers
 {
-    public class CreateTaskCommandHandler : ICommandHandler<CreateTaskCommand>
+    public class CreateTaskCommandHandler : IMessageHandler<CreateTaskCommand>
     {
         private readonly AppTaskRepository _repository;
         private readonly TasksEventProducer _eventProducer;
@@ -25,21 +26,32 @@ namespace Tasks.Command.Application.Handlers
             _logger = logger;
         }
 
-        public async Task HandleAsync(CreateTaskCommand command)
+        public async Task<BaseResponse> HandleAsync(CreateTaskCommand command)
         {
-            _logger.LogDebug("Creating task: {Task}", command);
-            await _repository.SaveAsync(CommandModelConverter.ConvertToModel<AppTaskModel>(command));
-            var taskEvent = new TaskChangePublicEvent(command.Id, command.GetType().Name)
+            try
             {
-                CircleId = command.CircleId,
-                UserIds = command.UserModels?.Select(x => x.Id).ToList()
-            };
-            await _eventProducer.ProduceAsync(taskEvent);
+                _logger.LogDebug("Creating task: {Task}", command);
+                var model = CommandModelConverter.ConvertToModel<AppTaskModel>(command);
+                await _repository.SaveAsync(model);
+                var taskEvent = new TaskChangePublicEvent(command.Id, command.GetType().Name)
+                {
+                    CircleId = command.CircleId,
+                    UserIds = command.UserModels?.Select(x => x.Id).ToList()
+                };
+                await _eventProducer.ProduceAsync(taskEvent);
+
+                return new BaseResponse { ResponseCode = 201, Data = model };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return new BaseResponse { ResponseCode = 500, Data = "Something went wrong, please try again later." };
+            }
         }
 
-        public Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage command)
         {
-            return HandleAsync((CreateTaskCommand)command);
+            return await HandleAsync((CreateTaskCommand)command);
         }
     }
 }

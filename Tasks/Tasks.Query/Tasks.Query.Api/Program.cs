@@ -6,6 +6,7 @@ using Tasks.Domain.Repositories;
 using Tasks.Query.Application.Config;
 using Tasks.Query.Application.Dispatchers;
 using Tasks.Query.Application.Handlers;
+using Tasks.Query.Application.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,11 +17,10 @@ builder.Services.Configure<MongoDbTaskConfig>(builder.Configuration.GetSection(n
 builder.Services.AddScoped<AppTaskRepository>();
 builder.Services.AddScoped<InternalHttpClient<AppUserDto>>();
 
-builder.Services.AddScoped<GetTasksForUserQueryHandler>();
-builder.Services.AddScoped<GetTasksForCircleQueryHandler>();
+builder.Services.AddScoped<IMessageHandler<GetTasksForUserQuery>, GetTasksForUserQueryHandler>();
+builder.Services.AddScoped<IMessageHandler<GetTasksForCircleQuery>, GetTasksForCircleQueryHandler>();
 
-builder.Services.AddSingleton<IHandlerService, HandlerService>();
-builder.Services.AddScoped<IQueryDispatcher<TasksDto>, TasksQueryDispatcher>();
+builder.Services.AddScoped<IMessageDispatcher, TasksQueryDispatcher>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

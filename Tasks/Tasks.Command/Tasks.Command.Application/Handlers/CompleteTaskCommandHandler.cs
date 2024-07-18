@@ -1,3 +1,4 @@
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
@@ -5,12 +6,11 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using Tasks.Command.Application.Commands;
 using Tasks.Command.Application.Events;
-using Tasks.Command.Application.Exceptions;
 using Tasks.Domain.Repositories;
 
 namespace Tasks.Command.Application.Handlers
 {
-    public class CompleteTaskCommandHandler : ICommandHandler<CompleteTaskCommand>
+    public class CompleteTaskCommandHandler : IMessageHandler<CompleteTaskCommand>
     {
         private readonly AppTaskRepository _repository;
         private readonly TasksEventProducer _eventProducer;
@@ -25,11 +25,12 @@ namespace Tasks.Command.Application.Handlers
             _logger = logger;
         }
 
-        public async Task HandleAsync(CompleteTaskCommand command)
+        public async Task<BaseResponse> HandleAsync(CompleteTaskCommand command)
         {
             ReplaceOneResult? result = null;
             var model = await _repository.GetTasksById(command.TaskId);
             _logger.LogDebug("For id '{id}' found task: {task}", command.TaskId.ToString(), model);
+
             if (model.CircleId != null && model.CircleId == command.CircleId)
             {
                 model.IsCompleted = true;
@@ -64,19 +65,21 @@ namespace Tasks.Command.Application.Handlers
             }
             else
             {
-                throw new AppTaskException("Task not found");
+                return new BaseResponse { ResponseCode = 400, Data = "Task not found" };
             }
 
             if (result?.ModifiedCount == 0)
             {
                 _logger.LogError("Count of modified documents is 0");
-                throw new AppTaskException("Failed completing task");
+                return new BaseResponse { ResponseCode = 500, Data = "Something went wrong, please try again later." };
             }
+
+            return new BaseResponse { ResponseCode = 200, Data = model };
         }
 
-        public Task HandleAsync(BaseCommand command)
+        public async Task<BaseResponse> HandleAsync(BaseMessage command)
         {
-            return HandleAsync((CompleteTaskCommand)command);
+            return await HandleAsync((CompleteTaskCommand)command);
         }
     }
 }

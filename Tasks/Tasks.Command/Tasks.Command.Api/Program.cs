@@ -1,5 +1,6 @@
 using Core.Configs;
 using Core.MessageHandling;
+using Tasks.Command.Application.Commands;
 using Tasks.Command.Application.Dispatchers;
 using Tasks.Command.Application.Events;
 using Tasks.Command.Application.Handlers;
@@ -15,13 +16,12 @@ builder.Services.Configure<KafkaProducerConfig>(builder.Configuration.GetSection
 builder.Services.AddScoped<AppTaskRepository>();
 builder.Services.AddScoped<TasksEventProducer>();
 
-builder.Services.AddScoped<CreateTaskCommandHandler>();
-builder.Services.AddScoped<DeleteTaskCommandHandler>();
-builder.Services.AddScoped<UpdateTaskCommandHandler>();
-builder.Services.AddScoped<CompleteTaskCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<CreateTaskCommand>, CreateTaskCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<DeleteTaskCommand>, DeleteTaskCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<UpdateTaskCommand>, UpdateTaskCommandHandler>();
+builder.Services.AddScoped<IMessageHandler<CompleteTaskCommand>, CompleteTaskCommandHandler>();
 
-builder.Services.AddSingleton<IHandlerService, HandlerService>();
-builder.Services.AddScoped<ICommandDispatcher, CommandDispatcher>();
+builder.Services.AddScoped<IMessageDispatcher, CommandDispatcher>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -4,11 +4,10 @@ using Core.Messages;
 using Microsoft.Extensions.Logging;
 using Tasks.Domain.Repositories;
 using Tasks.Query.Application.Queries;
-using Tasks.Query.Application.Utilities;
 
 namespace Tasks.Query.Application.Handlers
 {
-    public class GetTasksForCircleQueryHandler : IQueryHandler<GetTasksForCircleQuery, TasksDto>
+    public class GetTasksForCircleQueryHandler : IMessageHandler<GetTasksForCircleQuery>
     {
         private readonly AppTaskRepository _taskRepository;
         private readonly ILogger<GetTasksForCircleQueryHandler> _logger;
@@ -20,14 +19,23 @@ namespace Tasks.Query.Application.Handlers
             _logger = logger;
         }
 
-        public async Task<TasksDto> HandleAsync(GetTasksForCircleQuery query)
+        public async Task<BaseResponse> HandleAsync(GetTasksForCircleQuery query)
         {
-            var tasks = await _taskRepository.GetTasksByCircleId(query.CircleId);
-            _logger.LogDebug("Found {Nr} tasks for id {Id}", tasks.Count, query.CircleId);
-            return new TasksDto { Tasks = tasks.Select(DtoConverter.Convert).ToList() };
+            try
+            {
+                var tasks = await _taskRepository.GetTasksByCircleId(query.CircleId);
+                _logger.LogDebug("Found {Nr} tasks for id {Id}", tasks.Count, query.CircleId);
+                
+                return new BaseResponse { ResponseCode = 200, Data = tasks };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return new BaseResponse { ResponseCode = 500, Data = "Something went wrong, please try again later." };
+            }
         }
 
-        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        public async Task<BaseResponse> HandleAsync(BaseMessage query)
         {
             return await HandleAsync((GetTasksForCircleQuery)query);
         }

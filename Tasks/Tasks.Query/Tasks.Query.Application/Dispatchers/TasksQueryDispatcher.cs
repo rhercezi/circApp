@@ -1,4 +1,3 @@
-using System.Reflection;
 using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
@@ -7,40 +6,30 @@ using Microsoft.Extensions.Logging;
 
 namespace Tasks.Query.Application.Dispatchers
 {
-    public class TasksQueryDispatcher : IQueryDispatcher<TasksDto>
+    public class TasksQueryDispatcher : IMessageDispatcher
     {
-        private Dictionary<Type, Type> _handlers = new();
         private readonly ILogger<TasksQueryDispatcher> _logger;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IHandlerService _handlerService;
         public TasksQueryDispatcher(ILogger<TasksQueryDispatcher> logger,
-                               IServiceProvider serviceProvider,
-                               IHandlerService handlerService)
+                               IServiceProvider serviceProvider)
         {
             _logger = logger;
             _serviceProvider = serviceProvider;
-            _handlerService = handlerService;
         }
 
-        public async Task<TasksDto> DispatchAsync(BaseQuery query)
+        public async Task<BaseResponse> DispatchAsync(BaseMessage query)
         {
-            _handlers = _handlerService.RegisterHandler<BaseQuery, TasksDto>(query, Assembly.GetExecutingAssembly(), typeof(TasksDto));
-
-            if (_handlers.TryGetValue(query.GetType(), out Type? handlerType))
-            {
                 try
                 {
-                    var handler = (IQueryHandler)_serviceProvider.GetRequiredService(handlerType);
-                    return (TasksDto)await handler.HandleAsync(query);
+                    var handlerType = typeof(IMessageHandler<>).MakeGenericType(query.GetType());
+                    var handler = (IMessageHandler)_serviceProvider.GetRequiredService(handlerType);
+                    return await handler.HandleAsync(query);
                 }
                 catch (Exception e)
                 {
                     _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                    throw;
+                    return new BaseResponse{ ResponseCode = 500, Data = "Something went wrong, please try again later." };
                 }
-            }
-            _logger.LogError($"Could not find handler for query. Type: {query.GetType().Name}");
-            return new TasksDto();
         }
     }
 }

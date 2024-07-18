@@ -9,11 +9,10 @@ using Tasks.Domain.Entities;
 using Tasks.Domain.Repositories;
 using Tasks.Query.Application.Config;
 using Tasks.Query.Application.Queries;
-using Tasks.Query.Application.Utilities;
 
 namespace Tasks.Query.Application.Handlers
 {
-    public class GetTasksForUserQueryHandler : IQueryHandler<GetTasksForUserQuery, TasksDto>
+    public class GetTasksForUserQueryHandler : IMessageHandler<GetTasksForUserQuery>
     {
         private readonly AppTaskRepository _taskRepository;
         private readonly InternalHttpClient<AppUserDto> _internalHttp;
@@ -31,38 +30,48 @@ namespace Tasks.Query.Application.Handlers
             _logger = logger;
         }
 
-        public async Task<TasksDto> HandleAsync(GetTasksForUserQuery query)
+        public async Task<BaseResponse> HandleAsync(GetTasksForUserQuery query)
         {
-            var clientConfig = new HttpClientConfig
+            try
             {
-                BaseUrl = _config.Value.BaseUrl,
-                Path = _config.Value.Path + query.UserId.ToString(),
-                Port = _config.Value.Port
-            };
-            _logger.LogDebug("http client config: {@Config}", clientConfig);
-
-            var tasks = new List<AppTaskModel>();
-            if (query.SearchByCircles)
-            {
-                _logger.LogDebug("Searching by circles");
-                var appUserDto = await _internalHttp.GetResource(clientConfig);
-                _logger.LogDebug("User data: {@User}", appUserDto);
-                if (appUserDto.Circles != null && appUserDto.Circles.Count > 0)
+                var clientConfig = new HttpClientConfig
                 {
-                    tasks = await _taskRepository.GetTasksByCircleIds(appUserDto.Circles.Select(c => c.Id).ToList());
-                    _logger.LogDebug("Found {Nr} tasks for circles: {Circles}", tasks.Count, appUserDto.Circles.Select(c => c.Id).ToList());
+                    BaseUrl = _config.Value.BaseUrl,
+                    Path = _config.Value.Path + query.UserId.ToString(),
+                    Port = _config.Value.Port
+                };
+                _logger.LogDebug("http client config: {@Config}", clientConfig);
+    
+                var tasks = new List<AppTaskModel>();
+
+                if (query.SearchByCircles)
+                {
+                    _logger.LogDebug("Searching by circles");
+                    var appUserDto = await _internalHttp.GetResource(clientConfig);
+                    _logger.LogDebug("User data: {@User}", appUserDto);
+                    if (appUserDto.Circles != null && appUserDto.Circles.Count > 0)
+                    {
+                        tasks = await _taskRepository.GetTasksByCircleIds(appUserDto.Circles.Select(c => c.Id).ToList());
+                        _logger.LogDebug("Found {Nr} tasks for circles: {Circles}", tasks.Count, appUserDto.Circles.Select(c => c.Id).ToList());
+                    }
                 }
+                else
+                {
+                    _logger.LogDebug("Searching by user id");
+                    tasks = await _taskRepository.GetTasksByUserId(query.UserId);
+                    _logger.LogDebug("Found {Nr} tasks for user id {Id}", tasks.Count, query.UserId);
+                }
+
+                return  new BaseResponse { ResponseCode = 200, Data = tasks };
             }
-            else
+            catch (Exception e)
             {
-                _logger.LogDebug("Searching by user id");
-                tasks = await _taskRepository.GetTasksByUserId(query.UserId);
-                _logger.LogDebug("Found {Nr} tasks for user id {Id}", tasks.Count, query.UserId);
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return new BaseResponse { ResponseCode = 500, Data = "Something went wrong, please try again later." };
             }
-            return new TasksDto { Tasks = tasks.Select(DtoConverter.Convert).ToList() };
         }
 
-        public async Task<BaseDto> HandleAsync(BaseQuery query)
+        public async Task<BaseResponse> HandleAsync(BaseMessage query)
         {
             return await HandleAsync((GetTasksForUserQuery)query);
         }

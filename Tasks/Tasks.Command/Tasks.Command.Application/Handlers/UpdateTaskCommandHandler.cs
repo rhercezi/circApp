@@ -1,3 +1,4 @@
+using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
@@ -11,7 +12,7 @@ using Tasks.Domain.Repositories;
 
 namespace Tasks.Command.Application.Handlers
 {
-    public class UpdateTaskCommandHandler : ICommandHandler<UpdateTaskCommand>
+    public class UpdateTaskCommandHandler : IMessageHandler<UpdateTaskCommand>
     {
         private readonly AppTaskRepository _repository;
         private readonly TasksEventProducer _eventProducer;
@@ -26,23 +27,40 @@ namespace Tasks.Command.Application.Handlers
             _logger = logger;
         }
 
-        public async Task HandleAsync(UpdateTaskCommand command)
+        public async Task<BaseResponse> HandleAsync(UpdateTaskCommand command)
         {
-            var result = await _repository.UpdateTask(CommandModelConverter.ConvertToModel<AppTaskModel>(command));
-            if (result.ModifiedCount == 0)
+            try
             {
-                _logger.LogError("Count of updated tasks is 0. Command id: {CommandId}", command.Id.ToString());
-                throw new AppTaskException("Failed updating task");
+                var modelOld = await _repository.GetTasksById(command.Id);
+                var modelNew = CommandModelConverter.ConvertToModel<AppTaskModel>(command);
+
+                var result = await _repository.UpdateTask(modelNew);
+
+                if (result.ModifiedCount == 0)
+                {
+                    _logger.LogError("Count of updated tasks is 0. Command id: {CommandId}", command.Id.ToString());
+                    throw new AppTaskException("Failed updating task");
+                }
+
+                var taskEvent = new TaskChangePublicEvent(command.Id, command.GetType().Name)
+
+                {
+                    CircleId = command.CircleId,
+                    UserIds = command.UserModels?.Select(x => x.Id).ToList()
+                };
+
+                await _eventProducer.ProduceAsync(taskEvent);
+
+                return new BaseResponse { ResponseCode = 200, Data = new { taskOld = modelOld, taskNew = modelNew } };
             }
-            var taskEvent = new TaskChangePublicEvent(command.Id, command.GetType().Name)
+            catch (Exception e)
             {
-                CircleId = command.CircleId,
-                UserIds = command.UserModels?.Select(x => x.Id).ToList()
-            };
-            await _eventProducer.ProduceAsync(taskEvent);
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return new BaseResponse { ResponseCode = 500, Data = "Something went wrong, please try again later." };
+            }
         }
 
-        public Task HandleAsync(BaseCommand command)
+        public Task<BaseResponse> HandleAsync(BaseMessage command)
         {
             return HandleAsync((UpdateTaskCommand)command);
         }
