@@ -18,7 +18,7 @@ namespace User.Common.PasswordService
             var hashOriginal = Convert.FromBase64String(hash);
 
             byte[] salt = new byte[128];
-            System.Buffer.BlockCopy(hashOriginal, 0, salt, 0, 128);
+            Buffer.BlockCopy(hashOriginal, 0, salt, 0, 128);
 
             var hashNew = GetHash(password, salt, userId);
             return hashNew.SequenceEqual(hashOriginal);
@@ -40,8 +40,8 @@ namespace User.Common.PasswordService
         private byte[] ConcatinateArrays(byte[] password, byte[] salt)
         {
             byte[] concat = new byte[256];
-            System.Buffer.BlockCopy(salt, 0 , concat, 0, 128);
-            System.Buffer.BlockCopy(password, 0, concat, 128, 128);
+            Buffer.BlockCopy(salt, 0 , concat, 0, 128);
+            Buffer.BlockCopy(password, 0, concat, 128, 128);
 
             return concat;
         }

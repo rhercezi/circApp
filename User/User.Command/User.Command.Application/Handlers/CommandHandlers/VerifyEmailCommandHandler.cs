@@ -23,7 +23,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
         public async Task<BaseResponse> HandleAsync(VerifyEmailCommand command)
         {
 
-            var idLinkModel = _idLinkRepo.GetByIdAsync(command.idLink).Result.First();
+            var idLinkModel = _idLinkRepo.GetByIdAsync(command.IdLink).Result.First();
             
             if (idLinkModel == null)
             {
@@ -49,7 +49,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 )
             );
 
-            await _idLinkRepo.DeleteAsync(command.idLink);
+            await _idLinkRepo.DeleteAsync(command.IdLink);
 
             return new BaseResponse { ResponseCode = 204 };
         }
