@@ -8,7 +8,6 @@ using User.Query.Application.EventConsuming;
 using User.Query.Application.Handlers;
 using User.Query.Domain.Repositories;
 using User.Query.Domain.DatabaseContext;
-using Core.DTOs;
 using Core.Events;
 using Core.Utilities;
 using User.Query.Api.Config;

@@ -4,7 +4,6 @@ using Core.Utilities;
 using User.Command.Application.Commands;
 using User.Command.Domin.Stores;
 using User.Common.DAOs;
-using User.Command.Domain.Exceptions;
 using User.Common.Events;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;

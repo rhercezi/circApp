@@ -1,13 +1,9 @@
-using Azure;
-using Confluent.Kafka;
 using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Core.Utilities;
-using DnsClient;
 using Microsoft.Extensions.Logging;
 using User.Query.Application.DTOs;
-using User.Query.Application.Exceptions;
 using User.Query.Application.Queries;
 using User.Query.Domain.Entities;
 using User.Query.Domain.Repositories;

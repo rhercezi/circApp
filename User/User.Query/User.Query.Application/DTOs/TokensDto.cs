@@ -1,5 +1,3 @@
-using Core.DTOs;
-
 namespace User.Query.Application.DTOs
 {
     public class TokensDto
