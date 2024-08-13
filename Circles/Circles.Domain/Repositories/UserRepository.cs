@@ -66,7 +66,7 @@ namespace Circles.Domain.Repositories
                                          .Lookup("circle.user.map", "_id", "UserId", "Map")
                                          .Lookup("circles", "Map.CircleId", "_id", "Circles")
                                          .As<AppUserDto>()
-                                         .FirstAsync();
+                                         .FirstOrDefaultAsync();
 
             return aggregation;
         }
@@ -93,7 +93,7 @@ namespace Circles.Domain.Repositories
                                                       .Set(u => u.Email, user.Email);
             var result = await _collection.UpdateOneAsync(filter, update);
 
-            if (!result.IsAcknowledged || result.ModifiedCount == 0)
+            if (!result.IsAcknowledged && result.ModifiedCount == 0)
             {
                 _logger.LogError($"User update failed for object: {user}");
                 throw new CirclesDbException($"User update failed for object: {user}");

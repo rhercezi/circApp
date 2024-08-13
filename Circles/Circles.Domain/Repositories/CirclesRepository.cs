@@ -53,7 +53,7 @@ namespace Circles.Domain.Repositories
                                          .Lookup("circle.user.map", "_id", "CircleId", "Map")
                                          .Lookup("users", "Map.UserId", "_id", "Users")
                                          .As<CircleDto>()
-                                         .FirstAsync();
+                                         .FirstOrDefaultAsync();
 
             return aggregation;
         }
@@ -78,7 +78,7 @@ namespace Circles.Domain.Repositories
                                                      .Set(c => c.Color, circle.Color);
             var result = await _collection.UpdateOneAsync(filter, update);
 
-            if (!result.IsAcknowledged || result.ModifiedCount == 0)
+            if (!result.IsAcknowledged && result.ModifiedCount == 0)
             {
                 _logger.LogError($"Circle update failed for object: {circle}");
                 throw new CirclesDbException($"Circle update failed for object: {circle}");
@@ -91,7 +91,7 @@ namespace Circles.Domain.Repositories
             var filter = Builders<CircleModel>.Filter.Eq(c => c.CircleId, circleId);
             var result = await _collection.DeleteOneAsync(filter);
 
-            if (!result.IsAcknowledged || result.DeletedCount == 0)
+            if (!result.IsAcknowledged && result.DeletedCount == 0)
             {
                 _logger.LogError($"Delete circle failed for id: {circleId}");
                 throw new CirclesDbException($"Delete circle failed for id: {circleId}");
