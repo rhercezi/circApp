@@ -32,12 +32,12 @@ const Users = {
     update: (body: UserDto) => requests.patch('/v1/user', body),
     delete: (id: string, password: string) => requests.delete('/v1/user/', { params: { id, password } }),
     verifyEmail: (idLink: string) => requests.post(`/v1/user/verify-email/${idLink}`,{}),
-    updatePassword: (body: PasswordUpdateDto) => requests.patch('/v1/user/password', body),
-    resetPassword: (body: PasswordUpdateDto) => requests.patch('/v1/user/password-id-link', body),
+    updatePassword: (body: PasswordUpdateDto) => requests.put('/v1/user/password', body),
+    resetPassword: (body: PasswordUpdateDto) => requests.put('/v1/user/password-id-link', body),
     login: (username: string, password: string) => requests.post<UserDto>('/v1/auth', { username, password }),
     refresh: () => requests.post('/v1/auth/token', {}),
     Logout: () => requests.post('/v1/auth/logout', {}),
-    resetPasswordRequest: (username: string) => requests.post('/v1/user/password/reset', { username }),
+    resetPasswordRequest: (username: string) => requests.put('/v1/user/password/reset', { username }),
 
 }
 
@@ -95,7 +95,8 @@ axios.interceptors.response.use(
                 return axios.request(error.config);
             } catch (refreshError) {
                 console.error(refreshError);
-                window.location.href = '/login';
+                localStorage.removeItem('user');
+                throw refreshError;
             }
         }
         return Promise.reject(error);

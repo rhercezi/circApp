@@ -18,7 +18,9 @@ export default observer(function Login(){
             initialValues={{ username: '', password: '' }}
             onSubmit={async (values) => {
                 await userStore.login(values.username, values.password);
-                navigate('/dashboard');
+                if (userStore.isLoggedIn) {
+                    navigate('/dashboard');
+                }
             }}>
             {({ handleSubmit, isSubmitting }) => (
                 <Form onSubmit={handleSubmit}>

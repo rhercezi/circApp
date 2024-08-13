@@ -3,13 +3,13 @@ import CircleStore from "./circleStore";
 import UserStore from "./userStore";
 
 interface Store {
-    circleStore: CircleStore
     userStore: UserStore
+    circleStore: CircleStore
 }
 
 export const store: Store = {
-    circleStore: new CircleStore(),
-    userStore: new UserStore()
+    userStore: new UserStore(),
+    circleStore: new CircleStore()
 }
 
 export const StoreContext = React.createContext(store);

@@ -18,7 +18,9 @@ export default class UserStore {
 
         if (this.user) {
             this.isLoggedIn = true;
-        } 
+        } else {
+            this.isLoggedIn = false;
+        }
     }
 
     createUser = async (user: UserDto) => {
@@ -134,8 +136,8 @@ export default class UserStore {
         } catch (error: any) {
             runInAction(() => {
                 this.isLoggedIn = false;
-                if (error.response && error.response.status === 401) {
-                    this.errorMap.set('login', 'Invalid username or password');
+                if (error.response && error.response.status === 401 || error.response.status === 400) {
+                    this.errorMap.set('login', error.response.data);
                 } else {
                     this.errorMap.set('login', 'Something went wrong, please try again later.');
                 }
@@ -152,15 +154,13 @@ export default class UserStore {
             this.loaderText = 'Logging out...';
             this.loading = true;
             await apiClient.Users.Logout();
-            runInAction(() => {
-                this.user = undefined;
-                localStorage.removeItem('user');
-                this.isLoggedIn = false;
-            });
         } catch (error) {
             console.error(error);
         } finally {
             runInAction(() => {
+                this.user = undefined;
+                localStorage.removeItem('user');
+                this.isLoggedIn = false;
                 this.loading = false;
             });
         }
