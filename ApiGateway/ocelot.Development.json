@@ -5,12 +5,16 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_command_api",
+                    "Host": "localhost",
                     "Port": 5020
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/create",
-            "UpstreamHttpMethod": [ "Post" ]
+            "UpstreamHttpMethod": [ "Post" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/user/{id}",
@@ -22,7 +26,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/user",
-            "UpstreamHttpMethod": [ "Patch", "Delete" ]
+            "UpstreamHttpMethod": [ "Patch", "Delete" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/user/password",
@@ -34,7 +42,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/password",
-            "UpstreamHttpMethod": [ "Put" ]
+            "UpstreamHttpMethod": [ "Put" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/user/password-id-link",
@@ -98,7 +110,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/by-email",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Get" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/user/by-username",
@@ -110,7 +126,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/by-username",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Get" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/auth",
@@ -134,7 +154,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/auth/token",
-            "UpstreamHttpMethod": [ "Post" ]
+            "UpstreamHttpMethod": [ "Post" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/auth/logout",
@@ -162,7 +186,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles",
-            "UpstreamHttpMethod": [ "Post", "Delete" ]
+            "UpstreamHttpMethod": [ "Post", "Delete" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/circles/{id}",
@@ -174,7 +202,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/{id}",
-            "UpstreamHttpMethod": [ "Patch" ]
+            "UpstreamHttpMethod": [ "Patch" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/circles/confirm",
@@ -186,7 +218,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/confirm",
-            "UpstreamHttpMethod": [ "Post" ]
+            "UpstreamHttpMethod": [ "Post" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/circles/add-users",
@@ -198,7 +234,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/add-users",
-            "UpstreamHttpMethod": [ "Post" ]
+            "UpstreamHttpMethod": [ "Post" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/Circles/remove-users",
@@ -210,7 +250,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/remove-users",
-            "UpstreamHttpMethod": [ "Post" ]
+            "UpstreamHttpMethod": [ "Post" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/circles/{userId}",
@@ -222,7 +266,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/{userId}",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Get" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/circles/users/{circleId}",
@@ -234,7 +282,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/users/{circleId}",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Get" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/circles/search/{qWord}",
@@ -246,7 +298,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/circles/search/{qWord}",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Get" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/appointments",
@@ -258,7 +314,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments",
-            "UpstreamHttpMethod": [ "Post" ]
+            "UpstreamHttpMethod": [ "Post" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/appointments/{id}",
@@ -271,6 +331,10 @@
             ],
             "UpstreamPathTemplate": "/v1/appointments/{id}",
             "UpstreamHttpMethod": [ "Patch", "Delete" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
             "ClaimsToHeaders": [
                 {
                   "Claim": "sub",
@@ -288,7 +352,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/details",
-            "UpstreamHttpMethod": [ "Post" ]
+            "UpstreamHttpMethod": [ "Post" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/appointments/details/{id}",
@@ -301,6 +369,10 @@
             ],
             "UpstreamPathTemplate": "/v1/appointments/details/{id}",
             "UpstreamHttpMethod": [ "Patch", "Delete" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
             "ClaimsToHeaders": [
                 {
                   "Claim": "sub",
@@ -318,7 +390,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/circle/{id}",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Get" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/appointments/user/{id}",
@@ -330,7 +406,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/appointments/user/{id}",
-            "UpstreamHttpMethod": [ "Get" ]
+            "UpstreamHttpMethod": [ "Get" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/tasks",
@@ -343,6 +423,10 @@
             ],
             "UpstreamPathTemplate": "/v1/tasks",
             "UpstreamHttpMethod": [ "Post", "Put", "Patch"],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
             "ClaimsToHeaders": [
                 {
                   "Claim": "sub",
@@ -361,6 +445,10 @@
             ],
             "UpstreamPathTemplate": "/v1/tasks/{id}",
             "UpstreamHttpMethod": [ "Delete"],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
             "ClaimsToHeaders": [
                 {
                   "Claim": "sub",
@@ -378,7 +466,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/tasks/circle/{circleId}",
-            "UpstreamHttpMethod": [ "Get"]
+            "UpstreamHttpMethod": [ "Get"],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/tasks/user/{userId}",
@@ -390,7 +482,11 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/tasks/user/{userId}",
-            "UpstreamHttpMethod": [ "Get"]
+            "UpstreamHttpMethod": [ "Get"],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
         }
     ],
     "GlobalConfiguratioin": {
