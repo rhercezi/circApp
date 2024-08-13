@@ -26,6 +26,7 @@ export default function RemoveUsersDialog({ open, setOpen }: Props) {
     const [options, setOptions] = useState<UserDto[]>([]);
     const [loadingMain, setLoadingMain] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    circleStore.getCirclesByUser();
     const circles: CircleDto[] = [...circleStore.circlesMap.values()].filter(circle => circle.creatorId === userStore.user?.id!)
     const handleClose = () => {
         setOpen(false);

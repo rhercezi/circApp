@@ -47,6 +47,7 @@ export default function CreateCircleDialog({ open, setOpen }: Props) {
             setIsSuccess(true);
         } else {
             setIsSuccess(false);
+            circleStore.getCirclesByUser();
         }
         setLoadingMain(false);
     };

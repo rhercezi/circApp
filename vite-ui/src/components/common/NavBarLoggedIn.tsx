@@ -10,13 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 
 export default function NavBarLoggedIn() {
-    const { userStore, circleStore } = useStore();
+    const { userStore } = useStore();
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const [openCirclesDrower, setOpenCirclesDrower] = useState(false);
     const [elementChange, setElementChange] = useState<[string, boolean]>(['', false]);
-    circleStore.getCirclesByUSer();
 
     const handleCirclesDrower = (openDrower: boolean) => () => {
         setOpenCirclesDrower(openDrower);

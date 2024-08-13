@@ -38,6 +38,7 @@ export default function AddUsersDialog({ open, setOpen }: Props) {
     const [loading, setLoading] = useState(false);
     const [loadingMain, setLoadingMain] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    circleStore.getCirclesByUser();
     const circles: CircleDto[] = [...circleStore.circlesMap.values()].filter(circle => circle.creatorId === userStore.user?.id!)
     const handleClose = () => {
         setOpen(false);

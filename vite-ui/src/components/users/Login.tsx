@@ -6,7 +6,7 @@ import Loader from "../common/Loader";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default observer(function Login(){
-    const { userStore } = useStore();
+    const { userStore, circleStore } = useStore();
     const navigate = useNavigate();
 
     if (userStore.loading) {
@@ -19,6 +19,7 @@ export default observer(function Login(){
             onSubmit={async (values) => {
                 await userStore.login(values.username, values.password);
                 if (userStore.isLoggedIn) {
+                    await circleStore.setUserId(userStore.user?.id!);
                     navigate('/dashboard');
                 }
             }}>

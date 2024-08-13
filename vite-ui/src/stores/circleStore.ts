@@ -1,14 +1,13 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { CircleDto } from "../api/dtos/circle_dtos/CircleDto";
 import apiClient from "../api/apiClient";
-import { UserDto } from "../api/dtos/user_dtos/UserDto";
 import { AddUsersDto } from "../api/dtos/circle_dtos/AddUsersDto";
 import { RemoveUsersDto } from "../api/dtos/circle_dtos/RemoveUsersDto";
 
 
 export default class CircleStore {
     circlesMap = new Map<string, CircleDto>();
-    user: UserDto | undefined = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : undefined;
+    userId: string | undefined = undefined;
     errorMap = new Map<string, string>();
     loading: boolean = false;
 
@@ -19,22 +18,23 @@ export default class CircleStore {
 
     constructor() {
         makeAutoObservable(this);
+    }
 
-        if (this.user) {
-            this.getCirclesByUSer();
+    setUserId = async (userId: string) => {
+        if (userId) {
+            this.userId = userId;
+            this.getCirclesByUser();
         }
     }
 
-    getCirclesByUSer = async () => {
-        if (this.user) {
-            try {
-                let data = await apiClient.Circles.getCirclesByUser(this.user!.id);
-                data.circles.forEach((circle: CircleDto) => {
-                    this.circlesMap.set(circle.id, circle);
-                });
-            } catch (error) {
-                console.error(error);
-            }
+    getCirclesByUser = async () => {
+        try {
+            let data = await apiClient.Circles.getCirclesByUser(this.userId!);
+            data.circles.forEach((circle: CircleDto) => {
+                this.circlesMap.set(circle.id, circle);
+            });
+        } catch (error) {
+            console.error(error);
         }
     }
 
@@ -62,7 +62,7 @@ export default class CircleStore {
             await apiClient.Circles.create(circle);
             runInAction(() => {
                 this.errorMap.delete('createCircle');
-                this.getCirclesByUSer();
+                this.getCirclesByUser();
             });
         } catch (error: any) {
             runInAction(() => {
@@ -91,7 +91,7 @@ export default class CircleStore {
             await apiClient.Circles.delete(circleId);
             runInAction(() => {
                 this.circlesMap.delete(circleId);
-                this.getCirclesByUSer();
+                this.getCirclesByUser();
             });
         } catch (error) {
             console.error(error);
