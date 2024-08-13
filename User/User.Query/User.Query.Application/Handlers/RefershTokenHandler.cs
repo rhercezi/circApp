@@ -78,7 +78,7 @@ namespace User.Query.Application.Handlers
                                     Exp = long.Parse(_jwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "exp")?.Value)
                                 };
 
-                                await _refreshTokenRepository.DeleteRefreshToken(tokenModel);
+                                await _refreshTokenRepository.DeleteRefreshTokenByUserId(tokenModel.UserId);
                                 await _refreshTokenRepository.AddRefreshToken(refreshTokenModel);
 
                                 return new BaseResponse { ResponseCode = 200, Data = loginDto };

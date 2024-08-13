@@ -10,11 +10,15 @@ namespace User.Query.Application.Handlers
     public class UserDeletedEventHandler : IMessageHandler<UserDeletedEvent>
     {
         private readonly UserRepository _userRepository;
+        private readonly RefreshTokenRepository _refreshTokenRepository;
         private readonly ILogger<UserDeletedEventHandler> _logger;
-        public UserDeletedEventHandler(UserRepository userRepository, ILogger<UserDeletedEventHandler> logger)
+        public UserDeletedEventHandler(UserRepository userRepository,
+                                       ILogger<UserDeletedEventHandler> logger,
+                                       RefreshTokenRepository refreshTokenRepository)
         {
             _userRepository = userRepository;
             _logger = logger;
+            _refreshTokenRepository = refreshTokenRepository;
         }
 
         public async Task<BaseResponse> HandleAsync(UserDeletedEvent xEvent)
@@ -22,6 +26,7 @@ namespace User.Query.Application.Handlers
             try
             {
                 await _userRepository.DeleteUser(xEvent);
+                await _refreshTokenRepository.DeleteRefreshTokenByUserId(xEvent.Id.ToString());
                 return new BaseResponse { ResponseCode = 200, Message = "User deleted successfully." };
             }
             catch (Exception e)

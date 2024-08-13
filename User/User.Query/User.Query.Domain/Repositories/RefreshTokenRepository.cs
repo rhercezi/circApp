@@ -38,5 +38,13 @@ namespace User.Query.Domain.Repositories
             context.Remove(refreshToken);
             await context.SaveChangesAsync();
         }
+
+        public async Task DeleteRefreshTokenByUserId(string userId)
+        {
+            using var context = _context.CreateDbContext();
+            var refreshTokens = await context.RefreshTokens.Where(rt => rt.UserId == userId).ToListAsync();
+            context.RemoveRange(refreshTokens);
+            await context.SaveChangesAsync();
+        }
     }
 }

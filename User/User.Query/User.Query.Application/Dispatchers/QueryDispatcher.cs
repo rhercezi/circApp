@@ -29,12 +29,12 @@ namespace User.Query.Application.Dispatchers
                 catch (AuthException e)
                 {
                     _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                    throw e;
+                    return new BaseResponse { ResponseCode = 400, Message = e.Message };
                 }
                 catch (Exception e)
                 {
                     _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                    throw new QueryApplicationException("Auth dispatcher failed", e);
+                   return new BaseResponse { ResponseCode = 500, Message = e.Message };
                 }
         }
     }
