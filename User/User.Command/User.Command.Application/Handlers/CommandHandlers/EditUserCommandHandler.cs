@@ -3,6 +3,7 @@ using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
 using User.Command.Application.Commands;
+using User.Command.Application.Validation;
 using User.Command.Domain.Aggregates;
 using User.Command.Domain.Events;
 using User.Command.Domin.Stores;
@@ -23,6 +24,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
 
         public async Task<BaseResponse> HandleAsync(EditUserCommand command)
         {
+            UpdateUserCommandValidator validator = new(_eventStore);
             var events = await _eventStore.GetEventsAsync(command.Id);
             if (events.Count == 0) return new BaseResponse{ResponseCode=404, Message="No users found with the given ID."};
             UserAggregate userAggregate = new(_eventStore);
@@ -46,6 +48,8 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 );
 
             command.UpdateJson.ApplyTo(userToUpdate);
+
+            await validator.ValidateCommand(userToUpdate);
 
             userAggregate.InvokAction<UserEditedEvent>(
                 userToUpdate

@@ -128,9 +128,13 @@ namespace User.Command.Api.Controllers
                     UpdateJson = jDoc
                 };
                 var response = await _dispatcher.DispatchAsync(command);
-                if (response.ResponseCode < 500)
+                if (response.ResponseCode < 299)
                 {
                     return StatusCode(response.ResponseCode, response.Data);
+                }
+                if (response.ResponseCode > 299 && response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Message);
                 }
                 else
                 {
