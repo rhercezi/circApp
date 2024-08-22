@@ -29,7 +29,7 @@ export default function VerifyEmail() {
     }
 
     return (
-        <div>
+        <div className="control-container">
             <h2>Something went wrong, please try again later.</h2>
         </div>
     )

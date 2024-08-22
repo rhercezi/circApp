@@ -50,11 +50,32 @@ export default class UserStore {
         }
     }
 
-    updateUser = async (user: UserDto) => {
+    updateUser = async (id: string, jsonPatch: string) => {
+        this.loaderText = 'Updating user...';
+        this.loading = true;
+        this.isSuccess = false;
         try {
-            await apiClient.Users.update(user);
-        } catch (error) {
-            console.error(error);
+            let data = await apiClient.Users.update(id, jsonPatch);
+            runInAction(() => {
+                this.user = data.data;
+                localStorage.setItem('user', JSON.stringify(data.data));
+                this.errorMap.delete('updateUser');
+                this.isSuccess = true;
+            });
+        } catch (error: any) {
+            if (error.response && error.response.status < 500) {
+                runInAction(() => {
+                    this.errorMap.set('updateUser', error.response.data);
+                });
+            } else {
+                runInAction(() => {
+                    this.errorMap.set('updateUser', 'Something went wrong, please try again later.');
+                });
+            }
+        } finally {
+            runInAction(() => {
+                this.loading = false;
+            });
         }
     }
 
@@ -67,10 +88,23 @@ export default class UserStore {
     }
 
     updatePassword = async (data: PasswordUpdateDto) => {
+        this.loaderText = 'Updating password...';
+        this.loading = true;
+        this.isSuccess = false;
         try {
             await apiClient.Users.updatePassword(data);
-        } catch (error) {
-            console.error(error);
+            runInAction(() => {
+                this.errorMap.delete('updatePwd');
+                this.isSuccess = true;
+            });
+        } catch (error: any) {
+            if (error.response && error.response.status === 422) {
+                runInAction(() => this.errorMap.set('updatePwd', error.response.data));
+            }
+        } finally {	
+            runInAction(() => {
+                this.loading = false;
+            });
         }
     }
 
@@ -160,6 +194,7 @@ export default class UserStore {
             runInAction(() => {
                 this.user = undefined;
                 localStorage.removeItem('user');
+                console.log('User logged out');
                 this.isLoggedIn = false;
                 this.loading = false;
             });

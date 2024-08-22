@@ -32,6 +32,14 @@ export default function NavBarLoggedIn() {
         navigate('/login');
     }
 
+    const openProfile = () => {
+        navigate('/profile');
+    }
+
+    const openSettings = () => {
+        navigate('/settings');
+    }
+
     const user = userStore.user;
 
 
@@ -105,11 +113,11 @@ export default function NavBarLoggedIn() {
                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     >
-                        <MenuItem onClick={handleClose}>
+                        <MenuItem onClick={openProfile}>
                             <Avatar /> Profile
                         </MenuItem>
                         <Divider />
-                        <MenuItem onClick={handleClose}>
+                        <MenuItem onClick={openSettings}>
                             <ListItemIcon>
                                 <Settings fontSize="small" />
                             </ListItemIcon>
@@ -124,8 +132,6 @@ export default function NavBarLoggedIn() {
                     </Menu>
                 </div>
             </Box>
-
-            <Divider />
         </>
     )
 }

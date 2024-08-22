@@ -29,6 +29,14 @@
   padding: 0 0.5rem 0 0;
 }
 
+.control-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 93vh;
+}
+
 .loader {
   height: 100vh;
   display: flex;
@@ -57,3 +65,21 @@
   padding: 1rem;
 }
 
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  text-align: left;
+  padding: 0;
+  width: 100%;
+}
+
+.profile-element {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  text-align: left;
+  padding: 1rem;
+  width: 100%;
+}

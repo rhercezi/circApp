@@ -82,14 +82,14 @@ namespace User.Query.Api.Controllers
                     RefreshToken = refreshToken
                 };
 
-                TokensDto tokens = new();
+                LoginDto loginDto = new();
 
                 try
                 {
                     var response = await _authDispatcher.DispatchAsync(refreshTokenQuery);
                     if (response.ResponseCode < 300 && response.Data != null)
                     {
-                        tokens = (TokensDto)response.Data;
+                        loginDto = (LoginDto)response.Data;
                     }
                     else
                     {
@@ -122,8 +122,8 @@ namespace User.Query.Api.Controllers
                     MaxAge = TimeSpan.FromHours(_cookieConfig.Value.RefreshMaxAge)
                 };
 
-                HttpContext.Response.Cookies.Append("AccessToken", tokens.AccessToken!, caccessOptions);
-                HttpContext.Response.Cookies.Append("RefreshToken", tokens.RefreshToken!, refreshOptions);
+                HttpContext.Response.Cookies.Append("AccessToken", loginDto.Tokens.AccessToken!, caccessOptions);
+                HttpContext.Response.Cookies.Append("RefreshToken", loginDto.Tokens.RefreshToken!, refreshOptions);
 
                 return StatusCode(200);
             }

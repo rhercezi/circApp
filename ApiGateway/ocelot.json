@@ -21,7 +21,7 @@
                     "Port": 80
                 }
             ],
-            "UpstreamPathTemplate": "/v1/user",
+            "UpstreamPathTemplate": "/v1/user/{id}",
             "UpstreamHttpMethod": [ "Patch", "Delete" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",

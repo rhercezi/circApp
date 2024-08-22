@@ -25,15 +25,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <NavBar />
-      <Box sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '93vh'
-      }}>
         <Outlet />
-      </Box>
     </ThemeProvider>
     
   )

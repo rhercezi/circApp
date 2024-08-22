@@ -10,11 +10,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/user/create",
-            "UpstreamHttpMethod": [ "Post" ],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer",
-                "AllowedScopes": []
-            }
+            "UpstreamHttpMethod": [ "Post" ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/user/{id}",
@@ -25,7 +21,7 @@
                     "Port": 5020
                 }
             ],
-            "UpstreamPathTemplate": "/v1/user",
+            "UpstreamPathTemplate": "/v1/user/{id}",
             "UpstreamHttpMethod": [ "Patch", "Delete" ],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
@@ -154,11 +150,7 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/auth/token",
-            "UpstreamHttpMethod": [ "Post" ],
-            "AuthenticationOptions": {
-                "AuthenticationProviderKey": "Bearer",
-                "AllowedScopes": []
-            }
+            "UpstreamHttpMethod": [ "Post" ]
         },
         {
             "DownstreamPathTemplate": "/api/v1/auth/logout",

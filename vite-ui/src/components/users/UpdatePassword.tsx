@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { PasswordUpdateDto } from "../../api/dtos/user_dtos/PasswordUpdateDto";
 import { useStore } from "../../stores/store";
 import Loader from "../common/Loader";
 import { Field, FieldProps, Form, Formik } from "formik";
@@ -13,14 +13,13 @@ const validationSchema = Yup.object().shape({
             'Must contain at least one uppercase letter, one lowercase letter, one number, ' +
             'and one special character and must be between 8-20 characters'),
     confirmPassword: Yup.string().required('Required field')
-        .oneOf([Yup.ref('password')], 'Passwords must match')
+        .oneOf([Yup.ref('password')], 'Passwords must match'),
+    oldPassword: Yup.string().required('Required field')
 })
 
-export default function ResetPassword() {
+export default function UpdatePassword() {
 
-    const { id } = useParams<{ id: string }>();
     const { userStore } = useStore();
-    const navigate = useNavigate();
 
     if (userStore.loading) {
         return (
@@ -29,17 +28,17 @@ export default function ResetPassword() {
     }
 
     return (
-        <div className="control-container">
+        <div className="profile-element">
             <Formik
-                initialValues={{ password: '', confirmPassword: '' }}
+                initialValues={{ password: '', confirmPassword: '', oldPassword: '' }}
                 onSubmit={async (values) => {
-                    userStore.resetPassword({ idLink: id, password: values.password, id: undefined, oldPassword: undefined }).then(
-                        () => {
-                            if (!userStore.errorMap.has('resetPwd')) {
-                                navigate('/login');
-                            }
-                        })
-
+                    const passwordUpdateDto: PasswordUpdateDto = {
+                        id: userStore.user!.id,
+                        oldPassword: values.oldPassword,
+                        password: values.password,
+                        idLink: ''
+                    };
+                    userStore.updatePassword(passwordUpdateDto);
                 }}
                 validationSchema={validationSchema}>
                 {({ errors, touched }) => (
@@ -50,9 +49,8 @@ export default function ResetPassword() {
                             justifyContent: 'stretch',
                             gap: '1rem'
                         }}>
-                            <Alert severity="info">To continue please enter new password</Alert>
 
-                            {userStore.errorMap.has('resetPwd') && <Alert severity="error">{userStore.errorMap.get('resetPwd')}</Alert>}
+                            {userStore.errorMap.has('Pwd') && <Alert severity="error">{userStore.errorMap.get('resetPwd')}</Alert>}
 
 
                             <Field name="password">
@@ -84,7 +82,21 @@ export default function ResetPassword() {
                                 )}
                             </Field>
 
-                            <Button variant="contained" type="submit" >Send</Button>
+                            <Field name="oldPassword">
+                                {({ field }: FieldProps) => (
+                                    <Tooltip title="Please provide your password">
+                                        <TextField
+                                            {...field}
+                                            label="Old Password"
+                                            type="password"
+                                            error={!!errors.confirmPassword && touched.confirmPassword}
+                                            helperText={errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword : ''}
+                                        />
+                                    </Tooltip>
+                                )}
+                            </Field>
+
+                            <Button variant="contained" type="submit" >Update Password</Button>
                         </Box>
                     </Form>
                 )}

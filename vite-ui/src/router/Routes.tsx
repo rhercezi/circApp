@@ -6,6 +6,7 @@ import ResetPasswordForm from "../components/users/ResetPasswordForm";
 import ResetPassword from "../components/users/ResetPassword";
 import VerifyEmail from "../components/users/VerifyEmail";
 import Dashboard from "../components/common/Dashboard";
+import Profile from "../components/users/Profile";
 
 export const routes: RouteObject[] = [
     {
@@ -17,7 +18,8 @@ export const routes: RouteObject[] = [
             {path: 'verify-email/:id', element: <VerifyEmail />},
             {path: 'reset-password', element: <ResetPasswordForm />},
             {path: 'reset-password/:id', element: <ResetPassword />},
-            {path: 'dashboard', element: <Dashboard />}
+            {path: 'dashboard', element: <Dashboard />},
+            {path: 'profile', element: <Profile />}
         ]
     }
 ]

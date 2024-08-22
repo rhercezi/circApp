@@ -1,5 +1,4 @@
-import { Avatar, Box, Divider, IconButton, Tooltip, Typography } from "@mui/material";
-import React from "react";
+import { Avatar, Box, IconButton, Tooltip, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 export default function NavBarNLI() {    
@@ -24,7 +23,6 @@ export default function NavBarNLI() {
                     </Tooltip>
                 </div>
             </Box>
-            <Divider />
         </>
     )
 }

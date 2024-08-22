@@ -23,7 +23,7 @@ export default observer(function ResetPasswordForm() {
     }
 
     return (
-        <>
+        <div className="control-container">
             <Formik
                 initialValues={{ username: '', email: '' }}
                 onSubmit={async (values) => {
@@ -62,6 +62,6 @@ export default observer(function ResetPasswordForm() {
                     </Form>
                 )}
             </Formik>
-        </>
+        </div>
     );
 })

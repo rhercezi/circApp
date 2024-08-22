@@ -11,7 +11,7 @@ import { UsersDto } from "./dtos/user_dtos/UsersDto";
 import { AddUsersDto } from "./dtos/circle_dtos/AddUsersDto";
 import { RemoveUsersDto } from "./dtos/circle_dtos/RemoveUsersDto";
 
-axios.defaults.baseURL = "http://localhost:5018";
+axios.defaults.baseURL = "http://localhost:5028";
 
 const body = <T>(response: AxiosResponse<T>) => response.data;
 
@@ -20,7 +20,7 @@ const requests = {
     get: <T>(url: string, config?: any) => axios.get<T>(url, config).then(body),
     post: <T>(url: string, body: any) => axios.post<T>(url, body).then(body),
     put: (url: string, body: any) => axios.put(url, body).then(body),
-    patch: (url: string, body: any) => axios.patch(url, body).then(body),
+    patch: (url: string, body: any, p0: { headers: { 'Content-Type': string; }; }) => axios.patch(url, body, p0).then(body),
     delete: (url: string, config?: any) => axios.delete(url, config).then(body)
 
 }
@@ -29,7 +29,7 @@ const Users = {
 
     get: (id: string) => requests.get<UserDto>(`/v1/user/by-id/${id}`),
     create: (body: UserDto) => requests.post('/v1/user/create', body),
-    update: (body: UserDto) => requests.patch('/v1/user', body),
+    update: (id:string, jsonPatch: string) => requests.patch(`/v1/user/${id}`, jsonPatch, { headers: { 'Content-Type': 'application/json-patch+json' } }),
     delete: (id: string, password: string) => requests.delete('/v1/user/', { params: { id, password } }),
     verifyEmail: (idLink: string) => requests.post(`/v1/user/verify-email/${idLink}`,{}),
     updatePassword: (body: PasswordUpdateDto) => requests.put('/v1/user/password', body),
@@ -47,7 +47,7 @@ const Circles = {
     getUsersInCircle: (id: string) => requests.get<UsersByCircleDto>(`/v1/circles/users/${id}`),
     searchUsers: (search: string) => requests.get<UsersDto>(`/v1/circles/search/${search}`),
     create: (body: CircleDto) => requests.post('/v1/circles', body),
-    update: (body: CircleDto) => requests.patch('/v1/circles', body),
+    update: (body: CircleDto) => requests.patch('/v1/circles', body, { headers: { 'Content-Type': 'application/json' } }),
     delete: (id: string) => requests.delete('/v1/circles', { params: { id } }),
     confirmJoin: (body: CircleDto) => requests.post('/v1/circles/confirm', body),
     addUsers: (body: AddUsersDto) => requests.post('/v1/circles/add-users', body),
@@ -58,10 +58,10 @@ const Circles = {
 const Appointments = {
 
     create: (body: AppointmentDto) => requests.post('/v1/appointments', body),
-    update: (body: AppointmentDto) => requests.patch('/v1/appointments', body),
+    update: (body: AppointmentDto) => requests.patch('/v1/appointments', body, { headers: { 'Content-Type': 'application/json' } }),
     delete: (id: string) => requests.delete(`/v1/appointments/${id}`),
     createDetails: (body: AppointmentDto) => requests.post('/v1/appointments/details', body),
-    updateDetails: (body: AppointmentDto) => requests.patch('/v1/appointments/details', body),
+    updateDetails: (body: AppointmentDto) => requests.patch('/v1/appointments/details', body, { headers: { 'Content-Type': 'application/json' } }),
     deleteDetails: (id: string) => requests.delete(`/v1/appointments/details/${id}`),
     getByCircle: (id: string, dateFrom: string, dateTo: string) => requests.get<AppointmentDto[]>(`/v1/appointments/circle/${id}`, {
         params: { dateFrom, dateTo }
@@ -76,7 +76,7 @@ const Tasks = {
 
     create: (body: TaskDto) => requests.post('/v1/tasks', body),
     update: (body: TaskDto) => requests.put('/v1/tasks', body),
-    complete: (body: CompleteTaskDto) => requests.patch('/v1/tasks', body),
+    complete: (body: CompleteTaskDto) => requests.patch('/v1/tasks', body, { headers: { 'Content-Type': 'application/json' } }),
     delete: (id: string) => requests.delete(`/v1/tasks/${id}`),
     getByCircle: (id: string) => requests.get<TaskDto[]>(`/v1/tasks/circle/${id}`),
     getByUser: (id: string, searchByCircles: boolean) => requests.get<TaskDto[]>(`/v1/tasks/user/${id}`, {
@@ -88,14 +88,15 @@ const Tasks = {
 axios.defaults.withCredentials = true;
 axios.interceptors.response.use(
     response => response,
-    async error => {
+    error => {
         if (error.response.status === 401 && error.response.data !== 'Invalid username or password') {
             try {
-                await apiClient.Users.refresh();
+                apiClient.Users.refresh();
                 return axios.request(error.config);
             } catch (refreshError) {
                 console.error(refreshError);
                 localStorage.removeItem('user');
+                console.error('Invalid token logout');
                 throw refreshError;
             }
         }

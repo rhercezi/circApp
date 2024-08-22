@@ -14,7 +14,8 @@ export default observer(function Login(){
     }
 
     return (
-        <Formik
+        <div className="control-container">
+            <Formik
             initialValues={{ username: '', password: '' }}
             onSubmit={async (values) => {
                 await userStore.login(values.username, values.password);
@@ -72,5 +73,6 @@ export default observer(function Login(){
                 </Form>
             )}
         </Formik>
+        </div>
     );
 });

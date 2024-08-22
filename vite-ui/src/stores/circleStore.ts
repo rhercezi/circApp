@@ -24,17 +24,26 @@ export default class CircleStore {
         if (userId) {
             this.userId = userId;
             this.getCirclesByUser();
+        } else if (localStorage.getItem('user')) {
+            let user = JSON.parse(localStorage.getItem('user')!);
+            this.userId = user.id;
+            this.getCirclesByUser();
         }
     }
 
     getCirclesByUser = async () => {
-        try {
-            let data = await apiClient.Circles.getCirclesByUser(this.userId!);
-            data.circles.forEach((circle: CircleDto) => {
-                this.circlesMap.set(circle.id, circle);
-            });
-        } catch (error) {
-            console.error(error);
+        if (this.userId) {
+            try {
+                let data = await apiClient.Circles.getCirclesByUser(this.userId);
+                runInAction(() => {
+                    this.circlesMap.clear();
+                    data.circles.forEach(circle => this.circlesMap.set(circle.id, circle));
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            this.setUserId('');
         }
     }
 
