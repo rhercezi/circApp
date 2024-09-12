@@ -5,7 +5,6 @@ import { useStore } from './stores/store';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Loader from './components/common/Loader';
-import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
 

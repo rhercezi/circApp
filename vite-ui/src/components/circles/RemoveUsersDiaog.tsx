@@ -1,7 +1,7 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Box, Button, Chip, Dialog, DialogContent, DialogContentText, DialogTitle, FormControl, IconButton, InputLabel, MenuItem, OutlinedInput, Select, TextField } from "@mui/material";
-import { Field, FieldProps, Form, Formik, setIn } from "formik";
+import { Alert, Box, Button, Chip, Dialog, DialogContent, DialogContentText, DialogTitle, FormControl, IconButton, InputLabel, MenuItem, OutlinedInput, Select} from "@mui/material";
+import { Field, FieldProps, Form, Formik } from "formik";
 import { UserDto } from "../../api/dtos/user_dtos/UserDto";
 import { useStore } from "../../stores/store";
 import { CircleDto } from "../../api/dtos/circle_dtos/CircleDto";
@@ -30,6 +30,8 @@ export default function RemoveUsersDialog({ open, setOpen }: Props) {
     const circles: CircleDto[] = [...circleStore.circlesMap.values()].filter(circle => circle.creatorId === userStore.user?.id!)
     const handleClose = () => {
         setOpen(false);
+        setIsSuccess(false);
+        circleStore.errorMap.delete('removeUsers')
     };
 
     const handleIsSuccess = () => {
@@ -93,7 +95,7 @@ export default function RemoveUsersDialog({ open, setOpen }: Props) {
                                 gap: '1rem',
                                 margin: '1rem'
                             }}>
-                                {isSuccess && <Alert severity="success">Users added successfully</Alert>}
+                                {isSuccess && <Alert severity="success">Users successfully removed</Alert>}
                                 {circleStore.errorMap.has('removeUsers') && <Alert severity="error">{circleStore.errorMap.get('removeUsers')}</Alert>}
                                 <Field name="circleId">
                                     {({ form }: FieldProps) => (

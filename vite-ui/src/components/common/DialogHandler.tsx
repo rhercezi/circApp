@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import CreateCircleDialog from "../circles/CreateCircleDialog";
 import AddUsersDialog from "../circles/AddUsersDialog";
-import { Remove } from "@mui/icons-material";
 import RemoveUsersDialog from "../circles/RemoveUsersDiaog";
 
 export interface Props {

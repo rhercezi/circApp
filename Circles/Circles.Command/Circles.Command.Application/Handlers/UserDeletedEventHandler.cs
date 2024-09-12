@@ -11,15 +11,21 @@ namespace Circles.Command.Application.Handlers
     {
         private readonly UserRepository _userRepository;
         private readonly UserCircleRepository _userCircleRepository;
+        private readonly JoinRequestRepository _joinRequestRepository;
+        private readonly CirclesRepository _circlesRepository;
         private readonly ILogger<UserDeletedEventHandler> _logger;
 
         public UserDeletedEventHandler(UserRepository userRepository,
                                        UserCircleRepository userCircleRepository,
-                                       ILogger<UserDeletedEventHandler> logger)
+                                       JoinRequestRepository joinRequestRepository,
+                                       ILogger<UserDeletedEventHandler> logger,
+                                       CirclesRepository circlesRepository)
         {
             _userRepository = userRepository;
             _userCircleRepository = userCircleRepository;
+            _joinRequestRepository = joinRequestRepository;
             _logger = logger;
+            _circlesRepository = circlesRepository;
         }
 
         public async Task<BaseResponse> HandleAsync(UserDeletedPublicEvent xEvent)
@@ -29,7 +35,9 @@ namespace Circles.Command.Application.Handlers
             {
                 session.StartTransaction();
                 await _userRepository.DeleteUser(xEvent.Id);
+                ChangeCircleOwner(xEvent);
                 await _userCircleRepository.DeleteByUser(xEvent.Id);
+                await _joinRequestRepository.DeleteAsync(jr => jr.UserId == xEvent.Id  || jr.InviterId == xEvent.Id);
                 session.CommitTransaction();
 
                 return new BaseResponse { ResponseCode = 200 };
@@ -39,6 +47,25 @@ namespace Circles.Command.Application.Handlers
                 session.AbortTransaction();
                 _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
                 return new BaseResponse { ResponseCode = 500 };
+            }
+        }
+
+        private async void ChangeCircleOwner(UserDeletedPublicEvent xEvent)
+        {
+            var user = await _userRepository.GetCirclesForUser(xEvent.Id);
+            if (user.Circles == null || user.Circles.Count == 0) return;
+
+            foreach (var circle in user.Circles)
+            {
+                var users = await _userCircleRepository.FindAsync(uc => uc.CircleId == circle.Id && uc.UserId != xEvent.Id);
+                if (users.Count > 0)
+                {
+                    await _circlesRepository.ChangeCircleOwner(circle.Id, users[0].UserId);
+                }
+                else
+                {
+                    await _circlesRepository.DeleteCircle(circle.Id);
+                }
             }
         }
 

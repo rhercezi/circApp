@@ -7,12 +7,12 @@ namespace Circles.Domain.Entities
     {
         public JoinRequestModel()
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid();
         }
 
         [BsonId]
         [BsonRepresentation(BsonType.String)]
-        public string? Id { get; set; }
+        public Guid Id { get; set; }
 
         [BsonRepresentation(BsonType.String)]
         public Guid CircleId { get; set; }

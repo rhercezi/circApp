@@ -38,7 +38,6 @@ export default function CreateCircleDialog({ open, setOpen }: Props) {
     const handleClose = () => {
         if (!circleStore.errorMap.has('createCircle')) {
             setOpen(false);
-
         }
     };
 

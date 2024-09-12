@@ -31,15 +31,18 @@ namespace Circles.Command.Application.Handlers
             {
                 session.StartTransaction();
 
-                await _userCircleRepository.SaveAsync(
+                if (command.IsAccepted)
+                {
+                    await _userCircleRepository.SaveAsync(
                     new UserCircleModel
                     {
                         UserId = command.UserId,
                         CircleId = command.CircleId
                     }
                 );
+                }
     
-                await _requestRepository.DeleteAsync(command.UserId, command.CircleId);
+                await _requestRepository.DeleteAsync(jr => jr.CircleId == command.CircleId && jr.UserId == command.UserId);
 
                 session.CommitTransaction();
                 return new BaseResponse { ResponseCode = 204 };

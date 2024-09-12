@@ -10,5 +10,6 @@ namespace Circles.Command.Application.Commands
             get => Id;
             set => Id = value;
         }
+        public bool IsAccepted { get; set; }
     }
 }

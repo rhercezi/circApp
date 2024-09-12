@@ -11,14 +11,17 @@ namespace Circles.Command.Application.Handlers
     {
         private readonly CirclesRepository _circlesRepository;
         private readonly UserCircleRepository _userCircleRepository;
+        private readonly JoinRequestRepository _joinRequestRepository;
         private readonly ILogger<DeleteCircleCommandHabndler> _logger;
         public DeleteCircleCommandHabndler(CirclesRepository circlesRepository,
                                            UserCircleRepository userCircleRepository,
+                                           JoinRequestRepository joinRequestRepository,
                                            ILogger<DeleteCircleCommandHabndler> logger)
         {
             _circlesRepository = circlesRepository;
             _userCircleRepository = userCircleRepository;
             _logger = logger;
+            _joinRequestRepository = joinRequestRepository;
         }
 
         public async Task<BaseResponse> HandleAsync(DeleteCircleCommand command)
@@ -30,6 +33,7 @@ namespace Circles.Command.Application.Handlers
                 session.StartTransaction();
                 await _userCircleRepository.DeleteByCircle(command.CircleId);
                 await _circlesRepository.DeleteCircle(command.CircleId);
+                await _joinRequestRepository.DeleteAsync(jr => jr.CircleId == command.CircleId);
                 session.CommitTransaction();
 
                 return new BaseResponse { ResponseCode = 204 };

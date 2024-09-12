@@ -103,5 +103,35 @@ namespace Circles.Query.Api.Controllers
             }
 
         }
+
+        [HttpGet]
+        [Route("join-requests/{userId}")]
+        public async Task<IActionResult> GetJoinRequests([FromRoute] Guid userId)
+        {
+            try
+            {
+                var response = await _dispatcher.DispatchAsync(
+                    new GetJoinRequestsQuery
+                    {
+                        UserId = userId
+                    }
+                );
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return StatusCode(500, "Something went wrong, please contact support using support page.");
+            }
+
+        }
     }
 }

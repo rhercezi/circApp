@@ -41,11 +41,9 @@ namespace Circles.Domain.Repositories
             await _collection.InsertOneAsync(model).ConfigureAwait(false);
         }
 
-        public async Task DeleteAsync(Guid userId, Guid circleId)
+        public async Task DeleteAsync(Expression<Func<JoinRequestModel, bool>> expression)
         {
-            var userFilter = Builders<JoinRequestModel>.Filter.Eq(jr => jr.UserId, userId);
-            var circleFilter = Builders<JoinRequestModel>.Filter.Eq(jr => jr.CircleId, circleId);
-            var filter = Builders<JoinRequestModel>.Filter.And(new [] {userFilter, circleFilter});
+            var filter = Builders<JoinRequestModel>.Filter.Where(expression);
             await _collection.DeleteOneAsync(filter);
         }
     }

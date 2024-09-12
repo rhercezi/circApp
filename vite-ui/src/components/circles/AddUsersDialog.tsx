@@ -42,6 +42,8 @@ export default function AddUsersDialog({ open, setOpen }: Props) {
     const circles: CircleDto[] = [...circleStore.circlesMap.values()].filter(circle => circle.creatorId === userStore.user?.id!)
     const handleClose = () => {
         setOpen(false);
+        setIsSuccess(false);
+        circleStore.errorMap.delete('addUsers')
     };
 
     const handleIsSuccess = () => {
@@ -116,7 +118,7 @@ export default function AddUsersDialog({ open, setOpen }: Props) {
                                 gap: '1rem',
                                 margin: '1rem'
                             }}>
-                                {isSuccess && <Alert severity="success">Users added successfully</Alert>}
+                                {isSuccess && <Alert severity="success">Join requests created successfully</Alert>}
                                 {circleStore.errorMap.has('addUsers') && <Alert severity="error">{circleStore.errorMap.get('addUsers')}</Alert>}
                                 <Field name="circleId">
                                     {({ form }: FieldProps) => (

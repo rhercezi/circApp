@@ -21,6 +21,7 @@ builder.Services.AddScoped<JoinRequestRepository>();
 builder.Services.AddScoped<IMessageHandler<GetCirclesByUserIdQuery>, GetCirclesByUserIdQueryHandler>();
 builder.Services.AddScoped<IMessageHandler<GetUsersByCircleIdQuery>, GetUsersByCircleIdQueryHandler>();
 builder.Services.AddScoped<IMessageHandler<SearchQuery>, SearchQueryHandler>();
+builder.Services.AddScoped<IMessageHandler<GetJoinRequestsQuery>, GetJoinRequestsQueryHandler>();
 
 builder.Services.AddScoped<IMessageDispatcher, CircleQueryDispatcher>();
 

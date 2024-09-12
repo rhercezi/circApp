@@ -86,6 +86,19 @@ namespace Circles.Domain.Repositories
 
         }
 
+        public async Task ChangeCircleOwner(Guid circleId, Guid newOwnerId)
+        {
+            var filter = Builders<CircleModel>.Filter.Eq(c => c.CircleId, circleId);
+            var update = Builders<CircleModel>.Update.Set(c => c.CreatorId, newOwnerId);
+            var result = await _collection.UpdateManyAsync(filter, update);
+
+            if (!result.IsAcknowledged && result.ModifiedCount == 0)
+            {
+                _logger.LogError($"Change circle owner failed for circle: {circleId} and new owner: {newOwnerId}");
+                throw new CirclesDbException($"Change circle owner failed for circle: {circleId} and new owner: {newOwnerId}");
+            }
+        }
+
         public async Task DeleteCircle(Guid circleId)
         {
             var filter = Builders<CircleModel>.Filter.Eq(c => c.CircleId, circleId);
