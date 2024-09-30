@@ -4,7 +4,7 @@ import { Logout, Settings } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../stores/store";
 import CircleDrawer from "../circles/CircleDrawer";
-import MyButton from "./buttonst/MyButton";
+import MyButton from "./buttons/MyButton";
 import DialogHandler from "./DialogHandler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";

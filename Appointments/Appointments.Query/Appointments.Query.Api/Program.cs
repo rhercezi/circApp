@@ -25,6 +25,7 @@ builder.Services.AddScoped<InternalHttpClient<AppUserDto>>();
 
 builder.Services.AddScoped<IMessageHandler<GetAppointmentsByCircleIdQuery>, GetAppointmentsByCircleIdQueryHandler>();
 builder.Services.AddScoped<IMessageHandler<GetAppointmentsByUserIdQuery>, GetAppointmentsByUserIdQueryHandler>();
+builder.Services.AddScoped<IMessageHandler<GetAppointmentByIdQuery>, GetAppointmentByIdQueryHandler>();
 
 builder.Services.AddScoped<IMessageDispatcher, AppointmentsQueryDispatcher>();
 

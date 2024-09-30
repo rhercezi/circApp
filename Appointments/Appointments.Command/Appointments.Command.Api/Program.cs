@@ -29,7 +29,7 @@ builder.Services.AddScoped<IMessageHandler<UpdateAppointmentDetailCommand>, Upda
 
 builder.Services.AddScoped<IMessageDispatcher, CommandDispatcher>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

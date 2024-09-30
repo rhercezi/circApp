@@ -9,7 +9,7 @@ export default observer(function NavBar() {
 
     if (!userStore.isLoggedIn) {
         return (
-            <div>
+            <div className="nav-bar-container">
                 <NavBarNLI />
                 <Divider />
             </div>
@@ -17,7 +17,7 @@ export default observer(function NavBar() {
     }
 
     return (
-        <div>
+        <div className="nav-bar-container">
             <NavBarLoggedIn />
             <Divider />
         </div>

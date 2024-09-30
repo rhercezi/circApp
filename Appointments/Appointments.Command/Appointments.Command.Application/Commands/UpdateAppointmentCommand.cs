@@ -10,12 +10,11 @@ namespace Appointments.Command.Application.Commands
                                         JsonPatchDocument jsonPatchDocument)
         {
             UpdaterId = updaterId;
-            AppointmentId = appointmentId;
+            Id = appointmentId;
             JsonPatchDocument = jsonPatchDocument;
         }
 
         public Guid UpdaterId { get; set; }
-        public Guid AppointmentId { get; set; }
         public JsonPatchDocument JsonPatchDocument { get; set; }
     }
 }

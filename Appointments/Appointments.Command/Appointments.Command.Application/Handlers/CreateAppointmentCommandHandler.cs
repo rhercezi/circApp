@@ -52,7 +52,7 @@ namespace Appointments.Command.Application.Handlers
                     {
                         AppointmentId = appointment.Id,
                         CircleId = c,
-                        Date = appointment.Date
+                        Date = appointment.StartDate
                     }
                 ).ToList();
 
@@ -61,8 +61,9 @@ namespace Appointments.Command.Application.Handlers
                 await _eventProducer.ProduceAsync(
                     new AppointmentChangePublicEvent(
                         appointment.Id,
+                        appointment.Title,
                         command.CreatorId,
-                        command.Date,
+                        command.StartDate,
                         command.Circles
                     )
                 );

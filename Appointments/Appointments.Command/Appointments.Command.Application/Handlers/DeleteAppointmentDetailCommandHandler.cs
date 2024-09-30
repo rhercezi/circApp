@@ -27,14 +27,14 @@ namespace Appointments.Command.Application.Handlers
 
             if (appointment.CreatorId != command.UserId)
             {
-                _logger.LogCritical("User missmatch user with the Id: {UserId} tried deleting appointment details {AppointmentId}", command.UserId, command.AppointmentId );
+                _logger.LogCritical("User mismatch user with the Id: {UserId} tried deleting appointment details {AppointmentId}", command.UserId, command.AppointmentId );
                 return new BaseResponse { ResponseCode = 400, Message = "Only the appointment creator can delete the appointment details" };
             }
 
             var result = await _detailsRepository.DeleteAsync(command.AppointmentId);
             if (!result.IsAcknowledged)
             {
-                _logger.LogError("Faild deleting appointment details. DeletedCount = {DeletedCount}, Command = {command}", result.DeletedCount, command);
+                _logger.LogError("Failed deleting appointment details. DeletedCount = {DeletedCount}, Command = {command}", result.DeletedCount, command);
                 return new BaseResponse { ResponseCode = 500, Message = "Failed deleting appointment details" };
             }
 

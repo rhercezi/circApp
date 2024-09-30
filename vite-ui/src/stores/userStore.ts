@@ -194,7 +194,6 @@ export default class UserStore {
             runInAction(() => {
                 this.user = undefined;
                 localStorage.removeItem('user');
-                console.log('User logged out');
                 this.isLoggedIn = false;
                 this.loading = false;
             });

@@ -8,6 +8,7 @@ import VerifyEmail from "../components/users/VerifyEmail";
 import Dashboard from "../components/common/Dashboard";
 import Profile from "../components/users/Profile";
 import Settings from "../components/common/Settings";
+import CreateAppointment from "../components/appointments/CreateAppointment";
 
 export const routes: RouteObject[] = [
     {
@@ -20,8 +21,11 @@ export const routes: RouteObject[] = [
             {path: 'reset-password', element: <ResetPasswordForm />},
             {path: 'reset-password/:id', element: <ResetPassword />},
             {path: 'dashboard', element: <Dashboard />},
+            {path: 'dashboard/day', element: <Dashboard />},
+            {path: 'dashboard/appointment/:appointmentId', element: <Dashboard />},
             {path: 'profile', element: <Profile />},
-            {path: 'settings', element: <Settings />}
+            {path: 'settings', element: <Settings />},
+            {path: 'create', element: <CreateAppointment />}
         ]
     }
 ]

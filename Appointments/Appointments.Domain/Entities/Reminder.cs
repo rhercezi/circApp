@@ -4,5 +4,6 @@ namespace Appointments.Domain.Entities
     {
         public required DateTime Time { get; set; }
         public string? Message { get; set; }
+        public bool JustForUser { get; set; }
     }
 }

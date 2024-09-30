@@ -33,7 +33,7 @@ namespace Core.Aggregate
             }
             else
             {
-                throw new CoreException($"Faild to invoke aggregate action for event of type: {xEvent.GetType().FullName}");
+                throw new CoreException($"Failed to invoke aggregate action for event of type: {xEvent.GetType().FullName}");
             }
         }
         

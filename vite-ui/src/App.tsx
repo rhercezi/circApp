@@ -9,7 +9,7 @@ import { Outlet } from 'react-router-dom';
 
 
 function App() {
-  const {userStore} = useStore();
+  const { userStore } = useStore();
   const theme = createTheme({
     palette: {
       mode: 'dark'
@@ -17,16 +17,18 @@ function App() {
   })
 
   if (userStore.loading) {
-    return <Loader text={userStore.loaderText} className='loader'/>
+    return <Loader text={userStore.loaderText} className='loader' />
   }
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <NavBar />
+      <div className='container'>
         <Outlet />
+      </div>
     </ThemeProvider>
-    
+
   )
 }
 

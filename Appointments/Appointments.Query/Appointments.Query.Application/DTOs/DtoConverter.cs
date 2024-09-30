@@ -21,7 +21,7 @@ namespace Appointments.Query.Application.DTOs
             {
                 Id = model.Id,
                 CreatorId = model.CreatorId,
-                Date = model.Date,
+                Date = model.StartDate,
                 DetailsInCircles = model.DetailsInCircles,
                 Details = model.Details != null ? Convert(model.Details) : null
             };

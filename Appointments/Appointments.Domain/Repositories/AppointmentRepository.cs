@@ -67,12 +67,13 @@ namespace Appointments.Domain.Repositories
         {
             try
             {
-                var filter = Builders<AppointmentModel>.Filter.And(
-                    Builders<AppointmentModel>.Filter.Eq(a => a.Id, appointment.Id),
-                    Builders<AppointmentModel>.Filter.Eq(a => a.CreatorId, appointment.CreatorId)
-                );
-                var update = Builders<AppointmentModel>.Update.Set(a => a.Date, appointment.Date)
-                                                              .Set(a => a.DetailsInCircles, appointment.DetailsInCircles);
+                var filter = Builders<AppointmentModel>.Filter.Eq(a => a.Id, appointment.Id);
+                var update = Builders<AppointmentModel>.Update.Set(a => a.Title, appointment.Title)
+                                                              .Set(a => a.StartDate, appointment.StartDate)
+                                                              .Set(a => a.EndDate, appointment.EndDate)
+                                                              .Set(a => a.DetailsInCircles, appointment.DetailsInCircles)
+                                                              .Set(a => a.Circles, appointment.Circles);
+                                                              
                 return await _collection.UpdateOneAsync(filter, update);
             }
             catch (Exception e)

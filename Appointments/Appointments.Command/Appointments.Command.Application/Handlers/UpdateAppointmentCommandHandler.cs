@@ -37,7 +37,7 @@ namespace Appointments.Command.Application.Handlers
             var appointment = await _appointmentRepository.GetAppointmentById(command.Id);
             if (appointment.CreatorId != command.UpdaterId)
             {
-                _logger.LogCritical("User missmatch user with the Id: {UserId} tried updating appointment {AppointmentId}", command.UpdaterId, command.Id );
+                _logger.LogCritical("User mismatch user with the Id: {UserId} tried updating appointment {AppointmentId}", command.UpdaterId, command.Id );
                 return new BaseResponse { ResponseCode = 400, Message = "Only the appointment creator can update the appointment" };
             }
 
@@ -47,7 +47,7 @@ namespace Appointments.Command.Application.Handlers
             if (!result.IsAcknowledged)
             {
                 session.AbortTransaction();
-                _logger.LogError("Fail updating appointment. Matched count: {MatchedCount}, Modified count: {ModifiedCount}, Command body: {command}", result.MatchedCount, result.ModifiedCount, command );
+                _logger.LogError("Failed updating appointment. Matched count: {MatchedCount}, Modified count: {ModifiedCount}, Command body: {command}", result.MatchedCount, result.ModifiedCount, command );
                 if (result.MatchedCount == 0) return new BaseResponse { ResponseCode = 400, Message = "Appointment not found." };
                 else if (result.ModifiedCount == 0) return new BaseResponse { ResponseCode = 400, Message = "No changes detected." };
                 else return new BaseResponse { ResponseCode = 500, Message = "Failed updating appointment." };
@@ -58,7 +58,7 @@ namespace Appointments.Command.Application.Handlers
             if (!result2.IsAcknowledged || result2.DeletedCount == 0)
             {
                 session.AbortTransaction();
-                _logger.LogError("Faild cleaning old circle mappings for appointment: {Id}", command.Id);
+                _logger.LogError("Failed cleaning old circle mappings for appointment: {Id}", command.Id);
                 throw new AppointmentsApplicationException("Fail updating appointment.");
             }
 
@@ -67,7 +67,7 @@ namespace Appointments.Command.Application.Handlers
                     {
                         AppointmentId = appointment.Id,
                         CircleId = c,
-                        Date = appointment.Date
+                        Date = appointment.StartDate
                     }
                 ).ToList();
 
@@ -76,8 +76,9 @@ namespace Appointments.Command.Application.Handlers
             await _eventProducer.ProduceAsync(
                 new AppointmentChangePublicEvent(
                     appointment.Id,
+                    appointment.Title,
                     command.UpdaterId,
-                    appointment.Date,
+                    appointment.StartDate,
                     appointment.Circles
                 )
             );

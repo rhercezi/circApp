@@ -11,7 +11,9 @@ namespace Appointments.Command.Application.DTOs
             {
                 Id = command.Id,
                 CreatorId = command.CreatorId,
-                Date = command.Date,
+                StartDate = command.StartDate,
+                EndDate = command.EndDate,
+                Title = command.Title,
                 DetailsInCircles = command.DetailsInCircles,
                 Circles = command.Circles
             };

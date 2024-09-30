@@ -31,19 +31,19 @@ namespace Appointments.Command.Application.Handlers
 
             var result = await _appointmentRepository.DeleteAppointment(command.AppointmentId, command.UserId);
             
-            if (!result.IsAcknowledged || result.DeletedCount == 0)
+            if (!result.IsAcknowledged && result.DeletedCount == 0)
             {
                 session.AbortTransaction();
                 _logger.LogInformation($"No matching appointment found for user. Deleted count: {result.DeletedCount}, Command body: {command}");
                 return new BaseResponse { ResponseCode = 400, Message = "No matching appointment found for user." };
             }
 
-            var reasult = await _mapRepository.DeleteByAppointmentIdAsync(command.AppointmentId);
+            var result2 = await _mapRepository.DeleteByAppointmentIdAsync(command.AppointmentId);
 
-            if (!result.IsAcknowledged || reasult.DeletedCount == 0)
+            if (!result2.IsAcknowledged && result2.DeletedCount == 0)
             {
                 session.AbortTransaction();
-                _logger.LogError($"Faild cleaning circle mappings for appointment: {command.Id}");
+                _logger.LogError($"Failed cleaning circle mappings for appointment: {command.Id}");
                 return new BaseResponse { ResponseCode = 500, Message = "Failed cleaning circle mappings." };
             }
 

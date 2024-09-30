@@ -421,6 +421,22 @@
             }
         },
         {
+            "DownstreamPathTemplate": "/api/v1/appointments/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "appointments_query_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/appointments/{id}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
             "DownstreamPathTemplate": "/api/v1/tasks",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [

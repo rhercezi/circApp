@@ -43,7 +43,7 @@ namespace Appointments.Command.Application.Handlers
 
                     if (appointment.CreatorId != message.UserId)
                     {
-                        _logger.LogCritical($"User missmatch user with the Id: {message.UserId} tried adding appointment details {message.Details}");
+                        _logger.LogCritical($"User mismatch user with the Id: {message.UserId} tried adding appointment details {message.Details}");
                         return new BaseResponse { ResponseCode = 400, Message = "Only the appointment creator can add the appointment details" };
                     }
 
@@ -52,9 +52,10 @@ namespace Appointments.Command.Application.Handlers
                     await _eventProducer.ProduceAsync(
                         new AppointmentChangePublicEvent(
                             appointment.Id,
+                            appointment.Title,
                             appointment.CreatorId,
-                            appointment.Date,
-                            appointment.DetailsInCircles
+                            appointment.StartDate,
+                            appointment.DetailsInCircles ?? new List<Guid>()
                         )
                     );
 

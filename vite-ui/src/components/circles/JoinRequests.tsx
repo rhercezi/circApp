@@ -33,7 +33,7 @@ const JoinRequests = () => {
 
     return (
         <div className="profile-element-column">
-            <h3>Circles Settings</h3>
+            <h3>Join Circle Requests</h3>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>

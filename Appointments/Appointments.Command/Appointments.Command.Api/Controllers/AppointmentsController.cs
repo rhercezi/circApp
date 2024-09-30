@@ -88,6 +88,7 @@ namespace Appointments.Command.Api.Controllers
             catch (Exception e)
             {
                 _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                _logger.LogError("appointmentId: {appointmentId}, userId: {userId}", appointmentId, Request.Headers["userId"].ToString());
                 return StatusCode(500, "Something went wrong, please try again later.");
             }
         }
@@ -119,7 +120,7 @@ namespace Appointments.Command.Api.Controllers
         [HttpPatch]
         public async Task<IActionResult> UpdateAppointmentDetails([FromRoute] Guid appointmentId, [FromBody] JsonPatchDocument patchDocument)
         {
-            var command = new UpdateAppointmentDetailCommand(appointmentId, Guid.Parse(Request.Headers["userId"].ToString()), patchDocument);
+            var command = new UpdateAppointmentDetailCommand(Guid.Parse(Request.Headers["userId"].ToString()), appointmentId, patchDocument);
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
