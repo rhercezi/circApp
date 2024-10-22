@@ -1,11 +1,12 @@
 export interface TaskDto {
     id: string
+    ownerId: string
     title: string
     description: string
     isCompleted: boolean
-    endDate: string
-    createdAt: string
-    updatedAt: string | undefined
+    endDate: Date
+    createdAt: Date
+    updatedAt: Date | undefined
     parentTaskId: any
     userModels: TaskUserDto[] | undefined
     circleId: string | undefined
@@ -13,7 +14,7 @@ export interface TaskDto {
 
 export interface TaskUserDto {
     id: string
-    username: string
+    userName: string
     isCompleted: boolean
     completedAt: string | undefined
   }

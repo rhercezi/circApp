@@ -10,6 +10,10 @@ import { faAngleDoubleDown, faAngleDoubleUp, faPlusCircle } from "@fortawesome/f
 import { useNavigate } from "react-router-dom";
 import uuid from "react-uuid";
 
+const isNumeric = (value: any): boolean => {
+    return !isNaN(parseFloat(value)) && isFinite(value);
+};
+
 const MonthOverview = () => {
     const { circleStore, userStore, appointmentStore } = useStore();
 
@@ -17,8 +21,16 @@ const MonthOverview = () => {
     const circles: CircleDto[] = [...circleStore.circlesMap.values()];
     const [selectedCircle, setSelectedCircle] = useState<string | undefined>(undefined);
     const [appointments, setAppointments] = useState<AppointmentDto[]>([]);
-    const [year, setYear] = useState<number>(new Date().getFullYear());
-    const [month, setMonth] = useState<number>(new Date().getMonth());
+    const [year, setYear] = useState<number>(
+        localStorage.getItem("selectedYear") && isNumeric(localStorage.getItem("selectedYear")) 
+            ? parseInt(localStorage.getItem("selectedYear") as string) 
+            : new Date().getFullYear()
+    );
+    const [month, setMonth] = useState<number>(
+        localStorage.getItem("selectedMonth") && isNumeric(localStorage.getItem("selectedMonth")) 
+            ? parseInt(localStorage.getItem("selectedMonth") as string) 
+            : new Date().getMonth()
+    );
     const [date] = useState<Date>(new Date());
     const [baseSearchYear, setBaseSearchYear] = useState<number>(new Date().getFullYear());
     const navigate = useNavigate();
@@ -122,7 +134,10 @@ const MonthOverview = () => {
                             onChange={(e) => {
                                 if (e.target.value === '++') { setBaseYear(10) }
                                 else if (e.target.value === '--') { setBaseYear(-10) }
-                                else { setYear(e.target.value as number) }
+                                else { 
+                                    setYear(e.target.value as number);
+                                    localStorage.setItem("selectedYear", e.target.value as string);
+                                }
                             }}
                             label="Year"
                             MenuProps={{
@@ -149,7 +164,10 @@ const MonthOverview = () => {
                             labelId="month-select-label"
                             id="month-select"
                             value={month}
-                            onChange={(e) => { setMonth(e.target.value as number) }}
+                            onChange={(e) => { 
+                                setMonth(e.target.value as number);
+                                localStorage.setItem("selectedMonth", e.target.value as string);
+                            }}
                             label="Month"
                         >
                             {months.map((month, index) => (

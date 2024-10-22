@@ -6,5 +6,6 @@ namespace Tasks.Query.Application.Queries
     {
         public Guid UserId { get; set; }
         public bool SearchByCircles { get; set; }
+        public bool IncludeCompleted { get; set; }
     }
 }

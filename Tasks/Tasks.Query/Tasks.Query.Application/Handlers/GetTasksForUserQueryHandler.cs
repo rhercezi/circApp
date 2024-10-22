@@ -51,14 +51,14 @@ namespace Tasks.Query.Application.Handlers
                     _logger.LogDebug("User data: {@User}", appUserDto);
                     if (appUserDto.Circles != null && appUserDto.Circles.Count > 0)
                     {
-                        tasks = await _taskRepository.GetTasksByCircleIds(appUserDto.Circles.Select(c => c.Id).ToList());
+                        tasks = await _taskRepository.GetTasksByCircleIds(appUserDto.Circles.Select(c => c.Id).ToList(), query.IncludeCompleted);
                         _logger.LogDebug("Found {Nr} tasks for circles: {Circles}", tasks.Count, appUserDto.Circles.Select(c => c.Id).ToList());
                     }
                 }
                 else
                 {
                     _logger.LogDebug("Searching by user id");
-                    tasks = await _taskRepository.GetTasksByUserId(query.UserId);
+                    tasks = await _taskRepository.GetTasksByUserId(query.UserId, query.IncludeCompleted);
                     _logger.LogDebug("Found {Nr} tasks for user id {Id}", tasks.Count, query.UserId);
                 }
 

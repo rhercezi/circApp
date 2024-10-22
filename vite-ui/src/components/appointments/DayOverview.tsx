@@ -8,33 +8,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilSquare } from "@fortawesome/free-solid-svg-icons/faPencilSquare";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { useNavigate } from "react-router-dom";
+import { getTimeSpan } from "../../helpers/helpers";
 
 const DayOverview = () => {
     const { appointmentStore, circleStore, userStore } = useStore();
     const [appointments, setAppointments] = useState<AppointmentDto[] | undefined>([]);
     const [selectedCircle, setSelectedCircle] = useState<string | undefined>(undefined);
     const navigate = useNavigate();
-    const circles: CircleDto[] = [...circleStore.circlesMap.values()];
+    const [circles, setCircles] = useState<CircleDto[]>([...circleStore.circlesMap.values()]);
     const userId = userStore.user?.id;
     let startOfDay = new Date(localStorage.getItem('selectedDate')!)
     let endOfDay = new Date(localStorage.getItem('selectedDate')!)
     startOfDay.setHours(0, 0, 0, 0);
     endOfDay.setHours(23, 59, 59, 999);
-
-    const getDuration = (startDate: Date, endDate: Date): string => {
-        const diff = endDate.getTime() - startDate.getTime();
-        const diffInMinutes = Math.floor(diff / (1000 * 60));
-        const diffInHours = Math.floor(diff / (1000 * 60 * 60));
-        const diffInDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const diffInMonths = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
-        const diffInYears = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
-
-        if (diffInYears > 0) return `${diffInYears} year(s)`;
-        if (diffInMonths > 0) return `${diffInMonths} month(s)`;
-        if (diffInDays > 0) return `${diffInDays} day(s)`;
-        if (diffInHours > 0) return `${diffInHours} hour(s)`;
-        return `${diffInMinutes} minute(s)`;
-    };
 
     useEffect(() => {
         if (selectedCircle) {
@@ -45,6 +31,10 @@ const DayOverview = () => {
     }, [selectedCircle]);
 
     useEffect(() => {
+        setCircles([...circleStore.circlesMap.values()]);
+    }, [circleStore.circlesMap]);
+
+    useEffect(() => {
         setAppointments(appointmentStore.appointments);
         if (itemsContainerRef.current) {
             const items = itemsContainerRef.current.querySelectorAll('.day-overview-item');
@@ -52,9 +42,12 @@ const DayOverview = () => {
 
             items.forEach(item => {
                 const itemWidth = item.getBoundingClientRect().width;
+                const itmHeight = item.getBoundingClientRect().height;
                 if (itemWidth > maxWidth) {
                     maxWidth = itemWidth;
                 }
+                const lineDiv = item.querySelector('.line-div') as HTMLElement;
+                lineDiv.style.height = `${itmHeight}px`;
             });
 
             items.forEach(item => {
@@ -99,45 +92,60 @@ const DayOverview = () => {
             <div className="day-overview-items-container" ref={itemsContainerRef}>
                 {appointments && appointments.map(appointment => (
                     <div key={appointment.id} className="day-overview-item">
-                        <div className="line-div"></div>
-                        <div className="day-overview-item-inner">
-                            <div className="time-position">
-                                <div className="time-circle">
-                                    {new Date(appointment.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        <div className="vertical-center">
+                            <div className="line-div"></div>
+                            <div className="day-overview-item-inner">
+
+                                <div className="time-position">
+                                    <div className="time-circle">
+                                        {new Date(appointment.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                    </div>
+                                </div>
+
+                                <div className="day-overview-item-data">
+                                    <div><strong>{appointment.title}</strong></div>
+                                    <div><strong>Duration: </strong> {getTimeSpan(new Date(appointment.startDate), new Date(appointment.endDate))}</div>
+                                    {appointment.details && appointment.detailsInCircles &&
+                                        (selectedCircle === undefined
+                                            ? appointment.detailsInCircles.some(circleId => circles.map(circle => circle.id).includes(circleId))
+                                            : appointment.detailsInCircles.includes(selectedCircle)) && (
+                                            <>
+                                                <div><strong>Note: </strong> {appointment.details.note}</div>
+                                                {appointment.details && appointment.details.address && (
+                                                    <div><strong>Address: </strong>
+                                                        {appointment.details.address.street ? appointment.details.address.street : ''}
+                                                        {appointment.details.address.housenumber ? ' ' + appointment.details.address.housenumber + ',' : ''}
+                                                        {appointment.details.address.postCode ? ' ' + appointment.details.address.postCode + ',' : ''}
+                                                        {appointment.details.address.city ? ' ' + appointment.details.address.city + ',' : ''}
+                                                        {appointment.details.address.country ? ' ' + appointment.details.address.country : ''}
+                                                    </div>
+                                                )}
+                                                {appointment.details && appointment.details.reminders && (
+                                                    <div className="flex-column-left"><strong>Reminders: </strong>
+                                                        {appointment.details.reminders.map(reminder => (
+                                                            <div className="flex-column-left" 
+                                                                key={reminder && reminder.time.toLocaleString()}>
+                                                                <div>{reminder && reminder.message}</div>
+                                                                <div>{reminder && reminder.time.toLocaleString()}</div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
                                 </div>
                             </div>
-                            <div className="day-overview-item-data">
-                                <div><strong>{appointment.title}</strong></div>
-                                <div><strong>Duration: </strong> {getDuration(new Date(appointment.startDate), new Date(appointment.endDate))}</div>
-                                {appointment.details && appointment.detailsInCircles &&
-                                    (selectedCircle === undefined
-                                        ? appointment.detailsInCircles.some(circleId => circles.map(circle => circle.id).includes(circleId))
-                                        : appointment.detailsInCircles.includes(selectedCircle)) && (
-                                        <>
-                                            <div><strong>Note: </strong> {appointment.details.note}</div>
-                                            {appointment.details && appointment.details.address && (
-                                                <div><strong>Address: </strong>
-                                                    {appointment.details.address.street ? appointment.details.address.street : ''}
-                                                    {appointment.details.address.housenumber ? ' ' + appointment.details.address.housenumber + ',' : ''}
-                                                    {appointment.details.address.postCode ? ' ' + appointment.details.address.postCode + ',' : ''}
-                                                    {appointment.details.address.city ? ' ' + appointment.details.address.city + ',' : ''}
-                                                    {appointment.details.address.country ? ' ' + appointment.details.address.country : ''}
-                                                </div>
-                                            )}
-                                        </>
-                                    )}
-                            </div>
+                            {appointment.creatorId === userId && (
+                                <div className="day-overview-item-edit-div">
+                                    <IconButton onClick={() => { editAppointment(appointment.id) }}>
+                                        <FontAwesomeIcon icon={faPencilSquare} size="1x" className="day-overview-item-edit-button" />
+                                    </IconButton>
+                                    <IconButton onClick={() => { deleteAppointment(appointment.id) }}>
+                                        <FontAwesomeIcon icon={faTrash} size="1x" className="day-overview-item-edit-button" />
+                                    </IconButton>
+                                </div>
+                            )}
                         </div>
-                        {appointment.creatorId === userId && (
-                            <div className="day-overview-item-edit-div">
-                                <IconButton onClick={() => { editAppointment(appointment.id) }}>
-                                    <FontAwesomeIcon icon={faPencilSquare} size="1x" className="day-overview-item-edit-button" />
-                                </IconButton>
-                                <IconButton onClick={() => { deleteAppointment(appointment.id) }}>
-                                    <FontAwesomeIcon icon={faTrash} size="1x" className="day-overview-item-edit-button" />
-                                </IconButton>
-                            </div>
-                        )}
                     </div>
                 ))}
 

@@ -89,12 +89,10 @@ export default class CircleStore {
     createCircle = async (circle: CircleDto) => {
         this.loading = true;
         try {
-            await apiClient.Circles.create(circle).then(() => {
-                this.circlesMap.clear();
-                this.getCirclesByUser();
-            });
+            await apiClient.Circles.create(circle);
             runInAction(() => {
                 this.errorMap.delete('createCircle');
+                this.circlesMap.clear();
                 this.getCirclesByUser();
             });
         } catch (error: any) {
@@ -123,9 +121,9 @@ export default class CircleStore {
 
     deleteCircle = async (circleId: string) => {
         try {
-            await apiClient.Circles.delete(circleId).then(() => {
-                this.circlesMap.clear();
-                this.getCirclesByUser();
+            await apiClient.Circles.delete(circleId);
+            runInAction(() => {
+                this.circlesMap.delete(circleId);
             });
         } catch (error) {
             console.error(error);
@@ -134,7 +132,8 @@ export default class CircleStore {
 
     confirmJoin = async (dto: ConfirmJoinDto) => {
         try {
-            await apiClient.Circles.confirmJoin(dto).then(() => {
+            await apiClient.Circles.confirmJoin(dto);
+            runInAction(() => {
                 this.getRequestsForUser();
                 this.getCirclesByUser();
             });
@@ -167,7 +166,6 @@ export default class CircleStore {
             await apiClient.Circles.removeUsers(dto);
             runInAction(() => {
                 this.errorMap.delete('removeUsers');
-                this.getCirclesByUser();
             })
         } catch (error: any) {
             if (error.response && error.response.status === 422) {

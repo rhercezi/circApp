@@ -19,11 +19,11 @@ namespace Tasks.Query.Api.Controllers
         }
 
         [HttpGet("circle/{circleId}")]
-        public async Task<IActionResult> GetTasksForCircleAsync([FromRoute] Guid circleId)
+        public async Task<IActionResult> GetTasksForCircleAsync([FromRoute] Guid circleId, [FromQuery] bool IncludeCompleted)
         {
             try
             {
-                var query = new GetTasksForCircleQuery { CircleId = circleId };
+                var query = new GetTasksForCircleQuery { CircleId = circleId, IncludeCompleted = IncludeCompleted };
                 var response = await _queryDispatcher.DispatchAsync(query);
                 if (response.ResponseCode < 500)
                 {
@@ -42,11 +42,18 @@ namespace Tasks.Query.Api.Controllers
         }
 
         [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetTasksForUserAsync([FromRoute] Guid userId, [FromQuery] bool searchByCircles)
+        public async Task<IActionResult> GetTasksForUserAsync([FromRoute] Guid userId,
+                                                              [FromQuery] bool searchByCircles,
+                                                              [FromQuery] bool includeCompleted)
         {
             try
             {
-                var query = new GetTasksForUserQuery { UserId = userId, SearchByCircles = searchByCircles };
+                var query = new GetTasksForUserQuery
+                {
+                    UserId = userId,
+                    SearchByCircles = searchByCircles,
+                    IncludeCompleted = includeCompleted
+                };
                 var response = await _queryDispatcher.DispatchAsync(query);
                 if (response.ResponseCode < 500)
                 {

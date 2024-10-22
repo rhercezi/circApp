@@ -23,6 +23,24 @@ export default class UserStore {
         }
     }
 
+    getUser = async (id: string): Promise<UserDto | undefined> => {
+        try {
+            let data = await apiClient.Users.get(id);
+            return data;
+        } catch (error: any) {
+            if (error.response && error.response.status > 399 && error.response.status < 500) {
+                runInAction(() => {
+                    this.errorMap.set('getUser', error.response.data);
+                });
+            } else {
+                runInAction(() => {
+                    this.errorMap.set('getUser', 'Something went wrong, please try again later.');
+                });
+            }
+        }
+        return undefined;
+    }
+
     createUser = async (user: UserDto) => {
         this.loaderText = 'Setting new user...';
         this.loading = true;

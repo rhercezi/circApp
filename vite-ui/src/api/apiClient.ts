@@ -11,6 +11,7 @@ import { AddUsersDto } from "./dtos/circle_dtos/AddUsersDto";
 import { RemoveUsersDto } from "./dtos/circle_dtos/RemoveUsersDto";
 import { RequestDto } from "./dtos/circle_dtos/RequestDto";
 import { ConfirmJoinDto } from "./dtos/circle_dtos/ConfirmJoinDto";
+import { CompleteTaskDto } from "./dtos/task_dtos/CompleteTaskDto";
 
 axios.defaults.baseURL = "http://localhost:5028";
 
@@ -78,11 +79,13 @@ const Tasks = {
 
     create: (body: TaskDto) => requests.post('/v1/tasks', body),
     update: (body: TaskDto) => requests.put('/v1/tasks', body),
-    complete: (id: string, jsonPatch: string) => requests.patch(`/v1/tasks${id}`, jsonPatch, { headers: { 'Content-Type': 'application/json-patch+json' } }),
+    complete: (body: CompleteTaskDto) => requests.patch('/v1/tasks', body),
     delete: (id: string) => requests.delete(`/v1/tasks/${id}`),
-    getByCircle: (id: string) => requests.get<TaskDto[]>(`/v1/tasks/circle/${id}`),
-    getByUser: (id: string, searchByCircles: boolean) => requests.get<TaskDto[]>(`/v1/tasks/user/${id}`, {
-        params: { searchByCircles }
+    getByCircle: (id: string, includeCompleted: boolean) => requests.get<TaskDto[]>(`/v1/tasks/circle/${id}`, {
+        params: { includeCompleted }
+    }),
+    getByUser: (id: string, includeCompleted: boolean, searchByCircles: boolean) => requests.get<TaskDto[]>(`/v1/tasks/user/${id}`, {
+        params: { searchByCircles, includeCompleted }
     })
 
 }

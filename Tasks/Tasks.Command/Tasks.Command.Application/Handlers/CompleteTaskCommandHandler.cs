@@ -52,7 +52,7 @@ namespace Tasks.Command.Application.Handlers
                     result = await _repository.UpdateTask(model);
                 }
                 //complete task if all users have completed it
-                if (model.UserModels.All(x => x.IsCompleted))
+                if (model.UserModels.All(x => x.IsCompleted) || model.OwnerId == command.UserId)
                 {
                     model.IsCompleted = true;
                     result = await _repository.UpdateTask(model);

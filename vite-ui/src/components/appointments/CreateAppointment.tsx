@@ -4,7 +4,7 @@ import { Field, FieldProps, Form, Formik } from 'formik';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from "@mui/x-date-pickers";
-import { Box, Button, IconButton, TextField, Tooltip, Divider, FormControlLabel, Checkbox, Alert } from "@mui/material";
+import { Box, Button, IconButton, TextField, Tooltip, Divider, FormControlLabel, Checkbox, Alert, FormHelperText } from "@mui/material";
 import { AppointmentDto, ReminderDto } from "../../api/dtos/appointment_dtos/AppointmentDto";
 import * as yup from 'yup';
 import SelectMultiple from "../common/selects/SelectMultiple";
@@ -13,31 +13,29 @@ import { useState } from "react";
 import uuid from "react-uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { set, values } from "lodash";
 
 const CreateAppointment = () => {
     const { circleStore, userStore, appointmentStore } = useStore();
     const userId = userStore.user?.id!;
     const circles = [...circleStore.circlesMap.values()];
-    const [appointmentInCircles, setAppointmentInCircles] = useState<string[]>([]);
-    const [detailsInCircles, setDetailsInCircles] = useState<string[]>([]);
     const [showDetails, setShowDetails] = useState<boolean>(false);
     const [showAddress, setShowAddress] = useState<boolean>(false);
     const [showReminder, setShowReminder] = useState<boolean>(false);
-    const [evaluated, setEvaluated] = useState<boolean>(false);
     const [reminders, setReminders] = useState<ReminderDto[]>([]);
     const [reminderDate, setReminderDate] = useState<Date>(new Date());
     const [reminderMessage, setReminderMessage] = useState<string>("");
     const [justForUser, setJustForUser] = useState<boolean>(true);
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
+    const [reminderDateError, setReminderDateError] = useState<string>("");
+    const [reminderMessageError, setReminderMessageError] = useState<string>("");
 
     const toggleDetails = () => setShowDetails(!showDetails);
     const toggleAddress = () => setShowAddress(!showAddress);
     const toggleReminder = () => {
         setShowReminder(!showReminder);
         if (!showReminder) { setReminders([]); setReminderDate(new Date()); setReminderMessage(""); }
-    }
-
-    const handleEvaluate = () => setEvaluated(true);
+    };
 
     const handleIsSuccess = () => {
         if (!appointmentStore.errorMap.has('createAppointment')) {
@@ -51,28 +49,19 @@ const CreateAppointment = () => {
         startDate: yup.date().required('Start date is required'),
         endDate: yup.date().required('End date is required'),
         title: yup.string().required('Title is required'),
-        //circles: yup.array().min(1, 'At least one circle is required'),
-        details: showDetails ?
-            yup.object().shape({
-                note: yup.string().required('Note is required'),
-                address: showAddress
-                    ? yup.object().shape({
-                        country: yup.string().required('Country is required'),
-                        city: yup.string().required('City is required'),
-                        street: yup.string().required('Street is required'),
-                        housenumber: yup.string().required('House number is required'),
-                        postCode: yup.string().required('Post code is required'),
-                    })
-                    : yup.object(),
-                // reminders: showReminder
-                //     ? yup.array().of(
-                //         yup.object().shape({
-                //             date: yup.date().required('Reminder date is required'),
-                //             message: yup.string().required('Reminder message is required'),
-                //         })
-                //     )
-                //     : yup.array(),
-            }) : yup.object(),
+        circles: yup.array()
+            .min(1, 'At least one circle must be selected')
+            .required('Circles are required'),
+        note: showDetails ? yup.string().required('Note is required') : yup.string(),
+        detailsInCircles: showDetails ? yup.array()
+            .min(1, 'At least one circle must be selected')
+            .required('Details in circles are required')
+            : yup.array(),
+        country: showAddress ? yup.string().required('Country is required') : yup.string(),
+        city: showAddress ? yup.string().required('City is required') : yup.string(),
+        street: showAddress ? yup.string().required('Street is required') : yup.string(),
+        housenumber: showAddress ? yup.string().required('House number is required') : yup.string(),
+        postCode: showAddress ? yup.string().required('Post code is required') : yup.string()
     });
 
 
@@ -84,50 +73,50 @@ const CreateAppointment = () => {
                 startDate: new Date(localStorage.getItem('selectedDate')!),
                 endDate: new Date(localStorage.getItem('selectedDate')!),
                 title: "",
-                detailsInCircles: [],
-                circles: [],
-                details: {
-                    appointmentId: "",
-                    note: "",
-                    address: {
-                        country: "",
-                        city: "",
-                        street: "",
-                        housenumber: "",
-                        postCode: "",
-                        longitude: 0,
-                        latitude: 0,
-                    },
-                    reminders: [],
-                },
-            } as AppointmentDto}
+                detailsInCircles: [] as string[],
+                circles: [] as string[],
+                appointmentId: "",
+                note: "",
+                country: "",
+                city: "",
+                street: "",
+                housenumber: "",
+                postCode: "",
+                longitude: 0,
+                latitude: 0,
+                reminders: [] as ReminderDto[],
+            }}
             validationSchema={validationSchema}
             onSubmit={async (values) => {
-                if (appointmentInCircles.length < 1 || (showDetails && detailsInCircles.length < 1)) {
-                    return;
-                }
+                const id = uuid();
+                const appointment = {
+                    id: id,
+                    creatorId: userId,
+                    title: values.title,
+                    startDate: values.startDate,
+                    endDate: values.endDate,
+                    circles: values.circles,
+                    detailsInCircles: values.detailsInCircles,
+                    details: showDetails ? {
+                        appointmentId: id,
+                        note: values.note,
+                        address: showAddress ? {
+                            country: values.country,
+                            city: values.city,
+                            street: values.street,
+                            housenumber: values.housenumber,
+                            postCode: values.postCode,
+                            longitude: 0,
+                            latitude: 0,
+                        } : undefined,
+                        reminders: showReminder ? reminders : undefined,
+                    } : undefined,
+                } as AppointmentDto;
 
-                values.id = uuid();
-                values.creatorId = userId;
-                values.circles = appointmentInCircles;
-                values.detailsInCircles = detailsInCircles;
-
-                if (!showDetails) {
-                    values.details = undefined;
-                } else {
-                    if (values.details) {
-                        values.details.appointmentId = values.id;
-                    }
-                }
-
-                if (showReminder) {
-                    values.details!.reminders = reminders;
-                }
-
-                await appointmentStore.createAppointment(values);
+                await appointmentStore.createAppointment(appointment);
                 handleIsSuccess();
             }}>
-            {({ errors, touched, setFieldValue }) => (
+            {({ values, errors, touched, setFieldValue }) => (
                 <>
                     <Form>
                         <Box className="profile-container profile-container-ca" sx={{ padding: 2, gap: 2 }}>
@@ -138,6 +127,7 @@ const CreateAppointment = () => {
                                         <TextField
                                             {...field}
                                             label="Title"
+                                            multiline={true}
                                             error={touched.title && Boolean(errors.title)}
                                             helperText={touched.title && errors.title}
                                         />
@@ -172,16 +162,21 @@ const CreateAppointment = () => {
                                     )}
                                 </Field>
                                 <Field name="circles">
-                                    {() => (
-                                        <SelectMultiple
-                                            dataSource={circles}
-                                            value={appointmentInCircles}
-                                            onChange={setAppointmentInCircles}
-                                            className={touched.circles && Boolean(errors.circles) ? 'alert-border' : ''}
-                                        />
+                                    {({ field }: FieldProps) => (
+                                        <>
+                                            <SelectMultiple
+                                                dataSource={circles}
+                                                value={field.value}
+                                                onChange={(value) => {
+                                                    setFieldValue(field.name, value);
+                                                }}
+                                            />
+                                            {touched.circles && errors.circles && (
+                                                <FormHelperText error>{errors.circles}</FormHelperText>
+                                            )}
+                                        </>
                                     )}
                                 </Field>
-                                <span className="alert-span" style={{ display: appointmentInCircles.length < 1 && evaluated ? 'flex' : 'none' }}>At least one circle is required.</span>
                             </Box>
                             <div className="expend-button-container">
                                 <span>Add Details</span>
@@ -193,27 +188,34 @@ const CreateAppointment = () => {
                             </div>
                             <Box className="profile-container profile-container-ca" style={{ display: showDetails ? 'flex' : 'none' }} sx={{ gap: 2 }}>
 
-                                <Field name="details.note" >
+                                <Field name="note" >
                                     {({ field }: FieldProps) => (
                                         <TextField
                                             {...field}
                                             multiline={true}
+                                            minRows={3}
                                             label="Note"
-                                            error={touched.details?.note && Boolean(errors.details?.note)}
-                                            helperText={touched.details?.note && errors.details?.note}
+                                            error={touched.note && Boolean(errors.note)}
+                                            helperText={touched.note && errors.note}
                                         />
                                     )}
                                 </Field>
-                                <Field name="details.circles">
-                                    {() => (
-                                        <SelectMultiple
-                                            dataSource={circles.filter(circle => appointmentInCircles.includes(circle.id))}
-                                            value={detailsInCircles}
-                                            onChange={setDetailsInCircles}
-                                        />
+                                <Field name="detailsInCircles">
+                                    {({ field }: FieldProps) => (
+                                        <>
+                                            <SelectMultiple
+                                                dataSource={circles.filter(circle => values.circles.includes(circle.id))}
+                                                value={field.value}
+                                                onChange={(value) => {
+                                                    setFieldValue(field.name, value)
+                                                }}
+                                            />
+                                            {touched.detailsInCircles && errors.detailsInCircles && (
+                                                <FormHelperText error>{errors.detailsInCircles}</FormHelperText>
+                                            )}
+                                        </>
                                     )}
                                 </Field>
-                                <span className="alert-span" style={{ display: detailsInCircles.length < 1 && evaluated && showDetails ? 'flex' : 'none' }}>At least one circle is required.</span>
                             </Box>
                             <div className="expend-button-container" style={{ display: showDetails ? 'flex' : 'none' }}>
                                 <span>Add Address</span>
@@ -224,53 +226,53 @@ const CreateAppointment = () => {
                                 </Tooltip>
                             </div>
                             <Box className="profile-container profile-container-ca" style={{ display: showAddress && showDetails ? 'flex' : 'none' }} sx={{ gap: 2 }}>
-                                <Field name="details.address.country">
+                                <Field name="country">
                                     {({ field }: FieldProps) => (
                                         <TextField
                                             {...field}
                                             label="Country"
-                                            error={touched.details?.address?.country && Boolean(errors.details?.address?.country)}
-                                            helperText={touched.details?.address?.country && errors.details?.address?.country}
+                                            error={touched.country && Boolean(errors.country)}
+                                            helperText={touched.country && errors.country}
                                         />
                                     )}
                                 </Field>
-                                <Field name="details.address.city">
+                                <Field name="city">
                                     {({ field }: FieldProps) => (
                                         <TextField
                                             {...field}
                                             label="City"
-                                            error={touched.details?.address?.city && Boolean(errors.details?.address?.city)}
-                                            helperText={touched.details?.address?.city && errors.details?.address?.city}
+                                            error={touched.city && Boolean(errors.city)}
+                                            helperText={touched.city && errors.city}
                                         />
                                     )}
                                 </Field>
-                                <Field name="details.address.street">
+                                <Field name="street">
                                     {({ field }: FieldProps) => (
                                         <TextField
                                             {...field}
                                             label="Street"
-                                            error={touched.details?.address?.street && Boolean(errors.details?.address?.street)}
-                                            helperText={touched.details?.address?.street && errors.details?.address?.street}
+                                            error={touched.street && Boolean(errors.street)}
+                                            helperText={touched.street && errors.street}
                                         />
                                     )}
                                 </Field>
-                                <Field name="details.address.housenumber">
+                                <Field name="housenumber">
                                     {({ field }: FieldProps) => (
                                         <TextField
                                             {...field}
                                             label="House Number"
-                                            error={touched.details?.address?.housenumber && Boolean(errors.details?.address?.housenumber)}
-                                            helperText={touched.details?.address?.housenumber && errors.details?.address?.housenumber}
+                                            error={touched.housenumber && Boolean(errors.housenumber)}
+                                            helperText={touched.housenumber && errors.housenumber}
                                         />
                                     )}
                                 </Field>
-                                <Field name="details.address.postCode">
+                                <Field name="postCode">
                                     {({ field }: FieldProps) => (
                                         <TextField
                                             {...field}
                                             label="Post Code"
-                                            error={touched.details?.address?.postCode && Boolean(errors.details?.address?.postCode)}
-                                            helperText={touched.details?.address?.postCode && errors.details?.address?.postCode}
+                                            error={touched.postCode && Boolean(errors.postCode)}
+                                            helperText={touched.postCode && errors.postCode}
                                         />
                                     )}
                                 </Field>
@@ -311,25 +313,30 @@ const CreateAppointment = () => {
                                         </div>
                                     ))}
                                 </div>
-                                <Field name="details.reminders.date">
+                                <Field name="reminderDate">
                                     {({ field }: FieldProps) => (
-                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                            <DateTimePicker
-                                                {...field}
-                                                label="Start Date"
-                                                value={dayjs(reminderDate)}
-                                                onChange={(value) => {
-                                                    setFieldValue(field.name, value);
-                                                    setReminderDate(value ? value.toDate() : new Date());
-                                                }}
-                                                ampm={false}
-                                                format="YYYY-MM-DD HH:mm"
-                                            />
-                                        </LocalizationProvider>
+                                        <>
+                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                <DateTimePicker
+                                                    {...field}
+                                                    label="Start Date"
+                                                    value={dayjs(reminderDate)}
+                                                    onChange={(value) => {
+                                                        setFieldValue(field.name, value);
+                                                        setReminderDate(value ? value.toDate() : new Date());
+                                                        setReminderDateError("");
+                                                    }}
+                                                    ampm={false}
+                                                    format="YYYY-MM-DD HH:mm"
+                                                />
+                                            </LocalizationProvider>
+                                            {reminderDateError && <FormHelperText error>{reminderDateError}</FormHelperText>}
+                                        </>
                                     )}
                                 </Field>
-                                <Field name="details.reminders.message">
+                                <Field name="message">
                                     {({ field }: FieldProps) => (
+                                        <>
                                         <TextField
                                             {...field}
                                             multiline={true}
@@ -338,11 +345,14 @@ const CreateAppointment = () => {
                                             onChange={(e) => {
                                                 setFieldValue(field.name, e.target.value);
                                                 setReminderMessage(e.target.value);
+                                                setReminderMessageError("");
                                             }}
                                         />
+                                        {reminderMessageError && <FormHelperText error>{reminderMessageError}</FormHelperText>}
+                                        </>
                                     )}
                                 </Field>
-                                <Field name="details.reminders.justForUser">
+                                <Field name="justForUser">
                                     {({ field }: FieldProps) => (
                                         <FormControlLabel
                                             control={<Checkbox defaultChecked
@@ -353,7 +363,20 @@ const CreateAppointment = () => {
                                             label="Reminder Just For User" />
                                     )}
                                 </Field>
-                                <Button variant="text" onClick={() => {
+                                <Button variant="outlined" onClick={async () => {
+                                    if (!reminderDate || reminderDate < new Date()) {
+                                        setReminderDateError("Reminder date must be in the future");
+                                    } else {
+                                        setReminderDateError("");
+                                    }
+                                    if (!reminderMessage) {
+                                        setReminderMessageError("Reminder message is required");
+                                    } else {
+                                        setReminderMessageError("");
+                                    }
+                                    if (reminderDateError || reminderMessageError) {
+                                        return;
+                                    }
                                     setReminders([...reminders, { time: reminderDate, message: reminderMessage, justForUser: justForUser }]);
                                     setReminderDate(new Date());
                                     setReminderMessage("");
@@ -363,7 +386,7 @@ const CreateAppointment = () => {
                             <Divider />
                             {isSuccess && <Alert severity="success">Appointment created successfully!</Alert>}
                             {appointmentStore.errorMap.has('createAppointment') && <Alert severity="error">{appointmentStore.errorMap.get('createAppointment')}</Alert>}
-                            <Button variant="contained" type="submit" onClick={handleEvaluate}>Create Appointment</Button>
+                            <Button variant="contained" type="submit" >Create Appointment</Button>
                         </Box>
                     </Form>
                 </>

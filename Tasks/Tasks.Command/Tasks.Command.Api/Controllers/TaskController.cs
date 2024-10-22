@@ -1,4 +1,5 @@
 using Core.MessageHandling;
+using Core.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Tasks.Command.Application.Commands;
 
@@ -43,7 +44,12 @@ namespace Tasks.Command.Api.Controllers
         {
             try
             {
-                var ownerId = Guid.Parse(Request.Headers["ownerId"].ToString());
+                var accessToken = Request.Cookies["AccessToken"];
+                if (string.IsNullOrEmpty(accessToken))
+                {
+                    return StatusCode(401, "Access token is missing or invalid.");
+                }
+                var ownerId = Guid.Parse(JwtService.GetClaimValue(accessToken, "sub"));
                 if (command.OwnerId != ownerId)
                 {
                     return StatusCode(403, "You are not authorized to perform this action.");
@@ -70,24 +76,15 @@ namespace Tasks.Command.Api.Controllers
         {
             try
             {
-                if (command.UserId != Guid.Empty)
+                var response = await _commandDispatcher.DispatchAsync(command);
+                if (response.ResponseCode < 500)
                 {
-                    var userId = Guid.Parse(Request.Headers["ownerId"].ToString());
-                    if (command.UserId != userId)
-                    {
-                        return StatusCode(403, "You are not authorized to perform this action.");
-                    }
-                    var response = await _commandDispatcher.DispatchAsync(command);
-                    if (response.ResponseCode < 500)
-                    {
-                        return StatusCode(response.ResponseCode, response.Data);
-                    }
-                    else
-                    {
-                        return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
-                    }
+                    return StatusCode(response.ResponseCode, response.Data);
                 }
-                return StatusCode(500, "Something went wrong, please try again later.");
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
             }
             catch (Exception e)
             {
@@ -101,7 +98,12 @@ namespace Tasks.Command.Api.Controllers
         {
             try
             {
-                var ownerId = Guid.Parse(Request.Headers["ownerId"].ToString());
+                var accessToken = Request.Cookies["AccessToken"];
+                if (string.IsNullOrEmpty(accessToken))
+                {
+                    return StatusCode(401, "Access token is missing or invalid.");
+                }
+                var ownerId = Guid.Parse(JwtService.GetClaimValue(accessToken, "sub"));
                 var response = await _commandDispatcher.DispatchAsync(new DeleteTaskCommand { Id = id, OwnerId = ownerId });
                 if (response.ResponseCode < 500)
                 {

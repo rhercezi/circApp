@@ -295,19 +295,31 @@
   display: flex;
   flex-direction: row;
   align-items: start;
+  padding: 0.5rem 0;
 }
 
 .line-div {
-  height: 100%;
   border-right: 2px solid blue;
-  left: 2.1rem;
-  position: sticky;
+  left: 2rem;
+  position: absolute;
+}
+
+.flex-column-left {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
 .day-overview-item-inner {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  width: inherit;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+  width: inherit;
 }
 
 .time-position {
@@ -347,4 +359,65 @@
 
 .day-overview-item-edit-button {
   padding: 0;
+}
+
+.task-overview-header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-overview-item-wrapper {
+  border: 1px solid rgb(102, 179, 255);
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.task-overview-item {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@media (max-width: 800px) {
+  .task-overview-item {
+    flex-direction: column;
+  }
+}
+
+.task-overview-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+@media (max-width: 800px) {
+  .task-overview-actions {
+    flex-direction: row;
+    justify-content: end;
+  }
+}
+
+.completeness-div-outer {
+  display: block;
+  width: 100%;
+  border: 1px solid #00a4039e;
+  background-color: #00a4032f;
+  border-radius: 3px;
+}
+
+.completeness-div {
+  display: block;
+  height: 1rem;
+  background-color: #00a4039e;
+}
+
+.task-overview-details {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  text-align: left;
 }

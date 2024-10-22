@@ -34,9 +34,19 @@ namespace Tasks.Domain.Repositories
             }
         }
 
-        public async Task<List<AppTaskModel>> GetTasksByUserId(Guid userId)
+        public async Task<List<AppTaskModel>> GetTasksByUserId(Guid userId, bool includeCompleted)
         {
-            var filter = Builders<AppTaskModel>.Filter.ElemMatch(t => t.UserModels, Builders<TaskUserModel>.Filter.Eq(u => u.Id, userId));
+            var filter1 = Builders<AppTaskModel>.Filter.ElemMatch(t => t.UserModels, Builders<TaskUserModel>.Filter.Eq(u => u.Id, userId));
+            var filter2 = Builders<AppTaskModel>.Filter.And(
+                Builders<AppTaskModel>.Filter.Eq(t => t.OwnerId, userId),
+                Builders<AppTaskModel>.Filter.Eq(t => t.CircleId, null)
+            );
+            var filter = Builders<AppTaskModel>.Filter.Or(filter1, filter2);
+            if (!includeCompleted)
+            {
+                filter1 = Builders<AppTaskModel>.Filter.And(filter, Builders<AppTaskModel>.Filter.Eq(t => t.IsCompleted, false));
+                return await _collection.Find(filter1).ToListAsync();
+            }
             return await _collection.Find(filter).ToListAsync();
         }
 
@@ -79,15 +89,25 @@ namespace Tasks.Domain.Repositories
             }
         }
 
-        public async Task<List<AppTaskModel>> GetTasksByCircleId(Guid circleId)
+        public async Task<List<AppTaskModel>> GetTasksByCircleId(Guid circleId, bool includeCompleted)
         {
             var filter = Builders<AppTaskModel>.Filter.Eq(t => t.CircleId, circleId);
+            if (!includeCompleted)
+            {
+                filter = Builders<AppTaskModel>.Filter.And(filter, Builders<AppTaskModel>.Filter.Eq(t => t.IsCompleted, false));
+                return await _collection.Find(filter).ToListAsync();
+            }
             return await _collection.Find(filter).ToListAsync();
         }
 
-        public async Task<List<AppTaskModel>> GetTasksByCircleIds(List<Guid> circleIds)
+        public async Task<List<AppTaskModel>> GetTasksByCircleIds(List<Guid> circleIds, bool includeCompleted)
         {
             var filter = Builders<AppTaskModel>.Filter.In(t => t.CircleId, circleIds.Select(id => (Guid?)id));
+            if (!includeCompleted)
+            {
+                filter = Builders<AppTaskModel>.Filter.And(filter, Builders<AppTaskModel>.Filter.Eq(t => t.IsCompleted, false));
+                return await _collection.Find(filter).ToListAsync();
+            }
             return await _collection.Find(filter).ToListAsync();
         }
 

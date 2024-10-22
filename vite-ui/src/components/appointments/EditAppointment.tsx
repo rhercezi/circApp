@@ -17,7 +17,7 @@ import { useParams } from 'react-router-dom';
 import * as jsonpatch from "fast-json-patch";
 
 const EditAppointment = () => {
-    const { appointmentId } = useParams<{ appointmentId: string }>();
+    const { id } = useParams<{ id: string }>();
     const { circleStore, userStore, appointmentStore } = useStore();
     const userId = userStore.user?.id!;
     const circles = [...circleStore.circlesMap.values()];
@@ -39,11 +39,11 @@ const EditAppointment = () => {
 
     useEffect(() => {
         const fetchAppointment = async () => {
-            const fetchedAppointment = await appointmentStore.getAppointment(appointmentId!, userId);
+            const fetchedAppointment = await appointmentStore.getAppointment(id!, userId);
             setAppointment(fetchedAppointment);
         };
         fetchAppointment();
-    }, [appointmentId]);
+    }, [id]);
 
     useEffect(() => {
         if (appointment) {
@@ -97,7 +97,7 @@ const EditAppointment = () => {
                 title: appointment?.title || "",
                 detailsInCircles: detailsInCircles,
                 circles: appointmentInCircles,
-                appointmentId: appointmentId,
+                appointmentId: id,
                 note: appointment?.details?.note || "",
                 country: appointment?.details?.address?.country || "",
                 city: appointment?.details?.address?.city || "",

@@ -23,7 +23,7 @@ namespace Tasks.Query.Application.Handlers
         {
             try
             {
-                var tasks = await _taskRepository.GetTasksByCircleId(query.CircleId);
+                var tasks = await _taskRepository.GetTasksByCircleId(query.CircleId, query.IncludeCompleted);
                 _logger.LogDebug("Found {Nr} tasks for id {Id}", tasks.Count, query.CircleId);
                 
                 return new BaseResponse { ResponseCode = 200, Data = tasks };

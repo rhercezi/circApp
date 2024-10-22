@@ -5,11 +5,6 @@ namespace Tasks.Command.Application.Commands
 {
     public class CreateTaskCommand : BaseCommand
     {
-        public CreateTaskCommand()
-        {
-            Id = Guid.NewGuid();
-            CreatedAt = DateTime.UtcNow;
-        }
         public Guid OwnerId { get; set; }
         public required string Title { get; set; }
         public required string Description { get; set; }

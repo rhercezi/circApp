@@ -7,7 +7,7 @@ import CircleDrawer from "../circles/CircleDrawer";
 import MyButton from "./buttons/MyButton";
 import DialogHandler from "./DialogHandler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faClipboardList, faHome } from "@fortawesome/free-solid-svg-icons";
 
 export default function NavBarLoggedIn() {
     const { userStore } = useStore();
@@ -61,6 +61,9 @@ export default function NavBarLoggedIn() {
                     <DialogHandler elementChange={elementChange} />
                 </div>
                 <div className="nav-bar-avatar">
+                    <IconButton onClick={() => navigate('/tasks')}>
+                        <FontAwesomeIcon icon={faClipboardList} />
+                    </IconButton>
                     <IconButton onClick={() => navigate('/dashboard')}>
                         <FontAwesomeIcon icon={faHome} />
                     </IconButton>
