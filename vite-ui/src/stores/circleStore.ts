@@ -48,7 +48,9 @@ export default class CircleStore {
                 console.error(error);
             }
         } else {
-            this.setUserId('');
+            runInAction(() => {
+                this.setUserId('');
+            });
         }
     }
 

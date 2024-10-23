@@ -10,6 +10,8 @@ export default class UserStore {
     loaderText: string = '';
     errorMap = new Map<string, string>();
     isSuccess: boolean = false;
+    expiration: number = localStorage.getItem('exp') ? Number(localStorage.getItem('exp')) : 0;
+    private refreshIntervalId: NodeJS.Timeout | null = null;
 
 
 
@@ -20,6 +22,10 @@ export default class UserStore {
             this.isLoggedIn = true;
         } else {
             this.isLoggedIn = false;
+        }
+
+        if (this.expiration) {
+            this.startTokenRefreshTimer();
         }
     }
 
@@ -174,16 +180,46 @@ export default class UserStore {
 
     }
 
+    startTokenRefreshTimer = () => {
+        this.stopTokenRefreshTimer();
+        this.refreshIntervalId = setInterval(() => {
+            const expirationTime = this.expiration * 1000;
+            const currentTime = new Date().getTime();
+            const timeLeft = expirationTime - currentTime;
+
+            if (timeLeft <= 5000) {
+                let data = apiClient.Users.refresh();
+                runInAction(() => {
+                    data.then(data => { 
+                        this.expiration = data.data.exp;
+                        localStorage.setItem('exp', data.data.exp.toString());
+                        this.startTokenRefreshTimer();
+                    });
+                });
+            }
+        }, 1000);
+    }
+
+    stopTokenRefreshTimer = () => {
+        if (this.refreshIntervalId) {
+            clearInterval(this.refreshIntervalId);
+            this.refreshIntervalId = null;
+        }
+    }
+
     login = async (username: string, password: string) => {
         this.loaderText = 'Logging in...';
         this.loading = true;
         try {
             let data = await apiClient.Users.login(username, password);
             runInAction(() => {
-                this.user = data.data;
-                localStorage.setItem('user', JSON.stringify(data.data));
+                this.user = data.data.user;
+                this.expiration = data.data.exp;
+                localStorage.setItem('exp', data.data.exp.toString());
+                localStorage.setItem('user', JSON.stringify(data.data.user));
                 this.errorMap.delete('login');
                 this.isLoggedIn = true;
+                this.startTokenRefreshTimer();
             });
         } catch (error: any) {
             runInAction(() => {
@@ -211,7 +247,9 @@ export default class UserStore {
         } finally {
             runInAction(() => {
                 this.user = undefined;
+                this.stopTokenRefreshTimer();
                 localStorage.removeItem('user');
+                localStorage.removeItem('exp');
                 this.isLoggedIn = false;
                 this.loading = false;
             });

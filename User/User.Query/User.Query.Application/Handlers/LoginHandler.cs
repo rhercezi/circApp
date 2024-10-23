@@ -76,18 +76,19 @@ namespace User.Query.Application.Handlers
                         FamilyName = user.FamilyName,
                         Email = user.Email,
                         EmailVerified = user.EmailVerified
-                    }
+                    },
+                    Exp = JwtService.GetTokenClaims(tokens.AccessToken).FirstOrDefault(x => x.Type == "exp")?.Value
                 };
 
                 try
                 {
                     var refreshTokenModel = new RefreshTokenEntity
                     {
-                        Id = _jwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "jti")?.Value,
+                        Id = JwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "jti")?.Value,
                         UserId = user.Id.ToString(),
-                        Iat = long.Parse(_jwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "iat")?.Value),
-                        Nbf = long.Parse(_jwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "nbf")?.Value),
-                        Exp = long.Parse(_jwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "exp")?.Value)
+                        Iat = long.Parse(JwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "iat")?.Value),
+                        Nbf = long.Parse(JwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "nbf")?.Value),
+                        Exp = long.Parse(JwtService.GetTokenClaims(loginDto.Tokens.RefreshToken).FirstOrDefault(x => x.Type == "exp")?.Value)
                     };
                     await _refreshTokenRepository.AddRefreshToken(refreshTokenModel);
                 }

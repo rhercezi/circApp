@@ -12,8 +12,10 @@ import { RemoveUsersDto } from "./dtos/circle_dtos/RemoveUsersDto";
 import { RequestDto } from "./dtos/circle_dtos/RequestDto";
 import { ConfirmJoinDto } from "./dtos/circle_dtos/ConfirmJoinDto";
 import { CompleteTaskDto } from "./dtos/task_dtos/CompleteTaskDto";
+import { LoginDto } from "./dtos/user_dtos/LoginDto";
+import { RefreshDto } from "./dtos/user_dtos/RefreshDto";
 
-axios.defaults.baseURL = "http://localhost:5028";
+axios.defaults.baseURL = "http://localhost:5018";
 
 const body = <T>(response: AxiosResponse<T>) => response.data;
 
@@ -36,8 +38,8 @@ const Users = {
     verifyEmail: (idLink: string) => requests.post(`/v1/user/verify-email/${idLink}`, {}),
     updatePassword: (body: PasswordUpdateDto) => requests.put('/v1/user/password', body),
     resetPassword: (body: PasswordUpdateDto) => requests.put('/v1/user/password-id-link', body),
-    login: (username: string, password: string) => requests.post<UserDto>('/v1/auth', { username, password }),
-    refresh: () => requests.post('/v1/auth/token', {}),
+    login: (username: string, password: string) => requests.post<LoginDto>('/v1/auth', { username, password }),
+    refresh: () => requests.post<RefreshDto>('/v1/auth/token', {}),
     Logout: () => requests.post('/v1/auth/logout', {}),
     resetPasswordRequest: (username: string) => requests.put('/v1/user/password/reset', { username }),
 
@@ -91,49 +93,6 @@ const Tasks = {
 }
 
 axios.defaults.withCredentials = true;
-let isRefreshing = false;
-let failedQueue: any[] = [];
-
-axios.interceptors.response.use(
-    response => response,
-    error => {
-        const originalRequest = error.config;
-
-        if (error.response.status === 401 && error.response.data !== 'Invalid username or password') {
-            if (!originalRequest._retry) {
-                if (isRefreshing) {
-                    return new Promise(function (resolve, reject) {
-                        failedQueue.push({ resolve, reject })
-                    }).then(() => {
-                        return axios(originalRequest);
-                    }).catch(error => {
-                        return Promise.reject(error);
-                    });
-
-                }
-            }
-            originalRequest._retry = true;
-            isRefreshing = true;
-
-            return new Promise(function (resolve, reject) {
-                axios.post('/v1/auth/token', {}).then((response) => {
-                    if (response.status === 200) {
-                        failedQueue.forEach((item) => {
-                            item.resolve(axios(originalRequest));
-                        });
-                        failedQueue = [];
-                        resolve(axios(originalRequest));
-                    }
-                }).catch((error) => {
-                    reject(error);
-                }).finally(() => {
-                    isRefreshing = false;
-                })
-            });
-        }
-        return Promise.reject(error);
-    }
-);
 
 const apiClient = {
     Users,

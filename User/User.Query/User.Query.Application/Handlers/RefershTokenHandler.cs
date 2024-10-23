@@ -32,7 +32,7 @@ namespace User.Query.Application.Handlers
         {
             if (!string.IsNullOrWhiteSpace(query.RefreshToken) && _jwtService.ValidateToken(query.RefreshToken))
             {
-                var clames = _jwtService.GetTokenClaims(query.RefreshToken);
+                var clames = JwtService.GetTokenClaims(query.RefreshToken);
                 var tokenId = clames.FirstOrDefault(x => x.Type == "jti")?.Value;
                 if (!string.IsNullOrWhiteSpace(tokenId))
                 {
@@ -53,29 +53,19 @@ namespace User.Query.Application.Handlers
                                     RefreshToken = _jwtService.GenerateRefreshToken(user.Id.ToString(), user.FirstName, user.FamilyName)
                                 };
 
-                                var loginDto = new LoginDto
+                                var loginDto = new RefreshDto
                                 {
                                     Tokens = newTokens,
-                                    User = new UserDto
-                                    {
-                                        Id = user.Id,
-                                        Created = user.Created,
-                                        Updated = user.Updated,
-                                        UserName = user.UserName,
-                                        FirstName = user.FirstName,
-                                        FamilyName = user.FamilyName,
-                                        Email = user.Email,
-                                        EmailVerified = user.EmailVerified
-                                    }
+                                    Exp = JwtService.GetTokenClaims(newTokens.AccessToken).FirstOrDefault(x => x.Type == "exp")?.Value
                                 };
 
                                 var refreshTokenModel = new RefreshTokenEntity
                                 {
-                                    Id = _jwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "jti")?.Value,
+                                    Id = JwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "jti")?.Value,
                                     UserId = user.Id.ToString(),
-                                    Iat = long.Parse(_jwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "iat")?.Value),
-                                    Nbf = long.Parse(_jwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "nbf")?.Value),
-                                    Exp = long.Parse(_jwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "exp")?.Value)
+                                    Iat = long.Parse(JwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "iat")?.Value),
+                                    Nbf = long.Parse(JwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "nbf")?.Value),
+                                    Exp = long.Parse(JwtService.GetTokenClaims(newTokens.RefreshToken).FirstOrDefault(x => x.Type == "exp")?.Value)
                                 };
 
                                 await _refreshTokenRepository.DeleteRefreshTokenByUserId(tokenModel.UserId);

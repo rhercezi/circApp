@@ -53,7 +53,8 @@ namespace User.Query.Api.Controllers
                     HttpContext.Response.Cookies.Append("AccessToken", loginDto.Tokens.AccessToken, accessOptions);
                     HttpContext.Response.Cookies.Append("RefreshToken", loginDto.Tokens.RefreshToken, refreshOptions);
 
-                    return StatusCode(200, loginDto.User);
+                    loginDto.Tokens = null;
+                    return StatusCode(200, loginDto);
                 }
                 else
                 {
@@ -82,14 +83,14 @@ namespace User.Query.Api.Controllers
                     RefreshToken = refreshToken
                 };
 
-                LoginDto loginDto = new();
+                RefreshDto refreshDto = new();
 
                 try
                 {
                     var response = await _authDispatcher.DispatchAsync(refreshTokenQuery);
                     if (response.ResponseCode < 300 && response.Data != null)
                     {
-                        loginDto = (LoginDto)response.Data;
+                        refreshDto = (RefreshDto)response.Data;
                     }
                     else
                     {
@@ -106,7 +107,7 @@ namespace User.Query.Api.Controllers
                     return StatusCode(400, "Something went wrong, please contact support using support page.");
                 }
 
-                var caccessOptions = new CookieOptions
+                var accessOptions = new CookieOptions
                 {
                     HttpOnly = _cookieConfig.Value.HttpOnly,
                     Secure = _cookieConfig.Value.Secure,
@@ -122,10 +123,11 @@ namespace User.Query.Api.Controllers
                     MaxAge = TimeSpan.FromHours(_cookieConfig.Value.RefreshMaxAge)
                 };
 
-                HttpContext.Response.Cookies.Append("AccessToken", loginDto.Tokens.AccessToken!, caccessOptions);
-                HttpContext.Response.Cookies.Append("RefreshToken", loginDto.Tokens.RefreshToken!, refreshOptions);
+                HttpContext.Response.Cookies.Append("AccessToken", refreshDto.Tokens.AccessToken!, accessOptions);
+                HttpContext.Response.Cookies.Append("RefreshToken", refreshDto.Tokens.RefreshToken!, refreshOptions);
 
-                return StatusCode(200);
+                refreshDto.Tokens = null;
+                return StatusCode(200, refreshDto);
             }
             else
             {
