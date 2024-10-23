@@ -1,15 +1,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
-COPY ApiGateway/*.sln ./ApiGateway/
+COPY EventSocket/*.sln ./EventSocket/
 COPY Core/*.csproj ./Core/
-COPY ApiGateway/*.csproj ./ApiGateway/
+COPY EventSocket/*.csproj ./EventSocket/
 
-RUN dotnet restore ./ApiGateway
+RUN dotnet restore ./EventSocket
 
 COPY . ./
 
-WORKDIR /app/ApiGateway
+WORKDIR /app/EventSocket
 RUN dotnet publish --no-restore -c Release -o ../out --no-cache /restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
@@ -26,4 +26,4 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
 
-ENTRYPOINT ["dotnet", "ApiGateway.dll"]
+ENTRYPOINT ["dotnet", "EventSocket.dll"]

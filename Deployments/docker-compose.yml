@@ -74,6 +74,7 @@ services:
     restart: always
     ports:
       - "5010:80"
+      - "9210:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
@@ -86,6 +87,8 @@ services:
     restart: always
     ports:
       - "5011:80"
+      - "443:443"
+      - "9211:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
@@ -97,6 +100,7 @@ services:
     restart: always
     ports:
       - "5012:80"
+      - "9212:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
@@ -108,6 +112,7 @@ services:
     restart: always
     ports:
       - "5013:80"
+      - "9213:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
@@ -117,6 +122,7 @@ services:
     restart: always
     ports:
       - "5014:80"
+      - "9214:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
@@ -126,6 +132,7 @@ services:
     restart: always
     ports:
       - "5015:80"
+      - "9215:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
@@ -135,6 +142,7 @@ services:
     restart: always
     ports:
       - "5016:80"
+      - "9216:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
@@ -144,6 +152,7 @@ services:
     restart: always
     ports:
       - "5017:80"
+      - "9217:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
@@ -153,6 +162,7 @@ services:
     restart: always
     ports:
       - "5018:80"
+      - "9218:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
