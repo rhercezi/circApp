@@ -70,6 +70,7 @@ app.UseCors("MyPolicy");
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseWebSockets();
 
 await app.UseOcelot();
 app.Run();

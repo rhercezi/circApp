@@ -38,7 +38,7 @@ builder.Services.AddScoped<IMessageHandler<GetUserByEmailQuery>, GetUserByEmailQ
 builder.Services.AddScoped<IMessageHandler<GetUserByIdQuery>, GetUserByIdQueryHandler>();
 builder.Services.AddScoped<IMessageHandler<GetUserByUsernameQuery>, GetUserByUsernameQueryHandler>();
 builder.Services.AddScoped<IMessageHandler<LoginQuery>, LoginHandler>();
-builder.Services.AddScoped<IMessageHandler<RefreshTokenQuery>, RefershTokenHandler>();
+builder.Services.AddScoped<IMessageHandler<RefreshTokenQuery>, RefreshTokenHandler>();
 builder.Services.AddScoped<IMessageHandler<EmailVerifiedEvent>, EmailVerifiedEventHandler>();
 builder.Services.AddScoped<IMessageHandler<PasswordUpdatedEvent>, PasswordUpdatedEventHandler>();
 builder.Services.AddScoped<IMessageHandler<UserCreatedEvent>, UserCreatedEventHandler>();

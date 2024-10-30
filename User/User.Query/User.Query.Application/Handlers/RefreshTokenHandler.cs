@@ -10,17 +10,17 @@ using User.Query.Domain.Repositories;
 
 namespace User.Query.Application.Handlers
 {
-    public class RefershTokenHandler : IMessageHandler<RefreshTokenQuery>
+    public class RefreshTokenHandler : IMessageHandler<RefreshTokenQuery>
     {
         private readonly JwtService _jwtService;
         private readonly RefreshTokenRepository _refreshTokenRepository;
         private readonly UserRepository _userRepository;
-        private readonly ILogger<RefershTokenHandler> _logger;
+        private readonly ILogger<RefreshTokenHandler> _logger;
 
-        public RefershTokenHandler(JwtService jwtService,
+        public RefreshTokenHandler(JwtService jwtService,
                                    RefreshTokenRepository refreshTokenRepository,
                                    UserRepository userRepository,
-                                   ILogger<RefershTokenHandler> logger)
+                                   ILogger<RefreshTokenHandler> logger)
         {
             _jwtService = jwtService;
             _refreshTokenRepository = refreshTokenRepository;

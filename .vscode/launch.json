@@ -2,243 +2,204 @@
     "version": "0.2.0",
     "configurations": [
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": "User.Command.Api",
+            "name": "user-command-api",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Command.Api.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/User/User.Command/User.Command.Api",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5020"
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "user-command-api"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false,
+                "debuggerPath": "/vsdbg/vsdbg"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/app": "${workspaceFolder}"
             }
         },
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": "User.Query.Api",
+            "name": "user-query-api",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/User/User.Query/User.Query.Api/bin/Debug/net7.0/User.Query.Api.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/User/User.Query/User.Query.Api",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5021"
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "user-query-api"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false,
+                "debuggerPath": "/vsdbg/vsdbg"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/app": "${workspaceFolder}"
             }
         },
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": "Circle.Command.Api",
+            "name": "circles-command-api",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/Circles.Command.Api.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/Circles/Circles.Command/Circles.Command.Api",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5022"
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "circles-command-api"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false,
+                "debuggerPath": "/vsdbg/vsdbg"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/app": "${workspaceFolder}"
             }
         },
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": "Circle.Query.Api",
+            "name": "circles-query-api",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/Circles.Query.Api.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/Circles/Circles.Query/Circles.Query.Api",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5023"
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "circles-query-api"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false,
+                "debuggerPath": "/vsdbg/vsdbg"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/app": "${workspaceFolder}"
             }
         },
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": "Appointments.Command.Api",
+            "name": "appointments-command-api",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/Appointments.Command.Api.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/Appointments/Appointments.Command/Appointments.Command.Api",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5024"
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "appointments-command-api"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false,
+                "debuggerPath": "/vsdbg/vsdbg"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/app": "${workspaceFolder}"
             }
         },
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": "Appointments.Query.Api",
+            "name": "appointments-query-api",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/Appointments.Query.Api.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/Appointments/Appointments.Query/Appointments.Query.Api",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5025"
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "appointments-query-api"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false,
+                "debuggerPath": "/vsdbg/vsdbg"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/app": "${workspaceFolder}"
             }
         },
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": "Tasks.Command.Api",
+            "name": "tasks-command-api",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/Tasks.Command.Api.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/Tasks/Tasks.Command/Tasks.Command.Api",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5026"
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "tasks-command-api"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false,
+                "debuggerPath": "/vsdbg/vsdbg"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/app": "${workspaceFolder}"
             }
         },
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": "Tasks.Query.Api",
+            "name": "tasks-query-api",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/Tasks.Query.Api.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/Tasks/Tasks.Query/Tasks.Query.Api",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5027"
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "tasks-query-api"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false,
+                "debuggerPath": "/vsdbg/vsdbg"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/app": "${workspaceFolder}"
             }
         },
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": "ApiGateway",
+            "name": "api-gateway",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/ApiGateway/bin/Debug/net7.0/ApiGateway.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/ApiGateway",
-            "stopAtEntry": false,
-            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5028"
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "api-gateway"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false,
+                "debuggerPath": "/vsdbg/vsdbg"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/app": "${workspaceFolder}"
             }
         },
         {
-            "name": ".NET Core Attach",
+            "name": "event-socket",
             "type": "coreclr",
-            "request": "attach"
-        }
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [
+                    "exec",
+                    "-i",
+                    "event-socket"
+                ],
+                "pipeCwd": "${workspaceFolder}",
+                "quoteArgs": false,
+                "debuggerPath": "/vsdbg/vsdbg"
+            },
+            "sourceFileMap": {
+                "/app": "${workspaceFolder}"
+            }
+        },
     ]
 }

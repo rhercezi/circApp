@@ -13,7 +13,7 @@ RUN dotnet restore ./Tasks/Tasks.Command/Tasks.Command.Api
 COPY . ./
 
 WORKDIR /app/Tasks/Tasks.Command/Tasks.Command.Api
-RUN dotnet publish --no-restore -c Release -o ../../../out --no-cache /restore
+RUN dotnet publish --no-restore -c Debug -o ../../../out --no-cache /restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app

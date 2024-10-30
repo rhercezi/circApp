@@ -5,7 +5,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_command_api",
+                    "Host": "user-command-api",
                     "Port": 80
                 }
             ],
@@ -17,7 +17,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_command_api",
+                    "Host": "user-command-api",
                     "Port": 80
                 }
             ],
@@ -33,7 +33,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_command_api",
+                    "Host": "user-command-api",
                     "Port": 80
                 }
             ],
@@ -49,7 +49,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_command_api",
+                    "Host": "user-command-api",
                     "Port": 80
                 }
             ],
@@ -61,7 +61,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_command_api",
+                    "Host": "user-command-api",
                     "Port": 80
                 }
             ],
@@ -73,7 +73,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_command_api",
+                    "Host": "user-command-api",
                     "Port": 80
                 }
             ],
@@ -85,7 +85,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_query_api",
+                    "Host": "user-query-api",
                     "Port": 80
                 }
             ],
@@ -101,7 +101,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_query_api",
+                    "Host": "user-query-api",
                     "Port": 80
                 }
             ],
@@ -117,7 +117,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_query_api",
+                    "Host": "user-query-api",
                     "Port": 80
                 }
             ],
@@ -133,7 +133,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_query_api",
+                    "Host": "user-query-api",
                     "Port": 80
                 }
             ],
@@ -145,7 +145,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_query_api",
+                    "Host": "user-query-api",
                     "Port": 80
                 }
             ],
@@ -157,7 +157,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "user_query_api",
+                    "Host": "user-query-api",
                     "Port": 80
                 }
             ],
@@ -173,7 +173,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "circles_command_api",
+                    "Host": "circles-command-api",
                     "Port": 80
                 }
             ],
@@ -189,7 +189,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "circles_command_api",
+                    "Host": "circles-command-api",
                     "Port": 80
                 }
             ],
@@ -205,7 +205,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "circles_command_api",
+                    "Host": "circles-command-api",
                     "Port": 80
                 }
             ],
@@ -221,7 +221,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "circles_command_api",
+                    "Host": "circles-command-api",
                     "Port": 80
                 }
             ],
@@ -237,7 +237,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "circles_command_api",
+                    "Host": "circles-command-api",
                     "Port": 80
                 }
             ],
@@ -253,7 +253,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "circles_query_api",
+                    "Host": "circles-query-api",
                     "Port": 80
                 }
             ],
@@ -269,7 +269,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "circles_query_api",
+                    "Host": "circles-query-api",
                     "Port": 80
                 }
             ],
@@ -285,7 +285,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "circles_query_api",
+                    "Host": "circles-query-api",
                     "Port": 80
                 }
             ],
@@ -301,7 +301,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "circles_query_api",
+                    "Host": "circles-query-api",
                     "Port": 80
                 }
             ],
@@ -317,7 +317,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "appointments_command_api",
+                    "Host": "appointments-command-api",
                     "Port": 80
                 }
             ],
@@ -333,7 +333,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "appointments_command_api",
+                    "Host": "appointments-command-api",
                     "Port": 80
                 }
             ],
@@ -342,20 +342,14 @@
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
-            },
-            "ClaimsToHeaders": [
-                {
-                  "Claim": "sub",
-                  "Header": "userId"
-                }
-            ]
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/appointments/details",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "appointments_command_api",
+                    "Host": "appointments-command-api",
                     "Port": 80
                 }
             ],
@@ -371,7 +365,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "appointments_command_api",
+                    "Host": "appointments-command-api",
                     "Port": 80
                 }
             ],
@@ -380,20 +374,14 @@
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
-            },
-            "ClaimsToHeaders": [
-                {
-                  "Claim": "sub",
-                  "Header": "userId"
-                }
-            ]
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/appointments/circle/{id}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "appointments_query_api",
+                    "Host": "appointments-query-api",
                     "Port": 80
                 }
             ],
@@ -409,7 +397,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "appointments_query_api",
+                    "Host": "appointments-query-api",
                     "Port": 80
                 }
             ],
@@ -425,7 +413,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "appointments_query_api",
+                    "Host": "appointments-query-api",
                     "Port": 80
                 }
             ],
@@ -441,7 +429,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "tasks_command_api",
+                    "Host": "tasks-command-api",
                     "Port": 80
                 }
             ],
@@ -450,20 +438,14 @@
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
-            },
-            "ClaimsToHeaders": [
-                {
-                  "Claim": "sub",
-                  "Header": "ownerId"
-                }
-            ]
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/tasks/{id}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "tasks_command_api",
+                    "Host": "tasks-command-api",
                     "Port": 80
                 }
             ],
@@ -472,20 +454,14 @@
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
-            },
-            "ClaimsToHeaders": [
-                {
-                  "Claim": "sub",
-                  "Header": "ownerId"
-                }
-              ]
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/tasks/circle/{circleId}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "tasks_query_api",
+                    "Host": "tasks-query-api",
                     "Port": 80
                 }
             ],
@@ -501,11 +477,27 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "tasks_query_api",
+                    "Host": "tasks-query-api",
                     "Port": 80
                 }
             ],
             "UpstreamPathTemplate": "/v1/tasks/user/{userId}",
+            "UpstreamHttpMethod": [ "Get"],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/event-socket",
+            "DownstreamScheme": "ws",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "event-socket",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/event-socket",
             "UpstreamHttpMethod": [ "Get"],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",

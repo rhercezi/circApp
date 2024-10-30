@@ -1,5 +1,3 @@
-version: "3.4"
-
 services:
   zookeeper:
     image: bitnami/zookeeper
@@ -69,8 +67,10 @@ services:
       - "8025:8025"  # Web UI port
 
   user-command-api:
-    image: user_command_api:latest
-    container_name: user_command_api
+    build:
+      context: .
+      dockerfile: User/User.Command/User.Command.Api/Dockerfile
+    container_name: user-command-api
     restart: always
     ports:
       - "5010:80"
@@ -82,12 +82,13 @@ services:
       - mailhog
 
   user-query-api:
-    image: user_query_api:latest
-    container_name: user_query_api
+    build:
+      context: .
+      dockerfile: User/User.Query/User.Query.Api/Dockerfile
+    container_name: user-query-api
     restart: always
     ports:
       - "5011:80"
-      - "443:443"
       - "9211:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
@@ -95,8 +96,10 @@ services:
       - kafka
 
   circles-command-api:
-    image: circles_command_api:latest
-    container_name: circles_command_api
+    build:
+      context: .
+      dockerfile: Circles/Circles.Command/Circles.Command.Api/Dockerfile
+    container_name: circles-command-api
     restart: always
     ports:
       - "5012:80"
@@ -107,8 +110,10 @@ services:
       - kafka
 
   circles-query-api:
-    image: circles_query_api:latest
-    container_name: circles_query_api
+    build:
+      context: .
+      dockerfile: Circles/Circles.Query/Circles.Query.Api/Dockerfile
+    container_name: circles-query-api
     restart: always
     ports:
       - "5013:80"
@@ -117,8 +122,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
 
   appointments-command-api:
-    image: appointments_command_api:latest
-    container_name: appointments_command_api
+    build:
+      context: .
+      dockerfile: Appointments/Appointments.Command/Appointments.Command.Api/Dockerfile
+    container_name: appointments-command-api
     restart: always
     ports:
       - "5014:80"
@@ -127,8 +134,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
 
   appointments-query-api:
-    image: appointments_query_api:latest
-    container_name: appointments_query_api
+    build:
+      context: .
+      dockerfile: Appointments/Appointments.Query/Appointments.Query.Api/Dockerfile
+    container_name: appointments-query-api
     restart: always
     ports:
       - "5015:80"
@@ -137,8 +146,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
 
   tasks-command-api:
-    image: tasks_command_api:latest
-    container_name: tasks_command_api
+    build:
+      context: .
+      dockerfile: Tasks/Tasks.Command/Tasks.Command.Api/Dockerfile
+    container_name: tasks-command-api
     restart: always
     ports:
       - "5016:80"
@@ -147,8 +158,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
 
   tasks-query-api:
-    image: tasks_query_api:latest
-    container_name: tasks_query_api
+    build:
+      context: .
+      dockerfile: Tasks/Tasks.Query/Tasks.Query.Api/Dockerfile
+    container_name: tasks-query-api
     restart: always
     ports:
       - "5017:80"
@@ -156,9 +169,24 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
 
+  event-socket:
+    build:
+      context: .
+      dockerfile: EventSocket/EventSocket.Api/Dockerfile
+    container_name: event-socket
+    restart: always
+    ports:
+      - "5019:80"
+      - "443:443"
+      - "9219:9229"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
   api-gateway:
-    image: api_gateway:latest
-    container_name: api_gateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    container_name: api-gateway
     restart: always
     ports:
       - "5018:80"
@@ -174,6 +202,7 @@ services:
       - appointments-query-api
       - tasks-command-api
       - tasks-query-api
+      - event-socket
 
 volumes:
   zookeeper_data:
@@ -187,5 +216,5 @@ volumes:
    
 networks:
   default:
-    external:
-      name: mynet
+    name: mynet
+    external: true

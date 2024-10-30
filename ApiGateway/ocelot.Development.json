@@ -326,13 +326,7 @@
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
-            },
-            "ClaimsToHeaders": [
-                {
-                  "Claim": "sub",
-                  "Header": "userId"
-                }
-              ]
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/appointments/details",
@@ -364,13 +358,7 @@
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
-            },
-            "ClaimsToHeaders": [
-                {
-                  "Claim": "sub",
-                  "Header": "userId"
-                }
-              ]
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/appointments/circle/{id}",
@@ -434,13 +422,7 @@
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
-            },
-            "ClaimsToHeaders": [
-                {
-                  "Claim": "sub",
-                  "Header": "ownerId"
-                }
-              ]
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/tasks/{id}",
@@ -456,13 +438,7 @@
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
-            },
-            "ClaimsToHeaders": [
-                {
-                  "Claim": "sub",
-                  "Header": "ownerId"
-                }
-              ]
+            }
         },
         {
             "DownstreamPathTemplate": "/api/v1/tasks/circle/{circleId}",
@@ -490,6 +466,22 @@
                 }
             ],
             "UpstreamPathTemplate": "/v1/tasks/user/{userId}",
+            "UpstreamHttpMethod": [ "Get"],
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/v1/event-socket",
+            "DownstreamScheme": "ws",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5028
+                }
+            ],
+            "UpstreamPathTemplate": "/v1/event-socket",
             "UpstreamHttpMethod": [ "Get"],
             "AuthenticationOptions": {
                 "AuthenticationProviderKey": "Bearer",
