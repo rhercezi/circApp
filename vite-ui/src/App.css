@@ -421,3 +421,16 @@
   align-items: start;
   text-align: left;
 }
+
+.notification {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.notification-message:hover {
+  cursor: pointer;
+}

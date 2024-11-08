@@ -28,7 +28,7 @@ namespace Tasks.Command.Application.Handlers
         public async Task<BaseResponse> HandleAsync(CompleteTaskCommand command)
         {
             ReplaceOneResult? result = null;
-            var model = await _repository.GetTasksById(command.TaskId);
+            var model = await _repository.GetTaskById(command.TaskId);
             _logger.LogDebug("For id '{id}' found task: {task}", command.TaskId.ToString(), model);
 
             if (model.CircleId != null && model.CircleId == command.CircleId)
@@ -36,7 +36,7 @@ namespace Tasks.Command.Application.Handlers
                 model.IsCompleted = true;
                 result = await _repository.UpdateTask(model);
 
-                var taskEvent = new TaskChangePublicEvent(model.Id, command.GetType().Name)
+                var taskEvent = new TaskChangePublicEvent(model.Id, model.Title, EventType.Update, model.EndDate)
                 {
                     CircleId = model.CircleId
                 };
@@ -57,10 +57,11 @@ namespace Tasks.Command.Application.Handlers
                     model.IsCompleted = true;
                     result = await _repository.UpdateTask(model);
                 }
-                var taskEvent = new TaskChangePublicEvent(model.Id, command.GetType().Name)
+                var taskEvent = new TaskChangePublicEvent(model.Id, model.Title, EventType.Update, model.EndDate)
                 {
                     UserIds = model.UserModels.Select(x => x.Id).ToList()
                 };
+
                 await _eventProducer.ProduceAsync(taskEvent);
             }
             else

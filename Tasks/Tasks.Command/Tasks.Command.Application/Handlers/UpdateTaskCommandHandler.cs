@@ -31,7 +31,7 @@ namespace Tasks.Command.Application.Handlers
         {
             try
             {
-                var modelOld = await _repository.GetTasksById(command.Id);
+                var modelOld = await _repository.GetTaskById(command.Id);
                 var modelNew = CommandModelConverter.ConvertToModel<AppTaskModel>(command);
 
                 var result = await _repository.UpdateTask(modelNew);
@@ -42,11 +42,10 @@ namespace Tasks.Command.Application.Handlers
                     throw new AppTaskException("Failed updating task");
                 }
 
-                var taskEvent = new TaskChangePublicEvent(command.Id, command.GetType().Name)
-
+                var taskEvent = new TaskChangePublicEvent(command.Id, modelNew.Title, EventType.Update, modelNew.EndDate)
                 {
-                    CircleId = command.CircleId,
-                    UserIds = command.UserModels?.Select(x => x.Id).ToList()
+                    CircleId = modelNew.CircleId,
+                    UserIds = modelNew.UserModels?.Select(x => x.Id).ToList()
                 };
 
                 await _eventProducer.ProduceAsync(taskEvent);

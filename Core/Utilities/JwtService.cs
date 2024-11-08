@@ -82,11 +82,17 @@ namespace Core.Utilities
             }
         }
 
-        public IEnumerable<Claim> GetTokenClaims(string token)
+        public static IEnumerable<Claim> GetTokenClaims(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtToken = tokenHandler.ReadJwtToken(token);
             return jwtToken.Claims;
+        }
+
+        public static string GetClaimValue(string token, string claimType)
+        {
+            var claims = GetTokenClaims(token);
+            return claims.FirstOrDefault(c => c.Type == claimType)?.Value ?? string.Empty;
         }
     }
 }

@@ -117,7 +117,7 @@ namespace Tasks.Domain.Repositories
             return await _collection.Find(filter).ToListAsync();
         }
 
-        public async Task<AppTaskModel> GetTasksById(Guid id)
+        public async Task<AppTaskModel> GetTaskById(Guid id)
         {
             var filter = Builders<AppTaskModel>.Filter.Eq(t => t.Id, id);
             return await _collection.Find(filter).FirstOrDefaultAsync();

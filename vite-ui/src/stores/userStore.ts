@@ -18,6 +18,8 @@ export default class UserStore {
     constructor() {
         makeAutoObservable(this);
 
+        this.setUser();
+
         if (this.user) {
             this.isLoggedIn = true;
         } else {
@@ -26,6 +28,12 @@ export default class UserStore {
 
         if (this.expiration) {
             this.startTokenRefreshTimer();
+        }
+    }
+
+    setUser = async () => {
+        if (!this.user && localStorage.getItem('user')) {
+            this.user = JSON.parse(localStorage.getItem('user')!);
         }
     }
 

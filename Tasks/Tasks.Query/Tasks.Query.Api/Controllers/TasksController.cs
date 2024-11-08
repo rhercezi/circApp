@@ -70,5 +70,28 @@ namespace Tasks.Query.Api.Controllers
                 return StatusCode(500, "Something went wrong, please try again later.");
             }
         }
+
+        [HttpGet("{taskId}")]
+        public async Task<IActionResult> GetTaskAsync([FromRoute] Guid taskId)
+        {
+            try
+            {
+                var query = new GetTaskQuery { TaskId = taskId };
+                var response = await _queryDispatcher.DispatchAsync(query);
+                if (response.ResponseCode < 500)
+                {
+                    return StatusCode(response.ResponseCode, response.Data);
+                }
+                else
+                {
+                    return StatusCode(response.ResponseCode, "Something went wrong, please contact support using support page.");
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                return StatusCode(500, "Something went wrong, please try again later.");
+            }
+        }
     }
 }

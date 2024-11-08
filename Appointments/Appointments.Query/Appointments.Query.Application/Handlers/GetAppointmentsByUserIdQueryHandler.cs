@@ -54,7 +54,7 @@ namespace Appointments.Query.Application.Handlers
                     if (appointmentIds.Count > 0)
                     {
                         var appointments = await _appointmentRepository.GetAppointments(appointmentIds);
-                        SetAppointmnetsDetails(ref appointments, circles);
+                        SetAppointmentsDetails(ref appointments, circles);
                         return new BaseResponse { ResponseCode = 200, Data = appointments };
                     }
                 }
@@ -63,7 +63,7 @@ namespace Appointments.Query.Application.Handlers
             return new BaseResponse { ResponseCode = 200 };
         }
 
-        private void SetAppointmnetsDetails(ref List<AppointmentModel> appointments, List<Guid> circles)
+        private void SetAppointmentsDetails(ref List<AppointmentModel> appointments, List<Guid> circles)
         {
             foreach (var a in appointments)
             {

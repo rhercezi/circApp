@@ -32,7 +32,7 @@ const JoinRequests = () => {
     const { userStore, circleStore } = useStore();
 
     return (
-        <div className="profile-element-column">
+        <div id="join-request" className="profile-element-column">
             <h3>Join Circle Requests</h3>
             <TableContainer component={Paper}>
                 <Table>

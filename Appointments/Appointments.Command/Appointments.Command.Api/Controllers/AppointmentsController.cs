@@ -1,5 +1,6 @@
 using Appointments.Command.Application.Commands;
 using Core.MessageHandling;
+using Core.Utilities;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,7 +44,13 @@ namespace Appointments.Command.Api.Controllers
         [HttpPatch]
         public async Task<IActionResult> UpdateAppointment([FromRoute] Guid appointmentId, [FromBody] JsonPatchDocument patchDocument)
         {
-            var command = new UpdateAppointmentCommand(Guid.Parse(Request.Headers["userId"].ToString()), appointmentId, patchDocument);
+            var accessToken = Request.Cookies["AccessToken"];
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                return StatusCode(401, "Access token is missing or invalid.");
+            }
+            var ownerId = Guid.Parse(JwtService.GetClaimValue(accessToken, "sub"));
+            var command = new UpdateAppointmentCommand(ownerId, appointmentId, patchDocument);
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
@@ -69,9 +76,16 @@ namespace Appointments.Command.Api.Controllers
         {
             try
             {
+                var accessToken = Request.Cookies["AccessToken"];
+                if (string.IsNullOrEmpty(accessToken))
+                {
+                    return StatusCode(401, "Access token is missing or invalid.");
+                }
+                var userId = Guid.Parse(JwtService.GetClaimValue(accessToken, "sub"));
+
                 var command = new DeleteAppointmentCommand
                 {
-                    UserId = Guid.Parse(Request.Headers["userId"].ToString()),
+                    UserId = userId,
                     AppointmentId = appointmentId
                 };
 
@@ -88,7 +102,6 @@ namespace Appointments.Command.Api.Controllers
             catch (Exception e)
             {
                 _logger.LogError("An exception occurred: {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                _logger.LogError("appointmentId: {appointmentId}, userId: {userId}", appointmentId, Request.Headers["userId"].ToString());
                 return StatusCode(500, "Something went wrong, please try again later.");
             }
         }
@@ -120,7 +133,14 @@ namespace Appointments.Command.Api.Controllers
         [HttpPatch]
         public async Task<IActionResult> UpdateAppointmentDetails([FromRoute] Guid appointmentId, [FromBody] JsonPatchDocument patchDocument)
         {
-            var command = new UpdateAppointmentDetailCommand(Guid.Parse(Request.Headers["userId"].ToString()), appointmentId, patchDocument);
+            var accessToken = Request.Cookies["AccessToken"];
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                return StatusCode(401, "Access token is missing or invalid.");
+            }
+            var ownerId = Guid.Parse(JwtService.GetClaimValue(accessToken, "sub"));
+
+            var command = new UpdateAppointmentDetailCommand(ownerId, appointmentId, patchDocument);
             try
             {
                 var response = await _dispatcher.DispatchAsync(command);
@@ -146,9 +166,16 @@ namespace Appointments.Command.Api.Controllers
         {
             try
             {
+                var accessToken = Request.Cookies["AccessToken"];
+                if (string.IsNullOrEmpty(accessToken))
+                {
+                    return StatusCode(401, "Access token is missing or invalid.");
+                }
+                var userId = Guid.Parse(JwtService.GetClaimValue(accessToken, "sub"));
+
                 var command = new DeleteAppointmentDetailCommand
                 {
-                    UserId = Guid.Parse(Request.Headers["userId"].ToString()),
+                    UserId = userId,
                     AppointmentId = appointmentId
                 };
 

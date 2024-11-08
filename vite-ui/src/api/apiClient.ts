@@ -14,6 +14,7 @@ import { ConfirmJoinDto } from "./dtos/circle_dtos/ConfirmJoinDto";
 import { CompleteTaskDto } from "./dtos/task_dtos/CompleteTaskDto";
 import { LoginDto } from "./dtos/user_dtos/LoginDto";
 import { RefreshDto } from "./dtos/user_dtos/RefreshDto";
+import { NotificationDto } from "./dtos/notification_dtos/NotificationDto";
 
 axios.defaults.baseURL = "http://localhost:5018";
 
@@ -88,9 +89,66 @@ const Tasks = {
     }),
     getByUser: (id: string, includeCompleted: boolean, searchByCircles: boolean) => requests.get<TaskDto[]>(`/v1/tasks/user/${id}`, {
         params: { searchByCircles, includeCompleted }
-    })
+    }),
+    getById: (id: string) => requests.get<TaskDto>(`/v1/tasks/${id}`)
 
 }
+
+const Socket = {
+    connect: (onMessage: (message: NotificationDto) => void) => {
+        const socket = new WebSocket('ws://localhost:5018/v1/event-socket');
+
+        socket.onopen = () => {
+            //console.log('WebSocket connection established');
+        };
+
+        socket.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                if (isNotificationDto(data)) {
+                    onMessage(data);
+                } else {
+                    console.error('Received data does not match NotificationDto:', data);
+                }
+            } catch (error) {
+                console.error('Error parsing WebSocket message:', error);
+            }
+        };
+
+        socket.onclose = (event) => {
+            if (event.wasClean) {
+                console.log(`WebSocket connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+            } else {
+                console.error('WebSocket connection closed unexpectedly');
+            }
+        };
+
+        socket.onerror = (error) => {
+            console.error('WebSocket error:', error);
+        };
+
+        const sendMessage = (message: string) => {
+            if (socket.readyState === WebSocket.OPEN) {
+                socket.send(message);
+            } else {
+                console.error('WebSocket is not open. Ready state:', socket.readyState);
+            }
+        };
+
+        return { socket, sendMessage };
+    }
+};
+
+const isNotificationDto = (data: any): data is NotificationDto => {
+    return typeof data === 'object' &&
+        typeof data.Id === 'string' &&
+        typeof data.UserId === 'string' &&
+        typeof data.IsRead === 'boolean' &&
+        typeof data.Body === 'object' &&
+        typeof data.Body.TargetId === 'string' &&
+        typeof data.Body.Message === 'string' &&
+        typeof data.Body.Type === 'number';
+};
 
 axios.defaults.withCredentials = true;
 
@@ -98,7 +156,8 @@ const apiClient = {
     Users,
     Circles,
     Appointments,
-    Tasks
+    Tasks,
+    Socket
 }
 
 export default apiClient;

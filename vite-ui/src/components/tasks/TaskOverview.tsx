@@ -8,11 +8,12 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddTaskIcon from '@mui/icons-material/AddTask';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TaskDto } from "../../api/dtos/task_dtos/TaskDto";
 import { getTimeSpan } from "../../helpers/helpers";
 
 const TaskOverview = () => {
+    const taskId = useParams<{ id: string }>();
     const { taskStore, userStore, circleStore } = useStore();
     const [tasks, setTasks] = useState(taskStore.tasks);
     const [circles, setCircles] = useState<CircleDto[]>([...circleStore.circlesMap.values()]);
@@ -106,42 +107,48 @@ const TaskOverview = () => {
 
     return (
         <>
-            <div className="task-overview-header">
-                <FormControl variant="outlined" sx={{ minWidth: 200 }} >
-                    <InputLabel id="circle-select">Select Circle</InputLabel>
-                    <Select
-                        id="circle-select"
-                        labelId="circle-select"
-                        label="Select Circle"
-                        value={selectedCircle}
-                        onChange={(e) => {
-                            setSelectedCircle(e.target.value);
-                        }}
-                    >
-                        <MenuItem selected={true} key="search_by_user" value={'search_by_user'}>By User</MenuItem>
-                        <MenuItem key="all_circles" value={'all_circles'}>All Circles</MenuItem>
-                        {
-                            circles.map(circle => (
-                                <MenuItem key={circle.id} value={circle.id}>{circle.name}</MenuItem>
-                            ))
-                        }
-                    </Select>
-                </FormControl>
-                <Tooltip title="Create Task">
-                    <IconButton aria-label="create" size="large" onClick={newTask}>
-                        <ControlPointIcon fontSize="large" />
-                    </IconButton>
-                </Tooltip>
-            </div>
-            <div className="task-overview-header">
-                <FormControlLabel
-                    control={<Checkbox defaultChecked
-                        checked={includeCompleted}
-                        onChange={(e) => {
-                            setIncludeCompleted(e.target.checked);
-                        }} />}
-                    label="Include Completed" />
-            </div>
+            {
+                !taskId?.id && (
+                    <>
+                        <div className="task-overview-header">
+                            <FormControl variant="outlined" sx={{ minWidth: 200 }} >
+                                <InputLabel id="circle-select">Select Circle</InputLabel>
+                                <Select
+                                    id="circle-select"
+                                    labelId="circle-select"
+                                    label="Select Circle"
+                                    value={selectedCircle}
+                                    onChange={(e) => {
+                                        setSelectedCircle(e.target.value);
+                                    }}
+                                >
+                                    <MenuItem selected={true} key="search_by_user" value={'search_by_user'}>By User</MenuItem>
+                                    <MenuItem key="all_circles" value={'all_circles'}>All Circles</MenuItem>
+                                    {
+                                        circles.map(circle => (
+                                            <MenuItem key={circle.id} value={circle.id}>{circle.name}</MenuItem>
+                                        ))
+                                    }
+                                </Select>
+                            </FormControl>
+                            <Tooltip title="Create Task">
+                                <IconButton aria-label="create" size="large" onClick={newTask}>
+                                    <ControlPointIcon fontSize="large" />
+                                </IconButton>
+                            </Tooltip>
+                        </div>
+                        <div className="task-overview-header">
+                            <FormControlLabel
+                                control={<Checkbox
+                                    checked={includeCompleted}
+                                    onChange={(e) => {
+                                        setIncludeCompleted(e.target.checked);
+                                    }} />}
+                                label="Include Completed" />
+                        </div>
+                    </>
+                )
+            }
             <div className="day-overview-items-container">
                 {
                     tasks.map(task => (
@@ -155,7 +162,9 @@ const TaskOverview = () => {
                                         {new Date(task.endDate).toLocaleString()}
                                     </p>
                                     <p>
-                                        <strong>Time Remaining: </strong>
+                                        <strong>{new Date() < new Date(task.endDate)
+                                            ? 'Time Remaining: '
+                                            : 'Overdue: '}</strong>
                                         {getTimeSpan(new Date(), new Date(task.endDate))}
                                     </p>
                                     {task.userModels && task.userModels.length > 0 &&
@@ -163,13 +172,13 @@ const TaskOverview = () => {
                                             <strong>Completeness by user: </strong>
                                             {
                                                 task.userModels.map(user => (
-                                                    <>
+                                                    <span key={user.id}>
                                                         <br />
                                                         <span key={user.id}>
                                                             <strong>{user.userName}: </strong>
                                                             {user.isCompleted ? ' (completed)' : ' (uncompleted)'}
                                                         </span>
-                                                    </>
+                                                    </span>
                                                 ))
                                             }
                                         </p>

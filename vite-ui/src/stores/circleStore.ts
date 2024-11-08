@@ -21,6 +21,7 @@ export default class CircleStore {
 
     constructor() {
         makeAutoObservable(this);
+        this.setUserId('');
     }
 
     setUserId = async (userId: string) => {

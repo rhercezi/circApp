@@ -14,6 +14,16 @@ namespace Core.Converters
                 )
             ).ToList();
 
+            if (xEvent == null)
+            {
+                throw new ArgumentNullException(nameof(xEvent));
+            }
+
+            if (_supportedTypes.Count < 3 || _supportedTypes[2] == null)
+            {
+                throw new InvalidOperationException("The required type is not available in the supported types.");
+            }
+
             return (BaseEvent)System.Convert.ChangeType(xEvent, _supportedTypes[2]);
         }
     }

@@ -13,6 +13,32 @@ export default class TaskStore {
         makeAutoObservable(this);
     }
 
+    getTask = async (taskId: string) => {
+        this.loaderText = 'Getting task...';
+        this.loading = true;
+        try {
+            const data = await apiClient.Tasks.getById(taskId);
+            runInAction(() => {
+                this.errorMap.delete('getTask');
+                this.tasks.push(data);
+            });
+        } catch (error: any) {
+            if (error.response && error.response.status > 399 && error.response.status < 500) {
+                runInAction(() => {
+                    this.errorMap.set('getTask', error.response.data);
+                });
+            } else {
+                runInAction(() => {
+                    this.errorMap.set('getTask', 'Something went wrong, please try again later.');
+                });
+            }
+        } finally {
+            runInAction(() => {
+                this.loading = false;
+            });
+        }
+    }
+
     createTask = async (task: TaskDto) => {
         try {
             await apiClient.Tasks.create(task);

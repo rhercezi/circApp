@@ -22,7 +22,8 @@ namespace Core.Utilities
                 var response = await httpClient.GetAsync(targetUrl);
                 response.EnsureSuccessStatusCode();
                 var responseBody = await response.Content.ReadAsStringAsync();
-                var dto = JsonSerializer.Deserialize<Tdto>(responseBody);
+                var dto = JsonSerializer.Deserialize<Tdto>(responseBody) 
+                          ?? throw new InvalidOperationException("Deserialization returned null.");
                 return dto;
             }
             catch (Exception e)

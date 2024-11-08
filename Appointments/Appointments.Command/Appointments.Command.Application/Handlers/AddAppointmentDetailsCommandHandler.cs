@@ -53,6 +53,7 @@ namespace Appointments.Command.Application.Handlers
                         new AppointmentChangePublicEvent(
                             appointment.Id,
                             appointment.Title,
+                            EventType.Update,
                             appointment.CreatorId,
                             appointment.StartDate,
                             appointment.DetailsInCircles ?? new List<Guid>()

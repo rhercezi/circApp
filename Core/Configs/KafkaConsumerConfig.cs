@@ -4,6 +4,6 @@ namespace Core.Configs
 {
     public class KafkaConsumerConfig : ConsumerConfig
     {
-        public required string Topic { get; set; }
+        public required string[] Topics { get; set; }
     }
 }

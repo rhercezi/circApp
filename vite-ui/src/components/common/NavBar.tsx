@@ -3,9 +3,10 @@ import { useStore } from "../../stores/store";
 import NavBarNLI from "./NavBarNLI";
 import NavBarLoggedIn from "./NavBarLoggedIn";
 import { Divider } from "@mui/material";
+import { runInAction } from "mobx";
 
 export default observer(function NavBar() {
-    const { userStore } = useStore();
+    const { userStore, circleStore, eventStore } = useStore();
 
     if (!userStore.isLoggedIn) {
         return (
@@ -14,6 +15,13 @@ export default observer(function NavBar() {
                 <Divider />
             </div>
         )
+    }
+    else
+    {
+        runInAction(() => {
+            circleStore.setUserId(userStore.user?.id!);
+            eventStore.connect();
+        });
     }
 
     return (

@@ -62,6 +62,7 @@ namespace Appointments.Command.Application.Handlers
                     new AppointmentChangePublicEvent(
                         appointment.Id,
                         appointment.Title,
+                        EventType.Create,
                         command.CreatorId,
                         command.StartDate,
                         command.Circles

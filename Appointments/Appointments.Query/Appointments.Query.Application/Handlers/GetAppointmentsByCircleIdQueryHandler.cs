@@ -28,14 +28,14 @@ namespace Appointments.Query.Application.Handlers
             if (appointmentIds.Count > 0)
             {
                 var appointments = await _appointmentRepository.GetAppointments(appointmentIds);
-                SetAppointmnetsDetails(ref appointments, query.CircleId);
+                SetAppointmentsDetails(ref appointments, query.CircleId);
                 return new BaseResponse { ResponseCode = 200, Data = appointments };
             }
             
             return new BaseResponse { ResponseCode = 200 };
         }
 
-        private void SetAppointmnetsDetails(ref List<AppointmentModel> appointments, Guid circleId)
+        private void SetAppointmentsDetails(ref List<AppointmentModel> appointments, Guid circleId)
         {
             foreach (var a in appointments)
             {

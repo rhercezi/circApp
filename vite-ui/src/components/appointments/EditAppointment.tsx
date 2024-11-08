@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { observer } from 'mobx-react-lite';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import * as jsonpatch from "fast-json-patch";
 
 const EditAppointment = () => {
@@ -36,6 +36,8 @@ const EditAppointment = () => {
     const [validationErrorReminder, setValidationErrorReminder] = useState<string | undefined>(undefined);
     const [validationErrorDate, setValidationErrorDate] = useState<string | undefined>(undefined);
 
+    const location = useLocation();
+    const isViewMode: boolean = location.pathname.startsWith("/view");
 
     useEffect(() => {
         const fetchAppointment = async () => {
@@ -244,14 +246,14 @@ const EditAppointment = () => {
                                 </Field>
                                 <span className="alert-span" style={{ display: appointmentInCircles.length < 1 && evaluated ? 'flex' : 'none' }}>At least one circle is required.</span>
                             </Box>
-                            <div className="expend-button-container">
+                            {!isViewMode && <div className="expend-button-container">
                                 <span>Add Details</span>
                                 <Tooltip title={showDetails ? "Remove Details" : "Add Details"} >
                                     <IconButton onClick={toggleDetails}>
                                         <FontAwesomeIcon icon={showDetails ? faMinusCircle : faPlusCircle} size="xs" color={showDetails ? "red" : "green"} />
                                     </IconButton>
                                 </Tooltip>
-                            </div>
+                            </div>}
                             <Box className="profile-container profile-container-ca" style={{ display: showDetails ? 'flex' : 'none' }} sx={{ gap: 2 }}>
 
                                 <Field name="note" >
@@ -280,14 +282,14 @@ const EditAppointment = () => {
                                 </Field>
                                 <span className="alert-span" style={{ display: detailsInCircles.length < 1 && evaluated && showDetails ? 'flex' : 'none' }}>At least one circle is required.</span>
                             </Box>
-                            <div className="expend-button-container" style={{ display: showDetails ? 'flex' : 'none' }}>
+                            {!isViewMode && <div className="expend-button-container" style={{ display: showDetails ? 'flex' : 'none' }}>
                                 <span>Add Address</span>
                                 <Tooltip title={showAddress ? "Remove Address" : "Add Address"} >
                                     <IconButton onClick={toggleAddress} >
                                         <FontAwesomeIcon icon={showAddress ? faMinusCircle : faPlusCircle} size="xs" color={showAddress ? "red" : "green"} />
                                     </IconButton>
                                 </Tooltip>
-                            </div>
+                            </div>}
                             <Box className="profile-container profile-container-ca" style={{ display: showAddress && showDetails ? 'flex' : 'none' }} sx={{ gap: 2 }}>
                                 <Field name="country">
                                     {({ field }: FieldProps) => (
@@ -360,14 +362,14 @@ const EditAppointment = () => {
                                     )}
                                 </Field>
                             </Box>
-                            <div className="expend-button-container" style={{ display: showDetails ? 'flex' : 'none' }}>
+                            {!isViewMode && <div className="expend-button-container" style={{ display: showDetails ? 'flex' : 'none' }}>
                                 <span>Add Reminder</span>
                                 <Tooltip title={showReminder ? "Remove All reminders" : "Add Reminder"} >
                                     <IconButton onClick={toggleReminder}>
                                         <FontAwesomeIcon icon={showReminder ? faMinusCircle : faPlusCircle} size="xs" color={showReminder ? "red" : "green"} />
                                     </IconButton>
                                 </Tooltip>
-                            </div>
+                            </div>}
                             <Box className="profile-container profile-container-ca" style={{ display: showReminder && showDetails ? 'flex' : 'none' }} sx={{ gap: 2 }}>
                                 <div>
                                     {reminders.map((reminder, index) => (
@@ -385,13 +387,13 @@ const EditAppointment = () => {
                                                     <span>{reminder.time.toLocaleString()}</span>
                                                     <span>{reminder.message}</span>
                                                 </div>
-                                                <div>
+                                                {!isViewMode && <div>
                                                     <IconButton onClick={() => {
                                                         setReminders(reminders.filter((_, i) => i !== index));
                                                     }}>
                                                         <FontAwesomeIcon icon={faMinusCircle} size="xs" color={"red"} />
                                                     </IconButton>
-                                                </div>
+                                                </div>}
                                             </div>
                                         </div>
                                     ))}
@@ -431,37 +433,41 @@ const EditAppointment = () => {
                                         />
                                     )}
                                 </Field>
-                                <Field name="justForUser">
-                                    {({ field }: FieldProps) => (
-                                        <FormControlLabel
-                                            control={<Checkbox defaultChecked
-                                                onChange={(e) => {
-                                                    setFieldValue(field.name, e.target.checked);
-                                                    setJustForUser(e.target.checked);
-                                                }} />}
-                                            label="Reminder Just For User" />
-                                    )}
-                                </Field>
-                                {validationErrorReminder && <Alert severity="error">{validationErrorReminder}</Alert>}
-                                <Button variant="text" onClick={() => {
-                                    if (!reminderMessage || !reminderDate || isNaN(reminderDate.getTime())) {
-                                        setValidationErrorReminder("Reminder message and date are required.");
-                                        return;
-                                    }
-                                    setReminders([...reminders, { time: reminderDate, message: reminderMessage, justForUser: justForUser }]);
-                                    setReminderDate(new Date());
-                                    setReminderMessage("");
-                                    setJustForUser(true);
-                                }}>Add Reminder</Button>
+                                {!isViewMode && (
+                                    <Field name="justForUser">
+                                        {({ field }: FieldProps) => (
+                                            <FormControlLabel
+                                                control={<Checkbox defaultChecked
+                                                    onChange={(e) => {
+                                                        setFieldValue(field.name, e.target.checked);
+                                                        setJustForUser(e.target.checked);
+                                                    }} />}
+                                                label="Reminder Just For User" />
+                                        )}
+                                    </Field>
+                                )}
+                                {!isViewMode && validationErrorReminder && <Alert severity="error">{validationErrorReminder}</Alert>}
+                                {!isViewMode && (
+                                    <Button variant="text" onClick={() => {
+                                        if (!reminderMessage || !reminderDate || isNaN(reminderDate.getTime())) {
+                                            setValidationErrorReminder("Reminder message and date are required.");
+                                            return;
+                                        }
+                                        setReminders([...reminders, { time: reminderDate, message: reminderMessage, justForUser: justForUser }]);
+                                        setReminderDate(new Date());
+                                        setReminderMessage("");
+                                        setJustForUser(true);
+                                    }}>Add Reminder</Button>
+                                )}
                             </Box>
-                            <Divider />
+                            {!isViewMode && <Divider />}
                             {isSuccess && <Alert severity="success">Appointment updated successfully!</Alert>}
                             {appointmentStore.errorMap.has('editAppointment') && <Alert severity="error">{appointmentStore.errorMap.get('editAppointment')}</Alert>}
                             {appointmentStore.errorMap.has('createDetails') && <Alert severity="error">{appointmentStore.errorMap.get('createDetails')}</Alert>}
                             {appointmentStore.errorMap.has('updateDetails') && <Alert severity="error">{appointmentStore.errorMap.get('updateDetails')}</Alert>}
                             {appointmentStore.errorMap.has('deleteDetails') && <Alert severity="error">{appointmentStore.errorMap.get('deleteDetails')}</Alert>}
                             {validationErrorDate && <Alert severity="error">{validationErrorDate}</Alert>}
-                            <Button variant="contained" type="submit" onClick={handleEvaluate}>Update Appointment</Button>
+                            {!isViewMode && <Button variant="contained" type="submit" onClick={handleEvaluate}>Update Appointment</Button>}
                         </Box>
                     </Form>
                 </>

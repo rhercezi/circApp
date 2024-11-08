@@ -1,6 +1,8 @@
 using Appointments.Command.Application.Commands;
+using Appointments.Command.Application.EventProducer;
 using Appointments.Domain.Repositories;
 using Core.DTOs;
+using Core.Events.PublicEvents;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
@@ -12,13 +14,16 @@ namespace Appointments.Command.Application.Handlers
         private readonly AppointmentDetailsRepository _detailsRepository;
         private readonly AppointmentRepository _appointmentRepository;
         private readonly ILogger<DeleteAppointmentDetailCommandHandler> _logger;
+        private readonly AppointmentEventProducer _eventProducer;
         public DeleteAppointmentDetailCommandHandler(AppointmentDetailsRepository detailsRepository,
                                                      AppointmentRepository appointmentRepository,
-                                                     ILogger<DeleteAppointmentDetailCommandHandler> logger)
+                                                     ILogger<DeleteAppointmentDetailCommandHandler> logger,
+                                                     AppointmentEventProducer eventProducer)
         {
             _detailsRepository = detailsRepository;
             _appointmentRepository = appointmentRepository;
             _logger = logger;
+            _eventProducer = eventProducer;
         }
 
         public async Task<BaseResponse> HandleAsync(DeleteAppointmentDetailCommand command)
@@ -37,6 +42,17 @@ namespace Appointments.Command.Application.Handlers
                 _logger.LogError("Failed deleting appointment details. DeletedCount = {DeletedCount}, Command = {command}", result.DeletedCount, command);
                 return new BaseResponse { ResponseCode = 500, Message = "Failed deleting appointment details" };
             }
+
+            await _eventProducer.ProduceAsync(
+                new AppointmentChangePublicEvent(
+                    appointment.Id,
+                    appointment.Title,
+                    EventType.Update,
+                    appointment.CreatorId,
+                    appointment.StartDate,
+                    appointment.Circles
+                )
+            );
 
             return new BaseResponse { ResponseCode = 204 };
         }

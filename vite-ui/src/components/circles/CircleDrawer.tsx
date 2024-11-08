@@ -5,7 +5,7 @@ import AddUsersDialog from "./AddUsersDialog";
 import RemoveUsersDialog from "./RemoveUsersDiaog";
 
 interface Props {
-    setOpenCirclesDrower: (openDrower: boolean) => void;
+    setOpenCirclesDrawer: (openDrawer: boolean) => void;
     setElementChange: (elementChange: [string, boolean]) => void;
 }
 

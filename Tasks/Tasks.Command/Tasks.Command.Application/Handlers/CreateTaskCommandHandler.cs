@@ -33,7 +33,7 @@ namespace Tasks.Command.Application.Handlers
                 _logger.LogDebug("Creating task: {Task}", command);
                 var model = CommandModelConverter.ConvertToModel<AppTaskModel>(command);
                 await _repository.SaveAsync(model);
-                var taskEvent = new TaskChangePublicEvent(command.Id, command.GetType().Name)
+                var taskEvent = new TaskChangePublicEvent(command.Id, model.Title, EventType.Create, model.EndDate)    
                 {
                     CircleId = command.CircleId,
                     UserIds = command.UserModels?.Select(x => x.Id).ToList()

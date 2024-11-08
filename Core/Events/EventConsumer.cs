@@ -19,13 +19,13 @@ namespace Core.Events
             _logger = logger;
         }
 
-        public async Task Consume(IMessageDispatcher eventDispatcher, string topic = "")
+        public async Task Consume(IMessageDispatcher eventDispatcher)
         {
             using var consumer = new ConsumerBuilder<string, string>(_config)
                 .SetKeyDeserializer(Deserializers.Utf8)
                 .SetValueDeserializer(Deserializers.Utf8)
                 .Build();
-            consumer.Subscribe(_config.Topic);
+            consumer.Subscribe(_config.Topics);
 
             var consumeResult = consumer.Consume();
 
@@ -52,7 +52,7 @@ namespace Core.Events
         private static BaseEvent? DeserializeMessage(string message)
         {
             var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
-            var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(message);
+            var values = JsonConvert.DeserializeObject<Dictionary<string, object>>(message);
 
             if (values == null)
         {

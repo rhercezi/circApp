@@ -28,7 +28,7 @@ namespace Tasks.Command.Application.Handlers
         {
             try
             {
-                var model = await _repository.GetTasksById(command.Id);
+                var model = await _repository.GetTaskById(command.Id);
                 _logger.LogDebug("Deleting task: {Task}", model);
 
                 var result = await _repository.DeleteTask(command.Id);
@@ -38,7 +38,7 @@ namespace Tasks.Command.Application.Handlers
                     _logger.LogError("Count of deleted tasks is 0.");
                     return new BaseResponse { ResponseCode = 404, Data = "Task not found." };
                 }
-                var taskEvent = new TaskChangePublicEvent(command.Id, command.GetType().Name)
+                var taskEvent = new TaskChangePublicEvent(command.Id, model.Title, EventType.Delete, model.EndDate)
                 {
                     CircleId = model.CircleId,
                     UserIds = model.UserModels?.Select(x => x.Id).ToList()
