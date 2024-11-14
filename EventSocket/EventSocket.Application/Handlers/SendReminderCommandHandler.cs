@@ -23,17 +23,17 @@ namespace EventSocket.Application.Handlers
             {
                 var reminder = new NotificationModel
                 {
-                    Id = Guid.NewGuid(),
-                    UserId = message.Id,
+                    Id = message.Reminder.Id,
+                    UserId = message.UserId,
                     IsRead = false,
                     Body = new NotificationBodyModel
                     {
-                        TargetId = message.Reminder.AppointmentId,
+                        TargetId = message.Reminder.TargetId,
                         Message = message.Reminder.Message?? "Reminder " + message.Reminder.Time,
                         Type = NotificationType.Reminder
                     }
                 };
-                await _socketConnectionManager.SendMessageAsync(message.Id, reminder);
+                await _socketConnectionManager.SendMessageAsync(message.UserId, reminder);
                 return new BaseResponse { ResponseCode = 200 };
             }
             return new BaseResponse { ResponseCode = 500 };

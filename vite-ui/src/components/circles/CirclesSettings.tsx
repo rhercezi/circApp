@@ -9,8 +9,6 @@ import { MuiColorInput } from "mui-color-input";
 import { useEffect, useState } from "react";
 import * as jsonpatch from "fast-json-patch";
 import { CircleDto } from "../../api/dtos/circle_dtos/CircleDto";
-import cloneDeep from 'lodash/cloneDeep';
-import { cloneDeepWith } from "lodash";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -38,41 +36,55 @@ const CirclesSettings = () => {
     const { userStore, circleStore } = useStore();
     const [nameErrors, setNameErrors] = useState<Map<string, string>>(new Map());
     const [colorErrors, setColorErrors] = useState<Map<string, string>>(new Map());
-    const [circlesMap, setCirclesMap] = useState<Map<string, CircleDto>>(new Map());
+    const [circlesArray, setCirclesArray] = useState<CircleDto[]>(Array.from(circleStore.circlesMap.values()));
 
     useEffect(() => {
-        let circleMap = cloneDeepWith(circleStore.circlesMap);
-        setCirclesMap(circleMap);
+        setCirclesArray(Array.from(circleStore.circlesMap.values()));
     }, [circleStore.circlesMap]);
-
 
     function setColor(value: string, id: string) {
         setColorErrors(new Map(colorErrors.set(id, '')));
-        circlesMap.get(id)!.color = value;
+        const updatedCircles = circlesArray.map(circle => circle.id === id ? { ...circle, color: value } : circle);
+        setCirclesArray(updatedCircles);
     }
 
     function setCircleName(value: string, id: string) {
         setNameErrors(new Map(nameErrors.set(id, '')));
-        circlesMap.get(id)!.name = value;
+        const updatedCircles = circlesArray.map(circle => circle.id === id ? { ...circle, name: value } : circle);
+        setCirclesArray(updatedCircles);
     }
 
-    function saveChanges(id: string): void {
-        if (!/^#[0-9A-F]{6}$/i.test(circlesMap.get(id)!.color!)) {
+    async function saveChanges(id: string): Promise<void> {
+        if (!/^#[0-9A-F]{6}$/i.test(circlesArray.find(circle => circle.id === id)!.color!)) {
             setColorErrors(new Map(colorErrors.set(id, 'Invalid color format')));
             return;
         }
-        if (circlesMap.get(id!)?.name!.trim() === '') {
+        if (circlesArray.find(circle => circle.id === id)!.name!.trim() === '') {
             setNameErrors(new Map(nameErrors.set(id, 'Name cannot be empty')));
             return;
         }
 
         let circle = circleStore.circlesMap.get(id);
-        let update = circlesMap.get(id);
+        let update = circlesArray.find(circle => circle.id === id);
 
         const patchDocument = jsonpatch.compare(circle!, update!);
         const jsonPatch = JSON.stringify(patchDocument);
         
-        circleStore.updateCircle(id, jsonPatch);
+        await circleStore.updateCircle(id, jsonPatch);
+    }
+
+    async function handleDeleteCircle(circleId: string): Promise<void> {
+        await circleStore.deleteCircle(circleId);
+        setCirclesArray(Array.from(circleStore.circlesMap.values()));
+    }
+
+    async function handleLeaveCircle(circleId: string): Promise<void> {
+        const dto: RemoveUsersDto = {
+            circleId: circleId,
+            users: [userStore.user!.id]
+        };
+        await circleStore.removeUsers(dto);
+        setCirclesArray(Array.from(circleStore.circlesMap.values()));
     }
 
     return (
@@ -88,8 +100,8 @@ const CirclesSettings = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {Array.from(circlesMap.entries()).map(([key, circle]) => (
-                            <StyledTableRow key={key}>
+                        {circlesArray.map((circle) => (
+                            <StyledTableRow key={circle.id}>
                                 <StyledTableCell>
                                     <TextField
                                         label="Circle Name"
@@ -117,13 +129,9 @@ const CirclesSettings = () => {
                                     <IconButton
                                         onClick={() => {
                                             if (circle.creatorId === userStore.user?.id) {
-                                                circleStore.deleteCircle(circle.id);
+                                                handleDeleteCircle(circle.id);
                                             } else {
-                                                const dto: RemoveUsersDto = {
-                                                    circleId: circle.id,
-                                                    users: [userStore.user!.id]
-                                                }
-                                                circleStore.removeUsers(dto)
+                                                handleLeaveCircle(circle.id);
                                             }
                                         }}>
                                         {
@@ -142,7 +150,6 @@ const CirclesSettings = () => {
                                     </IconButton>
                                     {
                                         circle.creatorId === userStore.user?.id && (
-
                                             <IconButton onClick={() => saveChanges(circle.id)}>
                                                 <Tooltip title="Save Changes">
                                                     <FontAwesomeIcon icon={faCheck} size="xs" />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Box, ClickAwayListener, Divider, Drawer, IconButton, ListItemIcon, Menu, MenuItem, Popper, Tooltip } from "@mui/material";
-import { Logout, Settings } from "@mui/icons-material";
+import { Logout, Settings, NotificationImportant, NotificationsActive} from "@mui/icons-material";
 import { styled, css } from '@mui/system';
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../../stores/store";
@@ -8,13 +8,15 @@ import CircleDrawer from "../circles/CircleDrawer";
 import MyButton from "./buttons/MyButton";
 import DialogHandler from "./DialogHandler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faClipboardList, faHome } from "@fortawesome/free-solid-svg-icons";
+import { faClipboardList, faHome } from "@fortawesome/free-solid-svg-icons";
 import { observer } from "mobx-react-lite";
 import { reaction } from "mobx";
 import Notification from "../notifications/Notification";
+import { NotificationType } from "../../api/dtos/notification_dtos/NotificationType";
+import ReminderDialog from "../notifications/ReminderDialog";
 
 const NavBarLoggedIn = () => {
-    const { userStore, eventStore } = useStore();
+    const { userStore, eventStore, circleStore } = useStore();
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [anchorElNotify, setAnchorElNotify] = useState<null | HTMLElement>(null);
@@ -22,21 +24,42 @@ const NavBarLoggedIn = () => {
     const [openCirclesDrawer, setOpenCirclesDrawer] = useState(false);
     const [elementChange, setElementChange] = useState<[string, boolean]>(['', false]);
     const [itemsCount, setItemsCount] = useState(eventStore.events.length);
-    const sendMessage = eventStore.sendMessage;
+    const [itemsCountRem, setItemsCountRem] = useState(eventStore.reminders.length);
+    const [events, setEvents] = useState(eventStore.events);
     const removeNotification = eventStore.removeNotification;
+    const [openRem, setOpenRem] = useState(eventStore.reminders.length > 0);
 
     useEffect(() => {
         const dispose = reaction(
             () => eventStore.events.length,
             () => {
                 setItemsCount(eventStore.events.length);
-                const latestEvent = eventStore.events[eventStore.events.length - 1];
-                console.log("Latest event:", latestEvent);
+                setEvents(eventStore.events);
+                updateJoinRequests();
             }
         );
 
         return () => dispose();
-    }, [eventStore]);
+    }, [eventStore.events]);
+
+    useEffect(() => {
+        const dispose = reaction(
+            () => eventStore.reminders.length,
+            () => {
+                setItemsCountRem(eventStore.reminders.length);
+                setOpenRem(eventStore.reminders.length > 0);
+            }
+        );
+
+        return () => dispose();
+    }, [eventStore.reminders]);
+
+    const updateJoinRequests = () => {
+        let requests = eventStore.events.filter(e => e.Body.Type === NotificationType.JoinRequest);
+        if (requests.length > 0) {
+            circleStore.getRequestsForUser();
+        }
+    };
 
     const handleCirclesDrawer = (openDrawer: boolean) => () => {
         setOpenCirclesDrawer(openDrawer);
@@ -58,6 +81,11 @@ const NavBarLoggedIn = () => {
     };
     const openNotify = Boolean(anchorElNotify);
     const id = openNotify ? 'simple-popper' : undefined
+
+    const handleClickRem = (event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation();
+        setOpenRem(!openRem);
+    };
 
     const handleLogout = () => {
         userStore.logout();
@@ -94,7 +122,7 @@ const NavBarLoggedIn = () => {
                     <DialogHandler elementChange={elementChange} />
                 </div>
                 <div className="nav-bar-avatar">
-                    <Tooltip title={itemsCount > 0 ? `${itemsCount} new event pending` : 'Nothing new at the moment'}>
+                    <Tooltip title={"Notifications"}>
                         <IconButton onClick={handleClickNotify}>
                             <Box
                                 component="span"
@@ -115,7 +143,9 @@ const NavBarLoggedIn = () => {
                             >
                                 {itemsCount}
                             </Box>
-                            <FontAwesomeIcon icon={faBell} />
+                            <NotificationsActive>
+                                <Settings fontSize="small" />
+                            </NotificationsActive>
                         </IconButton>
                     </Tooltip>
                     {
@@ -123,10 +153,10 @@ const NavBarLoggedIn = () => {
                             <ClickAwayListener onClickAway={handleClickAway}>
                                 <Popper id={id} open={openNotify} anchorEl={anchorElNotify}>
                                     <StyledPopperDiv>
-                                        {eventStore.events.map((event, index) => (
+                                        {events.map((event, index) => (
                                             <div key={event.Id}>
                                                 {index > 0 && <Divider />}
-                                                <Notification key={event.Id} notification={event} sendMessage={sendMessage} removeNotification={removeNotification} />
+                                                <Notification key={event.Id} notification={event} removeNotification={removeNotification} />
                                             </div>
                                         ))}
                                     </StyledPopperDiv>
@@ -134,6 +164,32 @@ const NavBarLoggedIn = () => {
                             </ClickAwayListener>
                         )
                     }
+                    <Tooltip title={"Reminders"}>
+                        <IconButton onClick={handleClickRem}>
+                            <Box
+                                component="span"
+                                sx={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 0,
+                                    backgroundColor: itemsCountRem > 0 ? 'red' : 'green',
+                                    color: 'white',
+                                    borderRadius: '50%',
+                                    width: 20,
+                                    height: 20,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '0.75rem',
+                                }}
+                            >
+                                {itemsCountRem}
+                            </Box>
+                            <NotificationImportant>
+                                <Settings fontSize="small" />
+                            </NotificationImportant>
+                        </IconButton>
+                    </Tooltip>
                     <Tooltip title="Tasks">
                         <IconButton onClick={() => navigate('/tasks')}>
                             <FontAwesomeIcon icon={faClipboardList} />
@@ -212,6 +268,7 @@ const NavBarLoggedIn = () => {
                     </Menu>
                 </div>
             </Box>
+            <ReminderDialog open={openRem} setOpen={setOpenRem} />
         </>
     )
 }

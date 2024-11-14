@@ -59,6 +59,7 @@ namespace Tasks.Command.Application.Handlers
                 }
                 var taskEvent = new TaskChangePublicEvent(model.Id, model.Title, EventType.Update, model.EndDate)
                 {
+                    InitiatorId = command.UserId,
                     UserIds = model.UserModels.Select(x => x.Id).ToList()
                 };
 

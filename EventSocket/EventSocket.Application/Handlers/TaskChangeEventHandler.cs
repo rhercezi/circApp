@@ -81,6 +81,8 @@ namespace EventSocket.Application.Handlers
 
             foreach (var user in message.UserIds)
             {
+                if (user == message.InitiatorId) continue;
+                
                 var messageToSend = message.Action switch
                 {
                     EventType.Create => $"Task {message.Title}, {message.Date.ToString("f")} has been created.",

@@ -60,6 +60,8 @@ namespace EventSocket.Application.Handlers
                         {
                             foreach (var user in users)
                             {
+                                if (user == message.UserId) continue;
+                                
                                 var messageToSend = message.Action switch
                                 {
                                     EventType.Create => $"Appointment {message.Title}, {message.Date.ToString("f")} has been created.",

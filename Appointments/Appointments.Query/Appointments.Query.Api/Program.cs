@@ -15,12 +15,14 @@ builder.Services.Configure<MongoDbAppointmentsConfig>(builder.Configuration.GetS
 builder.Services.Configure<MongoDbAppointmentDetailsConfig>(builder.Configuration.GetSection(nameof(MongoDbAppointmentDetailsConfig)));
 builder.Services.Configure<MongoDbCAMapConfig>(builder.Configuration.GetSection(nameof(MongoDbCAMapConfig)));
 builder.Services.Configure<MongoDbCircleUserMapConfig>(builder.Configuration.GetSection(nameof(MongoDbCircleUserMapConfig)));
+builder.Services.Configure<MongoDbReminderConfig>(builder.Configuration.GetSection(nameof(MongoDbReminderConfig)));
 builder.Services.Configure<CirclesServiceConfig>(builder.Configuration.GetSection(nameof(CirclesServiceConfig)));
 
 builder.Services.AddScoped<AppointmentRepository>();
 builder.Services.AddScoped<AppointmentDetailsRepository>();
 builder.Services.AddScoped<CAMapRepository>();
 builder.Services.AddScoped<UserCircleRepository>();
+builder.Services.AddScoped<ReminderRepository>();
 builder.Services.AddScoped<InternalHttpClient<AppUserDto>>();
 
 builder.Services.AddScoped<IMessageHandler<GetAppointmentsByCircleIdQuery>, GetAppointmentsByCircleIdQueryHandler>();

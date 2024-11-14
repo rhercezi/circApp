@@ -2,7 +2,7 @@ using Core.Configs;
 
 namespace EventSocket.Application.Config
 {
-    public class RemindersServiceConfig : HttpClientConfig
+    public class UserCirclesServiceConfig : HttpClientConfig
     {
         
     }

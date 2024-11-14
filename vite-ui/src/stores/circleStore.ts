@@ -60,6 +60,7 @@ export default class CircleStore {
             try {
                 let data = await apiClient.Circles.getJoinRequests(this.userId);
                 runInAction(() => {
+                    this.requestsList = [];
                     this.requestsList = data;
                 });
             } catch (error) {
@@ -94,7 +95,6 @@ export default class CircleStore {
         try {
             await apiClient.Circles.create(circle);
             runInAction(() => {
-                this.errorMap.delete('createCircle');
                 this.circlesMap.clear();
                 this.getCirclesByUser();
             });
@@ -138,6 +138,7 @@ export default class CircleStore {
             await apiClient.Circles.confirmJoin(dto);
             runInAction(() => {
                 this.getRequestsForUser();
+                this.circlesMap.clear();
                 this.getCirclesByUser();
             });
         } catch (error) {
@@ -168,6 +169,7 @@ export default class CircleStore {
         try {
             await apiClient.Circles.removeUsers(dto);
             runInAction(() => {
+                this.circlesMap.delete(dto.circleId);
                 this.errorMap.delete('removeUsers');
             })
         } catch (error: any) {

@@ -7,6 +7,7 @@ namespace Core.Events.PublicEvents
         
         public Guid TaskId { get => Id; set => Id = value; }
         public Guid? CircleId { get; set; }
+        public Guid? InitiatorId { get; set; }
         public List<Guid>? UserIds { get; set; }
         public string Title { get; set; }
         public EventType Action { get; set; }

@@ -40,6 +40,7 @@ namespace Tasks.Command.Application.Handlers
                 }
                 var taskEvent = new TaskChangePublicEvent(command.Id, model.Title, EventType.Delete, model.EndDate)
                 {
+                    InitiatorId = command.OwnerId,
                     CircleId = model.CircleId,
                     UserIds = model.UserModels?.Select(x => x.Id).ToList()
                 };

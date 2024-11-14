@@ -35,6 +35,7 @@ namespace Tasks.Command.Application.Handlers
                 await _repository.SaveAsync(model);
                 var taskEvent = new TaskChangePublicEvent(command.Id, model.Title, EventType.Create, model.EndDate)    
                 {
+                    InitiatorId = command.OwnerId,
                     CircleId = command.CircleId,
                     UserIds = command.UserModels?.Select(x => x.Id).ToList()
                 };

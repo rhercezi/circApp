@@ -5,6 +5,7 @@ using Core.Events;
 using Core.MessageHandling;
 using Core.Messages;
 using EventSocket.Application.Commands;
+using EventSocket.Application.DTOs;
 using EventSocket.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -34,36 +35,70 @@ namespace EventSocket.Application.Services
             _logger.LogDebug("WebSocket connection added: {SocketId}", id);
 
             var buffer = new byte[1024 * 4];
-            var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            SendCommand(id, CommandType.SendNotifications);
-            _connectedUsersService.AddConnectedUser(id);
-
-            while (!result.CloseStatus.HasValue)
+            try
             {
-                try
+                var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                SendCommand(id, EventCommandType.SendNotifications);
+                _connectedUsersService.AddConnectedUser(id);
+
+                while (!result.CloseStatus.HasValue)
                 {
-                    result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                    var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    if (Guid.TryParse(message, out var notificationId))
+                    try
                     {
-                        SendCommand(notificationId, CommandType.DeleteNotifications);
+                        result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                        var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                        HandleMessage(message);
+                    }
+                    catch (WebSocketException wsEx) when (wsEx.WebSocketErrorCode == WebSocketError.ConnectionClosedPrematurely)
+                    {
+                        _logger.LogWarning("WebSocket connection closed prematurely: {SocketId}", id);
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError("An exception occurred receiving ws message: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+                        break;
                     }
                 }
-                catch (Exception e)
-                {
-                    _logger.LogError("An exception occurred receiving ws message : {Message}\n{StackTrace}", e.Message, e.StackTrace);
-                }
             }
-
-            _sockets.TryRemove(id.ToString(), out _);
-            _connectedUsersService.RemoveConnectedUser(id);
-            await socket.CloseAsync(result.CloseStatus.Value,
-                                    result.CloseStatusDescription,
-                                    CancellationToken.None);
-            _logger.LogDebug("WebSocket connection closed: {SocketId}", id);
+            catch (WebSocketException wsEx) when (wsEx.WebSocketErrorCode == WebSocketError.ConnectionClosedPrematurely)
+            {
+                _logger.LogWarning("WebSocket connection closed prematurely: {SocketId}", id);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("An exception occurred receiving ws message: {Message}\n{StackTrace}", e.Message, e.StackTrace);
+            }
+            finally
+            {
+                _sockets.TryRemove(id.ToString(), out _);
+                _connectedUsersService.RemoveConnectedUser(id);
+                if (socket.State != WebSocketState.Closed && socket.State != WebSocketState.Aborted)
+                {
+                    await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
+                }
+                _logger.LogDebug("WebSocket connection closed: {SocketId}", id);
+            }
         }
 
-        private async void SendCommand(Guid id, CommandType commandType)
+        private void HandleMessage(string message)
+        {
+            try
+            {
+                var notificationProcessedDto = JsonConvert.DeserializeObject<NotificationProcessedDto>(message);
+
+                if (notificationProcessedDto != null)
+                {
+                    SendCommand(notificationProcessedDto.NotificationId, notificationProcessedDto.CommandType);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to parse message: {ex.Message}");
+            }
+        }
+
+        private async void SendCommand(Guid id, EventCommandType commandType)
         {
             try
             {
@@ -73,8 +108,9 @@ namespace EventSocket.Application.Services
 
                 var command = commandType switch
                 {
-                    CommandType.SendNotifications => (BaseCommand)new SendNotificationsCommand { Id = id },
-                    CommandType.DeleteNotifications => (BaseCommand)new DeleteNotificationCommand { NotificationId = id },
+                    EventCommandType.SendNotifications => (BaseCommand)new SendNotificationsCommand { Id = id },
+                    EventCommandType.DeleteNotifications => (BaseCommand)new DeleteNotificationCommand { NotificationId = id },
+                    EventCommandType.MarkReminderAsSeen => (BaseCommand)new MarkReminderAsSeenCommand { ReminderId = id },
                     _ => throw new ArgumentOutOfRangeException($"Command type not found {commandType.ToString()}")
                 };
                 await eventDispatcher.DispatchAsync(command);
@@ -130,13 +166,6 @@ namespace EventSocket.Application.Services
                                               true,
                                               CancellationToken.None);
             }
-        }
-
-        private enum CommandType
-        {
-            SendNotifications = 0,
-            DeleteNotifications = 1
-
         }
     }
 }

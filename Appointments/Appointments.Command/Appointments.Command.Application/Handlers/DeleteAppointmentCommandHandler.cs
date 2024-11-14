@@ -16,18 +16,21 @@ namespace Appointments.Command.Application.Handlers
         private readonly AppointmentDetailsRepository _detailsRepository;
         private readonly ILogger<DeleteAppointmentCommandHandler> _logger;
         private readonly AppointmentEventProducer _eventProducer;
+        private readonly ReminderRepository _reminderRepository;
 
         public DeleteAppointmentCommandHandler(AppointmentRepository appointmentRepository,
                                                ILogger<DeleteAppointmentCommandHandler> logger,
                                                CAMapRepository mapRepository,
                                                AppointmentDetailsRepository detailsRepository,
-                                               AppointmentEventProducer eventProducer)
+                                               AppointmentEventProducer eventProducer,
+                                               ReminderRepository reminderRepository)
         {
             _appointmentRepository = appointmentRepository;
             _logger = logger;
             _mapRepository = mapRepository;
             _detailsRepository = detailsRepository;
             _eventProducer = eventProducer;
+            _reminderRepository = reminderRepository;
         }
 
         public async Task<BaseResponse> HandleAsync(DeleteAppointmentCommand command)
@@ -67,6 +70,8 @@ namespace Appointments.Command.Application.Handlers
                     appointment.Circles
                 )
             );
+
+            await _reminderRepository.DeleteAsync(command.AppointmentId);
 
             await session.CommitTransactionAsync();
             return new BaseResponse { ResponseCode = 204 };

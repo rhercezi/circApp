@@ -103,16 +103,16 @@ const DayOverview = () => {
                                 </div>
 
                                 <div className="day-overview-item-data">
-                                    <div><strong>{appointment.title}</strong></div>
-                                    <div><strong>Duration: </strong> {getTimeSpan(new Date(appointment.startDate), new Date(appointment.endDate))}</div>
+                                    <div className="item-data-line"><strong>{appointment.title}</strong></div>
+                                    <div className="item-data-line"><strong>Duration: </strong> {getTimeSpan(new Date(appointment.startDate), new Date(appointment.endDate))}</div>
                                     {appointment.details && appointment.detailsInCircles &&
                                         (selectedCircle === undefined
                                             ? appointment.detailsInCircles.some(circleId => circles.map(circle => circle.id).includes(circleId))
                                             : appointment.detailsInCircles.includes(selectedCircle)) && (
                                             <>
-                                                <div><strong>Note: </strong> {appointment.details.note}</div>
+                                                <div className="item-data-line"><strong>Note: </strong> {appointment.details.note}</div>
                                                 {appointment.details && appointment.details.address && (
-                                                    <div><strong>Address: </strong>
+                                                    <div className="item-data-line"><strong>Address: </strong>
                                                         {appointment.details.address.street ? appointment.details.address.street : ''}
                                                         {appointment.details.address.housenumber ? ' ' + appointment.details.address.housenumber + ',' : ''}
                                                         {appointment.details.address.postCode ? ' ' + appointment.details.address.postCode + ',' : ''}

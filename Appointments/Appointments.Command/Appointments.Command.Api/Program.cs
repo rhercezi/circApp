@@ -13,11 +13,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<MongoDbAppointmentsConfig>(builder.Configuration.GetSection(nameof(MongoDbAppointmentsConfig)));
 builder.Services.Configure<MongoDbAppointmentDetailsConfig>(builder.Configuration.GetSection(nameof(MongoDbAppointmentDetailsConfig)));
 builder.Services.Configure<MongoDbCAMapConfig>(builder.Configuration.GetSection(nameof(MongoDbCAMapConfig)));
+builder.Services.Configure<MongoDbReminderConfig>(builder.Configuration.GetSection(nameof(MongoDbReminderConfig)));
 builder.Services.Configure<KafkaProducerConfig>(builder.Configuration.GetSection(nameof(KafkaProducerConfig)));
 
 builder.Services.AddScoped<AppointmentRepository>();
 builder.Services.AddScoped<AppointmentDetailsRepository>();
 builder.Services.AddScoped<CAMapRepository>();
+builder.Services.AddScoped<ReminderRepository>();
 builder.Services.AddScoped<AppointmentEventProducer>();
 
 builder.Services.AddScoped<IMessageHandler<AddAppointmentDetailsCommand>, AddAppointmentDetailsCommandHandler>();

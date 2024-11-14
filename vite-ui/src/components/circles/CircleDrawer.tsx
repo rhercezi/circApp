@@ -2,7 +2,7 @@ import { Box, List } from "@mui/material";
 import DrawerButton from "../common/buttons/DrawerButton";
 import CreateCircleDialog from "./CreateCircleDialog";
 import AddUsersDialog from "./AddUsersDialog";
-import RemoveUsersDialog from "./RemoveUsersDiaog";
+import RemoveUsersDialog from "./RemoveUsersDialog";
 
 interface Props {
     setOpenCirclesDrawer: (openDrawer: boolean) => void;

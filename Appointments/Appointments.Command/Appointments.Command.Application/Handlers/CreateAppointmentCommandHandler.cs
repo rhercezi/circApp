@@ -3,6 +3,7 @@ using Appointments.Command.Application.DTOs;
 using Appointments.Command.Application.EventProducer;
 using Appointments.Domain.Entities;
 using Appointments.Domain.Repositories;
+using Core.DAOs;
 using Core.DTOs;
 using Core.Events.PublicEvents;
 using Core.MessageHandling;
@@ -18,17 +19,20 @@ namespace Appointments.Command.Application.Handlers
         private readonly CAMapRepository _mapRepository;
         private readonly ILogger<CreateAppointmentCommandHandler> _logger;
         private readonly AppointmentEventProducer _eventProducer;
+        private readonly ReminderRepository _reminderRepository;
         public CreateAppointmentCommandHandler(AppointmentRepository appointmentRepository,
                                                AppointmentDetailsRepository detailsRepository,
                                                ILogger<CreateAppointmentCommandHandler> logger,
                                                CAMapRepository mapRepository,
-                                               AppointmentEventProducer eventProducer)
+                                               AppointmentEventProducer eventProducer,
+                                               ReminderRepository reminderRepository)
         {
             _appointmentRepository = appointmentRepository;
             _detailsRepository = detailsRepository;
             _logger = logger;
             _mapRepository = mapRepository;
             _eventProducer = eventProducer;
+            _reminderRepository = reminderRepository;
         }
 
         public async Task<BaseResponse> HandleAsync(CreateAppointmentCommand command)
@@ -44,6 +48,30 @@ namespace Appointments.Command.Application.Handlers
                     command.Details.AppointmentId = appointment.Id;
                     var details = DtoConverter.Convert(command.Details);
                     await _detailsRepository.SaveAsync(details);
+                    command.Details.Reminders?.ForEach(
+                        async r =>
+                        {
+                            try
+                            {
+                                var reminder = new ReminderModel
+                                {
+                                    Id = Guid.NewGuid(),
+                                    InCircles = r.JustForUser ? null : appointment.DetailsInCircles,
+                                    UserId = r.JustForUser ? appointment.CreatorId : null,
+                                    TargetType = ReminderTargetType.Appointment,
+                                    TargetId = appointment.Id,
+                                    Message = r.Message,
+                                    Time = r.Time,
+                                    JustForUser = r.JustForUser
+                                };
+                                await _reminderRepository.SaveAsync(reminder);
+                            }
+                            catch (Exception e)
+                            {
+                                _logger.LogError("An exception occurred: {Message}\n{StackTrace}\n{command}", e.Message, e.StackTrace, command);
+                            }
+                        }
+                    );
                 }
                 await _appointmentRepository.SaveAsync(appointment);
 

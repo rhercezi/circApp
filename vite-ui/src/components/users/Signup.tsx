@@ -5,7 +5,6 @@ import { UserDto } from "../../api/dtos/user_dtos/UserDto";
 import uuid from "react-uuid";
 import * as Yup from 'yup';
 import { Alert, Box, Button, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
     userName: Yup.string().required('Required field')
@@ -31,7 +30,6 @@ const validationSchema = Yup.object().shape({
 
 export default observer(function Signup() {
     const { userStore } = useStore();
-    const navigate = useNavigate();
 
     if (userStore.isSuccess) {
         return (

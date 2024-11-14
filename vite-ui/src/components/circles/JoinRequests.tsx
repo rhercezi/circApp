@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignIn, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { observer } from "mobx-react-lite";
 import { ConfirmJoinDto } from "../../api/dtos/circle_dtos/ConfirmJoinDto";
+import { useEffect, useState } from "react";
+import { RequestDto } from "../../api/dtos/circle_dtos/RequestDto";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -30,6 +32,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const JoinRequests = () => {
     const { userStore, circleStore } = useStore();
+    const [requestsList, setRequestsList] = useState<RequestDto[]>(circleStore.requestsList);
+
+    useEffect(() => {
+        setRequestsList(circleStore.requestsList);
+    }, [circleStore.requestsList]);
 
     return (
         <div id="join-request" className="profile-element-column">
@@ -44,7 +51,7 @@ const JoinRequests = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {circleStore.requestsList && circleStore.requestsList.map((jr) => (
+                        {requestsList && requestsList.map((jr) => (
                             <StyledTableRow key={jr.requestId}>
                                 <StyledTableCell>{jr.circleName}</StyledTableCell>
                                 <StyledTableCell>{jr.inviterName + ' ' + jr.inviterSurname + ' ( ' + jr.inviterUserName + ' ) '}</StyledTableCell>
@@ -58,13 +65,9 @@ const JoinRequests = () => {
                                             }
                                             circleStore.confirmJoin(dto);
                                         }}>
-                                        {
-                                            (
-                                                <Tooltip title="Join Circle">
-                                                    <FontAwesomeIcon icon={faSignIn} size="xs" />
-                                                </Tooltip>
-                                            )
-                                        }
+                                        <Tooltip title="Join Circle">
+                                            <FontAwesomeIcon icon={faSignIn} size="xs" />
+                                        </Tooltip>
                                     </IconButton>
                                     <IconButton
                                         onClick={() => {

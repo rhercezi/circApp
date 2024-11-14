@@ -1,14 +1,14 @@
+using Core.DAOs;
 using Core.Messages;
-using EventSocket.Application.DTOs;
 
 namespace EventSocket.Application.Commands
 {
     public class SendReminderCommand : BaseCommand
     {
         public Guid UserId { get; set; }
-        public ReminderDto Reminder { get; set; }
+        public ReminderModel Reminder { get; set; }
 
-        public SendReminderCommand(Guid userId, ReminderDto reminder)
+        public SendReminderCommand(Guid userId, ReminderModel reminder)
         {
             UserId = userId;
             Reminder = reminder;

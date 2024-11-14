@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CreateCircleDialog from "../circles/CreateCircleDialog";
 import AddUsersDialog from "../circles/AddUsersDialog";
-import RemoveUsersDialog from "../circles/RemoveUsersDiaog";
+import RemoveUsersDialog from "../circles/RemoveUsersDialog";
 
 export interface Props {
     elementChange: [string, boolean];

@@ -13,7 +13,6 @@ import { useState } from "react";
 import uuid from "react-uuid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { set, values } from "lodash";
 
 const CreateAppointment = () => {
     const { circleStore, userStore, appointmentStore } = useStore();

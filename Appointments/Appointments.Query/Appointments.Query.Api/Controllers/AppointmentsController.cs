@@ -29,7 +29,7 @@ namespace Appointments.Query.Api.Controllers
                     new GetAppointmentsByCircleIdQuery
                     {
                         CircleId = id,
-                        DareFrom = dateFrom,
+                        DateFrom = dateFrom,
                         DateTo = dateTo
                     }
                 );

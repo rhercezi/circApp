@@ -15,15 +15,18 @@ namespace Appointments.Command.Application.Handlers
         private readonly AppointmentRepository _appointmentRepository;
         private readonly ILogger<DeleteAppointmentDetailCommandHandler> _logger;
         private readonly AppointmentEventProducer _eventProducer;
+        private readonly ReminderRepository _reminderRepository;
         public DeleteAppointmentDetailCommandHandler(AppointmentDetailsRepository detailsRepository,
                                                      AppointmentRepository appointmentRepository,
                                                      ILogger<DeleteAppointmentDetailCommandHandler> logger,
-                                                     AppointmentEventProducer eventProducer)
+                                                     AppointmentEventProducer eventProducer,
+                                                     ReminderRepository reminderRepository)
         {
             _detailsRepository = detailsRepository;
             _appointmentRepository = appointmentRepository;
             _logger = logger;
             _eventProducer = eventProducer;
+            _reminderRepository = reminderRepository;
         }
 
         public async Task<BaseResponse> HandleAsync(DeleteAppointmentDetailCommand command)
@@ -42,6 +45,8 @@ namespace Appointments.Command.Application.Handlers
                 _logger.LogError("Failed deleting appointment details. DeletedCount = {DeletedCount}, Command = {command}", result.DeletedCount, command);
                 return new BaseResponse { ResponseCode = 500, Message = "Failed deleting appointment details" };
             }
+
+            await _reminderRepository.DeleteAsync(command.AppointmentId);
 
             await _eventProducer.ProduceAsync(
                 new AppointmentChangePublicEvent(
