@@ -1,0 +1,24 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /app
+
+COPY EventSocket/*.sln ./EventSocket/
+COPY Core/*.csproj ./Core/
+COPY EventSocket/EventSocket.Domain/*.csproj ./EventSocket/EventSocket.Domain/
+COPY EventSocket/EventSocket.Api/*.csproj ./EventSocket/EventSocket.Api/
+COPY EventSocket/EventSocket.Application/*.csproj ./EventSocket/EventSocket.Application/
+
+
+RUN dotnet restore ./EventSocket/EventSocket.Api
+
+COPY . ./
+
+WORKDIR /app/EventSocket/EventSocket.Api
+RUN dotnet publish -c Release -o ../../out 
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /app
+COPY --from=build /app/out .
+
+EXPOSE 80
+
+ENTRYPOINT ["dotnet", "EventSocket.Api.dll"]

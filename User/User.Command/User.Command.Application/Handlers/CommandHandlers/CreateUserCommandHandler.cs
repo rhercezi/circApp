@@ -92,6 +92,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 var config = new MailConfig(_config);
                 config.Body[0] = config.Body[0].Replace("[VerificationLink]", idLink);
                 config.Body[0] = config.Body[0].Replace("[User]", command.FirstName + " " + command.FamilyName);
+                config.Body[0] = config.Body[0].Replace("[BaseUrl]", config.BaseUrl);
 
                 var emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
                 emailSenderService.SendMail(idLink, command.Email, config, 0);

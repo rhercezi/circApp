@@ -14,10 +14,50 @@ using User.Common.PasswordService;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<MongoDbConfigIDLink>(builder.Configuration.GetSection(nameof(MongoDbConfigIDLink)));
 builder.Services.Configure<MongoDbConfig>(builder.Configuration.GetSection(nameof(MongoDbConfig)));
 builder.Services.Configure<KafkaProducerConfig>(builder.Configuration.GetSection(nameof(KafkaProducerConfig)));
 builder.Services.Configure<MailConfig>(builder.Configuration.GetSection(nameof(MailConfig)));
-builder.Services.Configure<MongoDbConfigIDLink>(builder.Configuration.GetSection(nameof(MongoDbConfigIDLink)));
+
+builder.Configuration.AddEnvironmentVariables();
+
+var mailConfig = builder.Configuration.GetSection(nameof(MailConfig)).Get<MailConfig>();
+
+if (mailConfig != null)
+{
+    var apiKey = builder.Configuration["API_KEY"];
+    var secretKey = builder.Configuration["SECRET_KEY"];
+    var smtpServer = builder.Configuration["SMTP_SERVER"];
+    var sender = builder.Configuration["SENDER"];
+    var company = builder.Configuration["COMPANY"];
+    var baseUrl = builder.Configuration["BASE_URL"];
+    var smtpPort = builder.Configuration["SMTP_PORT"];
+    var enableSsl = builder.Configuration["ENABLE_SSL"];
+
+    if (!string.IsNullOrEmpty(apiKey)) mailConfig.Username = apiKey;
+    if (!string.IsNullOrEmpty(secretKey)) mailConfig.Password = secretKey;
+    if (!string.IsNullOrEmpty(smtpServer)) mailConfig.Server = smtpServer;
+    if (!string.IsNullOrEmpty(sender)) mailConfig.Sender = sender;
+    if (!string.IsNullOrEmpty(company)) mailConfig.Company = company;
+    if (!string.IsNullOrEmpty(baseUrl)) mailConfig.BaseUrl = baseUrl;
+    if (int.TryParse(smtpPort, out var port)) mailConfig.Port = port;
+    if (bool.TryParse(enableSsl, out var enableSSL)) mailConfig.EnableSSL = enableSSL;
+}
+
+builder.Services.Configure<MailConfig>(options =>
+{
+    options.BaseUrl = mailConfig.BaseUrl;
+    options.Server = mailConfig.Server;
+    options.Port = mailConfig.Port;
+    options.EnableSSL = mailConfig.EnableSSL;
+    options.Sender = mailConfig.Sender;
+    options.Company = mailConfig.Company;
+    options.Username = mailConfig.Username;
+    options.Password = mailConfig.Password;
+    options.Subject = mailConfig.Subject;
+    options.Body = mailConfig.Body;
+});
+
 builder.Services.AddSingleton<EmailSenderService>();
 builder.Services.AddScoped<IdLinkRepository>();
 builder.Services.AddScoped<EventStoreRepository>();

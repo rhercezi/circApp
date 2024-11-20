@@ -71,6 +71,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
             var config = new MailConfig(_config);
             config.Body[1] = config.Body[1].Replace("[ResetLink]", idLink);
             config.Body[1] = config.Body[1].Replace("[User]", command.UserName);
+            config.Body[1] = config.Body[1].Replace("[BaseUrl]", config.BaseUrl);
             config.Subject = "CircleApp - reset password";
 
             using var scope = _serviceProvider.CreateScope();

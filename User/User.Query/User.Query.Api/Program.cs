@@ -19,13 +19,26 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<KafkaConsumerConfig>(builder.Configuration.GetSection(nameof(KafkaConsumerConfig)));
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection(nameof(JwtConfig)));
+
+var jwtConfig = builder.Configuration.GetSection(nameof(JwtConfig)).Get<JwtConfig>();
+if (jwtConfig != null)
+{
+    var signingKey = builder.Configuration["SIGNING_KEY"];
+    if (!string.IsNullOrEmpty(signingKey)) jwtConfig.SigningKey = signingKey;
+
+    builder.Services.Configure<JwtConfig>(options =>
+    {
+        options.SigningKey = jwtConfig.SigningKey;
+    });
+}
+
 builder.Services.Configure<CookieConfig>(builder.Configuration.GetSection(nameof(CookieConfig)));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<UserDbContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("UserDbConnectionString"))
+    options => options.UseSqlServer(builder.Configuration["CONNECTION_STRING"])
 );
 
 builder.Services.AddSingleton<JwtService>();

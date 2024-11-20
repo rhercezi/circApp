@@ -16,7 +16,7 @@ import { LoginDto } from "./dtos/user_dtos/LoginDto";
 import { RefreshDto } from "./dtos/user_dtos/RefreshDto";
 import { NotificationDto } from "./dtos/notification_dtos/NotificationDto";
 
-axios.defaults.baseURL = "http://localhost:5018";
+axios.defaults.baseURL = import.meta.env.VITE_APP_API_BASE_URL
 
 const body = <T>(response: AxiosResponse<T>) => response.data;
 
@@ -96,7 +96,9 @@ const Tasks = {
 
 const Socket = {
     connect: (onMessage: (message: NotificationDto) => void) => {
-        const socket = new WebSocket('ws://localhost:5018/v1/event-socket');
+        const baseUrl = import.meta.env.VITE_APP_API_BASE_URL || '';
+        const wsProtocol = baseUrl.startsWith("https") ? "wss" : "ws";
+        const socket = new WebSocket(`${wsProtocol}://${baseUrl.replace(/^https?:\/\//, '')}/v1/event-socket`);
 
         socket.onopen = () => {
             //console.log('WebSocket connection established');
@@ -124,6 +126,7 @@ const Socket = {
         };
 
         socket.onerror = (error) => {
+            console.error(import.meta.env.VITE_APP_API_BASE_URL);
             console.error('WebSocket error:', error);
         };
 

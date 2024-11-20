@@ -92,6 +92,8 @@ services:
       - "9211:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - CONNECTION_STRING=server=mssqlDB,1433;Database=UserDB;User Id=sa;Password=SQnzABaHTrs3aQt8m8wn;TrustServerCertificate=true
+      - SIGNING_KEY=XZ6sm0jtUNmZ44ZczvoHvKTfQrgmoQzkzn4yUdQReiceoAZ2RN6CVz1J2C5lTYCd1Of0MLIiXQldqBXfu0L83kulnsjSYJzOfk1P
     depends_on:
       - kafka
 
@@ -193,6 +195,7 @@ services:
       - "9218:9229"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - SIGNING_KEY=XZ6sm0jtUNmZ44ZczvoHvKTfQrgmoQzkzn4yUdQReiceoAZ2RN6CVz1J2C5lTYCd1Of0MLIiXQldqBXfu0L83kulnsjSYJzOfk1P
     depends_on:
       - user-command-api
       - user-query-api
@@ -203,6 +206,19 @@ services:
       - tasks-command-api
       - tasks-query-api
       - event-socket
+
+  ui:
+    build:
+      context: .
+      dockerfile: vite-ui/Dockerfile
+      args:
+        - VITE_APP_API_BASE_URL=http://localhost:5018
+    container_name: ui
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - api-gateway
 
 volumes:
   zookeeper_data:

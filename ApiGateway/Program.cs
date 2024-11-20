@@ -8,7 +8,8 @@ using Ocelot.Middleware;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
+builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection(nameof(JwtConfig)));
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -19,7 +20,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:SigningKey"]))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["SIGNING_KEY"]))
         };
     });
 
@@ -28,15 +29,8 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("ocelot.Development.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
-}
-else
-{
-    builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
-    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
-    .AddEnvironmentVariables();
-}
 
-builder.Services.AddCors(options =>
+    builder.Services.AddCors(options =>
     {
         options.AddPolicy("MyPolicy", builder =>
         {
@@ -46,7 +40,13 @@ builder.Services.AddCors(options =>
                 .AllowCredentials();
         });
     });
-
+}
+else
+{
+    builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables();
+}
 
 builder.Services.AddOcelot(builder.Configuration);
 

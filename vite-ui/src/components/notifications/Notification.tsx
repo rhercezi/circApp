@@ -43,6 +43,10 @@ const Notification = ({ notification, removeNotification }: Props) => {
             removeNotification({ NotificationId: notification.Id, CommandType: EventCommandType.MarkReminderAsSeen }, NotificationType.Reminder);
         } else if (notification.Body.Type === NotificationType.JoinRequest) {
             removeNotification({ NotificationId: notification.Id, CommandType: EventCommandType.DeleteNotifications }, NotificationType.JoinRequest);
+        } else if (notification.Body.Type === NotificationType.Appointment) {
+            removeNotification({ NotificationId: notification.Id, CommandType: EventCommandType.DeleteNotifications }, NotificationType.Appointment);
+        } else if (notification.Body.Type === NotificationType.Task) {
+            removeNotification({ NotificationId: notification.Id, CommandType: EventCommandType.DeleteNotifications }, NotificationType.Task);
         }
     };
 

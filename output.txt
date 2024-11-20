@@ -1,0 +1,808 @@
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/Tasks.Command.Application.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Command/Tasks.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Application/obj/Debug/net7.0/Tasks.Command.Application.assets.cache matches
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Application/obj/Debug/net7.0/Tasks.Command.Application.pdb matches
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Application/obj/Debug/net7.0/Tasks.Command.Application.csproj.AssemblyReference.cache matches
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Application/bin/Debug/net7.0/Core.pdb matches
+./Tasks/Tasks.Command/Tasks.Command.Application/bin/Debug/net7.0/Tasks.Command.Application.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Command/Tasks.Command.Application/bin/Debug/net7.0/Tasks.Command.Application.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Command/Tasks.Command.Application/bin/Debug/net7.0/Tasks.Command.Application.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Tasks/Tasks.Command/Tasks.Command.Application/bin/Debug/net7.0/Tasks.Command.Application.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Application/bin/Debug/net7.0/Tasks.Command.Application.pdb matches
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Application/bin/Debug/net7.0/Tasks.Domain.pdb matches
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/Tasks.Command.Api.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Api/obj/Debug/net7.0/Tasks.Command.Api.pdb matches
+./Tasks/Tasks.Command/Tasks.Command.Api/obj/Debug/net7.0/Tasks.Command.Api.csproj.FileListAbsolute.txt:/home/roherc/repos/circApp/Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Api/obj/Debug/net7.0/Tasks.Command.Api.csproj.AssemblyReference.cache matches
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Api/obj/Debug/net7.0/Tasks.Command.Api.assets.cache matches
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/Core.pdb matches
+./Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/Tasks.Command.Api.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/Tasks.Command.Api.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/Tasks.Command.Api.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/Tasks.Command.Api.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll matches
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/Tasks.Command.Application.pdb matches
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/Tasks.Command.Api.pdb matches
+Binary file ./Tasks/Tasks.Command/Tasks.Command.Api/bin/Debug/net7.0/Tasks.Domain.pdb matches
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Api/obj/Debug/net7.0/Tasks.Query.Api.csproj.AssemblyReference.cache matches
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/Debug/net7.0/Tasks.Query.Api.csproj.FileListAbsolute.txt:/home/roherc/repos/circApp/Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Api/obj/Debug/net7.0/Tasks.Query.Api.pdb matches
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Api/obj/Debug/net7.0/Tasks.Query.Api.assets.cache matches
+./Tasks/Tasks.Query/Tasks.Query.Api/obj/Tasks.Query.Api.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/Core.pdb matches
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/Tasks.Query.Application.pdb matches
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll matches
+./Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/Tasks.Query.Api.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/Tasks.Query.Api.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/Tasks.Query.Api.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/Tasks.Query.Api.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/Tasks.Domain.pdb matches
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Api/bin/Debug/net7.0/Tasks.Query.Api.pdb matches
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/Tasks.Query.Application.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Query/Tasks.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Application/obj/Debug/net7.0/Tasks.Query.Application.pdb matches
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Application/obj/Debug/net7.0/Tasks.Query.Application.csproj.AssemblyReference.cache matches
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Application/obj/Debug/net7.0/Tasks.Query.Application.assets.cache matches
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Application/bin/Debug/net7.0/Core.pdb matches
+./Tasks/Tasks.Query/Tasks.Query.Application/bin/Debug/net7.0/Tasks.Query.Application.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Query/Tasks.Query.Application/bin/Debug/net7.0/Tasks.Query.Application.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Query/Tasks.Query.Application/bin/Debug/net7.0/Tasks.Query.Application.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Tasks/Tasks.Query/Tasks.Query.Application/bin/Debug/net7.0/Tasks.Query.Application.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Application/bin/Debug/net7.0/Tasks.Query.Application.pdb matches
+Binary file ./Tasks/Tasks.Query/Tasks.Query.Application/bin/Debug/net7.0/Tasks.Domain.pdb matches
+./Tasks/Tasks.Domain/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Domain/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Tasks/Tasks.Domain/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Domain/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Tasks/Tasks.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Tasks/Tasks.Domain/obj/Debug/net7.0/Tasks.Domain.csproj.AssemblyReference.cache matches
+Binary file ./Tasks/Tasks.Domain/obj/Debug/net7.0/Tasks.Domain.assets.cache matches
+Binary file ./Tasks/Tasks.Domain/obj/Debug/net7.0/Tasks.Domain.pdb matches
+./Tasks/Tasks.Domain/obj/Tasks.Domain.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./Tasks/Tasks.Domain/bin/Debug/net7.0/Core.pdb matches
+./Tasks/Tasks.Domain/bin/Debug/net7.0/Tasks.Domain.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Tasks/Tasks.Domain/bin/Debug/net7.0/Tasks.Domain.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Tasks/Tasks.Domain/bin/Debug/net7.0/Tasks.Domain.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Tasks/Tasks.Domain/bin/Debug/net7.0/Tasks.Domain.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Tasks/Tasks.Domain/bin/Debug/net7.0/Tasks.Domain.pdb matches
+./EventSocket/EventSocket.Api/obj/EventSocket.Api.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./EventSocket/EventSocket.Api/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./EventSocket/EventSocket.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./EventSocket/EventSocket.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./EventSocket/EventSocket.Api/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./EventSocket/EventSocket.Api/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./EventSocket/EventSocket.Api/obj/Debug/net7.0/EventSocket.Api.assets.cache matches
+Binary file ./EventSocket/EventSocket.Api/obj/Debug/net7.0/EventSocket.Api.pdb matches
+./EventSocket/EventSocket.Api/obj/Debug/net7.0/EventSocket.Api.csproj.FileListAbsolute.txt:/home/roherc/repos/circApp/EventSocket/EventSocket.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll
+Binary file ./EventSocket/EventSocket.Api/obj/Debug/net7.0/EventSocket.Api.csproj.AssemblyReference.cache matches
+Binary file ./EventSocket/EventSocket.Api/bin/Debug/net7.0/Core.pdb matches
+Binary file ./EventSocket/EventSocket.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll matches
+./EventSocket/EventSocket.Api/bin/Debug/net7.0/EventSocket.Api.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./EventSocket/EventSocket.Api/bin/Debug/net7.0/EventSocket.Api.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./EventSocket/EventSocket.Api/bin/Debug/net7.0/EventSocket.Api.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./EventSocket/EventSocket.Api/bin/Debug/net7.0/EventSocket.Api.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./EventSocket/EventSocket.Api/bin/Debug/net7.0/EventSocket.Domain.pdb matches
+Binary file ./EventSocket/EventSocket.Api/bin/Debug/net7.0/EventSocket.Application.pdb matches
+Binary file ./EventSocket/EventSocket.Api/bin/Debug/net7.0/EventSocket.Api.pdb matches
+./EventSocket/EventSocket.Application/obj/EventSocket.Application.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./EventSocket/EventSocket.Application/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./EventSocket/EventSocket.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./EventSocket/EventSocket.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./EventSocket/EventSocket.Application/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./EventSocket/EventSocket.Application/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./EventSocket/EventSocket.Application/obj/Debug/net7.0/EventSocket.Application.pdb matches
+Binary file ./EventSocket/EventSocket.Application/obj/Debug/net7.0/EventSocket.Application.assets.cache matches
+Binary file ./EventSocket/EventSocket.Application/obj/Debug/net7.0/EventSocket.Application.csproj.AssemblyReference.cache matches
+Binary file ./EventSocket/EventSocket.Application/bin/Debug/net7.0/Core.pdb matches
+./EventSocket/EventSocket.Application/bin/Debug/net7.0/EventSocket.Application.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./EventSocket/EventSocket.Application/bin/Debug/net7.0/EventSocket.Application.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./EventSocket/EventSocket.Application/bin/Debug/net7.0/EventSocket.Application.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./EventSocket/EventSocket.Application/bin/Debug/net7.0/EventSocket.Application.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./EventSocket/EventSocket.Application/bin/Debug/net7.0/EventSocket.Domain.pdb matches
+Binary file ./EventSocket/EventSocket.Application/bin/Debug/net7.0/EventSocket.Application.pdb matches
+./EventSocket/EventSocket.Domain/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./EventSocket/EventSocket.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./EventSocket/EventSocket.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./EventSocket/EventSocket.Domain/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./EventSocket/EventSocket.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./EventSocket/EventSocket.Domain/obj/Debug/net7.0/EventSocket.Domain.pdb matches
+Binary file ./EventSocket/EventSocket.Domain/obj/Debug/net7.0/EventSocket.Domain.assets.cache matches
+Binary file ./EventSocket/EventSocket.Domain/obj/Debug/net7.0/EventSocket.Domain.csproj.AssemblyReference.cache matches
+./EventSocket/EventSocket.Domain/obj/EventSocket.Domain.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./EventSocket/EventSocket.Domain/bin/Debug/net7.0/Core.pdb matches
+./EventSocket/EventSocket.Domain/bin/Debug/net7.0/EventSocket.Domain.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./EventSocket/EventSocket.Domain/bin/Debug/net7.0/EventSocket.Domain.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./EventSocket/EventSocket.Domain/bin/Debug/net7.0/EventSocket.Domain.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./EventSocket/EventSocket.Domain/bin/Debug/net7.0/EventSocket.Domain.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./EventSocket/EventSocket.Domain/bin/Debug/net7.0/EventSocket.Domain.pdb matches
+./ApiGateway/obj/ApiGateway.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./ApiGateway/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./ApiGateway/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./ApiGateway/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./ApiGateway/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./ApiGateway/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./ApiGateway/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./ApiGateway/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./ApiGateway/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./ApiGateway/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./ApiGateway/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./ApiGateway/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./ApiGateway/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./ApiGateway/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./ApiGateway/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./ApiGateway/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./ApiGateway/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./ApiGateway/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./ApiGateway/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./ApiGateway/obj/Debug/net7.0/ApiGateway.pdb matches
+Binary file ./ApiGateway/obj/Debug/net7.0/ApiGateway.csproj.AssemblyReference.cache matches
+Binary file ./ApiGateway/obj/Debug/net7.0/ApiGateway.assets.cache matches
+./ApiGateway/obj/Debug/net7.0/ApiGateway.csproj.FileListAbsolute.txt:/home/roherc/repos/circApp/ApiGateway/bin/Debug/net7.0/AWSSDK.SecurityToken.dll
+Binary file ./ApiGateway/bin/Debug/net7.0/Core.pdb matches
+./ApiGateway/bin/Debug/net7.0/ApiGateway.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./ApiGateway/bin/Debug/net7.0/ApiGateway.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./ApiGateway/bin/Debug/net7.0/ApiGateway.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./ApiGateway/bin/Debug/net7.0/ApiGateway.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./ApiGateway/bin/Debug/net7.0/AWSSDK.SecurityToken.dll matches
+Binary file ./ApiGateway/bin/Debug/net7.0/ApiGateway.pdb matches
+./Core/obj/Core.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./Core/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Core/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Core/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Core/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Core/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Core/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Core/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Core/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Core/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Core/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Core/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Core/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Core/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Core/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Core/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Core/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Core/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Core/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Core/obj/Debug/net7.0/Core.pdb matches
+Binary file ./Core/obj/Debug/net7.0/Core.assets.cache matches
+Binary file ./Core/obj/Debug/net7.0/Core.csproj.AssemblyReference.cache matches
+Binary file ./Core/bin/Debug/net7.0/Core.pdb matches
+./Core/bin/Debug/net7.0/Core.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Core/bin/Debug/net7.0/Core.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Core/bin/Debug/net7.0/Core.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Core/bin/Debug/net7.0/Core.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/Appointments.Command.Application.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Command/Appointments.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Application/obj/Debug/net7.0/Appointments.Command.Application.pdb matches
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Application/obj/Debug/net7.0/Appointments.Command.Application.csproj.AssemblyReference.cache matches
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Application/obj/Debug/net7.0/Appointments.Command.Application.assets.cache matches
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Application/bin/Debug/net7.0/Core.pdb matches
+./Appointments/Appointments.Command/Appointments.Command.Application/bin/Debug/net7.0/Appointments.Command.Application.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Command/Appointments.Command.Application/bin/Debug/net7.0/Appointments.Command.Application.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Command/Appointments.Command.Application/bin/Debug/net7.0/Appointments.Command.Application.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Appointments/Appointments.Command/Appointments.Command.Application/bin/Debug/net7.0/Appointments.Command.Application.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Application/bin/Debug/net7.0/Appointments.Command.Application.pdb matches
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Application/bin/Debug/net7.0/Appointments.Domain.pdb matches
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/Appointments.Command.Api.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Api/obj/Debug/net7.0/Appointments.Command.Api.pdb matches
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Api/obj/Debug/net7.0/Appointments.Command.Api.csproj.AssemblyReference.cache matches
+./Appointments/Appointments.Command/Appointments.Command.Api/obj/Debug/net7.0/Appointments.Command.Api.csproj.FileListAbsolute.txt:/home/roherc/repos/circApp/Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Api/obj/Debug/net7.0/Appointments.Command.Api.assets.cache matches
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/Core.pdb matches
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/Appointments.Command.Api.pdb matches
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll matches
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/Appointments.Command.Application.pdb matches
+Binary file ./Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/Appointments.Domain.pdb matches
+./Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/Appointments.Command.Api.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/Appointments.Command.Api.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/Appointments.Command.Api.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Appointments/Appointments.Command/Appointments.Command.Api/bin/Debug/net7.0/Appointments.Command.Api.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Api/obj/Debug/net7.0/Appointments.Query.Api.pdb matches
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Api/obj/Debug/net7.0/Appointments.Query.Api.csproj.AssemblyReference.cache matches
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Api/obj/Debug/net7.0/Appointments.Query.Api.assets.cache matches
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/Debug/net7.0/Appointments.Query.Api.csproj.FileListAbsolute.txt:/home/roherc/repos/circApp/Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll
+./Appointments/Appointments.Query/Appointments.Query.Api/obj/Appointments.Query.Api.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/Core.pdb matches
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/Appointments.Query.Api.pdb matches
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll matches
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/Appointments.Query.Application.pdb matches
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/Appointments.Domain.pdb matches
+./Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/Appointments.Query.Api.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/Appointments.Query.Api.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/Appointments.Query.Api.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Appointments/Appointments.Query/Appointments.Query.Api/bin/Debug/net7.0/Appointments.Query.Api.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Application/obj/Debug/net7.0/Appointments.Query.Application.assets.cache matches
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Application/obj/Debug/net7.0/Appointments.Query.Application.pdb matches
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Application/obj/Debug/net7.0/Appointments.Query.Application.csproj.AssemblyReference.cache matches
+./Appointments/Appointments.Query/Appointments.Query.Application/obj/Appointments.Query.Application.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Application/bin/Debug/net7.0/Core.pdb matches
+./Appointments/Appointments.Query/Appointments.Query.Application/bin/Debug/net7.0/Appointments.Query.Application.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Query/Appointments.Query.Application/bin/Debug/net7.0/Appointments.Query.Application.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Query/Appointments.Query.Application/bin/Debug/net7.0/Appointments.Query.Application.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Appointments/Appointments.Query/Appointments.Query.Application/bin/Debug/net7.0/Appointments.Query.Application.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Application/bin/Debug/net7.0/Appointments.Query.Application.pdb matches
+Binary file ./Appointments/Appointments.Query/Appointments.Query.Application/bin/Debug/net7.0/Appointments.Domain.pdb matches
+./Appointments/Appointments.Domain/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Domain/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Appointments/Appointments.Domain/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Domain/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Appointments/Appointments.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Appointments/Appointments.Domain/obj/Debug/net7.0/Appointments.Domain.assets.cache matches
+Binary file ./Appointments/Appointments.Domain/obj/Debug/net7.0/Appointments.Domain.pdb matches
+Binary file ./Appointments/Appointments.Domain/obj/Debug/net7.0/Appointments.Domain.csproj.AssemblyReference.cache matches
+./Appointments/Appointments.Domain/obj/Appointments.Domain.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./Appointments/Appointments.Domain/bin/Debug/net7.0/Core.pdb matches
+./Appointments/Appointments.Domain/bin/Debug/net7.0/Appointments.Domain.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Appointments/Appointments.Domain/bin/Debug/net7.0/Appointments.Domain.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Appointments/Appointments.Domain/bin/Debug/net7.0/Appointments.Domain.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Appointments/Appointments.Domain/bin/Debug/net7.0/Appointments.Domain.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Appointments/Appointments.Domain/bin/Debug/net7.0/Appointments.Domain.pdb matches
+./Circles/Circles.Query/Circles.Query.Application/obj/Circles.Query.Application.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Query/Circles.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Circles/Circles.Query/Circles.Query.Application/obj/Debug/net7.0/Circles.Query.Application.assets.cache matches
+Binary file ./Circles/Circles.Query/Circles.Query.Application/obj/Debug/net7.0/Circles.Query.Application.pdb matches
+Binary file ./Circles/Circles.Query/Circles.Query.Application/obj/Debug/net7.0/Circles.Query.Application.csproj.AssemblyReference.cache matches
+./Circles/Circles.Query/Circles.Query.Application/bin/Debug/net7.0/Circles.Query.Application.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Query/Circles.Query.Application/bin/Debug/net7.0/Circles.Query.Application.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Query/Circles.Query.Application/bin/Debug/net7.0/Circles.Query.Application.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Circles/Circles.Query/Circles.Query.Application/bin/Debug/net7.0/Circles.Query.Application.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Circles/Circles.Query/Circles.Query.Application/bin/Debug/net7.0/Core.pdb matches
+Binary file ./Circles/Circles.Query/Circles.Query.Application/bin/Debug/net7.0/Circles.Domain.pdb matches
+Binary file ./Circles/Circles.Query/Circles.Query.Application/bin/Debug/net7.0/Circles.Query.Application.pdb matches
+./Circles/Circles.Query/Circles.Query.Api/obj/Circles.Query.Api.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Query/Circles.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Circles/Circles.Query/Circles.Query.Api/obj/Debug/net7.0/Circles.Query.Api.csproj.AssemblyReference.cache matches
+./Circles/Circles.Query/Circles.Query.Api/obj/Debug/net7.0/Circles.Query.Api.csproj.FileListAbsolute.txt:/home/roherc/repos/circApp/Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll
+Binary file ./Circles/Circles.Query/Circles.Query.Api/obj/Debug/net7.0/Circles.Query.Api.assets.cache matches
+Binary file ./Circles/Circles.Query/Circles.Query.Api/obj/Debug/net7.0/Circles.Query.Api.pdb matches
+Binary file ./Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/Core.pdb matches
+./Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/Circles.Query.Api.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/Circles.Query.Api.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/Circles.Query.Api.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/Circles.Query.Api.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll matches
+Binary file ./Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/Circles.Domain.pdb matches
+Binary file ./Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/Circles.Query.Application.pdb matches
+Binary file ./Circles/Circles.Query/Circles.Query.Api/bin/Debug/net7.0/Circles.Query.Api.pdb matches
+./Circles/Circles.Domain/obj/Circles.Domain.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./Circles/Circles.Domain/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Domain/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Circles/Circles.Domain/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Domain/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.pdb matches
+Binary file ./Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.csproj.AssemblyReference.cache matches
+Binary file ./Circles/Circles.Domain/obj/Debug/net7.0/Circles.Domain.assets.cache matches
+Binary file ./Circles/Circles.Domain/bin/Debug/net7.0/Core.pdb matches
+./Circles/Circles.Domain/bin/Debug/net7.0/Circles.Domain.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Domain/bin/Debug/net7.0/Circles.Domain.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Domain/bin/Debug/net7.0/Circles.Domain.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Circles/Circles.Domain/bin/Debug/net7.0/Circles.Domain.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./Circles/Circles.Domain/bin/Debug/net7.0/Circles.Domain.pdb matches
+./Circles/Circles.Command/Circles.Command.Api/obj/Circles.Command.Api.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Command/Circles.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Circles/Circles.Command/Circles.Command.Api/obj/Debug/net7.0/Circles.Command.Api.assets.cache matches
+./Circles/Circles.Command/Circles.Command.Api/obj/Debug/net7.0/Circles.Command.Api.csproj.FileListAbsolute.txt:/home/roherc/repos/circApp/Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll
+Binary file ./Circles/Circles.Command/Circles.Command.Api/obj/Debug/net7.0/Circles.Command.Api.csproj.AssemblyReference.cache matches
+Binary file ./Circles/Circles.Command/Circles.Command.Api/obj/Debug/net7.0/Circles.Command.Api.pdb matches
+Binary file ./Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/Core.pdb matches
+Binary file ./Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/Circles.Command.Application.pdb matches
+Binary file ./Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll matches
+Binary file ./Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/Circles.Domain.pdb matches
+Binary file ./Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/Circles.Command.Api.pdb matches
+./Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/Circles.Command.Api.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/Circles.Command.Api.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/Circles.Command.Api.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Circles/Circles.Command/Circles.Command.Api/bin/Debug/net7.0/Circles.Command.Api.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./Circles/Circles.Command/Circles.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./Circles/Circles.Command/Circles.Command.Application/obj/Debug/net7.0/Circles.Command.Application.assets.cache matches
+Binary file ./Circles/Circles.Command/Circles.Command.Application/obj/Debug/net7.0/Circles.Command.Application.pdb matches
+Binary file ./Circles/Circles.Command/Circles.Command.Application/obj/Debug/net7.0/Circles.Command.Application.csproj.AssemblyReference.cache matches
+./Circles/Circles.Command/Circles.Command.Application/obj/Circles.Command.Application.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./Circles/Circles.Command/Circles.Command.Application/bin/Debug/net7.0/Core.pdb matches
+Binary file ./Circles/Circles.Command/Circles.Command.Application/bin/Debug/net7.0/Circles.Command.Application.pdb matches
+Binary file ./Circles/Circles.Command/Circles.Command.Application/bin/Debug/net7.0/Circles.Domain.pdb matches
+./Circles/Circles.Command/Circles.Command.Application/bin/Debug/net7.0/Circles.Command.Application.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./Circles/Circles.Command/Circles.Command.Application/bin/Debug/net7.0/Circles.Command.Application.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./Circles/Circles.Command/Circles.Command.Application/bin/Debug/net7.0/Circles.Command.Application.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./Circles/Circles.Command/Circles.Command.Application/bin/Debug/net7.0/Circles.Command.Application.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Command/User.Command.Application/obj/User.Command.Application.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./User/User.Command/User.Command.Application/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Command/User.Command.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Command/User.Command.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Command/User.Command.Application/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Command/User.Command.Application/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./User/User.Command/User.Command.Application/obj/Debug/net7.0/User.Command.Application.csproj.AssemblyReference.cache matches
+Binary file ./User/User.Command/User.Command.Application/obj/Debug/net7.0/User.Command.Application.assets.cache matches
+Binary file ./User/User.Command/User.Command.Application/obj/Debug/net7.0/User.Command.Application.pdb matches
+Binary file ./User/User.Command/User.Command.Application/bin/Debug/net7.0/Core.pdb matches
+Binary file ./User/User.Command/User.Command.Application/bin/Debug/net7.0/User.Command.Domain.pdb matches
+Binary file ./User/User.Command/User.Command.Application/bin/Debug/net7.0/User.Common.pdb matches
+./User/User.Command/User.Command.Application/bin/Debug/net7.0/User.Command.Application.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Command/User.Command.Application/bin/Debug/net7.0/User.Command.Application.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Command/User.Command.Application/bin/Debug/net7.0/User.Command.Application.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Command/User.Command.Application/bin/Debug/net7.0/User.Command.Application.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./User/User.Command/User.Command.Application/bin/Debug/net7.0/User.Command.Application.pdb matches
+./User/User.Command/User.Command.Api/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Command/User.Command.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Command/User.Command.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Command/User.Command.Api/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Command/User.Command.Api/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./User/User.Command/User.Command.Api/obj/Debug/net7.0/User.Command.Api.csproj.AssemblyReference.cache matches
+Binary file ./User/User.Command/User.Command.Api/obj/Debug/net7.0/User.Command.Api.pdb matches
+Binary file ./User/User.Command/User.Command.Api/obj/Debug/net7.0/User.Command.Api.assets.cache matches
+./User/User.Command/User.Command.Api/obj/Debug/net7.0/User.Command.Api.csproj.FileListAbsolute.txt:/home/roherc/repos/circApp/User/User.Command/User.Command.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll
+./User/User.Command/User.Command.Api/obj/User.Command.Api.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./User/User.Command/User.Command.Api/bin/Debug/net7.0/Core.pdb matches
+Binary file ./User/User.Command/User.Command.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll matches
+Binary file ./User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Command.Domain.pdb matches
+Binary file ./User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Common.pdb matches
+Binary file ./User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Command.Api.pdb matches
+./User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Command.Api.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Command.Api.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Command.Api.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Command.Api.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./User/User.Command/User.Command.Api/bin/Debug/net7.0/User.Command.Application.pdb matches
+./User/User.Command/User.Command.Domain/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Command/User.Command.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Command/User.Command.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Command/User.Command.Domain/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./User/User.Command/User.Command.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./User/User.Command/User.Command.Domain/obj/Debug/net7.0/User.Command.Domain.assets.cache matches
+Binary file ./User/User.Command/User.Command.Domain/obj/Debug/net7.0/User.Command.Domain.pdb matches
+Binary file ./User/User.Command/User.Command.Domain/obj/Debug/net7.0/User.Command.Domain.csproj.AssemblyReference.cache matches
+./User/User.Command/User.Command.Domain/obj/User.Command.Domain.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./User/User.Command/User.Command.Domain/bin/Debug/net7.0/Core.pdb matches
+Binary file ./User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Command.Domain.pdb matches
+Binary file ./User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Common.pdb matches
+./User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Command.Domain.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Command.Domain.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Command.Domain.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Command/User.Command.Domain/bin/Debug/net7.0/User.Command.Domain.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Application/obj/User.Query.Application.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./User/User.Query/User.Query.Application/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Query/User.Query.Application/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Query/User.Query.Application/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Query/User.Query.Application/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Application/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./User/User.Query/User.Query.Application/obj/Debug/net7.0/User.Query.Application.csproj.AssemblyReference.cache matches
+Binary file ./User/User.Query/User.Query.Application/obj/Debug/net7.0/User.Query.Application.pdb matches
+Binary file ./User/User.Query/User.Query.Application/obj/Debug/net7.0/User.Query.Application.assets.cache matches
+Binary file ./User/User.Query/User.Query.Application/bin/Debug/net7.0/Core.pdb matches
+Binary file ./User/User.Query/User.Query.Application/bin/Debug/net7.0/User.Query.Application.pdb matches
+Binary file ./User/User.Query/User.Query.Application/bin/Debug/net7.0/User.Common.pdb matches
+Binary file ./User/User.Query/User.Query.Application/bin/Debug/net7.0/User.Query.Domain.pdb matches
+./User/User.Query/User.Query.Application/bin/Debug/net7.0/User.Query.Application.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Application/bin/Debug/net7.0/User.Query.Application.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Query/User.Query.Application/bin/Debug/net7.0/User.Query.Application.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Query/User.Query.Application/bin/Debug/net7.0/User.Query.Application.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Domain/obj/User.Query.Domain.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+./User/User.Query/User.Query.Domain/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Query/User.Query.Domain/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Query/User.Query.Domain/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Domain/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./User/User.Query/User.Query.Domain/obj/Debug/net7.0/User.Query.Domain.pdb matches
+Binary file ./User/User.Query/User.Query.Domain/obj/Debug/net7.0/User.Query.Domain.assets.cache matches
+Binary file ./User/User.Query/User.Query.Domain/obj/Debug/net7.0/User.Query.Domain.csproj.AssemblyReference.cache matches
+Binary file ./User/User.Query/User.Query.Domain/bin/Debug/net7.0/Core.pdb matches
+Binary file ./User/User.Query/User.Query.Domain/bin/Debug/net7.0/User.Common.pdb matches
+./User/User.Query/User.Query.Domain/bin/Debug/net7.0/User.Query.Domain.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Domain/bin/Debug/net7.0/User.Query.Domain.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Query/User.Query.Domain/bin/Debug/net7.0/User.Query.Domain.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Query/User.Query.Domain/bin/Debug/net7.0/User.Query.Domain.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./User/User.Query/User.Query.Domain/bin/Debug/net7.0/User.Query.Domain.pdb matches
+./User/User.Query/User.Query.Api/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Query/User.Query.Api/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Query/User.Query.Api/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Query/User.Query.Api/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./User/User.Query/User.Query.Api/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./User/User.Query/User.Query.Api/obj/Debug/net7.0/User.Query.Api.pdb matches
+Binary file ./User/User.Query/User.Query.Api/obj/Debug/net7.0/User.Query.Api.assets.cache matches
+./User/User.Query/User.Query.Api/obj/Debug/net7.0/User.Query.Api.csproj.FileListAbsolute.txt:/home/roherc/repos/circApp/User/User.Query/User.Query.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll
+Binary file ./User/User.Query/User.Query.Api/obj/Debug/net7.0/User.Query.Api.csproj.AssemblyReference.cache matches
+./User/User.Query/User.Query.Api/obj/User.Query.Api.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./User/User.Query/User.Query.Api/bin/Debug/net7.0/Core.pdb matches
+Binary file ./User/User.Query/User.Query.Api/bin/Debug/net7.0/User.Query.Application.pdb matches
+Binary file ./User/User.Query/User.Query.Api/bin/Debug/net7.0/AWSSDK.SecurityToken.dll matches
+./User/User.Query/User.Query.Api/bin/Debug/net7.0/User.Query.Api.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Query/User.Query.Api/bin/Debug/net7.0/User.Query.Api.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Query/User.Query.Api/bin/Debug/net7.0/User.Query.Api.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Query/User.Query.Api/bin/Debug/net7.0/User.Query.Api.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./User/User.Query/User.Query.Api/bin/Debug/net7.0/User.Common.pdb matches
+Binary file ./User/User.Query/User.Query.Api/bin/Debug/net7.0/User.Query.Api.pdb matches
+Binary file ./User/User.Query/User.Query.Api/bin/Debug/net7.0/User.Query.Domain.pdb matches
+./User/User.Common/obj/project.assets.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Common/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Common/obj/project.assets.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Common/obj/project.assets.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Common/obj/project.assets.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Common/obj/project.assets.json:        "analyzers/dotnet/cs/AWSSDK.SecurityToken.CodeAnalysis.dll",
+./User/User.Common/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.dll",
+./User/User.Common/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.pdb",
+./User/User.Common/obj/project.assets.json:        "lib/net35/AWSSDK.SecurityToken.xml",
+./User/User.Common/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.dll",
+./User/User.Common/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.pdb",
+./User/User.Common/obj/project.assets.json:        "lib/net45/AWSSDK.SecurityToken.xml",
+./User/User.Common/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll",
+./User/User.Common/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.pdb",
+./User/User.Common/obj/project.assets.json:        "lib/netcoreapp3.1/AWSSDK.SecurityToken.xml",
+./User/User.Common/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.dll",
+./User/User.Common/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.pdb",
+./User/User.Common/obj/project.assets.json:        "lib/netstandard2.0/AWSSDK.SecurityToken.xml",
+Binary file ./User/User.Common/obj/Debug/net7.0/User.Common.assets.cache matches
+Binary file ./User/User.Common/obj/Debug/net7.0/User.Common.pdb matches
+Binary file ./User/User.Common/obj/Debug/net7.0/User.Common.csproj.AssemblyReference.cache matches
+./User/User.Common/obj/User.Common.csproj.nuget.g.props:    <PkgAWSSDK_SecurityToken Condition=" '$(PkgAWSSDK_SecurityToken)' == '' ">/home/roherc/.nuget/packages/awssdk.securitytoken/3.7.100.14</PkgAWSSDK_SecurityToken>
+Binary file ./User/User.Common/bin/Debug/net7.0/Core.pdb matches
+./User/User.Common/bin/Debug/net7.0/User.Common.deps.json:      "AWSSDK.SecurityToken/3.7.100.14": {
+./User/User.Common/bin/Debug/net7.0/User.Common.deps.json:          "lib/netcoreapp3.1/AWSSDK.SecurityToken.dll": {
+./User/User.Common/bin/Debug/net7.0/User.Common.deps.json:          "AWSSDK.SecurityToken": "3.7.100.14",
+./User/User.Common/bin/Debug/net7.0/User.Common.deps.json:    "AWSSDK.SecurityToken/3.7.100.14": {
+Binary file ./User/User.Common/bin/Debug/net7.0/User.Common.pdb matches

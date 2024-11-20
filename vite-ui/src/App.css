@@ -513,3 +513,17 @@
       transparent 100%
   );
 }
+
+.content-mid-div {
+  position: absolute;
+  display: flex;
+  width: 70%;
+  text-align: start;
+  padding: 0.5rem;
+}
+
+.flex-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

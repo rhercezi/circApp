@@ -1,6 +1,19 @@
 {
     "Routes": [
         {
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "ui",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/{everything}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete", "Patch" ],
+            "RouteIsCaseSensitive": false
+        },
+        {
             "DownstreamPathTemplate": "/api/v1/user/create",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
