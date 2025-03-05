@@ -123,10 +123,18 @@ const DayOverview = () => {
                                                 {appointment.details && appointment.details.reminders && (
                                                     <div className="flex-column-left"><strong>Reminders: </strong>
                                                         {appointment.details.reminders.map(reminder => (
-                                                            <div className="flex-column-left" 
+                                                            <div className="flex-column-left"
                                                                 key={reminder && reminder.time.toLocaleString()}>
                                                                 <div>{reminder && reminder.message}</div>
-                                                                <div>{reminder && reminder.time.toLocaleString()}</div>
+                                                                <div>{reminder && new Intl.DateTimeFormat('de-DE', {
+                                                                    day: '2-digit',
+                                                                    month: '2-digit',
+                                                                    year: 'numeric',
+                                                                    hour: '2-digit',
+                                                                    minute: '2-digit',
+                                                                    second: '2-digit',
+                                                                    hour12: false
+                                                                }).format(new Date(reminder.time))}</div>
                                                             </div>
                                                         ))}
                                                     </div>

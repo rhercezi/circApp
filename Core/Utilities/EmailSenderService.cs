@@ -6,7 +6,7 @@ namespace Core.Utilities
 {
     public class EmailSenderService
     {
-        public void SendMail(string idLink, string email, MailConfig config, int bodyIndex = 0)
+        public void SendMail(string email, MailConfig config, int bodyIndex = 0)
         {
             string smtpServer = config.Server;
             int smtpPort = config.Port;

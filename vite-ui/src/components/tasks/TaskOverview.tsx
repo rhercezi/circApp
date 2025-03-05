@@ -159,7 +159,15 @@ const TaskOverview = () => {
                                     <p>{task.description}</p>
                                     <p>
                                         <strong>Due Date: </strong>
-                                        {new Date(task.endDate).toLocaleString()}
+                                        {new Intl.DateTimeFormat('de-DE', {
+                                            day: '2-digit',
+                                            month: '2-digit',
+                                            year: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                            second: '2-digit',
+                                            hour12: false
+                                        }).format(new Date(task.endDate))}
                                     </p>
                                     <p>
                                         <strong>{new Date() < new Date(task.endDate)

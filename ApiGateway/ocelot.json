@@ -518,8 +518,7 @@
             }
         }
     ],
-    "GlobalConfiguratioin": {
-        "BaseUrl": "http://localhost:5018"
+    "GlobalConfiguration": {
+        "BaseUrl": "https://circles-app.eu"
     }
-
 }

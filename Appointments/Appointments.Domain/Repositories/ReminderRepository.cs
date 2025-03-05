@@ -39,7 +39,7 @@ namespace Appointments.Domain.Repositories
             try
             {
                 var filter = Builders<ReminderModel>.Filter.Eq(r => r.TargetId, appointmentId);
-                await _collection.DeleteOneAsync(filter);
+                await _collection.DeleteManyAsync(filter);
             }
             catch (Exception e)
             {

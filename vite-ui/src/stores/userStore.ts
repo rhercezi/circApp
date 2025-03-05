@@ -12,6 +12,7 @@ export default class UserStore {
     isSuccess: boolean = false;
     expiration: number = localStorage.getItem('exp') ? Number(localStorage.getItem('exp')) : 0;
     private refreshIntervalId: NodeJS.Timeout | null = null;
+    private failedRefreshAttempts: number = 0;
 
 
 
@@ -133,7 +134,7 @@ export default class UserStore {
             if (error.response && error.response.status === 422) {
                 runInAction(() => this.errorMap.set('updatePwd', error.response.data));
             }
-        } finally {	
+        } finally {
             runInAction(() => {
                 this.loading = false;
             });
@@ -187,21 +188,27 @@ export default class UserStore {
         await apiClient.Users.verifyEmail(id);
 
     }
-
     startTokenRefreshTimer = () => {
         this.stopTokenRefreshTimer();
         this.refreshIntervalId = setInterval(() => {
             const expirationTime = this.expiration * 1000;
             const currentTime = new Date().getTime();
             const timeLeft = expirationTime - currentTime;
-
+    
             if (timeLeft <= 5000) {
-                let data = apiClient.Users.refresh();
-                runInAction(() => {
-                    data.then(data => { 
+                apiClient.Users.refresh().then(data => {
+                    runInAction(() => {
                         this.expiration = data.data.exp;
                         localStorage.setItem('exp', data.data.exp.toString());
+                        this.failedRefreshAttempts = 0;
                         this.startTokenRefreshTimer();
+                    });
+                }).catch(() => {
+                    runInAction(() => {
+                        this.failedRefreshAttempts += 1;
+                        if (this.failedRefreshAttempts >= 5) {
+                            this.logout();
+                        }
                     });
                 });
             }

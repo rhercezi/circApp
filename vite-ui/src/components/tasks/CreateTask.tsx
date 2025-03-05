@@ -198,7 +198,7 @@ const CreateTask = () => {
                                         value={dayjs(field.value)}
                                         onChange={(value) => { setFieldValue(field.name, value); }}
                                         ampm={false}
-                                        format="YYYY-MM-DD HH:mm"
+                                        format="DD.MM.YYYY HH:mm:ss"
                                     />
                                 </LocalizationProvider>
                             )}

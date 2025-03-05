@@ -74,7 +74,7 @@ const CalendarDay = ({ currentDate, date, isCurrentMonth, appointments, createAp
                     : `${currentDate.getDate()}`}
 
                 <IconButton onClick={(e) => { createAppointment(e, currentDate) }} >
-                    <FontAwesomeIcon icon={faPlusCircle} size="xs" color="green" />
+                    <FontAwesomeIcon icon={faPlusCircle} size="xs" color="#1976D2" />
                 </IconButton>
             </div>
             <div className={`month-overview-day-appointments${hasAppointments ? ' has-appointments' : ''}`}>

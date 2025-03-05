@@ -11,10 +11,6 @@ using Core.Messages;
 using Core.Utilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Appointments.Query.Application.Handlers
 {

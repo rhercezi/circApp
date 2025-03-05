@@ -16,7 +16,7 @@ import { LoginDto } from "./dtos/user_dtos/LoginDto";
 import { RefreshDto } from "./dtos/user_dtos/RefreshDto";
 import { NotificationDto } from "./dtos/notification_dtos/NotificationDto";
 
-axios.defaults.baseURL = import.meta.env.VITE_APP_API_BASE_URL
+axios.defaults.baseURL = import.meta.env.VITE_APP_API_BASE_URL || 'http://localhost:5018';
 
 const body = <T>(response: AxiosResponse<T>) => response.data;
 
@@ -96,7 +96,7 @@ const Tasks = {
 
 const Socket = {
     connect: (onMessage: (message: NotificationDto) => void) => {
-        const baseUrl = import.meta.env.VITE_APP_API_BASE_URL || '';
+        const baseUrl = import.meta.env.VITE_APP_API_BASE_URL || 'http://localhost:5018';
         const wsProtocol = baseUrl.startsWith("https") ? "wss" : "ws";
         const socket = new WebSocket(`${wsProtocol}://${baseUrl.replace(/^https?:\/\//, '')}/v1/event-socket`);
 
@@ -122,6 +122,7 @@ const Socket = {
                 console.log(`WebSocket connection closed cleanly, code=${event.code}, reason=${event.reason}`);
             } else {
                 console.error('WebSocket connection closed unexpectedly');
+                reconnect(onMessage, 5000);
             }
         };
 
@@ -140,6 +141,22 @@ const Socket = {
 
         return { socket, sendMessage };
     }
+};
+
+const reconnect = (onMessage: (message: NotificationDto) => void, delay: number, attempt: number = 1) => {
+    setTimeout(() => {
+        console.log(`Attempting to reconnect after ${delay}ms... (Attempt ${attempt})`);
+        const { socket } = Socket.connect(onMessage);
+        socket.onopen = () => {
+            console.log('WebSocket reconnected');
+        };
+        socket.onclose = (event) => {
+            if (!event.wasClean) {
+                console.error('WebSocket reconnection failed');
+                reconnect(onMessage, Math.min(delay * 2, 60000), attempt + 1); // Exponential backoff with a max delay of 60 seconds
+            }
+        };
+    }, delay);
 };
 
 const isNotificationDto = (data: any): data is NotificationDto => {

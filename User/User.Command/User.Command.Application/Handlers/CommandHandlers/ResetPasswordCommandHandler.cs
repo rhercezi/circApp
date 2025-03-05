@@ -76,7 +76,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
 
             using var scope = _serviceProvider.CreateScope();
             var _emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
-            _emailSenderService.SendMail(idLink, email, config, 1);
+            _emailSenderService.SendMail(email, config, 1);
 
             return new BaseResponse { ResponseCode = 204 };
         }

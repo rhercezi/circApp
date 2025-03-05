@@ -169,6 +169,10 @@
   width: 100%;
 }
 
+.month-overview-weekdays > .month-overview-weekday:last-child {
+  border-right: 1px solid #bebebe;
+}
+
 .month-overview-weekday {
   display: flex;
   flex-direction: column;
@@ -178,7 +182,9 @@
   font-weight: bold;
   padding: 1rem;
   width: 100%;
-  border: 1px solid #f0f0f0;
+  border-top: 1px solid #bebebe;
+  border-left: 1px solid #bebebe;
+  border-bottom: 1px solid #bebebe;
 }
 
 @media (max-width: 1024px) {
@@ -198,6 +204,10 @@
   height: 100%;
 }
 
+.month-overview-weeks > .month-overview-week:last-child {
+  border-bottom: 1px solid #bebebe;
+}
+
 .month-overview-week {
   display: flex;
   flex-direction: row;
@@ -206,6 +216,14 @@
   text-align: left;
   width: 100%;
   height: 100%;
+}
+
+.month-overview-week > .month-overview-day:last-child{
+  border-right: 1px solid #bebebe;
+}
+
+.month-overview-week > .other-month-day:last-child{
+  border-right: 1px solid #bebebe;
 }
 
 .month-overview-day {
@@ -217,23 +235,35 @@
   padding: 1rem;
   width: 100%;
   height: 100%;
-  border: 1px solid #f0f0f0;
+  border-top: 1px solid #bebebe;
+  border-left: 1px solid #bebebe;
   color: #c3c3c3;
+}
+
+@media (prefers-color-scheme: light) {
+  .month-overview-day {
+    color: #3b3b3b;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .month-overview-day {
+    color: #bdbdbd;
+  }
 }
 
 @media (max-width: 1024px) {
   .month-overview-day {
     padding:0.25rem;
-  }
-  
+  }  
 }
 
-.month-overview-week> :hover {
-  background-color: #474747;
+.month-overview-week > :hover {
+  background-color: #5f5f5f49;
 }
 
 .month-overview-day-today {
-  background-color: #474747;
+  background-color: #5f5f5f49;
 }
 
 .month-overview-day-date-row {
@@ -261,7 +291,8 @@
   padding: 1rem;
   width: 100%;
   height: 100%;
-  border: 1px solid #f0f0f0;
+  border-top: 1px solid #bebebe;
+  border-left: 1px solid #bebebe;
   color: #7a7a7a;
 }
 
@@ -331,7 +362,7 @@
 }
 
 .line-div {
-  border-right: 2px solid blue;
+  border-right: 2px solid #1976D2;
   left: 2rem;
   position: absolute;
 }
@@ -379,7 +410,7 @@
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background-color: blue;
+  background-color: #1976D2;
   color: white;
   display: flex;
   align-items: center;
@@ -499,7 +530,7 @@
 }
 
 .has-appointments {
-  color: green;
+  color: #1976D2;
 }
 
 .past-date {
@@ -507,9 +538,9 @@
       145deg,
       transparent 0%,
       transparent calc(50% - 1px),
-      rgba(116, 18, 18, 0.445) calc(50% - 10px),
-      rgba(116, 18, 18, 0.445) calc(50% + 10px),
-      transparent calc(50% + 10px),
+      #95c0ebe0 calc(50% - 5px),
+      #95c0ebe0 calc(50% + 5px),
+      transparent calc(50% + 5px),
       transparent 100%
   );
 }

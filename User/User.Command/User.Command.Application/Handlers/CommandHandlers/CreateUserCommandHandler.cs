@@ -95,7 +95,7 @@ namespace User.Command.Application.Handlers.CommandHandlers
                 config.Body[0] = config.Body[0].Replace("[BaseUrl]", config.BaseUrl);
 
                 var emailSenderService = scope.ServiceProvider.GetRequiredService<EmailSenderService>();
-                emailSenderService.SendMail(idLink, command.Email, config, 0);
+                emailSenderService.SendMail(command.Email, config, 0);
             }
 
             return new BaseResponse

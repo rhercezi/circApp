@@ -1,6 +1,5 @@
 using Appointments.Domain.Entities;
 using Appointments.Domain.Repositories;
-using Appointments.Query.Application.DTOs;
 using Appointments.Query.Application.Queries;
 using Appointments.Query.Application.Utilities;
 using Core.DAOs;
@@ -8,10 +7,6 @@ using Core.DTOs;
 using Core.MessageHandling;
 using Core.Messages;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Appointments.Query.Application.Handlers
 {

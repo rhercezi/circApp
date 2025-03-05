@@ -141,7 +141,7 @@ const CreateAppointment = () => {
                                                 value={dayjs(field.value)}
                                                 onChange={(value) => { setFieldValue(field.name, value); }}
                                                 ampm={false}
-                                                format="YYYY-MM-DD HH:mm"
+                                                format="DD.MM.YYYY HH:mm:ss"
                                             />
                                         </LocalizationProvider>
                                     )}
@@ -155,7 +155,7 @@ const CreateAppointment = () => {
                                                 value={dayjs(field.value)}
                                                 onChange={(value) => { setFieldValue(field.name, value); }}
                                                 ampm={false}
-                                                format="YYYY-MM-DD HH:mm"
+                                                format="DD.MM.YYYY HH:mm:ss"
                                             />
                                         </LocalizationProvider>
                                     )}
@@ -181,7 +181,7 @@ const CreateAppointment = () => {
                                 <span>Add Details</span>
                                 <Tooltip title={showDetails ? "Remove Details" : "Add Details"} >
                                     <IconButton onClick={toggleDetails}>
-                                        <FontAwesomeIcon icon={showDetails ? faMinusCircle : faPlusCircle} size="xs" color={showDetails ? "red" : "green"} />
+                                        <FontAwesomeIcon icon={showDetails ? faMinusCircle : faPlusCircle} size="xs" color={showDetails ? '#d12121' : '#1976D2'} />
                                     </IconButton>
                                 </Tooltip>
                             </div>
@@ -220,7 +220,7 @@ const CreateAppointment = () => {
                                 <span>Add Address</span>
                                 <Tooltip title={showAddress ? "Remove Address" : "Add Address"} >
                                     <IconButton onClick={toggleAddress} >
-                                        <FontAwesomeIcon icon={showAddress ? faMinusCircle : faPlusCircle} size="xs" color={showAddress ? "red" : "green"} />
+                                        <FontAwesomeIcon icon={showAddress ? faMinusCircle : faPlusCircle} size="xs" color={showAddress ? '#d12121' : '#1976D2'} />
                                     </IconButton>
                                 </Tooltip>
                             </div>
@@ -280,7 +280,7 @@ const CreateAppointment = () => {
                                 <span>Add Reminder</span>
                                 <Tooltip title={showReminder ? "Remove All reminders" : "Add Reminder"} >
                                     <IconButton onClick={toggleReminder}>
-                                        <FontAwesomeIcon icon={showReminder ? faMinusCircle : faPlusCircle} size="xs" color={showReminder ? "red" : "green"} />
+                                        <FontAwesomeIcon icon={showReminder ? faMinusCircle : faPlusCircle} size="xs" color={showReminder ? '#d12121' : '#1976D2'} />
                                     </IconButton>
                                 </Tooltip>
                             </div>
@@ -298,7 +298,15 @@ const CreateAppointment = () => {
                                                 padding: "0.5rem 0"
                                             }}>
                                                 <div style={{ display: "flex", flexDirection: "column" }}>
-                                                    <span>{reminder.time.toLocaleString()}</span>
+                                                    <span>{new Intl.DateTimeFormat('de-DE', {
+                                                        day: '2-digit',
+                                                        month: '2-digit',
+                                                        year: 'numeric',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                        second: '2-digit',
+                                                        hour12: false
+                                                    }).format(new Date(reminder.time))}</span>
                                                     <span>{reminder.message}</span>
                                                 </div>
                                                 <div>
@@ -326,7 +334,7 @@ const CreateAppointment = () => {
                                                         setReminderDateError("");
                                                     }}
                                                     ampm={false}
-                                                    format="YYYY-MM-DD HH:mm"
+                                                    format="DD.MM.YYYY HH:mm:ss"
                                                 />
                                             </LocalizationProvider>
                                             {reminderDateError && <FormHelperText error>{reminderDateError}</FormHelperText>}

@@ -1,5 +1,6 @@
 using Appointments.Command.Application.Commands;
 using Appointments.Command.Application.EventProducer;
+using Appointments.Command.Application.Utilities;
 using Appointments.Domain.Entities;
 using Appointments.Domain.Repositories;
 using Core.DAOs;
@@ -46,9 +47,21 @@ namespace Appointments.Command.Application.Handlers
                 }
 
                 var details = await _detailsRepository.FindAsync(command.AppointmentId);
+                if (details != null) {
+                    details.Reminders = ConvertModelsToDtos(_reminderRepository.FindManyAsync(command.AppointmentId).Result);
+                }
 
-                command.PatchDocument.ApplyTo(details);
+                try
+                {
+                    command.PatchDocument.ApplyTo(details);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError("Failed applying patch document {document} to appointment details {details}\n{stackTrace}", command.PatchDocument, details, e.StackTrace);
+                    return new BaseResponse { ResponseCode = 400, Message = "Failed applying patch document to appointment details." };
+                }
 
+                await _reminderRepository.DeleteAsync(command.AppointmentId);
                 details.Reminders?.ForEach(
                     async r =>
                     {
@@ -107,6 +120,11 @@ namespace Appointments.Command.Application.Handlers
                 _logger.LogError("Failed updating appointment details with command {command}\n{stackTrace}", command, e.StackTrace);
                 return new BaseResponse { ResponseCode = 500, Message = "Failed updating appointment details." };
             }
+        }
+
+        private static List<Reminder>? ConvertModelsToDtos(List<ReminderModel>? reminders)
+        {
+            return reminders?.Select(r => ModelToDtoConverter.ConvertToDto<Reminder>(r)).ToList();
         }
 
         public async Task<BaseResponse> HandleAsync(BaseMessage command)

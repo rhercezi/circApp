@@ -29,8 +29,15 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("ocelot.Development.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
+}
+else
+{
+    builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
+    .AddEnvironmentVariables();
+}
 
-    builder.Services.AddCors(options =>
+builder.Services.AddCors(options =>
     {
         options.AddPolicy("MyPolicy", builder =>
         {
@@ -40,13 +47,6 @@ if (builder.Environment.IsDevelopment())
                 .AllowCredentials();
         });
     });
-}
-else
-{
-    builder.Configuration.SetBasePath(builder.Environment.ContentRootPath)
-    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
-    .AddEnvironmentVariables();
-}
 
 builder.Services.AddOcelot(builder.Configuration);
 
