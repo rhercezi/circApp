@@ -21,7 +21,6 @@ builder.Services.Configure<CirclesServiceConfig>(builder.Configuration.GetSectio
 builder.Services.AddScoped<AppointmentRepository>();
 builder.Services.AddScoped<AppointmentDetailsRepository>();
 builder.Services.AddScoped<CAMapRepository>();
-builder.Services.AddScoped<UserCircleRepository>();
 builder.Services.AddScoped<ReminderRepository>();
 builder.Services.AddScoped<InternalHttpClient<AppUserDto>>();
 
